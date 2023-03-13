@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# Apple
+.DS_Store
+
 # Compiled Object files
 *.slo
 *.lo
