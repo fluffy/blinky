@@ -3,6 +3,7 @@
 
 # Apple
 .DS_Store
+~$*.xlsx
 
 # Compiled Object files
 *.slo
