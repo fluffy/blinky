@@ -102,8 +102,9 @@ int main(void)
   HAL_GPIO_WritePin(GPIOA, LEDM1_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOA, LEDM2_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOA, LEDM3_Pin, GPIO_PIN_SET);
-   
-    
+
+  HAL_GPIO_TogglePin(GPIOA, LEDC_Pin );
+       
   /* USER CODE END 2 */
 
   /* Infinite loop */
