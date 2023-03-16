@@ -219,7 +219,12 @@ void TIM2_IRQHandler(void)
 void TIM7_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM7_IRQn 0 */
-
+  static int tim7Count=0;
+  tim7Count++;
+  if ( tim7Count % 250  == 0 ) {
+    HAL_GPIO_TogglePin(GPIOA, LEDC_Pin );
+  }
+    
   /* USER CODE END TIM7_IRQn 0 */
   HAL_TIM_IRQHandler(&htim7);
   /* USER CODE BEGIN TIM7_IRQn 1 */

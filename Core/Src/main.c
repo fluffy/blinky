@@ -99,12 +99,14 @@ int main(void)
   HAL_GPIO_WritePin(GPIOC, ROW4_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOB, COL3_Pin, GPIO_PIN_RESET);
 
-  HAL_GPIO_WritePin(GPIOA, LEDM1_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOA, LEDM2_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin, GPIO_PIN_SET);
+  //HAL_GPIO_WritePin(GPIOA, LEDM1_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, LEDM2_Pin, GPIO_PIN_SET); // Turn off default on LED 
+  //HAL_GPIO_WritePin(GPIOA, LEDM3_Pin, GPIO_PIN_SET);
 
-  HAL_GPIO_TogglePin(GPIOA, LEDC_Pin );
-       
+  //HAL_GPIO_TogglePin(GPIOA, LEDC_Pin );
+
+  HAL_TIM_Base_Start_IT(&htim7);
+   
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -242,7 +244,7 @@ static void MX_TIM7_Init(void)
   htim7.Init.Prescaler = 168;
   htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim7.Init.Period = 1000;
-  htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
   {
     Error_Handler();
@@ -376,6 +378,7 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+    HAL_GPIO_WritePin(GPIOA, LEDM1_Pin, GPIO_PIN_RESET); // turn on error LED 
   }
   /* USER CODE END Error_Handler_Debug */
 }
