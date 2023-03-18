@@ -96,8 +96,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   //HAL_GPIO_WritePin(GPIOC, ROW3_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOC, ROW4_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOB, COL3_Pin, GPIO_PIN_RESET);
+  //HAL_GPIO_WritePin(GPIOC, ROW4_Pin, GPIO_PIN_SET);
+  //HAL_GPIO_WritePin(GPIOB, COL3_Pin, GPIO_PIN_RESET);
 
   //HAL_GPIO_WritePin(GPIOA, LEDM1_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOA, LEDM2_Pin, GPIO_PIN_SET); // Turn off default on LED 
