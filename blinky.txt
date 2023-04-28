@@ -40,6 +40,11 @@ Pin Nb	PINs	FUNCTIONs	LABELs
 45	PA12	GPIO_Output	LEDB
 46	PA13	SYS_JTMS-SWDIO	
 49	PA14	SYS_JTCK-SWCLK	
+50	PA15	GPIO_Output	LEDA
+56	PB4	GPIO_Input	DB1
+57	PB5	GPIO_Input	DB2
+58	PB6	GPIO_Input	DB3
+59	PB7	GPIO_Input	DB4
 PERIPHERALS	MODES	FUNCTIONS	PINS
 RCC	Crystal/Ceramic Resonator	RCC_OSC_IN	PH0-OSC_IN
 RCC	Crystal/Ceramic Resonator	RCC_OSC_OUT	PH1-OSC_OUT
@@ -75,6 +80,11 @@ Pin Nb	PINs	FUNCTIONs	LABELs
 45	PA12	GPIO_Output	LEDB
 46	PA13	SYS_JTMS-SWDIO	
 49	PA14	SYS_JTCK-SWCLK	
+50	PA15	GPIO_Output	LEDA
+56	PB4	GPIO_Input	DB1
+57	PB5	GPIO_Input	DB2
+58	PB6	GPIO_Input	DB3
+59	PB7	GPIO_Input	DB4
 
 
 
@@ -88,7 +98,7 @@ Firmware Package Name and Version : STM32Cube FW_F4 V1.27.1
 
 
 Code Generation Settings : 
-STM32Cube MCU packages and embedded software packs : Copy all used libraries into the project folder
+STM32Cube MCU packages and embedded software packs : Copy only the necessary library files
 Generate peripheral initialization as a pair of '.c/.h' files per peripheral : No
 Backup previously generated files when re-generating : No
 Delete previously generated files when not re-generated : Yes

@@ -65,16 +65,18 @@ void Error_Handler(void);
 #define LEDM1_GPIO_Port GPIOA
 #define LEDM2_Pin GPIO_PIN_2
 #define LEDM2_GPIO_Port GPIOA
-#define COL2_Pin GPIO_PIN_7
-#define COL2_GPIO_Port GPIOA
+#define SYNC_IN_Pin GPIO_PIN_5
+#define SYNC_IN_GPIO_Port GPIOA
+#define SYNC_OUT_Pin GPIO_PIN_7
+#define SYNC_OUT_GPIO_Port GPIOA
 #define COL5_Pin GPIO_PIN_0
 #define COL5_GPIO_Port GPIOB
 #define COL4_Pin GPIO_PIN_1
 #define COL4_GPIO_Port GPIOB
 #define COL3_Pin GPIO_PIN_2
 #define COL3_GPIO_Port GPIOB
-#define COL2B10_Pin GPIO_PIN_10
-#define COL2B10_GPIO_Port GPIOB
+#define COL2_Pin GPIO_PIN_10
+#define COL2_GPIO_Port GPIOB
 #define COL1_Pin GPIO_PIN_11
 #define COL1_GPIO_Port GPIOB
 #define ROW4_Pin GPIO_PIN_6
@@ -93,6 +95,16 @@ void Error_Handler(void);
 #define LEDC_GPIO_Port GPIOA
 #define LEDB_Pin GPIO_PIN_12
 #define LEDB_GPIO_Port GPIOA
+#define LEDA_Pin GPIO_PIN_15
+#define LEDA_GPIO_Port GPIOA
+#define DB1_Pin GPIO_PIN_4
+#define DB1_GPIO_Port GPIOB
+#define DB2_Pin GPIO_PIN_5
+#define DB2_GPIO_Port GPIOB
+#define DB3_Pin GPIO_PIN_6
+#define DB3_GPIO_Port GPIOB
+#define DB4_Pin GPIO_PIN_7
+#define DB4_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
