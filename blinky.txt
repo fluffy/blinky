@@ -1,6 +1,6 @@
 Configuration	blinky
-STM32CubeMX 	6.7.0
-Date	03/13/2023
+STM32CubeMX 	6.8.0
+Date	04/27/2023
 MCU	STM32F405RGTx
 
 
@@ -23,8 +23,8 @@ Pin Nb	PINs	FUNCTIONs	LABELs
 14	PA0-WKUP	GPIO_Output	LEDM3
 15	PA1	GPIO_Output	LEDM1
 16	PA2	GPIO_Output	LEDM2
-21	PA5	TIM2_CH1	
-23	PA7	GPIO_Output	COL2
+21	PA5	TIM2_CH1	SYNC_IN
+23	PA7	GPIO_Output	SYNC_OUT
 26	PB0	GPIO_Output	COL5
 27	PB1	GPIO_Output	COL4
 28	PB2	GPIO_Output	COL3
@@ -58,8 +58,8 @@ Pin Nb	PINs	FUNCTIONs	LABELs
 14	PA0-WKUP	GPIO_Output	LEDM3
 15	PA1	GPIO_Output	LEDM1
 16	PA2	GPIO_Output	LEDM2
-21	PA5	TIM2_CH1	
-23	PA7	GPIO_Output	COL2
+21	PA5	TIM2_CH1	SYNC_IN
+23	PA7	GPIO_Output	SYNC_OUT
 26	PB0	GPIO_Output	COL5
 27	PB1	GPIO_Output	COL4
 28	PB2	GPIO_Output	COL3
@@ -83,7 +83,7 @@ SOFTWARE PROJECT
 Project Settings : 
 Project Name : blinky
 Project Folder : /Users/fluffy/src/blinky
-Toolchain / IDE : EWARM V8.50
+Toolchain / IDE : Makefile
 Firmware Package Name and Version : STM32Cube FW_F4 V1.27.1
 
 
