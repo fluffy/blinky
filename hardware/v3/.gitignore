@@ -12,3 +12,7 @@ _autosave-*
 *-save.pro
 *-save.kicad_pcb
 fp-info-cache
+
+# generated BOM 
+blinky_v3.csv
+blinky_v3.xml
