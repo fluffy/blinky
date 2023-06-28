@@ -3426,6 +3426,9 @@
   (junction (at 497.84 121.92) (diameter 0) (color 0 0 0 0)
     (uuid 2ffb062e-b50e-4492-9d91-5615beeaac38)
   )
+  (junction (at 290.83 279.4) (diameter 0) (color 0 0 0 0)
+    (uuid 301c6c06-a2f1-4bf5-bf7f-7c7e1944bedc)
+  )
   (junction (at 312.42 346.71) (diameter 0) (color 0 0 0 0)
     (uuid 38e9a14f-0a27-4582-84bc-29c457a039c6)
   )
@@ -3585,6 +3588,9 @@
   (junction (at 269.24 36.83) (diameter 0) (color 0 0 0 0)
     (uuid 93614ac8-828e-48c2-872d-12297dd1c469)
   )
+  (junction (at 238.76 210.82) (diameter 0) (color 0 0 0 0)
+    (uuid 96eb2761-f6a7-48fa-b79e-d07acfec496b)
+  )
   (junction (at 187.96 210.82) (diameter 0) (color 0 0 0 0)
     (uuid 9a6f1cb0-6f85-4e5b-8dc3-9a3173ba4c7e)
   )
@@ -3671,9 +3677,6 @@
   )
   (junction (at 289.56 46.99) (diameter 0) (color 0 0 0 0)
     (uuid da5de113-049e-4992-9f2b-180d9c26b394)
-  )
-  (junction (at 299.72 279.4) (diameter 0) (color 0 0 0 0)
-    (uuid de4bf499-2719-447a-8121-4f58fd314aed)
   )
   (junction (at 252.73 74.93) (diameter 0) (color 0 0 0 0)
     (uuid deffada9-7685-4852-8444-68ba11ea0b92)
@@ -3938,6 +3941,10 @@
   (wire (pts (xy 281.94 30.48) (xy 281.94 27.94))
     (stroke (width 0) (type default))
     (uuid 1613f4f0-9e91-4902-ab5b-e29bd42d2a91)
+  )
+  (wire (pts (xy 290.83 279.4) (xy 299.72 279.4))
+    (stroke (width 0) (type default))
+    (uuid 164636cc-178e-474d-a6c8-10c47f6fadd5)
   )
   (wire (pts (xy 154.94 353.06) (xy 158.75 353.06))
     (stroke (width 0) (type default))
@@ -4223,6 +4230,10 @@
     (stroke (width 0) (type default))
     (uuid 39c01413-56af-4435-9269-8b0f30ee23f2)
   )
+  (wire (pts (xy 288.29 279.4) (xy 290.83 279.4))
+    (stroke (width 0) (type default))
+    (uuid 3a8be348-2979-4b75-9175-a7f76e4c374f)
+  )
   (wire (pts (xy 327.66 344.17) (xy 327.66 345.44))
     (stroke (width 0) (type default))
     (uuid 3a987e5f-bbe4-4b1a-8c4b-4e89ee29c825)
@@ -4462,10 +4473,6 @@
   (wire (pts (xy 491.49 93.98) (xy 491.49 104.14))
     (stroke (width 0) (type default))
     (uuid 624d3e82-6cdc-414a-aeab-aaa9762c5440)
-  )
-  (wire (pts (xy 293.37 279.4) (xy 299.72 279.4))
-    (stroke (width 0) (type default))
-    (uuid 635325ea-d8d0-4b23-b293-0a77f25983e8)
   )
   (wire (pts (xy 200.66 303.53) (xy 200.66 309.88))
     (stroke (width 0) (type default))
@@ -5003,6 +5010,10 @@
     (stroke (width 0) (type default))
     (uuid ab58f122-a6a2-4d94-be15-aba0672871fa)
   )
+  (wire (pts (xy 290.83 278.13) (xy 290.83 279.4))
+    (stroke (width 0) (type default))
+    (uuid ab74fc15-62c9-471d-b1bf-08ffa3de0c63)
+  )
   (wire (pts (xy 181.61 208.28) (xy 175.26 208.28))
     (stroke (width 0) (type default))
     (uuid abcd87fe-81f5-4b03-be2a-46b77e71c2e8)
@@ -5455,6 +5466,10 @@
     (stroke (width 0) (type default))
     (uuid e6863042-4373-4d66-bf1e-46201dd8929d)
   )
+  (wire (pts (xy 238.76 210.82) (xy 242.57 210.82))
+    (stroke (width 0) (type default))
+    (uuid e6c828e7-067d-48bc-821a-8f0de38a969c)
+  )
   (wire (pts (xy 162.56 222.25) (xy 163.83 222.25))
     (stroke (width 0) (type default))
     (uuid e8fb46ce-d5d3-4734-9397-c29f4906280d)
@@ -5515,7 +5530,7 @@
     (stroke (width 0) (type default))
     (uuid f125c6fa-3c53-49f6-85ae-2013f7d76b0c)
   )
-  (wire (pts (xy 237.49 210.82) (xy 242.57 210.82))
+  (wire (pts (xy 237.49 210.82) (xy 238.76 210.82))
     (stroke (width 0) (type default))
     (uuid f13cfec9-8576-451d-8f41-d0c1bb7b305c)
   )
@@ -6046,10 +6061,10 @@
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
   )
-  (global_label "SYNC_OUT" (shape input) (at 293.37 279.4 180) (fields_autoplaced)
+  (global_label "SYNC_OUT" (shape input) (at 288.29 279.4 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid eeb3cbaa-c69d-4b83-8419-9d6506ca7383)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.9694 279.4 0)
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 275.8894 279.4 0)
       (effects (font (size 1.27 1.27)) (justify right) hide)
     )
   )
@@ -6071,7 +6086,7 @@
     )
     (pin "1" (uuid fa88f31a-be4f-4f14-b422-a0368f96e801))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR039") (unit 1)
         )
@@ -6096,7 +6111,7 @@
     )
     (pin "1" (uuid 4cb8427f-4ff9-41f9-8c29-a5384280e79f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR012") (unit 1)
         )
@@ -6125,7 +6140,7 @@
     (pin "1" (uuid afbfc801-8c90-4595-9014-b28dce3af8fc))
     (pin "2" (uuid 94e59b7e-e253-4c51-ab23-305a4ee4e23d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R3") (unit 1)
         )
@@ -6154,7 +6169,7 @@
     (pin "1" (uuid 5f6df79d-11d7-497d-9d40-a3096d1d16c3))
     (pin "2" (uuid 068df15f-8d8a-4212-85bf-2406b6e6db5f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R20") (unit 1)
         )
@@ -6183,7 +6198,7 @@
     (pin "1" (uuid 34986954-3098-413c-9913-60029075955c))
     (pin "2" (uuid a0239399-72fc-4323-bfb6-0131cfb0520c))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C38") (unit 1)
         )
@@ -6209,7 +6224,7 @@
     (pin "1" (uuid 42ebdb83-7bb8-41f7-92ac-56136e58e144))
     (pin "2" (uuid 5df66229-4bf8-481c-aa66-55e2c2686263))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP3") (unit 1)
         )
@@ -6220,10 +6235,10 @@
   (symbol (lib_id "Device:C_Small") (at 297.18 273.05 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 05aa447c-2679-4215-ac80-2286d830d403)
-    (property "Reference" "C28" (at 288.29 271.78 0)
+    (property "Reference" "C28" (at 298.45 269.24 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "100nF" (at 288.29 275.59 0)
+    (property "Value" "100nF" (at 298.45 271.78 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 297.18 273.05 0)
@@ -6238,7 +6253,7 @@
     (pin "1" (uuid efe5ae89-a9af-46c6-b35d-f36e93fdd729))
     (pin "2" (uuid b53f84a8-14ff-4b3f-95b6-9c6bb563ec71))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C28") (unit 1)
         )
@@ -6263,7 +6278,7 @@
     )
     (pin "1" (uuid 4f5bafea-0f36-4920-a6a6-2a495f45b73c))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR076") (unit 1)
         )
@@ -6289,7 +6304,7 @@
     (pin "1" (uuid 396e54ab-87eb-4b3a-a763-90b63161b1be))
     (pin "2" (uuid 09e3010f-0de8-4452-b00e-d017d84165df))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP13") (unit 1)
         )
@@ -6336,7 +6351,7 @@
     (pin "4" (uuid 0c7a6c15-a5a0-4fb7-b948-ce2a78248405))
     (pin "5" (uuid 912e1c52-dfa2-4227-b115-fda881453cf7))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "Y2") (unit 1)
         )
@@ -6361,7 +6376,7 @@
     )
     (pin "1" (uuid 644618fb-3264-4087-97d6-ce29e327412a))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR09") (unit 1)
         )
@@ -6386,7 +6401,7 @@
     )
     (pin "1" (uuid 29264879-abda-4ed9-be37-866ca5e6d224))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR016") (unit 1)
         )
@@ -6411,7 +6426,7 @@
     )
     (pin "1" (uuid 12c599f0-3887-43e4-8253-870be0fc0fb3))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR081") (unit 1)
         )
@@ -6437,7 +6452,7 @@
     (pin "1" (uuid 6d6edf83-0dd5-4844-84d2-9f5ab805557d))
     (pin "2" (uuid 914b31ee-7198-4f07-ab2d-22198229b9f4))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP11") (unit 1)
         )
@@ -6463,7 +6478,7 @@
     (pin "1" (uuid 7330806f-72be-4028-ab0a-ffbc347a3be3))
     (pin "2" (uuid a50c327c-1e12-437a-94e0-c319267856af))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP8") (unit 1)
         )
@@ -6474,7 +6489,7 @@
   (symbol (lib_id "Connector:TestPoint") (at 328.93 279.4 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0dae11f1-732e-4ca0-b0e0-dacda78f92dc)
-    (property "Reference" "TP24" (at 327.66 274.32 0)
+    (property "Reference" "TP24" (at 326.39 274.32 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "~" (at 327.66 273.05 0)
@@ -6488,7 +6503,7 @@
     )
     (pin "1" (uuid a6a8e67f-ec78-4b17-aa83-432d6711631f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP24") (unit 1)
         )
@@ -6513,7 +6528,7 @@
     )
     (pin "1" (uuid a90ff34e-7aa4-4727-9f62-f5ca5749a04b))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR073") (unit 1)
         )
@@ -6558,7 +6573,7 @@
     (pin "5" (uuid 25c989a1-0bcb-43e2-9dd9-6191ed5beb27))
     (pin "6" (uuid c041a2ef-9fc1-4eb6-8253-27c2e9d40f40))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U7") (unit 1)
         )
@@ -6583,7 +6598,7 @@
     )
     (pin "1" (uuid 79fbb247-12f2-4242-a057-2bcd0e880e9d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP1") (unit 1)
         )
@@ -6608,7 +6623,7 @@
     )
     (pin "1" (uuid fa8cfc9e-2bd4-49a8-bc2c-25e4b06d912f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG08") (unit 1)
         )
@@ -6633,7 +6648,7 @@
     )
     (pin "1" (uuid 1b1d765f-2436-43dc-8a8c-aafb71e4b2dd))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR01") (unit 1)
         )
@@ -6663,7 +6678,7 @@
     (pin "GND2" (uuid 853469f2-fba2-4309-952d-2e2836cfd092))
     (pin "SIG" (uuid 255406bf-d127-4740-91d2-a4f43f159fd3))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "ANT2") (unit 1)
         )
@@ -6688,7 +6703,7 @@
     )
     (pin "1" (uuid 7170f97f-1239-40a2-8bf2-ea69a1ac1ae8))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG09") (unit 1)
         )
@@ -6713,7 +6728,7 @@
     )
     (pin "1" (uuid 79e24c4d-2d4a-464d-ab5c-edacaab6d12e))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP2") (unit 1)
         )
@@ -6739,7 +6754,7 @@
     (pin "1" (uuid ba0c7010-a05e-4ba7-b76d-6be76446455a))
     (pin "2" (uuid ec439044-53e8-43c3-9600-e8565c585934))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP6") (unit 1)
         )
@@ -6772,7 +6787,7 @@
     (pin "5" (uuid d058c645-6bf9-42ef-8e5b-d075dbf477dd))
     (pin "6" (uuid e02bff9e-41b1-46e1-a75a-131d1722b458))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U15") (unit 1)
         )
@@ -6797,7 +6812,7 @@
     )
     (pin "1" (uuid ddc23943-8ba8-4e4d-af51-cd6a3c09f279))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR04") (unit 1)
         )
@@ -6826,7 +6841,7 @@
     (pin "1" (uuid ee4e5b73-4eb8-4ec1-a924-c2f32777c257))
     (pin "2" (uuid bbcb4593-0aab-4423-a8f9-a94bdce73364))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "D3") (unit 1)
         )
@@ -6855,7 +6870,7 @@
     (pin "1" (uuid e8e98537-9638-4ddf-82b4-8e5d9d3c8c57))
     (pin "2" (uuid 8eddcb08-f442-4744-abb1-92a637f73380))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R6") (unit 1)
         )
@@ -6880,7 +6895,7 @@
     )
     (pin "1" (uuid eee4518d-51ed-4ecb-84e6-695bcfa24ece))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR013") (unit 1)
         )
@@ -6905,7 +6920,7 @@
     )
     (pin "1" (uuid 02f4e106-6fde-412e-9db6-118a7ae58f92))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR080") (unit 1)
         )
@@ -6930,7 +6945,7 @@
     )
     (pin "1" (uuid 096c07fc-06cd-442a-ab2a-7d0abc64fb92))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR067") (unit 1)
         )
@@ -6959,7 +6974,7 @@
     (pin "1" (uuid f326897e-1ed4-4406-add9-8ca7fd819bb3))
     (pin "2" (uuid 56ff11d2-447f-4cbd-8e0f-2b8ec5a76726))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C32") (unit 1)
         )
@@ -6984,7 +6999,7 @@
     )
     (pin "1" (uuid 3d584204-c693-4c17-820c-62e312e8c6d2))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR044") (unit 1)
         )
@@ -7009,7 +7024,7 @@
     )
     (pin "1" (uuid 058834ef-861a-4a12-bdec-7da5657ca859))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR019") (unit 1)
         )
@@ -7034,7 +7049,7 @@
     )
     (pin "1" (uuid 034c41e7-b866-4b3e-9b71-fe569b95d687))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP4") (unit 1)
         )
@@ -7063,7 +7078,7 @@
     (pin "1" (uuid de3573bd-5ffa-4069-9c4f-cf07993edacf))
     (pin "2" (uuid e998b15f-4478-422c-9fd2-0471903c28b8))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R18") (unit 1)
         )
@@ -7092,7 +7107,7 @@
     (pin "1" (uuid fdc20c1b-2057-4f82-9314-e5ee80733ec5))
     (pin "2" (uuid a60100ac-8352-4cb3-b2d8-625c48ad13b3))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C10") (unit 1)
         )
@@ -7121,7 +7136,7 @@
     (pin "1" (uuid d7bc89d7-0e00-4127-b7e2-6d18daa4bbc7))
     (pin "2" (uuid a31a98e4-ff40-4a20-a385-b6707f8a08d0))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R23") (unit 1)
         )
@@ -7146,7 +7161,7 @@
     )
     (pin "1" (uuid 27516e74-4dfd-4602-b394-13a6726bf813))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR055") (unit 1)
         )
@@ -7171,7 +7186,7 @@
     )
     (pin "1" (uuid 8ac90619-2b80-4db6-b763-23cd60832b5d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR079") (unit 1)
         )
@@ -7196,7 +7211,7 @@
     )
     (pin "1" (uuid cee2ae19-f826-468e-b1e0-29bc787baec0))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR021") (unit 1)
         )
@@ -7225,7 +7240,7 @@
     (pin "1" (uuid 08fcf2e9-403d-4087-ae31-3e982e9570a1))
     (pin "2" (uuid 68e7b3f7-8e7f-48ac-99cb-00d21be4ff1f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C31") (unit 1)
         )
@@ -7250,7 +7265,7 @@
     )
     (pin "1" (uuid b1aee7fb-acc6-424d-997f-9fb0bac9c5a1))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG05") (unit 1)
         )
@@ -7275,7 +7290,7 @@
     )
     (pin "1" (uuid 99b4901d-a208-49dd-8521-338299eca306))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR052") (unit 1)
         )
@@ -7300,7 +7315,7 @@
     )
     (pin "1" (uuid 8585c28e-4eac-44ca-bba7-993bfe34497c))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG010") (unit 1)
         )
@@ -7325,7 +7340,7 @@
     )
     (pin "1" (uuid 64a9ac32-cab5-4df1-81af-b49ca81bac4d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP17") (unit 1)
         )
@@ -7350,7 +7365,7 @@
     )
     (pin "1" (uuid 1e8dc824-0fd0-4acc-929a-e22164dfecba))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR032") (unit 1)
         )
@@ -7375,7 +7390,7 @@
     )
     (pin "1" (uuid 2fca39d9-e74c-4e14-a213-504da6318fd7))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR03") (unit 1)
         )
@@ -7404,7 +7419,7 @@
     (pin "1" (uuid 166efd40-77ea-4bda-ab02-31e9a9227218))
     (pin "2" (uuid e426d675-07d7-4232-8f94-c484d5e575ef))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C39") (unit 1)
         )
@@ -7437,7 +7452,7 @@
     (pin "5" (uuid 366d9c83-8952-4ed0-988e-87080f16f9f3))
     (pin "6" (uuid 2b46fb2c-5ff7-4fa7-8d1b-87586196e3a2))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U6") (unit 1)
         )
@@ -7462,7 +7477,7 @@
     )
     (pin "1" (uuid be0a72d5-0ad7-4a9b-aed0-b3a755b57b27))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR053") (unit 1)
         )
@@ -7491,7 +7506,7 @@
     (pin "1" (uuid 31a2d5b0-3c4c-4de3-8712-938590ef0333))
     (pin "2" (uuid 3d25e6c5-a25b-4168-82fe-c1b295dcdf4d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C35") (unit 1)
         )
@@ -7516,7 +7531,7 @@
     )
     (pin "1" (uuid e1fdd78d-683b-4489-b063-a1c0def4bfdc))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR048") (unit 1)
         )
@@ -7541,7 +7556,7 @@
     )
     (pin "1" (uuid 954b4fc8-3535-47e2-a9b5-d5383d603b29))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR056") (unit 1)
         )
@@ -7570,7 +7585,7 @@
     (pin "1" (uuid f79c8874-a022-4132-9b8d-4b94cce195e8))
     (pin "2" (uuid cd8131b9-f2a8-414a-bc8e-31ef6e4f2b52))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C27") (unit 1)
         )
@@ -7581,10 +7596,10 @@
   (symbol (lib_id "Device:R_Small_US") (at 334.01 279.4 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 35a93369-b6f1-45b9-ae48-12448f48d3a8)
-    (property "Reference" "R10" (at 334.01 274.32 90)
+    (property "Reference" "R10" (at 332.74 284.48 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "200R" (at 334.01 276.86 90)
+    (property "Value" "200R" (at 334.01 281.94 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (at 334.01 279.4 0)
@@ -7599,7 +7614,7 @@
     (pin "1" (uuid 163a2a4e-22dd-46aa-9bbc-8ae8c409cce0))
     (pin "2" (uuid 794cf44e-fa23-495b-9f76-80c755b60b49))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R10") (unit 1)
         )
@@ -7628,7 +7643,7 @@
     (pin "1" (uuid 60f02de6-c1e8-4e8b-b925-8180eb21289a))
     (pin "2" (uuid cbb2fc16-60ec-4ec0-bebe-71a8bd35de76))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C40") (unit 1)
         )
@@ -7658,7 +7673,7 @@
     (pin "GND2" (uuid 663cee48-b277-4344-9ce2-843b46bc2ef2))
     (pin "SIG" (uuid 80dcb289-7f1f-4887-b4bc-e14568dc6750))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "ANT3") (unit 1)
         )
@@ -7687,7 +7702,7 @@
     (pin "1" (uuid 8c8ab946-b557-4f9b-a36c-49c2102aeb2d))
     (pin "2" (uuid 50d9a464-5656-4248-a774-61356fb9f8fb))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R21") (unit 1)
         )
@@ -7717,7 +7732,7 @@
     (pin "GND2" (uuid a82dc41f-0943-4bd5-90da-874e56303899))
     (pin "SIG" (uuid 2aef942f-d534-4a9c-902c-4b56a4d2e6bc))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "ANT5") (unit 1)
         )
@@ -7742,7 +7757,7 @@
     )
     (pin "1" (uuid 439c9401-a3dc-4409-b434-62b815690aa5))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP18") (unit 1)
         )
@@ -7771,7 +7786,7 @@
     (pin "1" (uuid c0db476e-45f6-4f33-814c-a7a54a2a8ff8))
     (pin "2" (uuid 6a6946a4-62a6-4ad6-ba08-738ab2f5a602))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C34") (unit 1)
         )
@@ -7797,7 +7812,7 @@
     (pin "1" (uuid 5290b082-71f8-43f5-82eb-f73f2613c6af))
     (pin "2" (uuid dbd96798-0c87-4ef9-840a-9dea2d498f8f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP2") (unit 1)
         )
@@ -7822,7 +7837,7 @@
     )
     (pin "1" (uuid 50cc99e2-a697-4ba2-babf-eea2862a130b))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR065") (unit 1)
         )
@@ -7847,7 +7862,7 @@
     )
     (pin "1" (uuid e598f523-4c47-4946-85c4-879a6f038892))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR051") (unit 1)
         )
@@ -7877,7 +7892,7 @@
     (pin "2" (uuid a32f2f6e-1ca7-4126-84ed-d71a061c9a3c))
     (pin "3" (uuid f300f0da-1338-4872-a7dd-708edd61879d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U8") (unit 1)
         )
@@ -7906,7 +7921,7 @@
     (pin "1" (uuid 376b28a3-7dd3-44e2-8ff9-0c2aa421ba17))
     (pin "2" (uuid 2914ca34-93df-4b9d-8b30-916b4322dd63))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R11") (unit 1)
         )
@@ -7935,7 +7950,7 @@
     (pin "1" (uuid a6dfbfde-1204-4ef2-8b47-e643dbb4b328))
     (pin "2" (uuid 2aa1b752-c98d-4272-b1e5-fe00769e5683))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C22") (unit 1)
         )
@@ -7964,7 +7979,7 @@
     (pin "1" (uuid 39c0acca-4d13-4d9f-ad1f-2dc239814348))
     (pin "2" (uuid dfe5fd90-1942-4847-b1de-2f041109bcbd))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C29") (unit 1)
         )
@@ -7993,7 +8008,7 @@
     (pin "1" (uuid 1782b244-6311-4ecf-b4af-ce45dc190d1c))
     (pin "2" (uuid 90da567f-fcd5-4309-83f1-288cb45e80e8))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C12") (unit 1)
         )
@@ -8022,7 +8037,7 @@
     (pin "1" (uuid 0223214e-bbe2-485a-bb4d-48a7088bfa62))
     (pin "2" (uuid 1bf00f03-757d-4381-8441-07f461384899))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R37") (unit 1)
         )
@@ -8052,7 +8067,7 @@
     (pin "GND2" (uuid 387ab7f6-3c88-47a1-b2a0-743bf5bc48f6))
     (pin "SIG" (uuid bdc20227-4f1c-4b2c-8ead-59c3eb04cf37))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "ANT1") (unit 1)
         )
@@ -8077,7 +8092,7 @@
     )
     (pin "1" (uuid 04add63d-fcaa-4383-99bc-87d96598b48f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR047") (unit 1)
         )
@@ -8102,7 +8117,7 @@
     )
     (pin "1" (uuid c984a560-ef39-4ee6-a724-9763ba3f26df))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP6") (unit 1)
         )
@@ -8131,7 +8146,7 @@
     (pin "1" (uuid 122f08fa-2802-4536-8830-67a8f69d3134))
     (pin "2" (uuid e1871a78-cd35-41c2-a25b-b1c3954d2749))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R5") (unit 1)
         )
@@ -8156,7 +8171,7 @@
     )
     (pin "1" (uuid 98ec8ebc-0943-427b-84be-384b1de2b71a))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR058") (unit 1)
         )
@@ -8181,7 +8196,7 @@
     )
     (pin "1" (uuid 3b3c71c7-fb23-4f3a-9bef-7c0c7a925f83))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR083") (unit 1)
         )
@@ -8206,7 +8221,7 @@
     )
     (pin "1" (uuid 601d64ec-15d6-46ba-8350-d6b156d64053))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR025") (unit 1)
         )
@@ -8237,7 +8252,7 @@
     (pin "3" (uuid aa14e74b-deb3-4267-addd-1441f8a587ed))
     (pin "4" (uuid e0c23c91-6bf4-4592-98cb-78d8b4d4bbe3))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "Y1") (unit 1)
         )
@@ -8328,7 +8343,7 @@
     (pin "8" (uuid b6812fea-773e-4efb-b699-c45d09e2080f))
     (pin "9" (uuid 877f1fd6-6919-4f71-be72-51d26689b118))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U1") (unit 1)
         )
@@ -8357,7 +8372,7 @@
     (pin "1" (uuid cec85bf0-3835-4ba0-9563-0ece6dc1f8b2))
     (pin "2" (uuid 243fe740-de56-4251-98a4-fd27990ea277))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C2") (unit 1)
         )
@@ -8386,7 +8401,7 @@
     (pin "1" (uuid 42b38d44-b9a1-4f9a-9e2b-fb2603b4edc0))
     (pin "2" (uuid df645be3-243d-4419-a9d9-2aa20aac3ce7))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R36") (unit 1)
         )
@@ -8415,7 +8430,7 @@
     (pin "1" (uuid def894ad-2721-44dd-8c7a-99082ec671b2))
     (pin "2" (uuid cce91110-5258-465b-afb8-ed26a6b34646))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C5") (unit 1)
         )
@@ -8444,7 +8459,7 @@
     (pin "1" (uuid cc0b590f-13e3-4488-b36e-67b60ea724ab))
     (pin "2" (uuid 7a0506ea-5baa-416f-ae55-1b8bdd1a86b2))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C17") (unit 1)
         )
@@ -8469,7 +8484,7 @@
     )
     (pin "1" (uuid 38c8f852-f6a1-4d49-b872-4d2e77b73056))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR059") (unit 1)
         )
@@ -8494,7 +8509,7 @@
     )
     (pin "1" (uuid 5c155670-87ed-4503-991b-a394839fb100))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR029") (unit 1)
         )
@@ -8519,7 +8534,7 @@
     )
     (pin "1" (uuid d287c186-62f0-4e20-af69-a846af0efa8f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP8") (unit 1)
         )
@@ -8548,7 +8563,7 @@
     (pin "1" (uuid f4f7e6de-b348-40ff-9fa7-af18b8e07b06))
     (pin "2" (uuid f5a06e6c-33cd-4b7f-ae06-766b9aa55822))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C18") (unit 1)
         )
@@ -8577,7 +8592,7 @@
     (pin "1" (uuid 490abd49-b855-48d4-93f3-535a648a982a))
     (pin "2" (uuid 20753525-e683-4552-86ad-3823138580dc))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C15") (unit 1)
         )
@@ -8607,9 +8622,34 @@
     (pin "2" (uuid 96351723-5516-42d4-b0f6-80cd9232546e))
     (pin "3" (uuid 0ac82bcf-dbfc-48c5-8b03-0170ae82056c))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U10") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "Connector:TestPoint") (at 238.76 210.82 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid 52adb95a-20fb-43f6-a9b2-cf2020f2635b)
+    (property "Reference" "TP25" (at 237.49 205.74 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "~" (at 237.49 204.47 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm" (at 243.84 210.82 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 243.84 210.82 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 99a4db14-ea80-4bfe-8a5f-ea96884a1871))
+    (instances
+      (project "blinky_v4"
+        (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
+          (reference "TP25") (unit 1)
         )
       )
     )
@@ -8636,7 +8676,7 @@
     (pin "1" (uuid 672dd0cd-99db-4122-bc71-9c20e73fb77d))
     (pin "2" (uuid c612fcf6-a809-47b4-b354-b8395975800c))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R33") (unit 1)
         )
@@ -8665,7 +8705,7 @@
     (pin "1" (uuid 04cce278-ffa9-41a3-a39a-683b752fd1b4))
     (pin "2" (uuid f1b4f1f8-f70b-4434-94ff-69d2ed46eb6e))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C23") (unit 1)
         )
@@ -8694,7 +8734,7 @@
     (pin "1" (uuid e8702ab1-d450-49a5-92ef-940a17544f3e))
     (pin "2" (uuid 1907ab5e-af02-4024-8724-4106d230df1a))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R32") (unit 1)
         )
@@ -8723,7 +8763,7 @@
     (pin "1" (uuid 05aab17c-dfe6-468d-9404-d7c7fbf3bd44))
     (pin "2" (uuid d458e94e-5fc2-479f-aa8e-11804e67038d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R30") (unit 1)
         )
@@ -8748,7 +8788,7 @@
     )
     (pin "1" (uuid b115963e-8988-43c8-b5f2-92175d482eac))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR06") (unit 1)
         )
@@ -8777,7 +8817,7 @@
     (pin "1" (uuid 8e6c32ad-5e42-4bb6-bd41-dc358a7b4b1b))
     (pin "2" (uuid 17d7666a-5b2c-41c0-a961-29029be5fbfa))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R13") (unit 1)
         )
@@ -8802,7 +8842,7 @@
     )
     (pin "1" (uuid 533d93f8-1008-419f-903e-224dedc4bfef))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR050") (unit 1)
         )
@@ -8831,7 +8871,7 @@
     (pin "1" (uuid f351087c-92d6-4011-9a3d-4d397f17e012))
     (pin "2" (uuid 2ac4edbe-ceab-4bd7-ad21-3f8413afbbf7))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C13") (unit 1)
         )
@@ -8856,7 +8896,7 @@
     )
     (pin "1" (uuid a32746a6-d513-4f30-ac70-52357cba78f4))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR057") (unit 1)
         )
@@ -8885,7 +8925,7 @@
     (pin "1" (uuid 6435964c-a4e6-47c0-b995-d359f7e183a1))
     (pin "2" (uuid d2c16183-7c58-4f81-8300-eaa76681d7be))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "D4") (unit 1)
         )
@@ -8914,7 +8954,7 @@
     (pin "1" (uuid 9de6f436-c0f8-4ac1-b177-49607e051582))
     (pin "2" (uuid ffdbd00a-b34a-4102-beb2-af037c6c5ff1))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C7") (unit 1)
         )
@@ -8939,7 +8979,7 @@
     )
     (pin "1" (uuid 866d341f-d220-4424-8e91-b2aea4b3f958))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP10") (unit 1)
         )
@@ -8964,7 +9004,7 @@
     )
     (pin "1" (uuid c67aec6e-395a-4fb2-800b-9558d6e1c7b1))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR033") (unit 1)
         )
@@ -8993,7 +9033,7 @@
     (pin "1" (uuid 8b153c0d-0ddc-4d99-ac84-094291f0c44b))
     (pin "2" (uuid 5d69590b-59b2-4b44-8651-a3781b9e9bb7))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C1") (unit 1)
         )
@@ -9023,7 +9063,7 @@
     (pin "2" (uuid e7cb916f-6e4a-443a-9b0e-d4fa35d69f15))
     (pin "3" (uuid 77e55d03-4fe7-4387-888a-f7b7ee732f88))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "Q1") (unit 1)
         )
@@ -9031,24 +9071,24 @@
     )
   )
 
-  (symbol (lib_id "Connector:TestPoint") (at 299.72 279.4 0) (unit 1)
+  (symbol (lib_id "Connector:TestPoint") (at 290.83 278.13 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 69d56e8d-de48-41f0-9c56-909287c8b94c)
-    (property "Reference" "TP23" (at 298.45 274.32 0)
+    (property "Reference" "TP23" (at 285.75 274.32 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "~" (at 298.45 273.05 0)
+    (property "Value" "~" (at 289.56 271.78 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm" (at 304.8 279.4 0)
+    (property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm" (at 295.91 278.13 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "~" (at 304.8 279.4 0)
+    (property "Datasheet" "~" (at 295.91 278.13 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid a6c3ee04-2578-4cd2-8a4d-f4100e10ba96))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP23") (unit 1)
         )
@@ -9073,7 +9113,7 @@
     )
     (pin "1" (uuid 89dc100b-0510-418d-934e-8c666a13e8d6))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR074") (unit 1)
         )
@@ -9099,7 +9139,7 @@
     (pin "1" (uuid eb11c023-4201-4cbc-94bf-d8fe7eafb24f))
     (pin "2" (uuid e73f34ff-3874-4ad2-a492-bb8c1c512d89))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP10") (unit 1)
         )
@@ -9132,7 +9172,7 @@
     (pin "5" (uuid 27183149-5b84-45ed-9d86-3e9fbc9121e1))
     (pin "6" (uuid 59f6c9b9-fe41-42c7-8b56-87d11a4a6fd0))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U3") (unit 1)
         )
@@ -9161,7 +9201,7 @@
     (pin "1" (uuid 83654b4f-13bd-4b9f-9d10-7238dc5c7eaa))
     (pin "2" (uuid f26e0338-e376-4a54-8bfb-8bf70d4cff74))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R17") (unit 1)
         )
@@ -9187,7 +9227,7 @@
     (pin "1" (uuid 4e9eeebb-7c13-46bd-a4c9-8d526a990035))
     (pin "2" (uuid f743564e-6590-47b2-b191-a3c9d4f28500))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP5") (unit 1)
         )
@@ -9216,7 +9256,7 @@
     (pin "1" (uuid 9633dd62-563d-4123-80de-85cf9d45c4fb))
     (pin "2" (uuid bc00aaf9-7600-4608-be9c-55b4155dd14e))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "D1") (unit 1)
         )
@@ -9241,7 +9281,7 @@
     )
     (pin "1" (uuid 5ef1475a-a63f-4d36-870d-64f8430bad53))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR023") (unit 1)
         )
@@ -9266,7 +9306,7 @@
     )
     (pin "1" (uuid f1bba877-9712-47d7-abff-0abbbbb3e8cd))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP15") (unit 1)
         )
@@ -9295,7 +9335,7 @@
     (pin "1" (uuid 4ca3ec05-36e5-4cd3-bb04-b571e2b48e25))
     (pin "2" (uuid 383bc477-d1b9-4619-a5bc-07f0ac5c057f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R16") (unit 1)
         )
@@ -9320,7 +9360,7 @@
     )
     (pin "1" (uuid 29445667-1e2e-4abe-b7ad-aad39581aeae))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR062") (unit 1)
         )
@@ -9345,7 +9385,7 @@
     )
     (pin "1" (uuid b5415e56-2ba1-47cd-b15e-be30a4d0abf1))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR068") (unit 1)
         )
@@ -9374,7 +9414,7 @@
     (pin "1" (uuid 78b8ec20-f0ff-4da2-97a5-c83ee9974db1))
     (pin "2" (uuid 5aceba29-e5e7-425a-a0d3-9017bb532b5f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R26") (unit 1)
         )
@@ -9399,7 +9439,7 @@
     )
     (pin "1" (uuid d2dbb700-65dc-482d-8193-4c8f9c6a28f3))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR046") (unit 1)
         )
@@ -9428,7 +9468,7 @@
     (pin "1" (uuid 7bf57395-f00c-4520-9506-316799bd9cf9))
     (pin "2" (uuid 3621815a-fec7-47ec-8169-9d61b36f6da3))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C33") (unit 1)
         )
@@ -9453,7 +9493,7 @@
     )
     (pin "1" (uuid e5a2aec4-9b78-4c6b-b185-94bc03d44b81))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR071") (unit 1)
         )
@@ -9479,7 +9519,7 @@
     (pin "1" (uuid 7127ade8-8af5-4112-b45b-803d73d70d67))
     (pin "2" (uuid 818f1212-daf0-45f7-bbb6-b59aed572a89))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP9") (unit 1)
         )
@@ -9504,7 +9544,7 @@
     )
     (pin "1" (uuid 18ceafd1-1273-4812-a100-d30dd916035c))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR082") (unit 1)
         )
@@ -9530,7 +9570,7 @@
     (pin "1" (uuid a3f31b22-8aa4-4471-be76-915152f5f92c))
     (pin "2" (uuid 538001e1-0e81-45c0-921b-e8e790b0f954))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP7") (unit 1)
         )
@@ -9555,7 +9595,7 @@
     )
     (pin "1" (uuid c309bbf0-a185-4b7d-8bb7-f8540a10ab47))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR015") (unit 1)
         )
@@ -9580,7 +9620,7 @@
     )
     (pin "1" (uuid 417ec589-7a50-4bce-b213-f71de417e1b8))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR08") (unit 1)
         )
@@ -9605,7 +9645,7 @@
     )
     (pin "1" (uuid 987cb225-6f3e-467c-ac30-fa567fb5fbb1))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP12") (unit 1)
         )
@@ -9634,7 +9674,7 @@
     (pin "1" (uuid 6a6dcf3c-4af0-4174-b484-48a54cd7d152))
     (pin "2" (uuid 2b95131f-73cc-4b2c-a732-1e993ce1a7a0))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R1") (unit 1)
         )
@@ -9663,7 +9703,7 @@
     (pin "1" (uuid fe4887ad-6f2c-4657-842a-1f13ab9af025))
     (pin "2" (uuid 8b7329e1-1c9f-4851-8aa7-32e461c720d2))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R15") (unit 1)
         )
@@ -9692,7 +9732,7 @@
     (pin "1" (uuid babf3661-02b5-401e-b5f9-60bb58911700))
     (pin "2" (uuid c2c72e9f-beac-4b27-84c3-942f97387cbc))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C41") (unit 1)
         )
@@ -9717,7 +9757,7 @@
     )
     (pin "1" (uuid d9d1770a-6b88-4375-83cf-42bd4e7a88f4))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG01") (unit 1)
         )
@@ -9746,7 +9786,7 @@
     (pin "1" (uuid c48f17bc-0e5a-4a55-9687-ea518d7c88bc))
     (pin "2" (uuid 8c21f732-42ad-499d-8d01-a81a2b698820))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R22") (unit 1)
         )
@@ -9771,7 +9811,7 @@
     )
     (pin "1" (uuid 80df846e-d769-49c0-9c73-0dbed3c8edd9))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP7") (unit 1)
         )
@@ -9796,7 +9836,7 @@
     )
     (pin "1" (uuid c4535ed5-b65a-472e-b44c-be594cf2ef7d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR040") (unit 1)
         )
@@ -9821,7 +9861,7 @@
     )
     (pin "1" (uuid 8c421b3a-c40e-4c0a-a4b2-cdf9bf4c0556))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR060") (unit 1)
         )
@@ -9846,7 +9886,7 @@
     )
     (pin "1" (uuid 67b93a26-cefb-49ff-9fa8-744c081c2aff))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR078") (unit 1)
         )
@@ -9875,7 +9915,7 @@
     (pin "1" (uuid 5d33517f-7aa6-4256-abee-10b646e93042))
     (pin "2" (uuid 037a674c-da46-4e82-a669-51ead6127eb1))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R34") (unit 1)
         )
@@ -9904,7 +9944,7 @@
     (pin "1" (uuid 7246b462-fb01-4fe0-9265-a4e1c4b3db8c))
     (pin "2" (uuid c37ec3f3-ddee-4576-96ae-3839b4de5850))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C37") (unit 1)
         )
@@ -9933,7 +9973,7 @@
     (pin "1" (uuid e9d01ba4-1a6c-49d6-b47e-4002d4376127))
     (pin "2" (uuid ed3b1d10-e386-440a-8eb6-a2c25415154f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R14") (unit 1)
         )
@@ -9958,7 +9998,7 @@
     )
     (pin "1" (uuid cf5fa31d-5637-4516-b22f-d49a42a3c5e0))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR010") (unit 1)
         )
@@ -9983,7 +10023,7 @@
     )
     (pin "1" (uuid 23a6d893-7dfd-43c1-9df1-c2f0aaea20c1))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR031") (unit 1)
         )
@@ -10008,7 +10048,7 @@
     )
     (pin "1" (uuid 14de7fc4-3c56-472c-900c-cbf6c4f2d3b7))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR042") (unit 1)
         )
@@ -10037,7 +10077,7 @@
     (pin "1" (uuid 5a6cb131-aa8d-4121-ab01-47eca1257a41))
     (pin "2" (uuid 61482c7c-5885-4151-86ff-9d4ecd4d0993))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R35") (unit 1)
         )
@@ -10062,7 +10102,7 @@
     )
     (pin "1" (uuid 0aaf7867-e9f0-4a13-b1b7-b7990f72d8e7))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR028") (unit 1)
         )
@@ -10091,7 +10131,7 @@
     (pin "1" (uuid 5df2eece-dce4-4ffc-b61e-7a9e2f171b90))
     (pin "2" (uuid 269b47f3-6f2c-4c7e-b1dc-a9a051d471f5))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C21") (unit 1)
         )
@@ -10124,7 +10164,7 @@
     (pin "5" (uuid 51a5a84f-fa75-4565-baa8-e5e915d24e98))
     (pin "6" (uuid 65141e7f-4628-4aa3-84bb-70c494d5d3df))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U11") (unit 1)
         )
@@ -10154,7 +10194,7 @@
     (pin "2" (uuid b53818cd-dc0f-48e4-873d-41ca684d46de))
     (pin "3" (uuid 01a38f55-0134-4a39-9e49-54acd878b869))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U5") (unit 1)
         )
@@ -10183,7 +10223,7 @@
     (pin "1" (uuid 9c6e209d-60c9-4d76-9fb8-415ea7e3fdbd))
     (pin "2" (uuid 77a489cb-c0e0-4796-b401-7074ddc1a40b))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R8") (unit 1)
         )
@@ -10208,7 +10248,7 @@
     )
     (pin "1" (uuid 69c9b0ee-1f0a-499a-8005-6f8098fe3200))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR024") (unit 1)
         )
@@ -10233,7 +10273,7 @@
     )
     (pin "1" (uuid 18c852d1-a712-4b80-9bed-1a2ea964688b))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP20") (unit 1)
         )
@@ -10262,7 +10302,7 @@
     (pin "1" (uuid 53a1e4b4-3189-47cf-813f-4b719cb5a9d7))
     (pin "2" (uuid a7051260-7f61-465c-85a0-2f113d2d6df9))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C25") (unit 1)
         )
@@ -10287,7 +10327,7 @@
     )
     (pin "1" (uuid 07f87472-f005-425f-a6c4-07e337d7016d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR037") (unit 1)
         )
@@ -10316,7 +10356,7 @@
     (pin "1" (uuid 2fb30c56-d74e-45ad-89eb-e1821197d030))
     (pin "2" (uuid 74e058e0-42c5-43c0-abd5-7b56321a9a65))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R9") (unit 1)
         )
@@ -10341,7 +10381,7 @@
     )
     (pin "1" (uuid b27e3f1e-c5dc-4849-9b1c-136fe055b49f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR030") (unit 1)
         )
@@ -10373,7 +10413,7 @@
     (pin "4" (uuid 75566f72-04ea-4e8d-87af-ca990684f218))
     (pin "5" (uuid 1f9e2dc2-61ae-4186-88ee-c80db0a42820))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U13") (unit 1)
         )
@@ -10403,7 +10443,7 @@
     (pin "5" (uuid b4264c37-d47c-43f2-a73b-b39dcafd72b0))
     (pin "6" (uuid 198ff9e0-d0f5-45ab-b6b5-1d70b687817b))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J4") (unit 1)
         )
@@ -10428,7 +10468,7 @@
     )
     (pin "1" (uuid 191d255d-b171-4e3d-aab5-7c70a3d05b02))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR072") (unit 1)
         )
@@ -10457,7 +10497,7 @@
     (pin "1" (uuid c7a41ab8-1061-4df4-b67d-a8d1ff409198))
     (pin "2" (uuid bacceaa2-f3c0-401c-8a65-c4c4d6a2497d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C9") (unit 1)
         )
@@ -10486,7 +10526,7 @@
     (pin "1" (uuid cce0433c-8773-414a-ac47-aef0caa2748d))
     (pin "2" (uuid 0826d1d1-51bb-4898-b7a5-c73b9d768799))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "D2") (unit 1)
         )
@@ -10511,7 +10551,7 @@
     )
     (pin "1" (uuid 375b1d1d-6118-490e-978c-214752a1b52f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP13") (unit 1)
         )
@@ -10543,7 +10583,7 @@
     (pin "4" (uuid c7ac194d-a258-4f8b-b00b-0a2b8958b9fb))
     (pin "5" (uuid 91872c94-e83a-41e2-95b6-a402c0fda7ef))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U14") (unit 1)
         )
@@ -10572,7 +10612,7 @@
     (pin "1" (uuid 2c87cb1c-f3ac-42f8-80a1-33d145f71565))
     (pin "2" (uuid 0cc8b019-3acb-4fbb-b3bb-395c7717f42b))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C11") (unit 1)
         )
@@ -10601,7 +10641,7 @@
     (pin "1" (uuid 62b8d736-27a9-4b29-a789-60f7722e4d44))
     (pin "2" (uuid 88437a42-f5e0-4350-aad6-82e9d417f02a))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C19") (unit 1)
         )
@@ -10626,7 +10666,7 @@
     )
     (pin "1" (uuid 8613cccf-2161-4bb2-bfc4-affbd087db1c))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR066") (unit 1)
         )
@@ -10654,7 +10694,7 @@
     (pin "3" (uuid 04c00bbf-6425-474d-993e-ae5c45039160))
     (pin "4" (uuid 260ff29d-d8c5-4f4c-84ec-04f080e2fba0))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J7") (unit 1)
         )
@@ -10679,7 +10719,7 @@
     )
     (pin "1" (uuid f8f2d28c-6fd6-42f9-a96e-956730f994d6))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR049") (unit 1)
         )
@@ -10704,7 +10744,7 @@
     )
     (pin "1" (uuid e63afe04-968c-4a49-92e6-6ddcf03a3215))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR054") (unit 1)
         )
@@ -10733,7 +10773,7 @@
     (pin "1" (uuid a197d852-8f4f-404a-a87e-d79e7461598c))
     (pin "2" (uuid 1a411b84-30ce-4fa1-9fa6-1121b547b824))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C8") (unit 1)
         )
@@ -10758,7 +10798,7 @@
     )
     (pin "1" (uuid d928aaf1-e2d0-43ad-91f3-fb77f9f57af2))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR027") (unit 1)
         )
@@ -10783,7 +10823,7 @@
     )
     (pin "1" (uuid 042cb591-226b-47b4-967c-4c0e68818779))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG011") (unit 1)
         )
@@ -10808,7 +10848,7 @@
     )
     (pin "1" (uuid fc45ec36-db2e-4a4a-a3c6-f4f7749bf875))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP16") (unit 1)
         )
@@ -10837,7 +10877,7 @@
     (pin "1" (uuid 356ed148-f2e1-4b0d-98df-11cf6b1f3f18))
     (pin "2" (uuid 9c648f11-6da2-45eb-b943-2f21dad1cd52))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C30") (unit 1)
         )
@@ -10869,7 +10909,7 @@
     (pin "4" (uuid 38c232c6-d8a3-490f-a400-b8b5f1cb92bb))
     (pin "5" (uuid d769e7a5-ae59-48c6-bbcf-5f1e0031c6c8))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U12") (unit 1)
         )
@@ -10894,7 +10934,7 @@
     )
     (pin "1" (uuid 7ac81f1c-606d-4676-b374-68d4d9fa2e27))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR041") (unit 1)
         )
@@ -10919,7 +10959,7 @@
     )
     (pin "1" (uuid 3c21a0c7-d143-4a72-a490-259a712b97b9))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP11") (unit 1)
         )
@@ -10944,7 +10984,7 @@
     )
     (pin "1" (uuid 180d9bd7-5c07-4729-bb19-94e7bc98b36e))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG03") (unit 1)
         )
@@ -10969,7 +11009,7 @@
     )
     (pin "1" (uuid 42a04041-8e76-4df3-81d1-24f5863d35c8))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG07") (unit 1)
         )
@@ -10994,7 +11034,7 @@
     )
     (pin "1" (uuid 674a905c-0435-4f94-9a26-40b3d98ad759))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR020") (unit 1)
         )
@@ -11019,7 +11059,7 @@
     )
     (pin "1" (uuid 24ab9d9b-850e-4bc3-847c-7faba3bcc49c))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR05") (unit 1)
         )
@@ -11044,7 +11084,7 @@
     )
     (pin "1" (uuid 9c90c719-3561-430f-b245-b4278d40a10c))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR02") (unit 1)
         )
@@ -11088,7 +11128,7 @@
     (pin "8" (uuid 13033e9a-7e5e-4972-a500-9b7a8c11dc71))
     (pin "9" (uuid 37a3049f-38e9-4ce1-9c48-b57d4d3242b5))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J6") (unit 1)
         )
@@ -11113,7 +11153,7 @@
     )
     (pin "1" (uuid ce5514d3-f9bb-4b7c-bec8-f68158b465e9))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR035") (unit 1)
         )
@@ -11142,7 +11182,7 @@
     (pin "1" (uuid 65ab51f5-9c4b-4611-9f4a-4c51b1a63e88))
     (pin "2" (uuid b8aa2dae-e25e-4954-bc82-213d599c724a))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R4") (unit 1)
         )
@@ -11167,7 +11207,7 @@
     )
     (pin "1" (uuid 2e3049a4-b28c-47da-8bdc-76c9295aa6ba))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR070") (unit 1)
         )
@@ -11196,7 +11236,7 @@
     (pin "1" (uuid b3984fe3-a348-4ca4-8e81-cf050c176e7f))
     (pin "2" (uuid 12f82554-5637-457c-a22c-98119a4c5e56))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R25") (unit 1)
         )
@@ -11221,7 +11261,7 @@
     )
     (pin "1" (uuid b52c22be-1114-4b12-9608-4b8dafb7acf6))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR018") (unit 1)
         )
@@ -11250,7 +11290,7 @@
     (pin "1" (uuid 86c4cf80-6c94-4e69-bda3-5ae2c6b155bd))
     (pin "2" (uuid 0ccaa172-0726-4c02-9b5e-0d320c1d0161))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C24") (unit 1)
         )
@@ -11279,7 +11319,7 @@
     (pin "4" (uuid 2588000e-b47a-4d65-b36b-ce32868488ed))
     (pin "5" (uuid 608da99d-24c1-4a8c-ae69-c3ff9d53cb06))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J5") (unit 1)
         )
@@ -11308,7 +11348,7 @@
     (pin "1" (uuid e7dec386-05a7-488b-8394-acd0a19899b0))
     (pin "2" (uuid ecd2de87-9b1a-4e24-9fc9-009467f11e3c))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C4") (unit 1)
         )
@@ -11338,7 +11378,7 @@
     (pin "2" (uuid 6e27716c-e170-4d4a-9498-0c41c6c2adfa))
     (pin "3" (uuid c221d6ba-67e8-48d4-8416-38118989b3eb))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U9") (unit 1)
         )
@@ -11367,7 +11407,7 @@
     (pin "1" (uuid d726e13a-e3d1-456f-b37c-af56b3454b89))
     (pin "2" (uuid 8f9a3d5c-255f-41d8-a640-d255cc039254))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "FB1") (unit 1)
         )
@@ -11396,7 +11436,7 @@
     (pin "1" (uuid fd15f34e-55b9-4431-8db1-34b26f1cd1ef))
     (pin "2" (uuid 5701b139-b874-42df-a554-a1e124c5bc08))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C14") (unit 1)
         )
@@ -11429,7 +11469,7 @@
     (pin "5" (uuid f79b33b3-3f1e-4044-ba8b-19df9c295384))
     (pin "6" (uuid 1fc68bb7-4c5e-4457-b270-34a10a4b1c32))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U2") (unit 1)
         )
@@ -11458,7 +11498,7 @@
     (pin "1" (uuid 82b74306-4bbe-43e0-a034-bb4712956b24))
     (pin "2" (uuid f49b8bf3-7f8e-4224-b0ec-7ee6ded5ecb6))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R7") (unit 1)
         )
@@ -11483,7 +11523,7 @@
     )
     (pin "1" (uuid 78cfd096-3d22-41e4-8745-ab75c250a961))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG04") (unit 1)
         )
@@ -11512,7 +11552,7 @@
     (pin "1" (uuid bc454c7d-16f9-47a1-b208-206cb900c5e3))
     (pin "2" (uuid c9d8fc5a-0680-4b38-bd4c-7ec78e37c9b7))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R29") (unit 1)
         )
@@ -11541,7 +11581,7 @@
     (pin "1" (uuid 2a04adc9-3937-455a-a62e-078f0e5d9b6d))
     (pin "2" (uuid 6bacca0e-eb95-46bd-9316-5f93db9d4866))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R28") (unit 1)
         )
@@ -11567,7 +11607,7 @@
     (pin "1" (uuid 0dd81e2e-2bd6-4ff0-b0d4-c36fee71110c))
     (pin "2" (uuid 038c84e6-f79f-4602-aaa3-3569703f2091))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP1") (unit 1)
         )
@@ -11592,7 +11632,7 @@
     )
     (pin "1" (uuid 243d97d3-90a3-4180-b275-1d8166e90073))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP14") (unit 1)
         )
@@ -11622,7 +11662,7 @@
     (pin "GND2" (uuid 13a1f944-cf3e-4c24-8879-3bebc8bb3236))
     (pin "SIG" (uuid 4cfb447d-cba8-4bb7-a0de-19e70f8798a4))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "ANT4") (unit 1)
         )
@@ -11651,7 +11691,7 @@
     (pin "1" (uuid 22208758-3565-4f14-87bf-50960c77ad22))
     (pin "2" (uuid bbeb008b-472a-449c-9ee5-3f1cc395a8b4))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R24") (unit 1)
         )
@@ -11680,7 +11720,7 @@
     (pin "1" (uuid 5c6f3391-5168-4581-9e81-60d3aaa84ed9))
     (pin "2" (uuid 5b2419f9-8a47-474a-b425-02a2db743c70))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C3") (unit 1)
         )
@@ -11705,7 +11745,7 @@
     )
     (pin "1" (uuid 8f221960-c6e1-43c2-898a-d87eeb777205))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR063") (unit 1)
         )
@@ -11734,7 +11774,7 @@
     (pin "1" (uuid 87e501d4-2d7c-4e16-a88b-84347c651d8a))
     (pin "2" (uuid cd47c221-d8bb-476e-8fda-f1c53e0d6108))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R39") (unit 1)
         )
@@ -11765,7 +11805,7 @@
     (pin "6" (uuid d8cfd6fe-0202-43da-9d06-7c3aafd66aab))
     (pin "7" (uuid 9ac12bfb-bf39-4363-8b4c-f9aa4e6a8553))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J1") (unit 1)
         )
@@ -11790,7 +11830,7 @@
     )
     (pin "1" (uuid 449df61c-8efe-47dd-be56-a61668baadb3))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP9") (unit 1)
         )
@@ -11815,7 +11855,7 @@
     )
     (pin "1" (uuid c1001c65-7a2c-4ae5-ad20-742e7518aae4))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP21") (unit 1)
         )
@@ -11840,7 +11880,7 @@
     )
     (pin "1" (uuid 5d9e4b39-5e70-4617-b770-c6dd99b9183d))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR07") (unit 1)
         )
@@ -11875,7 +11915,7 @@
     (pin "7" (uuid 58aee5cc-5fe3-4a67-bfcd-88fe5adf1cb9))
     (pin "8" (uuid 5aee0d20-5237-4747-b22e-d3eff160048f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J3") (unit 1)
         )
@@ -11904,7 +11944,7 @@
     (pin "1" (uuid 2901d6d0-52ce-4d3d-829c-c001c3e7d9bb))
     (pin "2" (uuid 8b2ab31f-539e-4ba8-a86d-88d8d7f909c6))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R2") (unit 1)
         )
@@ -11929,7 +11969,7 @@
     )
     (pin "1" (uuid 5fd168f4-5615-4ceb-be36-5c796428d140))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR077") (unit 1)
         )
@@ -11954,7 +11994,7 @@
     )
     (pin "1" (uuid 12ac2600-1d8c-42d5-aedb-0759fe1d5d0f))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG06") (unit 1)
         )
@@ -11979,7 +12019,7 @@
     )
     (pin "1" (uuid 1f7d4d30-b99f-4b1b-b3a4-aabdab674c76))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP5") (unit 1)
         )
@@ -12008,7 +12048,7 @@
     (pin "1" (uuid 846ba4db-1390-4761-9a97-0141b170a9b8))
     (pin "2" (uuid 9acea009-d2a5-47a8-9080-237fd1269612))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R27") (unit 1)
         )
@@ -12037,7 +12077,7 @@
     (pin "1" (uuid 154a4b45-6ed1-4496-b923-2cc6f3b4d0bb))
     (pin "2" (uuid 7c23deec-37dc-4ff3-8b92-c18c812d599b))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C16") (unit 1)
         )
@@ -12062,7 +12102,7 @@
     )
     (pin "1" (uuid f0954303-a40c-4001-8d8a-d9f62aa0e8e5))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR034") (unit 1)
         )
@@ -12091,7 +12131,7 @@
     (pin "1" (uuid 6964015b-bfc6-4271-8eca-5701406ae263))
     (pin "2" (uuid c7b176e3-7e61-427f-bb24-ebe684f5e6de))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R31") (unit 1)
         )
@@ -12116,7 +12156,7 @@
     )
     (pin "1" (uuid 38efd010-12ac-4ff6-b32c-b0ead68b7d57))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR064") (unit 1)
         )
@@ -12145,7 +12185,7 @@
     (pin "1" (uuid a1c56522-9a5d-4dfa-9f58-1f928d323b1b))
     (pin "2" (uuid c77acdbc-7ad6-41c0-bc2f-26f20095bfb1))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R12") (unit 1)
         )
@@ -12174,7 +12214,7 @@
     (pin "1" (uuid 86160aa7-f2f1-4614-bc06-e7624d763d2b))
     (pin "2" (uuid 752d6a4c-c783-4773-90c7-f5dd822c18ba))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C6") (unit 1)
         )
@@ -12199,7 +12239,7 @@
     )
     (pin "1" (uuid e2af6dae-b347-4bfb-9553-18ecde45eae1))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR022") (unit 1)
         )
@@ -12232,7 +12272,7 @@
     (pin "5" (uuid a3c7851d-8e70-469f-b0ee-5a3969c36d48))
     (pin "6" (uuid 72283cd6-0bde-4405-9d33-9248e8b8d23b))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U4") (unit 1)
         )
@@ -12257,7 +12297,7 @@
     )
     (pin "1" (uuid 69b68fb0-8c53-4c24-85d4-c73a8a48d990))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR011") (unit 1)
         )
@@ -12286,7 +12326,7 @@
     (pin "1" (uuid 0caec84a-3e9e-4cf1-9a45-84fcb6215ce3))
     (pin "2" (uuid 5d9213eb-ac07-4f01-adbe-631e33126f1a))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C26") (unit 1)
         )
@@ -12311,7 +12351,7 @@
     )
     (pin "1" (uuid 8f2fe00f-6252-446b-a9c9-c9cf895e67d5))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR026") (unit 1)
         )
@@ -12341,7 +12381,7 @@
     (pin "5" (uuid af6e37c6-072d-4c3d-8cb8-f19ca29bb623))
     (pin "6" (uuid a74219c0-e2f2-48f6-9275-00fc4eab6db8))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J9") (unit 1)
         )
@@ -12366,7 +12406,7 @@
     )
     (pin "1" (uuid 02e351e0-f762-4c14-accf-d955059cc0b2))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR061") (unit 1)
         )
@@ -12391,7 +12431,7 @@
     )
     (pin "1" (uuid 8e7d7ae0-eae2-4e6e-a7c6-096f27ecae91))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG02") (unit 1)
         )
@@ -12417,7 +12457,7 @@
     (pin "1" (uuid b11df974-2c95-404b-b7d5-dd8d73ec77eb))
     (pin "2" (uuid 679ccd65-91d1-4036-964c-95317c65ca98))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP12") (unit 1)
         )
@@ -12445,7 +12485,7 @@
     (pin "3" (uuid c6bf5dcc-5b1e-42ed-bcc2-15fb9142d95f))
     (pin "4" (uuid a2f759ee-222a-4eee-8a2f-6d98ccb6f354))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J8") (unit 1)
         )
@@ -12470,7 +12510,7 @@
     )
     (pin "1" (uuid 59f2ad03-8881-4355-92f6-804e11f34cb0))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR045") (unit 1)
         )
@@ -12495,7 +12535,7 @@
     )
     (pin "1" (uuid 6d411b15-1683-4fdb-9c77-649222da9e96))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP22") (unit 1)
         )
@@ -12520,7 +12560,7 @@
     )
     (pin "1" (uuid aff665b3-3e99-4a80-af64-196dee5b6d5b))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP3") (unit 1)
         )
@@ -12547,7 +12587,7 @@
     (pin "2" (uuid cc3dfd9a-ffa4-4688-9180-e923ffb0d3ca))
     (pin "3" (uuid fe5fe5ca-143b-48fa-a229-bb1994ab3562))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J2") (unit 1)
         )
@@ -12572,7 +12612,7 @@
     )
     (pin "1" (uuid 47372caa-04ad-44cf-9bd8-bbfca40a6dec))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "TP19") (unit 1)
         )
@@ -12601,7 +12641,7 @@
     (pin "1" (uuid 683816bf-e0d9-4314-a01d-12afb608acac))
     (pin "2" (uuid 9f4ba2b7-1f0d-429b-97fb-35480ddfc1bd))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C42") (unit 1)
         )
@@ -12626,7 +12666,7 @@
     )
     (pin "1" (uuid 20939f08-7a04-460c-acb1-265ce365c0e2))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR017") (unit 1)
         )
@@ -12652,7 +12692,7 @@
     (pin "1" (uuid af7a8b9e-2658-42b9-9733-4bddad81aa73))
     (pin "2" (uuid 3e3ece36-6132-4ab9-a86b-17aa53445f05))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP4") (unit 1)
         )
@@ -12677,7 +12717,7 @@
     )
     (pin "1" (uuid ee4a1b71-21ff-4542-aec0-f2b10ff15702))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR075") (unit 1)
         )
@@ -12702,7 +12742,7 @@
     )
     (pin "1" (uuid 21919482-a216-4953-abaf-d179fef2415e))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR038") (unit 1)
         )
@@ -12731,7 +12771,7 @@
     (pin "1" (uuid c831d4c5-014a-490a-83a0-8f95f8bbaddc))
     (pin "2" (uuid bf92ae92-377c-4e58-a791-14af000b2df7))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R19") (unit 1)
         )
@@ -12756,7 +12796,7 @@
     )
     (pin "1" (uuid 24b882ca-32ca-4cb0-a617-34dd1905760e))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR043") (unit 1)
         )
@@ -12782,7 +12822,7 @@
     (pin "1" (uuid 842a5f98-bcba-4831-a04e-366d65ae5407))
     (pin "2" (uuid 8557a4e4-ddfc-4b46-b37f-156bbdaa21ed))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "JP14") (unit 1)
         )
@@ -12811,7 +12851,7 @@
     (pin "1" (uuid 5d775234-bb66-4ecd-a880-059b9586e097))
     (pin "2" (uuid 16ca8b3b-6655-4832-abda-954d7296fdad))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C20") (unit 1)
         )
@@ -12840,7 +12880,7 @@
     (pin "1" (uuid 5e978f96-472c-44c2-a2bc-8399cf18320f))
     (pin "2" (uuid 764175cb-967e-432a-b481-21f9d6910ce7))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R38") (unit 1)
         )
@@ -12865,7 +12905,7 @@
     )
     (pin "1" (uuid dbc78e89-6920-4468-be09-f7a5088167db))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR014") (unit 1)
         )
@@ -12890,7 +12930,7 @@
     )
     (pin "1" (uuid 7aeef958-e2e3-44d6-b4a0-8d373bf52205))
     (instances
-      (project "blinky_v3"
+      (project "blinky_v4"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR036") (unit 1)
         )
