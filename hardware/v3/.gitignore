@@ -14,5 +14,5 @@ _autosave-*
 fp-info-cache
 
 # generated BOM 
-blinky_v3.csv
-blinky_v3.xml
+blinky_*.csv
+blinky_*.xml
