@@ -11920,7 +11920,7 @@
   )
 
   (symbol (lib_id "Amplifier_Operational:ADA4807-1") (at 167.64 350.52 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom no) (on_board yes) (dnp yes)
     (uuid c1dd1e1e-484a-4d21-89e6-7040ff619c95)
     (property "Reference" "U2" (at 167.64 344.17 0)
       (effects (font (size 1.27 1.27)))
