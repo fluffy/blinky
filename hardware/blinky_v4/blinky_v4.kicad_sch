@@ -5183,7 +5183,7 @@
     (uuid ffa0028b-13c0-425c-89bc-8e7b038ca1d0)
   )
 
-  (text_box "Notes:\nswitch over all analog stuff to VA not V\nadd stm32 pin to monitor sync out \nConnect up convtroll votltage to OCXO\nCheck instrumnets input levels required\nAdd TXCO or XO option \nAdd 3rd 10 Mhz Sin output\nSort out connectors  ( JST-pH ?? )\nSplit into 3 board sections \nAdd mount holes\nadd tool holes \nmake main power supply be +6V\n\n"
+  (text_box "Notes:\nswitch over all analog stuff to VA not V\nadd stm32 pin to monitor sync out \nConnect up convtroll votltage to OCXO\nCheck instrumnets input levels required\nAdd TXCO or XO option \nSort out connectors  ( JST-pH ?? )\nSplit into 3 board sections \nAdd mount holes\nadd tool holes \n\n\n"
     (at 461.01 27.94 0) (size 64.77 27.94)
     (stroke (width 0) (type default))
     (fill (type none))
