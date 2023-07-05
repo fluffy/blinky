@@ -6287,14 +6287,6 @@
     (uuid ffcad28c-643b-43b6-a5e9-d3159cccda9e)
   )
 
-  (text_box "Notes:\nswitch over all analog stuff to VA not V\nadd stm32 pin to monitor sync out \nConnect up convtroll votltage to OCXO\nCheck instrumnets input levels required\nAdd TXCO or XO option \nSort out connectors  ( JST-pH ?? )\nSplit into 3 board sections \nAdd mount holes\nadd tool holes \n\n\n"
-    (at 466.09 345.44 0) (size 64.77 27.94)
-    (stroke (width 0) (type default))
-    (fill (type none))
-    (effects (font (size 1.27 1.27)) (justify left top))
-    (uuid ca309650-b72d-42c3-a00d-894ba0b69091)
-  )
-
   (text "3.1 MHz RC Highpass filter" (at 187.96 340.36 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 5d32307a-86b6-4206-8ccc-e4cb7528c428)
