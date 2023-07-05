@@ -5,6 +5,12 @@
   )
 
   (paper "A4")
+  (title_block
+    (title "Blinky V4")
+    (date "2023-07-04")
+    (company "Cullen Jennings")
+  )
+
   (layers
     (0 "F.Cu" signal)
     (31 "B.Cu" power)
