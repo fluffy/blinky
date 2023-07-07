@@ -42,7 +42,7 @@
 /* #define HAL_CAN_MODULE_ENABLED */
 /* #define HAL_CRC_MODULE_ENABLED */
 /* #define HAL_CAN_LEGACY_MODULE_ENABLED */
-/* #define HAL_DAC_MODULE_ENABLED */
+#define HAL_DAC_MODULE_ENABLED
 /* #define HAL_DCMI_MODULE_ENABLED */
 /* #define HAL_DMA2D_MODULE_ENABLED */
 /* #define HAL_ETH_MODULE_ENABLED */
@@ -53,7 +53,7 @@
 /* #define HAL_SRAM_MODULE_ENABLED */
 /* #define HAL_SDRAM_MODULE_ENABLED */
 /* #define HAL_HASH_MODULE_ENABLED */
-/* #define HAL_I2C_MODULE_ENABLED */
+#define HAL_I2C_MODULE_ENABLED
 /* #define HAL_I2S_MODULE_ENABLED */
 /* #define HAL_IWDG_MODULE_ENABLED */
 /* #define HAL_LTDC_MODULE_ENABLED */
@@ -64,7 +64,7 @@
 /* #define HAL_MMC_MODULE_ENABLED */
 /* #define HAL_SPI_MODULE_ENABLED */
 #define HAL_TIM_MODULE_ENABLED
-/* #define HAL_UART_MODULE_ENABLED */
+#define HAL_UART_MODULE_ENABLED
 /* #define HAL_USART_MODULE_ENABLED */
 /* #define HAL_IRDA_MODULE_ENABLED */
 /* #define HAL_SMARTCARD_MODULE_ENABLED */
@@ -199,7 +199,7 @@
   * @brief Uncomment the line below to expanse the "assert_param" macro in the
   *        HAL drivers code
   */
-/* #define USE_FULL_ASSERT    1U */
+ #define USE_FULL_ASSERT    1U
 
 /* ################## Ethernet peripheral configuration ##################### */
 

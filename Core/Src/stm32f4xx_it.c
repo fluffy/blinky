@@ -219,28 +219,7 @@ void TIM2_IRQHandler(void)
 void TIM7_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM7_IRQn 0 */
-  static int tim7Count=0;
-  tim7Count++;
-  if ( tim7Count % 500  == 0 ) {
-    HAL_GPIO_TogglePin(GPIOA, LEDE_Pin );
-  }
 
-  if ( 1 ) {
-    int col = 1+ (( tim7Count / 5 ) % 5);
-    int row = 1+ (( tim7Count / 25 ) % 4);
-    
-    HAL_GPIO_WritePin(GPIOC, ROW1_Pin, (row==1) ? GPIO_PIN_SET : GPIO_PIN_RESET );
-    HAL_GPIO_WritePin(GPIOC, ROW2_Pin, (row==2) ? GPIO_PIN_SET : GPIO_PIN_RESET );
-    HAL_GPIO_WritePin(GPIOC, ROW3_Pin, (row==3) ? GPIO_PIN_SET : GPIO_PIN_RESET );
-    HAL_GPIO_WritePin(GPIOC, ROW4_Pin, (row==4) ? GPIO_PIN_SET : GPIO_PIN_RESET );
-
-    HAL_GPIO_WritePin(GPIOB, COL1_Pin, (col==1) ? GPIO_PIN_RESET : GPIO_PIN_SET );
-    HAL_GPIO_WritePin(GPIOB, COL2_Pin, (col==2) ? GPIO_PIN_RESET : GPIO_PIN_SET );
-    HAL_GPIO_WritePin(GPIOB, COL3_Pin, (col==3) ? GPIO_PIN_RESET : GPIO_PIN_SET );
-    HAL_GPIO_WritePin(GPIOB, COL4_Pin, (col==4) ? GPIO_PIN_RESET : GPIO_PIN_SET );
-    HAL_GPIO_WritePin(GPIOB, COL5_Pin, (col==5) ? GPIO_PIN_RESET : GPIO_PIN_SET );
-  }
-  
   /* USER CODE END TIM7_IRQn 0 */
   HAL_TIM_IRQHandler(&htim7);
   /* USER CODE BEGIN TIM7_IRQn 1 */

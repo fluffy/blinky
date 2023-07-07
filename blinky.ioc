@@ -1,6 +1,6 @@
 #MicroXplorer Configuration settings - do not modify
-CAD.formats=
-CAD.pinconfig=
+CAD.formats=[]
+CAD.pinconfig=Project naming
 CAD.provider=
 File.Version=6
 GPIO.groupedBy=Group By Peripherals
@@ -162,7 +162,7 @@ ProjectManager.DeletePrevious=true
 ProjectManager.DeviceId=STM32F405RGTx
 ProjectManager.FirmwarePackage=STM32Cube FW_F4 V1.27.1
 ProjectManager.FreePins=false
-ProjectManager.HalAssertFull=false
+ProjectManager.HalAssertFull=true
 ProjectManager.HeapSize=0x200
 ProjectManager.KeepUserCode=true
 ProjectManager.LastFirmware=false
