@@ -49,6 +49,8 @@ extern "C" {
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -59,34 +61,62 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define SYNC_OUT_FX 1000000
 #define SYNC_OUT_INTR htim7
+#define HSE_IN_Pin GPIO_PIN_0
+#define HSE_IN_GPIO_Port GPIOH
+#define HSE_OUT_Pin GPIO_PIN_1
+#define HSE_OUT_GPIO_Port GPIOH
+#define ROW6_Pin GPIO_PIN_1
+#define ROW6_GPIO_Port GPIOC
+#define ROW7_Pin GPIO_PIN_2
+#define ROW7_GPIO_Port GPIOC
+#define ROW8_Pin GPIO_PIN_3
+#define ROW8_GPIO_Port GPIOC
 #define LEDM3_Pin GPIO_PIN_0
 #define LEDM3_GPIO_Port GPIOA
 #define LEDM1_Pin GPIO_PIN_1
 #define LEDM1_GPIO_Port GPIOA
 #define LEDM2_Pin GPIO_PIN_2
 #define LEDM2_GPIO_Port GPIOA
+#define SYNC_MON_Pin GPIO_PIN_3
+#define SYNC_MON_GPIO_Port GPIOA
+#define OSC_ADJ_Pin GPIO_PIN_4
+#define OSC_ADJ_GPIO_Port GPIOA
 #define SYNC_IN_Pin GPIO_PIN_5
 #define SYNC_IN_GPIO_Port GPIOA
 #define SYNC_OUT_Pin GPIO_PIN_7
 #define SYNC_OUT_GPIO_Port GPIOA
+#define ROW5_Pin GPIO_PIN_4
+#define ROW5_GPIO_Port GPIOC
+#define COL3_Pin GPIO_PIN_5
+#define COL3_GPIO_Port GPIOC
 #define COL5_Pin GPIO_PIN_0
 #define COL5_GPIO_Port GPIOB
 #define COL4_Pin GPIO_PIN_1
 #define COL4_GPIO_Port GPIOB
-#define COL3_Pin GPIO_PIN_2
-#define COL3_GPIO_Port GPIOB
-#define COL2_Pin GPIO_PIN_10
-#define COL2_GPIO_Port GPIOB
+#define COL3B2_Pin GPIO_PIN_2
+#define COL3B2_GPIO_Port GPIOB
+#define BOOT1_Pin GPIO_PIN_10
+#define BOOT1_GPIO_Port GPIOB
 #define COL1_Pin GPIO_PIN_11
 #define COL1_GPIO_Port GPIOB
-#define ROW4_Pin GPIO_PIN_6
-#define ROW4_GPIO_Port GPIOC
+#define LEDH_Pin GPIO_PIN_12
+#define LEDH_GPIO_Port GPIOB
+#define LEDG_Pin GPIO_PIN_13
+#define LEDG_GPIO_Port GPIOB
+#define LEDF_Pin GPIO_PIN_14
+#define LEDF_GPIO_Port GPIOB
+#define ROW4_Pin GPIO_PIN_15
+#define ROW4_GPIO_Port GPIOB
+#define GPS_PPS_Pin GPIO_PIN_6
+#define GPS_PPS_GPIO_Port GPIOC
 #define ROW3_Pin GPIO_PIN_7
 #define ROW3_GPIO_Port GPIOC
 #define ROW2_Pin GPIO_PIN_8
 #define ROW2_GPIO_Port GPIOC
 #define ROW1_Pin GPIO_PIN_9
 #define ROW1_GPIO_Port GPIOC
+#define EXT_CLK_IN_Pin GPIO_PIN_8
+#define EXT_CLK_IN_GPIO_Port GPIOA
 #define LEDE_Pin GPIO_PIN_9
 #define LEDE_GPIO_Port GPIOA
 #define LEDD_Pin GPIO_PIN_10
@@ -95,16 +125,34 @@ void Error_Handler(void);
 #define LEDC_GPIO_Port GPIOA
 #define LEDB_Pin GPIO_PIN_12
 #define LEDB_GPIO_Port GPIOA
+#define SWDIO_Pin GPIO_PIN_13
+#define SWDIO_GPIO_Port GPIOA
+#define SWDCLK_Pin GPIO_PIN_14
+#define SWDCLK_GPIO_Port GPIOA
 #define LEDA_Pin GPIO_PIN_15
 #define LEDA_GPIO_Port GPIOA
-#define DB1_Pin GPIO_PIN_4
-#define DB1_GPIO_Port GPIOB
-#define DB2_Pin GPIO_PIN_5
+#define GPS_RX1_Pin GPIO_PIN_10
+#define GPS_RX1_GPIO_Port GPIOC
+#define GPS_TX1_Pin GPIO_PIN_11
+#define GPS_TX1_GPIO_Port GPIOC
+#define DB4_Pin GPIO_PIN_12
+#define DB4_GPIO_Port GPIOC
+#define DB3_Pin GPIO_PIN_2
+#define DB3_GPIO_Port GPIOD
+#define SWDTRC_Pin GPIO_PIN_3
+#define SWDTRC_GPIO_Port GPIOB
+#define DB2_Pin GPIO_PIN_4
 #define DB2_GPIO_Port GPIOB
-#define DB3_Pin GPIO_PIN_6
-#define DB3_GPIO_Port GPIOB
-#define DB4_Pin GPIO_PIN_7
-#define DB4_GPIO_Port GPIOB
+#define DB1_Pin GPIO_PIN_5
+#define DB1_GPIO_Port GPIOB
+#define USB_RX_Pin GPIO_PIN_6
+#define USB_RX_GPIO_Port GPIOB
+#define USB_TX_Pin GPIO_PIN_7
+#define USB_TX_GPIO_Port GPIOB
+#define SCL_Pin GPIO_PIN_8
+#define SCL_GPIO_Port GPIOB
+#define SDA_Pin GPIO_PIN_9
+#define SDA_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
