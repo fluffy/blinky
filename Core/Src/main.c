@@ -611,10 +611,10 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LEDM3_Pin|LEDM1_Pin|LEDE_Pin|LEDD_Pin
-                          |LEDC_Pin|LEDB_Pin, GPIO_PIN_SET);
+                          |LEDC_Pin|LEDB_Pin|LEDA_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LEDM2_Pin|LEDA_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, COL5_Pin|COL4_Pin|COL1_Pin, GPIO_PIN_SET);
