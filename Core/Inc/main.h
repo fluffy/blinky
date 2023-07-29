@@ -61,6 +61,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define SYNC_OUT_FX 1000000
 #define SYNC_OUT_INTR htim7
+#define BTN1_Pin GPIO_PIN_13
+#define BTN1_GPIO_Port GPIOC
 #define HSE_IN_Pin GPIO_PIN_0
 #define HSE_IN_GPIO_Port GPIOH
 #define HSE_OUT_Pin GPIO_PIN_1
@@ -93,10 +95,10 @@ void Error_Handler(void);
 #define COL5_GPIO_Port GPIOB
 #define COL4_Pin GPIO_PIN_1
 #define COL4_GPIO_Port GPIOB
-#define COL3B2_Pin GPIO_PIN_2
-#define COL3B2_GPIO_Port GPIOB
-#define BOOT1_Pin GPIO_PIN_10
+#define BOOT1_Pin GPIO_PIN_2
 #define BOOT1_GPIO_Port GPIOB
+#define COL2_Pin GPIO_PIN_10
+#define COL2_GPIO_Port GPIOB
 #define COL1_Pin GPIO_PIN_11
 #define COL1_GPIO_Port GPIOB
 #define LEDH_Pin GPIO_PIN_12
