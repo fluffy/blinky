@@ -606,22 +606,20 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, ROW6_Pin|ROW7_Pin|ROW8_Pin|ROW5_Pin
-                          |COL3_Pin|ROW3_Pin|ROW2_Pin|ROW1_Pin
-                          |DB4_Pin, GPIO_PIN_RESET);
+                          |ROW3_Pin|ROW2_Pin|ROW1_Pin|DB4_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin|LEDM1_Pin|LEDE_Pin|LEDD_Pin
-                          |LEDC_Pin|LEDB_Pin|LEDA_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin|LEDM1_Pin|LEDM2_Pin|LEDE_Pin
+                          |LEDD_Pin|LEDC_Pin|LEDB_Pin|LEDA_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(COL3_GPIO_Port, COL3_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, COL5_Pin|COL4_Pin|COL1_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOB, COL5_Pin|COL4_Pin|COL2_Pin|COL1_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, COL2_Pin|LEDH_Pin|LEDG_Pin|LEDF_Pin
-                          |ROW4_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LEDH_Pin|LEDG_Pin|LEDF_Pin|ROW4_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DB3_GPIO_Port, DB3_Pin, GPIO_PIN_RESET);
