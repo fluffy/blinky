@@ -220,13 +220,22 @@ void TIM7_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM7_IRQn 0 */
   static int tim7Count=0;
-  tim7Count++;
-  if ( tim7Count % 500  == 0 ) {
-    HAL_GPIO_TogglePin( LEDA_GPIO_Port, LEDA_Pin );
-  }
+  tim7Count++;// counting in ms 
+
+  // Low 4 bits of display 
+  if ( tim7Count % 100  == 0 ) { HAL_GPIO_TogglePin( LEDC_GPIO_Port, LEDC_Pin ); }
+  if ( tim7Count % 200  == 0 ) { HAL_GPIO_TogglePin( LEDB_GPIO_Port, LEDB_Pin ); }
+  if ( tim7Count % 400  == 0 ) { HAL_GPIO_TogglePin( LEDE_GPIO_Port, LEDE_Pin ); }
+  if ( tim7Count % 800  == 0 ) { HAL_GPIO_TogglePin( LEDD_GPIO_Port, LEDD_Pin ); }
+  
+  // High 4 bits of display 
+  if ( tim7Count %  1600  == 0 ) { HAL_GPIO_TogglePin( LEDG_GPIO_Port, LEDG_Pin ); }
+  if ( tim7Count %  3200  == 0 ) { HAL_GPIO_TogglePin( LEDF_GPIO_Port, LEDF_Pin ); }
+  if ( tim7Count %  6400  == 0 ) { HAL_GPIO_TogglePin( LEDH_GPIO_Port, LEDH_Pin ); }
+  if ( tim7Count % 12800  == 0 ) { HAL_GPIO_TogglePin( LEDA_GPIO_Port, LEDA_Pin ); }
 
   if ( 1 ) {
-    const int tickTime = 100; 
+    const int tickTime = 5; 
     int row = 1+ (( tim7Count / tickTime ) % 8);
     int col = 1+ (( tim7Count / (tickTime*8) ) % 5);
     
