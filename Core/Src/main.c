@@ -120,9 +120,9 @@ int main(void)
   //HAL_GPIO_WritePin(GPIOC, ROW4_Pin, GPIO_PIN_SET);
   //HAL_GPIO_WritePin(GPIOB, COL3_Pin, GPIO_PIN_RESET);
 
-  HAL_GPIO_WritePin(GPIOA, LEDM1_Pin, GPIO_PIN_SET); // turn off error LED 
-  HAL_GPIO_WritePin(GPIOA, LEDM2_Pin, GPIO_PIN_SET); // turn off assert LED
-  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED
+  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin, GPIO_PIN_SET); // turn off error LED 
+  HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin, GPIO_PIN_SET); // turn off assert LED
+  HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED
   
   //HAL_GPIO_TogglePin(GPIOA, LEDC_Pin );
 
@@ -132,8 +132,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin, GPIO_PIN_RESET); // turn on ok LED
- 
+
+   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_RESET); // turn on ok LED
+
+   HAL_GPIO_WritePin(LEDB_GPIO_Port, LEDB_Pin, GPIO_PIN_SET); // turn 
+   HAL_GPIO_WritePin(LEDC_GPIO_Port, LEDC_Pin, GPIO_PIN_RESET); // turn 
+
+  
   while (1)
   {
     /* USER CODE END WHILE */
@@ -689,9 +694,9 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
-  HAL_GPIO_WritePin(GPIOA, LEDM1_Pin, GPIO_PIN_RESET); // turn on error LED 
-  HAL_GPIO_WritePin(GPIOA, LEDM2_Pin, GPIO_PIN_SET); // turn off assert LED
-  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED 
+  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin, GPIO_PIN_RESET); // turn on error LED 
+  HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin, GPIO_PIN_SET); // turn off assert LED
+  HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED 
   while (1) {
   }
   /* USER CODE END Error_Handler_Debug */
@@ -710,9 +715,9 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  HAL_GPIO_WritePin(GPIOA, LEDM1_Pin, GPIO_PIN_SET); // turn off error LED 
-  HAL_GPIO_WritePin(GPIOA, LEDM2_Pin, GPIO_PIN_RESET); // turn on assert LED
-  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED 
+  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin, GPIO_PIN_SET); // turn off error LED 
+  HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin, GPIO_PIN_RESET); // turn on assert LED
+  HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED 
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

@@ -222,23 +222,28 @@ void TIM7_IRQHandler(void)
   static int tim7Count=0;
   tim7Count++;
   if ( tim7Count % 500  == 0 ) {
-    HAL_GPIO_TogglePin(GPIOA, LEDE_Pin );
+    HAL_GPIO_TogglePin( LEDA_GPIO_Port, LEDA_Pin );
   }
 
   if ( 1 ) {
-    int col = 1+ (( tim7Count / 5 ) % 5);
-    int row = 1+ (( tim7Count / 25 ) % 4);
+    const int tickTime = 100; 
+    int row = 1+ (( tim7Count / tickTime ) % 8);
+    int col = 1+ (( tim7Count / (tickTime*8) ) % 5);
     
-    HAL_GPIO_WritePin(GPIOC, ROW1_Pin, (row==1) ? GPIO_PIN_SET : GPIO_PIN_RESET );
-    HAL_GPIO_WritePin(GPIOC, ROW2_Pin, (row==2) ? GPIO_PIN_SET : GPIO_PIN_RESET );
-    HAL_GPIO_WritePin(GPIOC, ROW3_Pin, (row==3) ? GPIO_PIN_SET : GPIO_PIN_RESET );
-    HAL_GPIO_WritePin(GPIOC, ROW4_Pin, (row==4) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW1_GPIO_Port, ROW1_Pin, (row==5) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW2_GPIO_Port, ROW2_Pin, (row==4) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW3_GPIO_Port, ROW3_Pin, (row==3) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW4_GPIO_Port, ROW4_Pin, (row==2) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW5_GPIO_Port, ROW5_Pin, (row==1) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW6_GPIO_Port, ROW6_Pin, (row==6) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW7_GPIO_Port, ROW7_Pin, (row==7) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW8_GPIO_Port, ROW8_Pin, (row==8) ? GPIO_PIN_SET : GPIO_PIN_RESET );
 
-    HAL_GPIO_WritePin(GPIOB, COL1_Pin, (col==1) ? GPIO_PIN_RESET : GPIO_PIN_SET );
-    HAL_GPIO_WritePin(GPIOB, COL2_Pin, (col==2) ? GPIO_PIN_RESET : GPIO_PIN_SET );
-    HAL_GPIO_WritePin(GPIOB, COL3_Pin, (col==3) ? GPIO_PIN_RESET : GPIO_PIN_SET );
-    HAL_GPIO_WritePin(GPIOB, COL4_Pin, (col==4) ? GPIO_PIN_RESET : GPIO_PIN_SET );
-    HAL_GPIO_WritePin(GPIOB, COL5_Pin, (col==5) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+    HAL_GPIO_WritePin( COL1_GPIO_Port, COL1_Pin, (col==2) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+    HAL_GPIO_WritePin( COL2_GPIO_Port, COL2_Pin, (col==1) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+    HAL_GPIO_WritePin( COL3_GPIO_Port, COL3_Pin, (col==5) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+    HAL_GPIO_WritePin( COL4_GPIO_Port, COL4_Pin, (col==3) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+    HAL_GPIO_WritePin( COL5_GPIO_Port, COL5_Pin, (col==4) ? GPIO_PIN_RESET : GPIO_PIN_SET );
   }
   
   /* USER CODE END TIM7_IRQn 0 */
