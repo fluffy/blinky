@@ -41,6 +41,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
+int fluffyDebugCount=0;
 
 /* USER CODE END PV */
 
@@ -227,8 +228,6 @@ void TIM3_IRQHandler(void)
 
   /* USER CODE END TIM3_IRQn 1 */
 }
-
-int fluffyDebugCount; // TODO remove
 
 /**
   * @brief This function handles TIM7 global interrupt.
