@@ -239,8 +239,8 @@ void TIM7_IRQHandler(void)
   static int tim7Count=0;
   tim7Count++;// counting in ms 
 
-  int gridCount = tim7Count / 2000;  // TODO change to div 5 
-  int binCount = tim7Count / 1000;  // TODO change to div 100
+  int gridCount = tim7Count / 5000;  // TODO change to div 5 
+  int binCount = tim7Count / 2000;  // TODO change to div 100
   fluffyDebugCount = gridCount; 
  
   if ( 1 ) {
