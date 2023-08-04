@@ -237,22 +237,24 @@ void TIM7_IRQHandler(void)
   static int tim7Count=0;
   tim7Count++;// counting in ms 
 
+  int dispCount = tim7Count/1000; // TODO remove div 1000
+  
   // Low 4 bits of display 
-  if ( tim7Count % 100  == 0 ) { HAL_GPIO_TogglePin( LEDC_GPIO_Port, LEDC_Pin ); }
-  if ( tim7Count % 200  == 0 ) { HAL_GPIO_TogglePin( LEDB_GPIO_Port, LEDB_Pin ); }
-  if ( tim7Count % 400  == 0 ) { HAL_GPIO_TogglePin( LEDE_GPIO_Port, LEDE_Pin ); }
-  if ( tim7Count % 800  == 0 ) { HAL_GPIO_TogglePin( LEDD_GPIO_Port, LEDD_Pin ); }
+  if ( dispCount % 100  == 0 ) { HAL_GPIO_TogglePin( LEDC_GPIO_Port, LEDC_Pin ); }
+  if ( dispCount % 200  == 0 ) { HAL_GPIO_TogglePin( LEDB_GPIO_Port, LEDB_Pin ); }
+  if ( dispCount % 400  == 0 ) { HAL_GPIO_TogglePin( LEDE_GPIO_Port, LEDE_Pin ); }
+  if ( dispCount % 800  == 0 ) { HAL_GPIO_TogglePin( LEDD_GPIO_Port, LEDD_Pin ); }
   
   // High 4 bits of display 
-  if ( tim7Count %  1600  == 0 ) { HAL_GPIO_TogglePin( LEDG_GPIO_Port, LEDG_Pin ); }
-  if ( tim7Count %  3200  == 0 ) { HAL_GPIO_TogglePin( LEDF_GPIO_Port, LEDF_Pin ); }
-  if ( tim7Count %  6400  == 0 ) { HAL_GPIO_TogglePin( LEDH_GPIO_Port, LEDH_Pin ); }
-  if ( tim7Count % 12800  == 0 ) { HAL_GPIO_TogglePin( LEDA_GPIO_Port, LEDA_Pin ); }
+  if ( dispCount %  1600  == 0 ) { HAL_GPIO_TogglePin( LEDG_GPIO_Port, LEDG_Pin ); }
+  if ( dispCount %  3200  == 0 ) { HAL_GPIO_TogglePin( LEDF_GPIO_Port, LEDF_Pin ); }
+  if ( dispCount %  6400  == 0 ) { HAL_GPIO_TogglePin( LEDH_GPIO_Port, LEDH_Pin ); }
+  if ( dispCount % 12800  == 0 ) { HAL_GPIO_TogglePin( LEDA_GPIO_Port, LEDA_Pin ); }
 
   if ( 1 ) {
     const int tickTime = 5; 
-    int row = 1+ (( tim7Count / tickTime ) % 8);
-    int col = 1+ (( tim7Count / (tickTime*8) ) % 5);
+    int row = 1+ (( dispCount / tickTime ) % 8);
+    int col = 1+ (( dispCount / (tickTime*8) ) % 5);
     
     HAL_GPIO_WritePin( ROW1_GPIO_Port, ROW1_Pin, (row==5) ? GPIO_PIN_SET : GPIO_PIN_RESET );
     HAL_GPIO_WritePin( ROW2_GPIO_Port, ROW2_Pin, (row==4) ? GPIO_PIN_SET : GPIO_PIN_RESET );
