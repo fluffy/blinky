@@ -228,6 +228,8 @@ void TIM3_IRQHandler(void)
   /* USER CODE END TIM3_IRQn 1 */
 }
 
+int fluffyDebugCount; // TODO remove
+
 /**
   * @brief This function handles TIM7 global interrupt.
   */
@@ -237,24 +239,14 @@ void TIM7_IRQHandler(void)
   static int tim7Count=0;
   tim7Count++;// counting in ms 
 
-  int dispCount = tim7Count/1000; // TODO remove div 1000
-  
-  // Low 4 bits of display 
-  if ( dispCount % 100  == 0 ) { HAL_GPIO_TogglePin( LEDC_GPIO_Port, LEDC_Pin ); }
-  if ( dispCount % 200  == 0 ) { HAL_GPIO_TogglePin( LEDB_GPIO_Port, LEDB_Pin ); }
-  if ( dispCount % 400  == 0 ) { HAL_GPIO_TogglePin( LEDE_GPIO_Port, LEDE_Pin ); }
-  if ( dispCount % 800  == 0 ) { HAL_GPIO_TogglePin( LEDD_GPIO_Port, LEDD_Pin ); }
-  
-  // High 4 bits of display 
-  if ( dispCount %  1600  == 0 ) { HAL_GPIO_TogglePin( LEDG_GPIO_Port, LEDG_Pin ); }
-  if ( dispCount %  3200  == 0 ) { HAL_GPIO_TogglePin( LEDF_GPIO_Port, LEDF_Pin ); }
-  if ( dispCount %  6400  == 0 ) { HAL_GPIO_TogglePin( LEDH_GPIO_Port, LEDH_Pin ); }
-  if ( dispCount % 12800  == 0 ) { HAL_GPIO_TogglePin( LEDA_GPIO_Port, LEDA_Pin ); }
-
+  int gridCount = tim7Count / 2000;  // TODO change to div 5 
+  int binCount = tim7Count / 1000;  // TODO change to div 100
+  fluffyDebugCount = gridCount; 
+ 
   if ( 1 ) {
     const int tickTime = 5; 
-    int row = 1+ (( dispCount / tickTime ) % 8);
-    int col = 1+ (( dispCount / (tickTime*8) ) % 5);
+    int row = 1+ (( gridCount ) % 8);
+    int col = 1+ (( gridCount / 8 ) % 5);
     
     HAL_GPIO_WritePin( ROW1_GPIO_Port, ROW1_Pin, (row==5) ? GPIO_PIN_SET : GPIO_PIN_RESET );
     HAL_GPIO_WritePin( ROW2_GPIO_Port, ROW2_Pin, (row==4) ? GPIO_PIN_SET : GPIO_PIN_RESET );
@@ -270,6 +262,20 @@ void TIM7_IRQHandler(void)
     HAL_GPIO_WritePin( COL3_GPIO_Port, COL3_Pin, (col==5) ? GPIO_PIN_RESET : GPIO_PIN_SET );
     HAL_GPIO_WritePin( COL4_GPIO_Port, COL4_Pin, (col==3) ? GPIO_PIN_RESET : GPIO_PIN_SET );
     HAL_GPIO_WritePin( COL5_GPIO_Port, COL5_Pin, (col==4) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+  }
+
+  if (1) {
+    // Low 4 bits of display 
+    HAL_GPIO_WritePin( LEDC_GPIO_Port, LEDC_Pin, (binCount & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( LEDB_GPIO_Port, LEDB_Pin, (binCount & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( LEDE_GPIO_Port, LEDE_Pin, (binCount & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    HAL_GPIO_WritePin( LEDD_GPIO_Port, LEDD_Pin, (binCount & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    
+    // High 4 bits of display 
+    HAL_GPIO_WritePin( LEDG_GPIO_Port, LEDG_Pin, (binCount & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    HAL_GPIO_WritePin( LEDF_GPIO_Port, LEDF_Pin, (binCount & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    HAL_GPIO_WritePin( LEDH_GPIO_Port, LEDH_Pin, (binCount & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    HAL_GPIO_WritePin( LEDA_GPIO_Port, LEDA_Pin, (binCount & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
   }
   
   /* USER CODE END TIM7_IRQn 0 */
