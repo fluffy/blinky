@@ -11,15 +11,15 @@ st-flash --reset --format ihex write build/blinky.hex
 
 # Features 
 
-# Roadmap Features 
+* Display 5ms ticks on 8x5 LED grid 
 
-* Display 5ms ticks on 5x4 LED grid 
-
-* Display tenths of seconds in BCD on 8 LEDs
-
-* 10 Mhz sine wave output 1V p2p into 50 ohm, 3 channels 
+* Display tenths of seconds in binary on 8 LEDs
 
 * 3.3V PPS output 
+
+# Roadmap Features 
+
+* 10 Mhz sine wave output 1V p2p into 50 ohm, 3 channels 
 
 * Jam sync to 3.3V input 
 
@@ -27,7 +27,7 @@ st-flash --reset --format ihex write build/blinky.hex
 
 * Show current PPS offset from GPS PPS
 
-* Compare PPS accurace to GPS over 24 hours 
+* Compare PPS accuracy to GPS over 24 hours 
 
 * Adjust local osc to GPS and store correction 
 
@@ -41,11 +41,11 @@ st-flash --reset --format ihex write build/blinky.hex
 
 * buttons for menu/select/up/down
 
-* set input delay from length of GPS cable 
+* set input time delay from length of GPS cable 
 
 * nice box 
 
-* battery with 2h life and USB charge 
+* battery with 2h life and USB charger 
 
 * AC wall adapter power 
 
