@@ -243,7 +243,6 @@ void TIM7_IRQHandler(void)
   fluffyDebugCount = gridCount; 
  
   if ( 1 ) {
-    const int tickTime = 5; 
     int row = 1+ (( gridCount ) % 8);
     int col = 1+ (( gridCount / 8 ) % 5);
     

@@ -74,6 +74,11 @@ static void MX_USART3_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
+  if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon rising edge 
+     HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+  }
+}
 
 /* USER CODE END 0 */
 
@@ -128,7 +133,11 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim7);
 
-  HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_2 ); // start sync out
+  HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_2 ); // start sync out 
+
+  HAL_TIM_IC_Init(&htim2);
+  //HAL_TIM_IC_Start_IT (&htim2, TIM_CHANNEL_1); // start sync in 
+  HAL_TIM_IC_Start_IT( &htim2, TIM_CHANNEL_4 ); // start sync mon 
   
   /* USER CODE END 2 */
 
@@ -358,7 +367,7 @@ static void MX_TIM2_Init(void)
   {
     Error_Handler();
   }
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_BOTHEDGE;
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
   sConfigIC.ICFilter = 0;
@@ -366,7 +375,6 @@ static void MX_TIM2_Init(void)
   {
     Error_Handler();
   }
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
   if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
@@ -723,9 +731,12 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+   __disable_irq();
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin, GPIO_PIN_SET); // turn off error LED 
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin, GPIO_PIN_RESET); // turn on assert LED
-  HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED 
+  HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED
+  while (1) {
+  }
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
