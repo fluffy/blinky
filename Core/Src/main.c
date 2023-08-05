@@ -75,8 +75,11 @@ static void MX_USART3_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon rising edge 
+  if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in rising edge 
      HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+  }
+   if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon rising edge 
+     //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
   }
 }
 
@@ -136,7 +139,7 @@ int main(void)
   HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_2 ); // start sync out 
 
   HAL_TIM_IC_Init(&htim2);
-  //HAL_TIM_IC_Start_IT (&htim2, TIM_CHANNEL_1); // start sync in 
+  HAL_TIM_IC_Start_IT (&htim2, TIM_CHANNEL_1); // start sync in 
   HAL_TIM_IC_Start_IT( &htim2, TIM_CHANNEL_4 ); // start sync mon 
   
   /* USER CODE END 2 */
