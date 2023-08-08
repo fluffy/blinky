@@ -8,6 +8,8 @@ Blinking lights to tell time
 ```
 make 
 st-flash --reset --format ihex write build/blinky.hex
+screen /dev/cu.usbserial-21110 115200
+exit screen with ^A^\
 ```
 
 

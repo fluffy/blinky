@@ -21,6 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -149,8 +151,16 @@ int main(void)
 
    HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_RESET); // turn on ok LED
 
+   int count=0;
   while (1)
   {
+    char buffer[100];
+    snprintf( buffer, sizeof(buffer), "Hello %d \r\n", count++ );
+    
+    HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+
+    HAL_Delay( 500 );
+    
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
