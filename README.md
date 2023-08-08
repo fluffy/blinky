@@ -2,12 +2,14 @@
 
 Blinking lights to tell time
 
+
 # Build and flash
 
 ```
 make 
 st-flash --reset --format ihex write build/blinky.hex
 ```
+
 
 # Features 
 
@@ -17,9 +19,15 @@ st-flash --reset --format ihex write build/blinky.hex
 
 * 3.3V PPS output 
 
+
+
 # Roadmap Features 
 
-* 10 Mhz sine wave output 1V p2p into 50 ohm, 3 channels 
+* Time drift of < 5 ms in 1 hour 
+
+* Jitter of less than 1 ms 
+
+\* 10 Mhz sine wave output 1V p2p into 50 ohm, 3 channels 
 
 * Jam sync to 3.3V input 
 
@@ -31,9 +39,7 @@ st-flash --reset --format ihex write build/blinky.hex
 
 * Adjust local osc to GPS and store correction 
 
-* Time drift of < 5 ms in 1 hour 
 
-* Jitter of less than 1 ms 
 
 # Wishlist 
 
@@ -56,4 +62,10 @@ st-flash --reset --format ihex write build/blinky.hex
 * RTC clock and battery 
 
 * do SMPT LTC time codes on sync in / out 
+
+* audio out of beep
+
+* audio in to detect beep
+
+* headset moniotr of audio out
 
