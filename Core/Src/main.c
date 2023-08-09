@@ -55,6 +55,7 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
+uint32_t dataMonCapture;
 
 /* USER CODE END PV */
 
@@ -77,11 +78,13 @@ static void MX_USART3_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in rising edge 
-     HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
-  }
-   if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon rising edge 
-     //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+  if ( htim == &htim2 ) {
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in some edge 
+    }
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon some edge 
+      HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+      dataMonCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_4 );
+    }
   }
 }
 
@@ -103,6 +106,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  dataMonCapture = 0xFFFFffff;
 
   /* USER CODE END Init */
 
@@ -134,14 +138,23 @@ int main(void)
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin, GPIO_PIN_SET); // turn off assert LED
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED
   
-  //HAL_GPIO_TogglePin(GPIOA, LEDC_Pin );
+  HAL_GPIO_WritePin(LEDA_GPIO_Port, LEDA_Pin, GPIO_PIN_RESET );
+  HAL_GPIO_WritePin(LEDB_GPIO_Port, LEDB_Pin, GPIO_PIN_RESET );
+  HAL_GPIO_WritePin(LEDC_GPIO_Port, LEDC_Pin, GPIO_PIN_RESET );
+  HAL_GPIO_WritePin(LEDD_GPIO_Port, LEDD_Pin, GPIO_PIN_RESET );
+
+  HAL_GPIO_WritePin(LEDE_GPIO_Port, LEDE_Pin, GPIO_PIN_RESET );
+  HAL_GPIO_WritePin(LEDF_GPIO_Port, LEDF_Pin, GPIO_PIN_RESET );
+  HAL_GPIO_WritePin(LEDG_GPIO_Port, LEDG_Pin, GPIO_PIN_RESET );
+  HAL_GPIO_WritePin(LEDH_GPIO_Port, LEDH_Pin, GPIO_PIN_RESET );
 
   HAL_TIM_Base_Start_IT(&htim7);
 
   HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_2 ); // start sync out 
-
-  HAL_TIM_IC_Init(&htim2);
-  HAL_TIM_IC_Start_IT (&htim2, TIM_CHANNEL_1); // start sync in 
+  // HAL_TIM_OC_Start_IT()
+  
+  //HAL_TIM_Base_Start_IT(&htim2); 
+  //HAL_TIM_IC_Start_IT (&htim2, TIM_CHANNEL_1 ); // start sync in 
   HAL_TIM_IC_Start_IT( &htim2, TIM_CHANNEL_4 ); // start sync mon 
   
   /* USER CODE END 2 */
@@ -151,19 +164,31 @@ int main(void)
 
    HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_RESET); // turn on ok LED
 
-   int count=0;
-  while (1)
-  {
-    char buffer[100];
-    snprintf( buffer, sizeof(buffer), "Hello %d \r\n", count++ );
-    
-    HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+   int loopCount=0;
+   while (1) {
+     char buffer[100];
 
-    HAL_Delay( 500 );
+     if ( loopCount %10 == 0 ) {
+       snprintf( buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount );
+       HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+     }
+
+     uint32_t val = __HAL_TIM_GetCounter(&htim2);
+     snprintf( buffer, sizeof(buffer), "val %ld \r\n", val/1000 );
+     HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+
+     if ( dataMonCapture != 0xFFFFffff ) {
+     snprintf( buffer, sizeof(buffer), "   mon: %ld \r\n", dataMonCapture / 1000 );
+     dataMonCapture = 0xFFFFffff;
+     HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+     }
+     
+     HAL_Delay( 100 );
     
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+     loopCount++;
   }
   /* USER CODE END 3 */
 }
@@ -356,9 +381,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 84;
+  htim2.Init.Prescaler = 84-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 1000000;
+  htim2.Init.Period = 1000000-1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -388,6 +413,7 @@ static void MX_TIM2_Init(void)
   {
     Error_Handler();
   }
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_FALLING;
   if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
@@ -443,7 +469,7 @@ static void MX_TIM3_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 9000;
+  sConfigOC.Pulse = 4000;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)

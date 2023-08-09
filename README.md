@@ -29,7 +29,7 @@ exit screen with ^A^\
 
 * Jitter of less than 1 ms 
 
-\* 10 Mhz sine wave output 1V p2p into 50 ohm, 3 channels 
+* 10 Mhz sine wave output 1V p2p into 50 ohm, 3 channels 
 
 * Jam sync to 3.3V input 
 
@@ -43,7 +43,12 @@ exit screen with ^A^\
 
 
 
-# Wishlist 
+# Wishlist
+
+* 1 board with GPS, OCXO, wall power, 3 x 10Mhz out, LTC sync out, LTC sync in, serial debug out
+
+* 1 board with 10 Mhz in, 10 Mhz out, TXCO, LTC Sync in, LTC Sync out, LED grid, battery power, USB charge, audio in/out
+
 
 * display 
 
