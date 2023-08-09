@@ -56,6 +56,7 @@ UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 uint32_t dataMonCapture;
+uint32_t dataSyncCapture;
 
 /* USER CODE END PV */
 
@@ -79,10 +80,12 @@ static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN 0 */
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
   if ( htim == &htim2 ) {
-    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in some edge 
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in some edge
+      dataSyncCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_1 );
+      HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     }
     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon some edge 
-      HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+      //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
       dataMonCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_4 );
     }
   }
@@ -107,6 +110,7 @@ int main(void)
 
   /* USER CODE BEGIN Init */
   dataMonCapture = 0xFFFFffff;
+  dataSyncCapture = 0xFFFFffff;
 
   /* USER CODE END Init */
 
@@ -154,7 +158,7 @@ int main(void)
   // HAL_TIM_OC_Start_IT()
   
   //HAL_TIM_Base_Start_IT(&htim2); 
-  //HAL_TIM_IC_Start_IT (&htim2, TIM_CHANNEL_1 ); // start sync in 
+  HAL_TIM_IC_Start_IT (&htim2, TIM_CHANNEL_1 ); // start sync in 
   HAL_TIM_IC_Start_IT( &htim2, TIM_CHANNEL_4 ); // start sync mon 
   
   /* USER CODE END 2 */
@@ -173,16 +177,22 @@ int main(void)
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
      }
 
-     uint32_t val = __HAL_TIM_GetCounter(&htim2);
-     snprintf( buffer, sizeof(buffer), "val %ld \r\n", val/1000 );
-     HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+     //uint32_t val = __HAL_TIM_GetCounter(&htim2);
+     //snprintf( buffer, sizeof(buffer), "val %ld \r\n", val/1000 );
+     //HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
 
      if ( dataMonCapture != 0xFFFFffff ) {
-     snprintf( buffer, sizeof(buffer), "   mon: %ld \r\n", dataMonCapture / 1000 );
-     dataMonCapture = 0xFFFFffff;
-     HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+       snprintf( buffer, sizeof(buffer), "   mon : %ld \r\n", dataMonCapture / 1000 );
+       dataMonCapture = 0xFFFFffff;
+       HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
      }
-     
+
+     if ( dataSyncCapture != 0xFFFFffff ) {
+       snprintf( buffer, sizeof(buffer), "   sync: %ld \r\n", dataSyncCapture / 1000 );
+       dataSyncCapture = 0xFFFFffff;
+       HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+     }
+        
      HAL_Delay( 100 );
     
     /* USER CODE END WHILE */
