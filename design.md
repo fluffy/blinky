@@ -3,6 +3,38 @@
 Sync refers to Sync In
 Out refers to Sync Out
 
+## Signalls 
+ 
+ ExtIn 10 MHz input 
+ RefIn 10 Mhz OCXO input
+ ExtOut 10 MHz output from MCO 
+ 
+ SyncOut 1 pps output 
+ SyncMon 1 pps in ( from SyncOut ) 
+ SyncIn 1 pps input 
+ GpsIn 1 pps input 
+ 
+ 
+ ## Timers 
+ 
+system clock or RefIn drives main 32 bit coutner with overlofow to 16
+ bit 
+ 
+ExtIn drives aux 32 bit coutner with 16 bit overflow. 
+ 
+Main and aux count at 10 Mhz and wrap ever second. 
+ 
+Every timer can capture syncMon to provide sync of counters. Probaly
+don't need for the secondary counter for main and aux
+ 
+Main and Aux can capture 
+ SyncMon, SyncIn, GpsIn 
+ 
+Main and Aux can genrate SyncOut 
+
+Display TImer drives LED and sync to main or aux rollover 
+* does this need to capture syncMon ???
+
 ### Main Timer:
 * Use timer X
 * 32 bits
@@ -16,11 +48,11 @@ Out refers to Sync Out
 * Capture GPS PPS
 * Genrate Sync Out
 
-### Second Time
+### MainSeconds Time
 * User Timer X, 16 bits
 * clocked from Main Timer
-* counds seconds, rollover 18 hours 
-
+* counts seconds, rollover 18 hours 
+* Capture Sync Mon
 
 ### Blink Timer
 * triggerreset by main timer every second
@@ -36,12 +68,12 @@ Out refers to Sync Out
 * capture GPS PPS
 * capture SyncIn
 
-Aux Time 2
+### AuxSeconds  Time 2
 * clock from Aux timer
 * 16 bit
 * gives totall counter of 48 bits for external 10Mhz
 * rollover around 10 months 
-
+* Capture Sync Mon
 
 # Interupt Handling
 

@@ -19,7 +19,7 @@ exit screen with ^A^\
 
 * Display tenths of seconds in binary on 8 LEDs
 
-* 3.3V PPS output 
+* 3.3V PPS Sync Out 
 
 
 
@@ -31,7 +31,7 @@ exit screen with ^A^\
 
 * 10 Mhz sine wave output 1V p2p into 50 ohm, 3 channels 
 
-* Jam sync to 3.3V input 
+* Jam sync to 3.3V Sync input
 
 * Sync to GPS PPS 
 
@@ -41,14 +41,21 @@ exit screen with ^A^\
 
 * Adjust local osc to GPS and store correction 
 
+* Status LEDs: error(red), external synced ( green ), exernal not sync (
+  yellow ) but PPS 
 
+* serial display of: Time, GPS Error, SyncIn Error, Aux Count Error 
+
+* press button to sync all and reset errors 
 
 # Wishlist
 
-* 1 board with GPS, OCXO, wall power, 3 x 10Mhz out, LTC sync out, LTC sync in, serial debug out
+* Heavy board with GPS, OCXO, wall power, 3 x 10Mhz out, LTC sync out, LTC
+  sync in, serial debug out, Ext 10 Mhz in, 10 Mhz out,  
 
-* 1 board with 10 Mhz in, 10 Mhz out, TXCO, LTC Sync in, LTC Sync out, LED grid, battery power, USB charge, audio in/out
+* Light board with TXCO, LTC Sync in, LTC Sync out, LED grid, battery power, USB charge, audio in/out
 
+* save time error correction, version, serial in EEPROM 
 
 * display 
 
