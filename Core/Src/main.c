@@ -94,17 +94,22 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
    if ( htim == &htim3 ) {
      HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+
+     static int firstTime=1;
+     if ( firstTime ) { firstTime=0; return; }
      
      uint16_t val = __HAL_TIM_GET_COMPARE( &htim3,  TIM_CHANNEL_2 );
-     if ( val == 2000 ) {
-       val += 1000;
-       __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , val );
-     } else {
-       val = 2000;
+     if ( val != 7000 ) {
+       val = 7000;
        __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , val );
      }
-       
-  
+     else {
+       val += 1000;
+       if ( val >= 10000 ) {
+         val -= 10000;
+       }
+       __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , val );
+     }
    }
 }
 
@@ -496,7 +501,7 @@ static void MX_TIM3_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_TOGGLE;
-  sConfigOC.Pulse = 2000;
+  sConfigOC.Pulse = 7000;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_OC_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
