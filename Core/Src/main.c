@@ -199,10 +199,15 @@ int main(void)
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
      }
 
-     //uint32_t val = __HAL_TIM_GetCounter(&htim2);
-     //snprintf( buffer, sizeof(buffer), "val %ld \r\n", val/1000 );
-     //HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
-
+#if 1
+     uint32_t prevVal = 0;
+     uint32_t val = __HAL_TIM_GetCounter(&htim2);
+     snprintf( buffer, sizeof(buffer), "delta %ld \r\n",(val-prevVal) / 1l );
+     HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+     snprintf( buffer, sizeof(buffer), "delta %ld m \r\n", (val-prevVal) / 1000000l );
+     HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif 
+     
      if ( dataMonCapture != 0xFFFFffff ) {
        snprintf( buffer, sizeof(buffer), "   mon : %ld \r\n", dataMonCapture / 1000 );
        dataMonCapture = 0xFFFFffff;
@@ -215,7 +220,7 @@ int main(void)
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
      }
         
-     HAL_Delay( 100 );
+     HAL_Delay( 1000 );
     
     /* USER CODE END WHILE */
 
@@ -413,16 +418,19 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 84-1;
+  htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 1000000-1;
+  htim2.Init.Period = 0xFFFFffff;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
   {
     Error_Handler();
   }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_ETRMODE2;
+  sClockSourceConfig.ClockPolarity = TIM_CLOCKPOLARITY_NONINVERTED;
+  sClockSourceConfig.ClockPrescaler = TIM_CLOCKPRESCALER_DIV1;
+  sClockSourceConfig.ClockFilter = 0;
   if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
   {
     Error_Handler();
@@ -441,10 +449,6 @@ static void MX_TIM2_Init(void)
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
   sConfigIC.ICFilter = 0;
-  if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
   if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
