@@ -82,13 +82,30 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
   if ( htim == &htim2 ) {
     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in some edge
       dataSyncCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_1 );
-      HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+      //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     }
     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon some edge 
       //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
       dataMonCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_4 );
     }
   }
+}
+
+void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
+   if ( htim == &htim3 ) {
+     HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+     
+     uint16_t val = __HAL_TIM_GET_COMPARE( &htim3,  TIM_CHANNEL_2 );
+     if ( val == 2000 ) {
+       val += 1000;
+       __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , val );
+     } else {
+       val = 2000;
+       __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , val );
+     }
+       
+  
+   }
 }
 
 /* USER CODE END 0 */
@@ -154,8 +171,8 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim7);
 
-  HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_2 ); // start sync out 
-  // HAL_TIM_OC_Start_IT()
+  //HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_2 ); // start sync out 
+  HAL_TIM_OC_Start_IT( &htim3, TIM_CHANNEL_2 ); // start sync out 
   
   //HAL_TIM_Base_Start_IT(&htim2); 
   HAL_TIM_IC_Start_IT (&htim2, TIM_CHANNEL_1 ); // start sync in 
@@ -468,7 +485,7 @@ static void MX_TIM3_Init(void)
   {
     Error_Handler();
   }
-  if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
+  if (HAL_TIM_OC_Init(&htim3) != HAL_OK)
   {
     Error_Handler();
   }
@@ -478,11 +495,11 @@ static void MX_TIM3_Init(void)
   {
     Error_Handler();
   }
-  sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 4000;
+  sConfigOC.OCMode = TIM_OCMODE_TOGGLE;
+  sConfigOC.Pulse = 2000;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  if (HAL_TIM_OC_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
   }
