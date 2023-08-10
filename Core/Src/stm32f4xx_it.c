@@ -236,7 +236,9 @@ void TIM7_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM7_IRQn 0 */
   static int tim7Count=0;
-#if 1
+#if 1 // This block of code takes 1.9 uS and runs every 1 mS 
+   HAL_GPIO_WritePin( DB2_GPIO_Port, DB2_Pin,GPIO_PIN_SET );
+   
   tim7Count++;// counting in ms 
 
   int gridCount = tim7Count / 5000;  // TODO change to div 5 
@@ -274,8 +276,11 @@ void TIM7_IRQHandler(void)
     HAL_GPIO_WritePin( LEDG_GPIO_Port, LEDG_Pin, (binCount & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
     HAL_GPIO_WritePin( LEDF_GPIO_Port, LEDF_Pin, (binCount & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
     HAL_GPIO_WritePin( LEDH_GPIO_Port, LEDH_Pin, (binCount & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
-    HAL_GPIO_WritePin( LEDA_GPIO_Port, LEDA_Pin, (binCount & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    HAL_GPIO_WritePin( LEDA_GPIO_Port, LEDA_Pin, (binCount & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+
   }
+
+  HAL_GPIO_WritePin( DB2_GPIO_Port, DB2_Pin,GPIO_PIN_RESET );
 #endif
   /* USER CODE END TIM7_IRQn 0 */
   HAL_TIM_IRQHandler(&htim7);
