@@ -57,6 +57,9 @@ UART_HandleTypeDef huart3;
 /* USER CODE BEGIN PV */
 uint32_t dataMonCapture;
 uint32_t dataSyncCapture;
+uint16_t dataSyncOutPhase;
+uint16_t dataSyncOutPhasePrev;
+
 
 /* USER CODE END PV */
 
@@ -96,15 +99,15 @@ void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
      HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
 
      static int firstTime=1;
-     if ( firstTime ) { firstTime=0; return; }
+     if ( firstTime ) { firstTime=0; return; } // inverts the first time to have the correct toggle parity 
      
      uint16_t val = __HAL_TIM_GET_COMPARE( &htim3,  TIM_CHANNEL_2 );
-     if ( val != 7000 ) {
-       val = 7000;
-       __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , val );
+     if ( val != dataSyncOutPhase ) {
+       __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , dataSyncOutPhase );
+       dataSyncOutPhasePrev = dataSyncOutPhase;
      }
      else {
-       val += 1000;
+       val = dataSyncOutPhasePrev + 1000;
        if ( val >= 10000 ) {
          val -= 10000;
        }
@@ -133,7 +136,8 @@ int main(void)
   /* USER CODE BEGIN Init */
   dataMonCapture = 0xFFFFffff;
   dataSyncCapture = 0xFFFFffff;
-
+  dataSyncOutPhase = 5000;
+ 
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -205,6 +209,10 @@ int main(void)
        if ( !buttonWasPressed  ) {
          snprintf( buffer, sizeof(buffer), "BTN1 press \r\n" );
          HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+
+         dataSyncOutPhase += 1000;
+         if ( dataSyncOutPhase >= 10000 ) { dataSyncOutPhase -= 10000 ; }
+         
        }
        buttonWasPressed = 1; 
      } else {
