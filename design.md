@@ -9,9 +9,9 @@ Out refers to Sync Out
  RefIn 10 Mhz OCXO input
  ExtOut 10 MHz output from MCO 
  
- SyncOut 1 pps output 
- SyncMon 1 pps in ( from SyncOut ) 
- SyncIn 1 pps input 
+ SyncOut 1 pps output - inverts on buffer 
+ SyncMon 1 pps in ( from SyncOut )  
+ SyncIn 1 pps input - inverts on buffer 
  GpsIn 1 pps input 
  
  

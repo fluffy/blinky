@@ -84,13 +84,13 @@ static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN 0 */
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
   if ( htim == &htim2 ) {
-    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in some edge
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in falling edge. falling is rising on inverted input
       dataSyncCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_1 );
       //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     }
-    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon some edge 
-      //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon falling edge. falling is rising on inverted output
       dataMonCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_4 );
+      //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     }
   }
 }
@@ -99,22 +99,21 @@ void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
    if ( htim == &htim3 ) {
      HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
 
-     static int firstTime=1;
-     if ( firstTime ) { firstTime=0; return; } // inverts the first time to have the correct toggle parity 
-     
      uint16_t val = __HAL_TIM_GET_COMPARE( &htim3,  TIM_CHANNEL_2 );
-     if ( val != dataSyncOutPhase ) {
+     if ( val != dataSyncOutPhasePrev ) {
+       // end of output pulse just happened, set up for next output pulse 
        dataSyncOutPhasePrev = dataSyncOutPhase;
        __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , dataSyncOutPhase );
-       LL_TIM_OC_SetMode(TIM3, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_INACTIVE );
+       LL_TIM_OC_SetMode(TIM3, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_INACTIVE );  // inverted due to inverting output buffer
      }
-     else {
-       val = dataSyncOutPhasePrev + 1000;
+     else { // val == dataSyncOutPhasePrev
+       // start of output pulse just started, set up for the end of pulse 
+       val = dataSyncOutPhasePrev + 100; // 10 ms wide pulse 
        if ( val >= 10000 ) {
          val -= 10000;
        }
        __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , val );
-       LL_TIM_OC_SetMode(TIM3, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_ACTIVE );
+       LL_TIM_OC_SetMode(TIM3, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_ACTIVE );  // inverted due to inverting output buffer
      }
    }
 }
@@ -460,7 +459,7 @@ static void MX_TIM2_Init(void)
   {
     Error_Handler();
   }
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_FALLING;
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
   sConfigIC.ICFilter = 0;
