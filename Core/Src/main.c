@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <stm32f4xx_ll_tim.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -103,8 +104,9 @@ void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
      
      uint16_t val = __HAL_TIM_GET_COMPARE( &htim3,  TIM_CHANNEL_2 );
      if ( val != dataSyncOutPhase ) {
-       __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , dataSyncOutPhase );
        dataSyncOutPhasePrev = dataSyncOutPhase;
+       __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , dataSyncOutPhase );
+       LL_TIM_OC_SetMode(TIM3, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_INACTIVE );
      }
      else {
        val = dataSyncOutPhasePrev + 1000;
@@ -112,6 +114,7 @@ void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
          val -= 10000;
        }
        __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , val );
+       LL_TIM_OC_SetMode(TIM3, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_ACTIVE );
      }
    }
 }
