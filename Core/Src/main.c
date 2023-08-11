@@ -191,12 +191,24 @@ int main(void)
    HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_RESET); // turn on ok LED
 
    int loopCount=0;
+   char buttonWasPressed = 0;
    while (1) {
      char buffer[100];
 
      if ( loopCount %10 == 0 ) {
        snprintf( buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount );
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+     }
+
+   
+     if ( !HAL_GPIO_ReadPin( BTN1_GPIO_Port, BTN1_Pin ) ) {
+       if ( !buttonWasPressed  ) {
+         snprintf( buffer, sizeof(buffer), "BTN1 press \r\n" );
+         HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+       }
+       buttonWasPressed = 1; 
+     } else {
+       buttonWasPressed = 0; 
      }
 
      //uint32_t val = __HAL_TIM_GetCounter(&htim2);
