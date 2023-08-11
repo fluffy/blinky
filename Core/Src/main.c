@@ -56,10 +56,10 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-uint32_t dataMonCapture;
-uint32_t dataSyncCapture;
-uint16_t dataSyncOutPhase;
-uint16_t dataSyncOutPhasePrev;
+uint32_t dataMonCapture; uint32_t dataMonCaptureTick; 
+uint32_t dataSyncCapture; uint32_t dataSyncCaptureTick; 
+uint16_t dataNextSyncOutPhase;
+uint16_t dataCurrentPhaseSyncOut;
 
 
 /* USER CODE END PV */
@@ -83,13 +83,18 @@ static void MX_USART3_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
+  uint32_t tick = HAL_GetTick();
   if ( htim == &htim2 ) {
     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in falling edge. falling is rising on inverted input
       dataSyncCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_1 );
+      dataSyncCaptureTick = tick ;
+      
       //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     }
     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon falling edge. falling is rising on inverted output
       dataMonCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_4 );
+      dataMonCaptureTick = tick ;
+      
       //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     }
   }
@@ -100,15 +105,15 @@ void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
      HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
 
      uint16_t val = __HAL_TIM_GET_COMPARE( &htim3,  TIM_CHANNEL_2 );
-     if ( val != dataSyncOutPhasePrev ) {
+     if ( val != dataCurrentPhaseSyncOut ) {
        // end of output pulse just happened, set up for next output pulse 
-       dataSyncOutPhasePrev = dataSyncOutPhase;
-       __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , dataSyncOutPhase );
+       dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
+       __HAL_TIM_SET_COMPARE(  &htim3,  TIM_CHANNEL_2 , dataNextSyncOutPhase );
        LL_TIM_OC_SetMode(TIM3, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_INACTIVE );  // inverted due to inverting output buffer
      }
-     else { // val == dataSyncOutPhasePrev
+     else { // val == dataCurrentPhaseSyncOut
        // start of output pulse just started, set up for the end of pulse 
-       val = dataSyncOutPhasePrev + 100; // 10 ms wide pulse 
+       val = dataCurrentPhaseSyncOut + 200; // 20 ms wide pulse 
        if ( val >= 10000 ) {
          val -= 10000;
        }
@@ -136,9 +141,9 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  dataMonCapture = 0xFFFFffff;
-  dataSyncCapture = 0xFFFFffff;
-  dataSyncOutPhase = 5000;
+  dataMonCapture = 0xFFFFffff; dataMonCaptureTick=0;
+  dataSyncCapture = 0xFFFFffff; dataSyncCaptureTick=0;
+  dataNextSyncOutPhase = 5000; dataCurrentPhaseSyncOut=dataNextSyncOutPhase; 
  
   /* USER CODE END Init */
 
@@ -198,6 +203,9 @@ int main(void)
 
    int loopCount=0;
    char buttonWasPressed = 0;
+   uint32_t dataMonCaptureTickPrev =0;
+   uint32_t dataSyncCaptureTickPrev =0; 
+     
    while (1) {
      char buffer[100];
 
@@ -212,8 +220,23 @@ int main(void)
          snprintf( buffer, sizeof(buffer), "BTN1 press \r\n" );
          HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
 
-         dataSyncOutPhase += 1000;
-         if ( dataSyncOutPhase >= 10000 ) { dataSyncOutPhase -= 10000 ; }
+         uint32_t tick = HAL_GetTick();
+         if ( ( tick > 2000 ) && ( dataSyncCaptureTick + 2000 > tick ) ) { // if had sync in last 2 seconds 
+           int32_t deltaPhaseUs = dataSyncCapture - dataMonCapture;
+           int32_t deltaPhase =  deltaPhaseUs / 100l ; // div 100 for 1MHz to 10KHz counter conversion
+           if ( deltaPhase < 0 )  deltaPhase += 10000;
+           uint32_t phase = dataNextSyncOutPhase + deltaPhase;
+           //phase = dataNextSyncOutPhase + 1000;
+           if ( phase >= 10000 ) { phase -= 10000 ; }
+           
+           dataNextSyncOutPhase = phase;
+           
+           snprintf( buffer, sizeof(buffer), "  new phase: %ld\r\n", phase );
+           HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+         } else {
+           snprintf( buffer, sizeof(buffer), "  No sync input\r\n"  );
+           HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+         }
          
        }
        buttonWasPressed = 1; 
@@ -225,16 +248,16 @@ int main(void)
      //snprintf( buffer, sizeof(buffer), "val %ld \r\n", val/1000 );
      //HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
 
-     if ( dataMonCapture != 0xFFFFffff ) {
-       snprintf( buffer, sizeof(buffer), "   mon : %ld \r\n", dataMonCapture / 1000 );
-       dataMonCapture = 0xFFFFffff;
+     if ( dataMonCaptureTick != dataMonCaptureTickPrev ) {
+       snprintf( buffer, sizeof(buffer), "   mon : %ld ms\r\n", dataMonCapture / 1000 );
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+       dataMonCaptureTickPrev = dataMonCaptureTick;
      }
 
-     if ( dataSyncCapture != 0xFFFFffff ) {
-       snprintf( buffer, sizeof(buffer), "   sync: %ld \r\n", dataSyncCapture / 1000 );
-       dataSyncCapture = 0xFFFFffff;
+     if ( dataSyncCaptureTick != dataSyncCaptureTickPrev ) {
+       snprintf( buffer, sizeof(buffer), "   sync: %ld ms\r\n", dataSyncCapture / 1000 );
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+       dataSyncCaptureTickPrev = dataSyncCaptureTick; 
      }
         
      HAL_Delay( 100 );
