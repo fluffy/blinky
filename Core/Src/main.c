@@ -60,7 +60,7 @@ uint32_t dataMonCapture; uint32_t dataMonCaptureTick;
 uint32_t dataSyncCapture; uint32_t dataSyncCaptureTick; 
 uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut;
-uint32_t dataExtClkCount;
+uint32_t dataExtClkCount; uint32_t dataExtClkCountTick;
 
 /* USER CODE END PV */
 
@@ -85,9 +85,12 @@ static void MX_USART3_UART_Init(void);
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 {
+  uint32_t tick = HAL_GetTick();
+   
   if ( htim == &htim1 ) {
     HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     dataExtClkCount++;
+    dataExtClkCountTick = tick;
   }
   if ( htim == &htim7 ) {
       static int tim7Count=0;
@@ -265,7 +268,8 @@ int main(void)
    char buttonWasPressed = 0;
    uint32_t dataMonCaptureTickPrev =0;
    uint32_t dataSyncCaptureTickPrev =0; 
-     
+   uint32_t dataExtClkCountTickPrev=0;
+   
    while (1) {
      char buffer[100];
 
@@ -320,10 +324,12 @@ int main(void)
        dataSyncCaptureTickPrev = dataSyncCaptureTick; 
      }
 
-     if ( 1 ) {
+     if ( dataExtClkCountTick != dataExtClkCountTickPrev ) {
        uint32_t val = __HAL_TIM_GetCounter( &htim1 );
-       snprintf( buffer, sizeof(buffer), " tim1: %ld %ld \r\n", val, dataExtClkCount );
+       int32_t err = dataExtClkCountTick - (dataExtClkCount-1)*1000l; 
+       snprintf( buffer, sizeof(buffer), "   time: %ld s %ld ms err: %ld ms\r\n", dataExtClkCount, val, err );
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+       dataExtClkCountTickPrev = dataExtClkCountTick;
      }
      
      HAL_Delay( 100 );
@@ -474,9 +480,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 16048;
+  htim1.Init.Prescaler = 4096-1;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 10000;
+  htim1.Init.Period = 1000-1;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -484,7 +490,7 @@ static void MX_TIM1_Init(void)
   {
     Error_Handler();
   }
-  sSlaveConfig.SlaveMode = TIM_SLAVEMODE_DISABLE;
+  sSlaveConfig.SlaveMode = TIM_SLAVEMODE_EXTERNAL1;
   sSlaveConfig.InputTrigger = TIM_TS_TI1F_ED;
   sSlaveConfig.TriggerFilter = 0;
   if (HAL_TIM_SlaveConfigSynchro(&htim1, &sSlaveConfig) != HAL_OK)
@@ -810,8 +816,8 @@ static void MX_GPIO_Init(void)
                           |ROW3_Pin|ROW2_Pin|ROW1_Pin|DB4_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin|LEDM1_Pin|LEDM2_Pin|LEDE_Pin
-                          |LEDD_Pin|LEDC_Pin|LEDB_Pin|LEDA_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin|LEDM1_Pin|LEDM2_Pin|LEDD_Pin
+                          |LEDC_Pin|LEDB_Pin|LEDA_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(COL3_GPIO_Port, COL3_Pin, GPIO_PIN_SET);
@@ -822,6 +828,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LEDH_Pin|LEDG_Pin|LEDF_Pin|ROW4_Pin
                           |DB2_Pin|DB1_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(LEDE_GPIO_Port, LEDE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DB3_GPIO_Port, DB3_Pin, GPIO_PIN_RESET);
