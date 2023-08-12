@@ -58,10 +58,11 @@ UART_HandleTypeDef huart3;
 /* USER CODE BEGIN PV */
 uint32_t dataMonCapture; uint32_t dataMonCaptureTick; 
 uint32_t dataSyncCapture; uint32_t dataSyncCaptureTick; 
-uint16_t dataNextSyncOutPhase;
-uint16_t dataCurrentPhaseSyncOut;
+uint32_t dataGpsPpsCapture; uint32_t dataGpsPpsCaptureTick; 
+
 uint32_t dataExtClkCount; uint32_t dataExtClkCountTick;
 
+uint16_t dataNextSyncOutPhase; uint16_t dataCurrentPhaseSyncOut;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -149,14 +150,16 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in falling edge. falling is rising on inverted input
       dataSyncCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_1 );
       dataSyncCaptureTick = tick ;
-      
-      //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     }
     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) { // sync mon falling edge. falling is rising on inverted output
       dataMonCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_4 );
       dataMonCaptureTick = tick ;
-      
-      //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+    }
+  }
+  if ( htim == &htim8 ) {
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in falling edge. falling is rising on inverted input
+      dataGpsPpsCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_1 );
+      dataGpsPpsCaptureTick = tick ;
     }
   }
 }
@@ -204,6 +207,7 @@ int main(void)
   /* USER CODE BEGIN Init */
   dataMonCapture = 0xFFFFffff; dataMonCaptureTick=0;
   dataSyncCapture = 0xFFFFffff; dataSyncCaptureTick=0;
+  dataGpsPpsCapture = 0xFFFFffff; dataGpsPpsCaptureTick=0; 
   dataNextSyncOutPhase = 5000; dataCurrentPhaseSyncOut=dataNextSyncOutPhase; 
   dataExtClkCount =0;
   
@@ -270,6 +274,7 @@ int main(void)
    uint32_t dataMonCaptureTickPrev =0;
    uint32_t dataSyncCaptureTickPrev =0; 
    uint32_t dataExtClkCountTickPrev=0;
+   uint32_t dataGpsPpsCaptureTickPrev=0;
    
    while (1) {
      char buffer[100];
@@ -321,6 +326,12 @@ int main(void)
 
      if ( dataSyncCaptureTick != dataSyncCaptureTickPrev ) {
        snprintf( buffer, sizeof(buffer), "   sync: %ld ms\r\n", dataSyncCapture / 1000 );
+       HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+       dataSyncCaptureTickPrev = dataSyncCaptureTick; 
+     }
+
+     if ( dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev  ) {
+       snprintf( buffer, sizeof(buffer), "   gpsPPS: %ld ms\r\n", dataGpsPpsCapture / 10 );
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
        dataSyncCaptureTickPrev = dataSyncCaptureTick; 
      }
