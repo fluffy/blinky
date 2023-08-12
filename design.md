@@ -3,16 +3,17 @@
 Tim1 - 1 KHz tick, 1 second period 
 * ch1: ext clk in on board 1 connected to TXCO at 2.048 MHz 
 
-Tim2 - 1 Mhz tick, 1 second loop
+Tim2 - 1 Mhz tick, 1 second loop, reset by Tim1 
 * Ch1: sync in 
 * Ch4: sync_mon in 
 
-Tim3 - 10 KHz tick, 1 second loop 
+Tim3 - 10 KHz tick, 1 second loop , reset by Tim1 
 * ch2: sync out 
 
-Tim7 - 1Mhz tick, 1 ms loop 
+No slave on tim7 so use tim4 
+Tim4 - 1Mhz tick, 1 ms loop , reset by Tim1 
 
-Tim8 - 
+Tim8 - 10KHz tick, 1 second loop, reset by Tim1 
 * ch1: GPS PPS 
 
 Tim5 - not used - 32 bit 

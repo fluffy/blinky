@@ -59,9 +59,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LED_OUT_INTR htim7
-#define SYNC_OUT_FX 1000000
 #define SYNC_OUT_INTR htim3
+#define SYNC_OUT_FX 1000000
 #define BTN1_Pin GPIO_PIN_13
 #define BTN1_GPIO_Port GPIOC
 #define HSE_IN_Pin GPIO_PIN_0
