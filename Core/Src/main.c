@@ -92,7 +92,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
   uint32_t tick = HAL_GetTick();
    
   if ( htim == &htim1 ) {
-    HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+    // HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     dataExtClkCount++;
     dataExtClkCountTick = tick;
 
@@ -359,14 +359,19 @@ int main(void)
        dataSyncCaptureTickPrev = dataSyncCaptureTick; 
      }
 #endif
-     
+
+#if 0
      if ( dataExtClkCountTick != dataExtClkCountTickPrev ) {
        uint32_t val = __HAL_TIM_GetCounter( &htim1 );
        int32_t err = dataExtClkCountTick-dataExtClkCountTickOffset - dataExtClkCount*1000l; 
        snprintf( buffer, sizeof(buffer), "   time: %ld s %ld ms err: %ld ms\r\n", dataExtClkCount, val, err );
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
        dataExtClkCountTickPrev = dataExtClkCountTick;
+
+       //snprintf( buffer, sizeof(buffer), "   gridCount: %ld offset=%ld \r\n", dataGridCount,dataGridCountOffset);
+       //HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
      }
+#endif
      
      HAL_Delay( 100 );
     
