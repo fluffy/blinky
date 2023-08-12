@@ -105,8 +105,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
    
   dataGridCount++;// counting in ms 
 
-  int gridCount = ( (dataGridCount-dataGridCountOffset) / 100) % 10; if (gridCount>=5) gridCount=5;  // TODO change to div 5 
-  int binCount = 0; // dataGridCount / 2000;  // TODO change to div 100
+  int32_t gridCount = (dataGridCount-dataGridCountOffset)*1000/4167;  // couting up in 1/8 of 30 frames per secondd 
+  int16_t binCount = gridCount/8; // couting up in frames at 30 fps 
  
   if ( 1 ) {
     int row = 1+ (( gridCount ) % 8);
@@ -316,7 +316,6 @@ int main(void)
            int32_t deltaPhase =  deltaPhaseUs / 100l ; // div 100 for 1MHz to 10KHz counter conversion
            if ( deltaPhase < 0 )  deltaPhase += 10000;
            uint32_t phase = dataNextSyncOutPhase + deltaPhase;
-           //phase = dataNextSyncOutPhase + 1000;
            if ( phase >= 10000 ) { phase -= 10000 ; }
            
            dataNextSyncOutPhase = phase;
