@@ -60,9 +60,12 @@ uint32_t dataMonCapture; uint32_t dataMonCaptureTick;
 uint32_t dataSyncCapture; uint32_t dataSyncCaptureTick; 
 uint32_t dataGpsPpsCapture; uint32_t dataGpsPpsCaptureTick; 
 
-uint32_t dataExtClkCount; uint32_t dataExtClkCountTick;
+uint32_t dataExtClkCount; uint32_t dataExtClkCountTick; int32_t dataExtClkCountTickOffset;
 
 uint16_t dataNextSyncOutPhase; uint16_t dataCurrentPhaseSyncOut;
+
+int32_t dataGridCount; int32_t dataGridCountOffset;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -89,19 +92,21 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
   uint32_t tick = HAL_GetTick();
    
   if ( htim == &htim1 ) {
-    //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+    HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     dataExtClkCount++;
     dataExtClkCountTick = tick;
+
+    dataGridCount =0;
   }
   if ( htim == &htim4 ) {
-      static int tim4Count=0;
+      static int dataGridCount=0;
 #if 1 // This block of code takes 1.9 uS and runs every 1 mS 
    HAL_GPIO_WritePin( DB2_GPIO_Port, DB2_Pin,GPIO_PIN_SET );
    
-  tim4Count++;// counting in ms 
+  dataGridCount++;// counting in ms 
 
-  int gridCount = (tim4Count / 100) % 10; if (gridCount>=5) gridCount=5;  // TODO change to div 5 
-  int binCount = 0; // tim4Count / 2000;  // TODO change to div 100
+  int gridCount = ( (dataGridCount-dataGridCountOffset) / 100) % 10; if (gridCount>=5) gridCount=5;  // TODO change to div 5 
+  int binCount = 0; // dataGridCount / 2000;  // TODO change to div 100
  
   if ( 1 ) {
     int row = 1+ (( gridCount ) % 8);
@@ -211,7 +216,8 @@ int main(void)
   dataSyncCapture = 0xFFFFffff; dataSyncCaptureTick=0;
   dataGpsPpsCapture = 0xFFFFffff; dataGpsPpsCaptureTick=0; 
   dataNextSyncOutPhase = 5000; dataCurrentPhaseSyncOut=dataNextSyncOutPhase; 
-  dataExtClkCount =0;
+  dataExtClkCount =0; dataExtClkCountTickOffset=-1000;
+  dataGridCount =0;
   
   /* USER CODE END Init */
 
@@ -295,13 +301,16 @@ int main(void)
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
      }
 
-   
      if ( !HAL_GPIO_ReadPin( BTN1_GPIO_Port, BTN1_Pin ) ) {
        if ( !buttonWasPressed  ) {
+         uint32_t tick = HAL_GetTick();
+
          snprintf( buffer, sizeof(buffer), "BTN1 press \r\n" );
          HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
 
-         uint32_t tick = HAL_GetTick();
+         dataExtClkCountTickOffset = dataExtClkCountTick;
+         dataExtClkCount = 0; 
+         
          if ( ( tick > 2000 ) && ( dataSyncCaptureTick + 2000 > tick ) ) { // if had sync in last 2 seconds 
            int32_t deltaPhaseUs = dataSyncCapture - dataMonCapture;
            int32_t deltaPhase =  deltaPhaseUs / 100l ; // div 100 for 1MHz to 10KHz counter conversion
@@ -318,7 +327,10 @@ int main(void)
            snprintf( buffer, sizeof(buffer), "  No sync input\r\n"  );
            HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
          }
-         
+
+         dataGridCountOffset = dataNextSyncOutPhase / 10;
+         snprintf( buffer, sizeof(buffer), "  phase: %d offset: %ld \r\n", dataNextSyncOutPhase, dataGridCountOffset );
+         HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
        }
        buttonWasPressed = 1; 
      } else {
@@ -351,7 +363,7 @@ int main(void)
      
      if ( dataExtClkCountTick != dataExtClkCountTickPrev ) {
        uint32_t val = __HAL_TIM_GetCounter( &htim1 );
-       int32_t err = dataExtClkCountTick - (dataExtClkCount-1)*1000l; 
+       int32_t err = dataExtClkCountTick-dataExtClkCountTickOffset - dataExtClkCount*1000l; 
        snprintf( buffer, sizeof(buffer), "   time: %ld s %ld ms err: %ld ms\r\n", dataExtClkCount, val, err );
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
        dataExtClkCountTickPrev = dataExtClkCountTick;
