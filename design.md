@@ -1,3 +1,25 @@
+# Design Notes for  V4
+
+Tim1 - 1 KHz tick, 1 second period 
+* ch1: ext clk in on board 1 connected to TXCO at 2.048 MHz 
+
+Tim2 - 1 Mhz tick, 1 second loop
+* Ch1: sync in 
+* Ch4: sync_mon in 
+
+Tim3 - 10 KHz tick, 1 second loop 
+* ch2: sync out 
+
+Tim7 - 1Mhz tick, 1 ms loop 
+
+Tim8 - 
+* ch1: GPS PPS 
+
+Tim5 - not used - 32 bit 
+* could ext clock perhaps from PA0, or PA1 (LEDM3 , LEDM1 ) 
+
+MCO: conflict PA8 ( ex clk in), and PC9 (row1) 
+
 # Design Notes for V5
 
 Sync refers to Sync In

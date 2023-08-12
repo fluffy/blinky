@@ -186,6 +186,7 @@ int main(void)
   HAL_GPIO_WritePin(LEDH_GPIO_Port, LEDH_Pin, GPIO_PIN_RESET );
 
   HAL_TIM_Base_Start_IT(&htim7);
+  HAL_TIM_Base_Start_IT(&htim1);
 
   //HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_2 ); // start sync out 
   HAL_TIM_OC_Start_IT( &htim3, TIM_CHANNEL_2 ); // start sync out 
@@ -259,7 +260,13 @@ int main(void)
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
        dataSyncCaptureTickPrev = dataSyncCaptureTick; 
      }
-        
+
+     if ( 1 ) {
+       uint32_t val = __HAL_TIM_GetCounter( &htim1 );
+       snprintf( buffer, sizeof(buffer), " tim1: %ld \r\n", val );
+       HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+     }
+     
      HAL_Delay( 100 );
     
     /* USER CODE END WHILE */
@@ -401,34 +408,33 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 0 */
 
+  TIM_SlaveConfigTypeDef sSlaveConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
-  TIM_IC_InitTypeDef sConfigIC = {0};
 
   /* USER CODE BEGIN TIM1_Init 1 */
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 0;
+  htim1.Init.Prescaler = 2048;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 65535;
+  htim1.Init.Period = 1000;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_IC_Init(&htim1) != HAL_OK)
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sSlaveConfig.SlaveMode = TIM_SLAVEMODE_DISABLE;
+  sSlaveConfig.InputTrigger = TIM_TS_TI1F_ED;
+  sSlaveConfig.TriggerFilter = 0;
+  if (HAL_TIM_SlaveConfigSynchro(&htim1, &sSlaveConfig) != HAL_OK)
   {
     Error_Handler();
   }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
-  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
-  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
-  sConfigIC.ICFilter = 0;
-  if (HAL_TIM_IC_ConfigChannel(&htim1, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
