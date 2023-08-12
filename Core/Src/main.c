@@ -89,7 +89,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
   uint32_t tick = HAL_GetTick();
    
   if ( htim == &htim1 ) {
-    HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+    //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
     dataExtClkCount++;
     dataExtClkCountTick = tick;
   }
@@ -100,8 +100,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
    
   tim4Count++;// counting in ms 
 
-  int gridCount = tim4Count / 5000;  // TODO change to div 5 
-  int binCount = tim4Count / 2000;  // TODO change to div 100
+  int gridCount = (tim4Count / 100) % 10; if (gridCount>=5) gridCount=5;  // TODO change to div 5 
+  int binCount = 0; // tim4Count / 2000;  // TODO change to div 100
  
   if ( 1 ) {
     int row = 1+ (( gridCount ) % 8);
@@ -156,12 +156,14 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       dataMonCaptureTick = tick ;
     }
   }
+#if 1
   if ( htim == &htim8 ) {
     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) { // sync in falling edge. falling is rising on inverted input
       dataGpsPpsCapture = HAL_TIM_ReadCapturedValue( htim,  TIM_CHANNEL_1 );
       dataGpsPpsCaptureTick = tick ;
     }
   }
+#endif
 }
 
 void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
@@ -250,17 +252,26 @@ int main(void)
   HAL_GPIO_WritePin(LEDF_GPIO_Port, LEDF_Pin, GPIO_PIN_RESET );
   HAL_GPIO_WritePin(LEDG_GPIO_Port, LEDG_Pin, GPIO_PIN_RESET );
   HAL_GPIO_WritePin(LEDH_GPIO_Port, LEDH_Pin, GPIO_PIN_RESET );
-
+ 
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim1);
   //__HAL_TIM_ENABLE_IT( &htim1, TIM_IT_UPDATE );
- 
+#if 0
+  // this does not seem to be needed
+  HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_Base_Start_IT(&htim3);
+  HAL_TIM_Base_Start_IT(&htim8);
+#endif 
+  
   HAL_TIM_OC_Start_IT( &htim3, TIM_CHANNEL_2 ); // start sync out 
   
   //HAL_TIM_Base_Start_IT(&htim2); 
   HAL_TIM_IC_Start_IT (&htim2, TIM_CHANNEL_1 ); // start sync in capture 
   HAL_TIM_IC_Start_IT( &htim2, TIM_CHANNEL_4 ); // start sync mon capture
+#if 0
+  // starting this send capture intruts into solid loop - TODO FIX 
   HAL_TIM_IC_Start_IT( &htim8, TIM_CHANNEL_1 ); // start gps pps capture 
+#endif
   
   /* USER CODE END 2 */
 
@@ -330,12 +341,14 @@ int main(void)
        dataSyncCaptureTickPrev = dataSyncCaptureTick; 
      }
 
+#if 1
      if ( dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev  ) {
        snprintf( buffer, sizeof(buffer), "   gpsPPS: %ld ms\r\n", dataGpsPpsCapture / 10 );
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
        dataSyncCaptureTickPrev = dataSyncCaptureTick; 
      }
-
+#endif
+     
      if ( dataExtClkCountTick != dataExtClkCountTickPrev ) {
        uint32_t val = __HAL_TIM_GetCounter( &htim1 );
        int32_t err = dataExtClkCountTick - (dataExtClkCount-1)*1000l; 
@@ -544,7 +557,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 84-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 1500000-1;
+  htim2.Init.Period = 1000000-1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -560,7 +573,7 @@ static void MX_TIM2_Init(void)
   {
     Error_Handler();
   }
-  sSlaveConfig.SlaveMode = TIM_SLAVEMODE_RESET;
+  sSlaveConfig.SlaveMode = TIM_SLAVEMODE_DISABLE;
   sSlaveConfig.InputTrigger = TIM_TS_ITR0;
   if (HAL_TIM_SlaveConfigSynchro(&htim2, &sSlaveConfig) != HAL_OK)
   {
@@ -678,7 +691,7 @@ static void MX_TIM4_Init(void)
   htim4.Instance = TIM4;
   htim4.Init.Prescaler = 84-1;
   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim4.Init.Period = 1500;
+  htim4.Init.Period = 1000-1;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
