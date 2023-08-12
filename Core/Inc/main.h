@@ -118,8 +118,6 @@ void Error_Handler(void);
 #define ROW2_GPIO_Port GPIOC
 #define ROW1_Pin GPIO_PIN_9
 #define ROW1_GPIO_Port GPIOC
-#define EXT_CLK_IN_Pin GPIO_PIN_8
-#define EXT_CLK_IN_GPIO_Port GPIOA
 #define LEDE_Pin GPIO_PIN_9
 #define LEDE_GPIO_Port GPIOA
 #define LEDD_Pin GPIO_PIN_10

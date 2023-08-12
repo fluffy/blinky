@@ -60,7 +60,7 @@ uint32_t dataMonCapture; uint32_t dataMonCaptureTick;
 uint32_t dataSyncCapture; uint32_t dataSyncCaptureTick; 
 uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut;
-
+uint32_t dataExtClkCount; uint32_t dataExtClkCountTick;
 
 /* USER CODE END PV */
 
@@ -82,6 +82,67 @@ static void MX_USART3_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
+{
+  uint32_t tick = HAL_GetTick();
+   
+  if ( htim == &htim1 ) {
+    HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+    dataExtClkCount++;
+    dataExtClkCountTick = tick;
+  }
+  if ( htim == &htim7 ) {
+      static int tim7Count=0;
+#if 1 // This block of code takes 1.9 uS and runs every 1 mS 
+   HAL_GPIO_WritePin( DB2_GPIO_Port, DB2_Pin,GPIO_PIN_SET );
+   
+  tim7Count++;// counting in ms 
+
+  int gridCount = tim7Count / 5000;  // TODO change to div 5 
+  int binCount = tim7Count / 2000;  // TODO change to div 100
+ 
+  if ( 1 ) {
+    int row = 1+ (( gridCount ) % 8);
+    int col = 1+ (( gridCount / 8 ) % 5);
+    
+    HAL_GPIO_WritePin( ROW1_GPIO_Port, ROW1_Pin, (row==5) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW2_GPIO_Port, ROW2_Pin, (row==4) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW3_GPIO_Port, ROW3_Pin, (row==3) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW4_GPIO_Port, ROW4_Pin, (row==2) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW5_GPIO_Port, ROW5_Pin, (row==1) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW6_GPIO_Port, ROW6_Pin, (row==6) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW7_GPIO_Port, ROW7_Pin, (row==7) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( ROW8_GPIO_Port, ROW8_Pin, (row==8) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+
+    HAL_GPIO_WritePin( COL1_GPIO_Port, COL1_Pin, (col==2) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+    HAL_GPIO_WritePin( COL2_GPIO_Port, COL2_Pin, (col==1) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+    HAL_GPIO_WritePin( COL3_GPIO_Port, COL3_Pin, (col==5) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+    HAL_GPIO_WritePin( COL4_GPIO_Port, COL4_Pin, (col==3) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+    HAL_GPIO_WritePin( COL5_GPIO_Port, COL5_Pin, (col==4) ? GPIO_PIN_RESET : GPIO_PIN_SET );
+  }
+
+  if (1) {
+    // Low 4 bits of display 
+    HAL_GPIO_WritePin( LEDC_GPIO_Port, LEDC_Pin, (binCount & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( LEDB_GPIO_Port, LEDB_Pin, (binCount & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+    HAL_GPIO_WritePin( LEDE_GPIO_Port, LEDE_Pin, (binCount & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    HAL_GPIO_WritePin( LEDD_GPIO_Port, LEDD_Pin, (binCount & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    
+    // High 4 bits of display 
+    HAL_GPIO_WritePin( LEDG_GPIO_Port, LEDG_Pin, (binCount & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    HAL_GPIO_WritePin( LEDF_GPIO_Port, LEDF_Pin, (binCount & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    HAL_GPIO_WritePin( LEDH_GPIO_Port, LEDH_Pin, (binCount & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET ); 
+    HAL_GPIO_WritePin( LEDA_GPIO_Port, LEDA_Pin, (binCount & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET );
+
+  }
+
+  HAL_GPIO_WritePin( DB2_GPIO_Port, DB2_Pin,GPIO_PIN_RESET );
+#endif
+
+  }
+}
+
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
   uint32_t tick = HAL_GetTick();
   if ( htim == &htim2 ) {
@@ -102,7 +163,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
 void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
    if ( htim == &htim3 ) {
-     HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+     //HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
 
      uint16_t val = __HAL_TIM_GET_COMPARE( &htim3,  TIM_CHANNEL_2 );
      if ( val != dataCurrentPhaseSyncOut ) {
@@ -144,7 +205,8 @@ int main(void)
   dataMonCapture = 0xFFFFffff; dataMonCaptureTick=0;
   dataSyncCapture = 0xFFFFffff; dataSyncCaptureTick=0;
   dataNextSyncOutPhase = 5000; dataCurrentPhaseSyncOut=dataNextSyncOutPhase; 
- 
+  dataExtClkCount =0;
+  
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -187,8 +249,8 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim7);
   HAL_TIM_Base_Start_IT(&htim1);
-
-  //HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_2 ); // start sync out 
+  //__HAL_TIM_ENABLE_IT( &htim1, TIM_IT_UPDATE );
+ 
   HAL_TIM_OC_Start_IT( &htim3, TIM_CHANNEL_2 ); // start sync out 
   
   //HAL_TIM_Base_Start_IT(&htim2); 
@@ -206,7 +268,8 @@ int main(void)
    char buttonWasPressed = 0;
    uint32_t dataMonCaptureTickPrev =0;
    uint32_t dataSyncCaptureTickPrev =0; 
-     
+   uint32_t dataExtClkCountTickPrev=0;
+   
    while (1) {
      char buffer[100];
 
@@ -261,10 +324,12 @@ int main(void)
        dataSyncCaptureTickPrev = dataSyncCaptureTick; 
      }
 
-     if ( 1 ) {
+     if ( dataExtClkCountTick != dataExtClkCountTickPrev ) {
        uint32_t val = __HAL_TIM_GetCounter( &htim1 );
-       snprintf( buffer, sizeof(buffer), " tim1: %ld \r\n", val );
+       int32_t err = dataExtClkCountTick - (dataExtClkCount-1)*1000l; 
+       snprintf( buffer, sizeof(buffer), "   time: %ld s %ld ms err: %ld ms\r\n", dataExtClkCount, val, err );
        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+       dataExtClkCountTickPrev = dataExtClkCountTick;
      }
      
      HAL_Delay( 100 );
@@ -415,9 +480,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 2048;
+  htim1.Init.Prescaler = 4096-1;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 1000;
+  htim1.Init.Period = 1000-1;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -425,7 +490,7 @@ static void MX_TIM1_Init(void)
   {
     Error_Handler();
   }
-  sSlaveConfig.SlaveMode = TIM_SLAVEMODE_DISABLE;
+  sSlaveConfig.SlaveMode = TIM_SLAVEMODE_EXTERNAL1;
   sSlaveConfig.InputTrigger = TIM_TS_TI1F_ED;
   sSlaveConfig.TriggerFilter = 0;
   if (HAL_TIM_SlaveConfigSynchro(&htim1, &sSlaveConfig) != HAL_OK)
@@ -751,8 +816,8 @@ static void MX_GPIO_Init(void)
                           |ROW3_Pin|ROW2_Pin|ROW1_Pin|DB4_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin|LEDM1_Pin|LEDM2_Pin|LEDE_Pin
-                          |LEDD_Pin|LEDC_Pin|LEDB_Pin|LEDA_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin|LEDM1_Pin|LEDM2_Pin|LEDD_Pin
+                          |LEDC_Pin|LEDB_Pin|LEDA_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(COL3_GPIO_Port, COL3_Pin, GPIO_PIN_SET);
@@ -763,6 +828,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LEDH_Pin|LEDG_Pin|LEDF_Pin|ROW4_Pin
                           |DB2_Pin|DB1_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(LEDE_GPIO_Port, LEDE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DB3_GPIO_Port, DB3_Pin, GPIO_PIN_RESET);
