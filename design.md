@@ -1,7 +1,7 @@
 # Design Notes for  V4
 
-Tim1 - 1 KHz tick, 1 second period 
-* ch1: ext clk in on board 1 connected to TXCO at 2.048 MHz 
+Tim1 - 1 KHz tick, 1-second period 
+* ch1: ext clk in onboard 1 connected to TXCO at 2.048 MHz 
 
 Tim2 - 1 Mhz tick, 1 second loop, reset by Tim1 
 * Ch1: sync in 
@@ -10,7 +10,7 @@ Tim2 - 1 Mhz tick, 1 second loop, reset by Tim1
 Tim3 - 10 KHz tick, 1 second loop , reset by Tim1 
 * ch2: sync out 
 
-No slave on tim7 so use tim4 
+No slave on tim7 so use Tim4 
 Tim4 - 1Mhz tick, 1 ms loop , reset by Tim1 
 
 Tim8 - 10KHz tick, 1 second loop, reset by Tim1 
@@ -26,7 +26,7 @@ MCO: conflict PA8 ( ex clk in), and PC9 (row1)
 Sync refers to Sync In
 Out refers to Sync Out
 
-## Signalls 
+## Signals 
  
  ExtIn 10 MHz input 
  RefIn 10 Mhz OCXO input
@@ -40,20 +40,20 @@ Out refers to Sync Out
  
  ## Timers 
  
-system clock or RefIn drives main 32 bit coutner with overlofow to 16
+system clock or RefIn drives main 32 bit counter with overflow to 16
  bit 
  
-ExtIn drives aux 32 bit coutner with 16 bit overflow. 
+ExtIn drives aux 32 bit counter with 16 bit overflow. 
  
 Main and aux count at 10 Mhz and wrap ever second. 
  
-Every timer can capture syncMon to provide sync of counters. Probaly
+Every timer can capture syncMon to provide sync of counters. Probably
 don't need for the secondary counter for main and aux
  
 Main and Aux can capture 
  SyncMon, SyncIn, GpsIn 
  
-Main and Aux can genrate SyncOut 
+Main and Aux can generate SyncOut 
 
 Display TImer drives LED and sync to main or aux rollover 
 * does this need to capture syncMon ???
@@ -78,14 +78,14 @@ Display TImer drives LED and sync to main or aux rollover
 * Capture Sync Mon
 
 ### Blink Timer
-* triggerreset by main timer every second
-* period abotu 1 ms 
-* interupt ( less than 1KHz) to drive LEDs
+* trigger reset by main timer every second
+* period about1 ms 
+* interrupt ( less than 1KHz) to drive LEDs
 
 
 ### Aux Timer
 * Use 32 bit timer X
-* clocked with ETR from extermal 10 MHz
+* clocked with ETR from external 10 MHz
 * captures something to link this to Main timer
 * capture SyncMon
 * capture GPS PPS
@@ -98,7 +98,7 @@ Display TImer drives LED and sync to main or aux rollover
 * rollover around 10 months 
 * Capture Sync Mon
 
-# Interupt Handling
+# Interrupt Handling
 
 On each Main Sync Mon
 - save sync out local seconds and microseconds
@@ -134,7 +134,7 @@ Periodically on main thread
 * if have recent syncIn, adjust syncOutOffset to match syncIn
 * if have recent gpsPPS, adjust syncOutOffset to match gps pps
 
-* save last 100 seconds of syncInOffset, gpsOffset, auxOffset, syncMon offse
+* save last 100 seconds of syncInOffset, gpsOffset, auxOffset, syncMon offset
 * compute average offset over last 100s for GPS, Aux, SyncIn
 * compute drift rate in Hz over last 100s for GPS, Aux, SyncIn
 * compute stdDev off of drift linear for GPS, Aux, Sync 
