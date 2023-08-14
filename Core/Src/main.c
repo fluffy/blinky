@@ -203,99 +203,156 @@ void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
-{
-  /* USER CODE BEGIN 1 */
+int main(void) {
+    /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    HAL_Init();
 
-  /* USER CODE BEGIN Init */
-  dataMonCapture = 0xFFFFffff; dataMonCaptureTick=0;
-  dataSyncCapture = 0xFFFFffff; dataSyncCaptureTick=0;
-  dataGpsPpsCapture = 0xFFFFffff; dataGpsPpsCaptureTick=0;
-  dataExtClkCount =0; dataExtClkCountTickOffset=-1000;
-  dataNextSyncOutPhase = 5000; dataCurrentPhaseSyncOut=dataNextSyncOutPhase;
-  subFrameCount =0; subFrameCountOffset = 120;
-  
-  /* USER CODE END Init */
+    /* USER CODE BEGIN Init */
+    dataMonCapture = 0xFFFFffff;
+    dataMonCaptureTick = 0;
+    dataSyncCapture = 0xFFFFffff;
+    dataSyncCaptureTick = 0;
+    dataGpsPpsCapture = 0xFFFFffff;
+    dataGpsPpsCaptureTick = 0;
+    dataExtClkCount = 0;
+    dataExtClkCountTickOffset = -1000;
+    dataNextSyncOutPhase = 5000;
+    dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
+    subFrameCount = 0;
+    subFrameCountOffset = 120;
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* USER CODE END Init */
 
-  /* USER CODE BEGIN SysInit */
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE END SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_TIM2_Init();
-  MX_TIM8_Init();
-  MX_DAC_Init();
-  MX_I2C1_Init();
-  MX_TIM1_Init();
-  MX_TIM3_Init();
-  MX_USART1_UART_Init();
-  MX_USART3_UART_Init();
-  MX_TIM4_Init();
-  /* USER CODE BEGIN 2 */
+    /* USER CODE END SysInit */
 
-  //HAL_GPIO_WritePin(GPIOC, ROW3_Pin, GPIO_PIN_SET);
-  //HAL_GPIO_WritePin(GPIOC, ROW4_Pin, GPIO_PIN_SET);
-  //HAL_GPIO_WritePin(GPIOB, COL3_Pin, GPIO_PIN_RESET);
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_TIM2_Init();
+    MX_TIM8_Init();
+    MX_DAC_Init();
+    MX_I2C1_Init();
+    MX_TIM1_Init();
+    MX_TIM3_Init();
+    MX_USART1_UART_Init();
+    MX_USART3_UART_Init();
+    MX_TIM4_Init();
+    /* USER CODE BEGIN 2 */
 
-  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin, GPIO_PIN_SET); // turn off error LED 
-  HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin, GPIO_PIN_SET); // turn off assert LED
-  HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED
-  
-  HAL_GPIO_WritePin(LEDA_GPIO_Port, LEDA_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(LEDB_GPIO_Port, LEDB_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(LEDC_GPIO_Port, LEDC_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(LEDD_GPIO_Port, LEDD_Pin, GPIO_PIN_RESET );
+    //HAL_GPIO_WritePin(GPIOC, ROW3_Pin, GPIO_PIN_SET);
+    //HAL_GPIO_WritePin(GPIOC, ROW4_Pin, GPIO_PIN_SET);
+    //HAL_GPIO_WritePin(GPIOB, COL3_Pin, GPIO_PIN_RESET);
 
-  HAL_GPIO_WritePin(LEDE_GPIO_Port, LEDE_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(LEDF_GPIO_Port, LEDF_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(LEDG_GPIO_Port, LEDG_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(LEDH_GPIO_Port, LEDH_Pin, GPIO_PIN_RESET );
+    HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin, GPIO_PIN_SET); // turn off error LED
+    HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin, GPIO_PIN_SET); // turn off assert LED
+    HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_SET); // turn off ok LED
 
-    if ( 1 ) {
-      char buffer[100];
-      snprintf(buffer, sizeof(buffer), "\r\nStarting...\r\n");
-      HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
-      snprintf(buffer, sizeof(buffer), "\r\nVersion: %s\r\n", version );
-      HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
+    HAL_GPIO_WritePin(LEDA_GPIO_Port, LEDA_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LEDB_GPIO_Port, LEDB_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LEDC_GPIO_Port, LEDC_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LEDD_GPIO_Port, LEDD_Pin, GPIO_PIN_RESET);
+
+    HAL_GPIO_WritePin(LEDE_GPIO_Port, LEDE_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LEDF_GPIO_Port, LEDF_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LEDG_GPIO_Port, LEDG_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LEDH_GPIO_Port, LEDH_Pin, GPIO_PIN_RESET);
+
+    if (1) {
+        char buffer[100];
+        snprintf(buffer, sizeof(buffer), "\r\nStarting...\r\n");
+        HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
+        snprintf(buffer, sizeof(buffer), "\r\nVersion: %s\r\n", version);
+        HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
     }
 
-  HAL_TIM_Base_Start_IT(&htim4);
-  HAL_TIM_Base_Start_IT(&htim1);
-  //__HAL_TIM_ENABLE_IT( &htim1, TIM_IT_UPDATE );
+    HAL_TIM_Base_Start_IT(&htim4);
+    HAL_TIM_Base_Start_IT(&htim1);
+    //__HAL_TIM_ENABLE_IT( &htim1, TIM_IT_UPDATE );
 #if 0
-  // this does not seem to be needed
-  HAL_TIM_Base_Start_IT(&htim2);
-  HAL_TIM_Base_Start_IT(&htim3);
-  HAL_TIM_Base_Start_IT(&htim8);
-#endif 
-  
-  HAL_TIM_OC_Start_IT( &htim3, TIM_CHANNEL_2 ); // start sync out 
-  
-  //HAL_TIM_Base_Start_IT(&htim2); 
-  HAL_TIM_IC_Start_IT (&htim2, TIM_CHANNEL_1 ); // start sync in capture 
-  HAL_TIM_IC_Start_IT( &htim2, TIM_CHANNEL_4 ); // start sync mon capture
-#if 0
-  // starting this send capture intruts into solid loop - TODO FIX 
-  HAL_TIM_IC_Start_IT( &htim8, TIM_CHANNEL_1 ); // start gps pps capture 
+    // this does not seem to be needed
+    HAL_TIM_Base_Start_IT(&htim2);
+    HAL_TIM_Base_Start_IT(&htim3);
+    HAL_TIM_Base_Start_IT(&htim8);
 #endif
-  
-  /* USER CODE END 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
+    HAL_TIM_OC_Start_IT(&htim3, TIM_CHANNEL_2); // start sync out
 
-   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_RESET); // turn on ok LED
+    //HAL_TIM_Base_Start_IT(&htim2);
+    HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1); // start sync in capture
+    HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_4); // start sync mon capture
+#if 0
+    // starting this send capture intruts into solid loop - TODO FIX
+    HAL_TIM_IC_Start_IT( &htim8, TIM_CHANNEL_1 ); // start gps pps capture
+#endif
+
+    /* USER CODE END 2 */
+
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+
+    HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_RESET); // turn on ok LED
+
+    // access EEProm
+    if (1) {
+        char buffer[100];
+        const  uint16_t i2cAddr = 0x50;
+        uint8_t data[16];
+        for ( int i=0; i<sizeof(data); i++ ){ data[i]=0; }
+        uint32_t timeout=2;
+        uint8_t eepromMemAddr = 0;
+        HAL_StatusTypeDef status;
+
+            status = HAL_I2C_IsDeviceReady(&hi2c1, i2cAddr <<1, 2, timeout);
+            if ( status == HAL_OK ) {\
+                // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
+                snprintf( buffer, sizeof(buffer), "EEProm found\r\n" );
+                HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+            }
+            else {
+                snprintf( buffer, sizeof(buffer), "Error: EProm Not found\r\n" );
+                HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+            }
+
+        const int writeConfigEEProm =0;
+            if ( writeConfigEEProm ) {
+                // write config to EEProm
+                data[0] = 4; // hardware version
+                data[1] = 2; // osc speed ( 2= 2.048 MHx, 10=10 MHz )
+
+                status = HAL_I2C_Mem_Write(&hi2c1, i2cAddr << 1, eepromMemAddr, sizeof(eepromMemAddr),
+                                           data, (uint16_t) sizeof(data), timeout);
+                if (status != HAL_OK) {
+                    // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
+                    snprintf(buffer, sizeof(buffer), "EEProm Write Error:  data hal error %d \r\n", status);
+                    HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
+                }
+                HAL_Delay(2); // chip has 1.5 ms max page write time when it will not respond
+            }
+
+        status = HAL_I2C_Mem_Read( &hi2c1, i2cAddr<<1, eepromMemAddr, sizeof(eepromMemAddr),
+                          data, (uint16_t) 3, timeout);
+        if ( status != HAL_OK ) {
+            // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
+            snprintf( buffer, sizeof(buffer), "EEProm Read Error:  data hal error %d \r\n", status );
+            HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+        }
+
+        snprintf( buffer, sizeof(buffer), "EEProm: data=%d %d %d\r\n", data[0] , data[1], data[3] );
+        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+
+    }
+
+    //HAL_I2C_Mem_Write(
 
    int loopCount=0;
    char buttonWasPressed = 0;
