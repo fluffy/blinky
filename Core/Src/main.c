@@ -66,7 +66,7 @@ uint32_t dataExtClkCount; uint32_t dataExtClkCountTick; int32_t dataExtClkCountT
 
 uint16_t dataNextSyncOutPhase; uint16_t dataCurrentPhaseSyncOut;
 
-int32_t dataGridCount; int32_t dataGridCountOffset;
+int32_t subFrameCount; // counts at 240 sub frames per second, reset to 0 every second
 
 /* USER CODE END PV */
 
@@ -98,17 +98,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
     dataExtClkCount++;
     dataExtClkCountTick = tick;
 
-    dataGridCount =0;
+      subFrameCount =0;
   }
   if ( htim == &htim4 ) {
-      static int dataGridCount=0;
 #if 1 // This block of code takes 1.9 uS and runs every 1 mS 
    HAL_GPIO_WritePin( DB2_GPIO_Port, DB2_Pin,GPIO_PIN_SET );
-   
-  dataGridCount++;// counting in ms 
+      subFrameCount++;// counting at rate 240 Hz
 
-  int32_t gridCount = (dataGridCount-dataGridCountOffset)*1000/4167;  // couting up in 1/8 of 30 frames per secondd 
-  int16_t binCount = gridCount/8; // couting up in frames at 30 fps 
+  int16_t gridCount = subFrameCount;  // counting up in 1/8 of 30 frames per second
+  int16_t binCount = subFrameCount/8; // counting up in frames at 30 fps
  
   if ( 1 ) {
     int row = 1+ (( gridCount ) % 8);
@@ -216,10 +214,10 @@ int main(void)
   /* USER CODE BEGIN Init */
   dataMonCapture = 0xFFFFffff; dataMonCaptureTick=0;
   dataSyncCapture = 0xFFFFffff; dataSyncCaptureTick=0;
-  dataGpsPpsCapture = 0xFFFFffff; dataGpsPpsCaptureTick=0; 
-  dataNextSyncOutPhase = 5000; dataCurrentPhaseSyncOut=dataNextSyncOutPhase; 
+  dataGpsPpsCapture = 0xFFFFffff; dataGpsPpsCaptureTick=0;
   dataExtClkCount =0; dataExtClkCountTickOffset=-1000;
-  dataGridCount =0;
+  dataNextSyncOutPhase = 5000; dataCurrentPhaseSyncOut=dataNextSyncOutPhase;
+  subFrameCount =0;
   
   /* USER CODE END Init */
 
@@ -336,10 +334,6 @@ int main(void)
            snprintf( buffer, sizeof(buffer), "  No sync input\r\n"  );
            HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
          }
-
-         dataGridCountOffset = dataNextSyncOutPhase / 10;
-         snprintf( buffer, sizeof(buffer), "  phase: %d offset: %ld \r\n", dataNextSyncOutPhase, dataGridCountOffset );
-         HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
        }
        buttonWasPressed = 1; 
      } else {
@@ -370,7 +364,7 @@ int main(void)
      }
 #endif
 
-#if 0
+#if 1
      if ( dataExtClkCountTick != dataExtClkCountTickPrev ) {
        uint32_t val = __HAL_TIM_GetCounter( &htim1 );
        int32_t err = dataExtClkCountTick-dataExtClkCountTickOffset - dataExtClkCount*1000l; 
@@ -715,9 +709,9 @@ static void MX_TIM4_Init(void)
 
   /* USER CODE END TIM4_Init 1 */
   htim4.Instance = TIM4;
-  htim4.Init.Prescaler = 84-1;
+  htim4.Init.Prescaler = 3500-1;
   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim4.Init.Period = 1000-1;
+  htim4.Init.Period = 100-1;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim4) != HAL_OK)

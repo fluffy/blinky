@@ -10,8 +10,8 @@ Tim2 - 1 Mhz tick, 1 second loop, reset by Tim1
 Tim3 - 10 KHz tick, 1 second loop , reset by Tim1 
 * ch2: sync out 
 
-No slave on tim7 so use Tim4 
-Tim4 - 1Mhz tick, 1 ms loop , reset by Tim1 
+No slave on tim7 so use Tim4 - drives the LEDs 
+Tim4 - 24 KHz tick, 240 Hz loop , reset by Tim1 
 
 Tim8 - 10KHz tick, 1 second loop, reset by Tim1 
 * ch1: GPS PPS 
