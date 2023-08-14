@@ -96,7 +96,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
   uint32_t tick = HAL_GetTick();
    
   if ( htim == &htim1 ) {
-    // HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
+    HAL_GPIO_TogglePin( DB1_GPIO_Port, DB1_Pin ); // toggle DB1 LED
     dataExtClkCount++;
     dataExtClkCountTick = tick;
 
@@ -203,17 +203,18 @@ void HAL_TIM_OC_DelayElapsedCallback (TIM_HandleTypeDef * htim){
   * @brief  The application entry point.
   * @retval int
   */
-int main(void) {
-    /* USER CODE BEGIN 1 */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
 
-    /* USER CODE END 1 */
+  /* USER CODE END 1 */
 
-    /* MCU Configuration--------------------------------------------------------*/
+  /* MCU Configuration--------------------------------------------------------*/
 
-    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-    HAL_Init();
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
 
-    /* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
     dataMonCapture = 0xFFFFffff;
     dataMonCaptureTick = 0;
     dataSyncCapture = 0xFFFFffff;
@@ -227,27 +228,27 @@ int main(void) {
     subFrameCount = 0;
     subFrameCountOffset = 120;
 
-    /* USER CODE END Init */
+  /* USER CODE END Init */
 
-    /* Configure the system clock */
-    SystemClock_Config();
+  /* Configure the system clock */
+  SystemClock_Config();
 
-    /* USER CODE BEGIN SysInit */
+  /* USER CODE BEGIN SysInit */
 
-    /* USER CODE END SysInit */
+  /* USER CODE END SysInit */
 
-    /* Initialize all configured peripherals */
-    MX_GPIO_Init();
-    MX_TIM2_Init();
-    MX_TIM8_Init();
-    MX_DAC_Init();
-    MX_I2C1_Init();
-    MX_TIM1_Init();
-    MX_TIM3_Init();
-    MX_USART1_UART_Init();
-    MX_USART3_UART_Init();
-    MX_TIM4_Init();
-    /* USER CODE BEGIN 2 */
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_TIM2_Init();
+  MX_TIM8_Init();
+  MX_DAC_Init();
+  MX_I2C1_Init();
+  MX_TIM1_Init();
+  MX_TIM3_Init();
+  MX_USART1_UART_Init();
+  MX_USART3_UART_Init();
+  MX_TIM4_Init();
+  /* USER CODE BEGIN 2 */
 
     //HAL_GPIO_WritePin(GPIOC, ROW3_Pin, GPIO_PIN_SET);
     //HAL_GPIO_WritePin(GPIOC, ROW4_Pin, GPIO_PIN_SET);
@@ -271,9 +272,80 @@ int main(void) {
         char buffer[100];
         snprintf(buffer, sizeof(buffer), "\r\nStarting...\r\n");
         HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
-        snprintf(buffer, sizeof(buffer), "\r\nVersion: %s\r\n", version);
+        snprintf(buffer, sizeof(buffer), "  Software version: %s\r\n", version);
         HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
     }
+
+
+    // access EEProm
+    if (1) {
+        char buffer[100];
+        const  uint16_t i2cAddr = 0x50;
+        uint8_t data[16];
+        for ( int i=0; i<sizeof(data); i++ ){ data[i]=0; }
+        uint32_t timeout=2;
+        uint8_t eepromMemAddr = 0;
+        HAL_StatusTypeDef status;
+
+        status = HAL_I2C_IsDeviceReady(&hi2c1, i2cAddr <<1, 2, timeout);
+        if ( status != HAL_OK )  {
+            snprintf( buffer, sizeof(buffer), "Error: EEProm not found \r\n" );
+            HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+        }
+
+        const int writeConfigEEProm =0;
+        if ( writeConfigEEProm ) {
+            // write config to EEProm
+            data[0] = 4; // hardware version
+            data[1] = 2; // osc speed ( 2= 2.048 MHx, 10=10 MHz )
+
+            status = HAL_I2C_Mem_Write(&hi2c1, i2cAddr << 1, eepromMemAddr, sizeof(eepromMemAddr),
+                                       data, (uint16_t) sizeof(data), timeout);
+            if (status != HAL_OK) {
+                // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
+                snprintf(buffer, sizeof(buffer), "EEProm Write Error:  data hal error %d \r\n", status);
+                HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
+            }
+            HAL_Delay(2); // chip has 1.5 ms max page write time when it will not respond
+        }
+
+        status = HAL_I2C_Mem_Read( &hi2c1, i2cAddr<<1, eepromMemAddr, sizeof(eepromMemAddr),
+                                   data, (uint16_t) 3, timeout);
+        if ( status != HAL_OK ) {
+            // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
+            snprintf( buffer, sizeof(buffer), "EEProm Read Error:  data hal error %d \r\n", status );
+            HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+        }
+
+#if 0
+        snprintf( buffer, sizeof(buffer), "EEProm: data=%d %d %d\r\n", data[0] , data[1], data[3] );
+        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+
+        if ( data[0] == 4 ) {
+            // This is V4 hardware
+            snprintf( buffer, sizeof(buffer), "  Hardware version: V4 \r\n" );
+            HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+
+            if (data[1] == 2) {
+                // External CLK is 2.048 Mhz
+                __HAL_TIM_SET_AUTORELOAD(&htim1,8192-1);
+
+                snprintf( buffer, sizeof(buffer), "  External clock set to 2.048 Mhz \r\n" );
+                HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+            } else if (data[1] == 10) {
+                // External CLK is 10 Mhz
+                __HAL_TIM_SET_AUTORELOAD(&htim1,40000-1);
+
+                snprintf( buffer, sizeof(buffer), "  External clock set to 10 Mhz \r\n" );
+                HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+            }
+        } else {
+            snprintf( buffer, sizeof(buffer), "Unknown Hardware version %d \r\n" , data[0] );
+            HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+        }
+    }
+
 
     HAL_TIM_Base_Start_IT(&htim4);
     HAL_TIM_Base_Start_IT(&htim1);
@@ -295,64 +367,13 @@ int main(void) {
     HAL_TIM_IC_Start_IT( &htim8, TIM_CHANNEL_1 ); // start gps pps capture
 #endif
 
-    /* USER CODE END 2 */
+  /* USER CODE END 2 */
 
-    /* Infinite loop */
-    /* USER CODE BEGIN WHILE */
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
 
     HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin, GPIO_PIN_RESET); // turn on ok LED
 
-    // access EEProm
-    if (1) {
-        char buffer[100];
-        const  uint16_t i2cAddr = 0x50;
-        uint8_t data[16];
-        for ( int i=0; i<sizeof(data); i++ ){ data[i]=0; }
-        uint32_t timeout=2;
-        uint8_t eepromMemAddr = 0;
-        HAL_StatusTypeDef status;
-
-            status = HAL_I2C_IsDeviceReady(&hi2c1, i2cAddr <<1, 2, timeout);
-            if ( status == HAL_OK ) {\
-                // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
-                snprintf( buffer, sizeof(buffer), "EEProm found\r\n" );
-                HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
-            }
-            else {
-                snprintf( buffer, sizeof(buffer), "Error: EProm Not found\r\n" );
-                HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
-            }
-
-        const int writeConfigEEProm =0;
-            if ( writeConfigEEProm ) {
-                // write config to EEProm
-                data[0] = 4; // hardware version
-                data[1] = 2; // osc speed ( 2= 2.048 MHx, 10=10 MHz )
-
-                status = HAL_I2C_Mem_Write(&hi2c1, i2cAddr << 1, eepromMemAddr, sizeof(eepromMemAddr),
-                                           data, (uint16_t) sizeof(data), timeout);
-                if (status != HAL_OK) {
-                    // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
-                    snprintf(buffer, sizeof(buffer), "EEProm Write Error:  data hal error %d \r\n", status);
-                    HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
-                }
-                HAL_Delay(2); // chip has 1.5 ms max page write time when it will not respond
-            }
-
-        status = HAL_I2C_Mem_Read( &hi2c1, i2cAddr<<1, eepromMemAddr, sizeof(eepromMemAddr),
-                          data, (uint16_t) 3, timeout);
-        if ( status != HAL_OK ) {
-            // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
-            snprintf( buffer, sizeof(buffer), "EEProm Read Error:  data hal error %d \r\n", status );
-            HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
-        }
-
-        snprintf( buffer, sizeof(buffer), "EEProm: data=%d %d %d\r\n", data[0] , data[1], data[3] );
-        HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
-
-    }
-
-    //HAL_I2C_Mem_Write(
 
    int loopCount=0;
    char buttonWasPressed = 0;
@@ -591,9 +612,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 4096-1;
+  htim1.Init.Prescaler = 500-1;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 1000-1;
+  htim1.Init.Period = 40000-1;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
