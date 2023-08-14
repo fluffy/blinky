@@ -14,6 +14,7 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
+  ******************************************************************************
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
@@ -66,7 +67,8 @@ uint32_t dataExtClkCount; uint32_t dataExtClkCountTick; int32_t dataExtClkCountT
 
 uint16_t dataNextSyncOutPhase; uint16_t dataCurrentPhaseSyncOut;
 
-int32_t subFrameCount; // counts at 240 sub frames per second, reset to 0 every second
+uint32_t subFrameCount; // counts at 240 sub frames per second, reset to 0 every second
+uint32_t subFrameCountOffset; // count in subFames into the second time when the syncOut pulse happens
 
 /* USER CODE END PV */
 
@@ -98,12 +100,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
     dataExtClkCount++;
     dataExtClkCountTick = tick;
 
-      subFrameCount =0;
+      subFrameCount = 240-subFrameCountOffset;
   }
   if ( htim == &htim4 ) {
 #if 1 // This block of code takes 1.9 uS and runs every 1 mS 
    HAL_GPIO_WritePin( DB2_GPIO_Port, DB2_Pin,GPIO_PIN_SET );
       subFrameCount++;// counting at rate 240 Hz
+      if ( subFrameCount >= 240 ) { subFrameCount -= 240; }
 
   int16_t gridCount = subFrameCount;  // counting up in 1/8 of 30 frames per second
   int16_t binCount = subFrameCount/8; // counting up in frames at 30 fps
@@ -217,7 +220,7 @@ int main(void)
   dataGpsPpsCapture = 0xFFFFffff; dataGpsPpsCaptureTick=0;
   dataExtClkCount =0; dataExtClkCountTickOffset=-1000;
   dataNextSyncOutPhase = 5000; dataCurrentPhaseSyncOut=dataNextSyncOutPhase;
-  subFrameCount =0;
+  subFrameCount =0; subFrameCountOffset = 120;
   
   /* USER CODE END Init */
 
@@ -334,6 +337,12 @@ int main(void)
            snprintf( buffer, sizeof(buffer), "  No sync input\r\n"  );
            HAL_UART_Transmit( &huart1, (uint8_t *)buffer, strlen(buffer), 1000);
          }
+
+         // set offset for the  LED  ( dataNextSyncOutPhase update 10KHz, subFrameCountOffset update 240 Hx )
+           subFrameCountOffset = ( (uint32_t)dataNextSyncOutPhase * 3l) / 125l ; // ratio of 240/10000
+           subFrameCountOffset += 2;
+           if ( subFrameCountOffset < 0 ) { subFrameCountOffset += 240; }
+           if ( subFrameCountOffset >= 240 ) { subFrameCountOffset -= 240; }
        }
        buttonWasPressed = 1; 
      } else {
