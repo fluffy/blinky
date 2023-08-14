@@ -56,6 +56,8 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
+const char* version = "2.0.230814"; // major , minor, year/moth/day
+
 uint32_t dataMonCapture; uint32_t dataMonCaptureTick; 
 uint32_t dataSyncCapture; uint32_t dataSyncCaptureTick; 
 uint32_t dataGpsPpsCapture; uint32_t dataGpsPpsCaptureTick; 
@@ -258,7 +260,15 @@ int main(void)
   HAL_GPIO_WritePin(LEDF_GPIO_Port, LEDF_Pin, GPIO_PIN_RESET );
   HAL_GPIO_WritePin(LEDG_GPIO_Port, LEDG_Pin, GPIO_PIN_RESET );
   HAL_GPIO_WritePin(LEDH_GPIO_Port, LEDH_Pin, GPIO_PIN_RESET );
- 
+
+    if ( 1 ) {
+      char buffer[100];
+      snprintf(buffer, sizeof(buffer), "\r\nStarting...\r\n");
+      HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
+      snprintf(buffer, sizeof(buffer), "\r\nVersion: %s\r\n", version );
+      HAL_UART_Transmit(&huart1, (uint8_t *) buffer, strlen(buffer), 1000);
+    }
+
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim1);
   //__HAL_TIM_ENABLE_IT( &htim1, TIM_IT_UPDATE );
