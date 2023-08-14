@@ -297,7 +297,7 @@ int main(void)
         if ( writeConfigEEProm ) {
             // write config to EEProm
             data[0] = 4; // hardware version
-            data[1] = 2; // osc speed ( 2= 2.048 MHx, 10=10 MHz )
+            data[1] = 10; // osc speed ( 2= 2.048 MHx, 10=10 MHz )
 
             status = HAL_I2C_Mem_Write(&hi2c1, i2cAddr << 1, eepromMemAddr, sizeof(eepromMemAddr),
                                        data, (uint16_t) sizeof(data), timeout);
