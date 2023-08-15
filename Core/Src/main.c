@@ -56,7 +56,7 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-const char *version = "2.1.230814";  // major , minor, year/moth/day
+const char *version = "0.2.230815";  // major , minor, year/moth/day
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;

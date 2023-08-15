@@ -14,12 +14,14 @@ exit screen with ^A^\
 
 # Features 
 
-* Display 5ms ticks on 8x5 LED grid 
-* Display tenths of seconds in binary on 8 LEDs
+On the V4 hardware 0.2 software have:
+
+* Display 240 Hz ticks on 8x5 LED grid 
+* Display 30 fps frame count in binary on 8 LEDs
 * 3.3V PPS Sync Out 
 * Jitter of less than 1 ms
 * Jam sync to 3.3V Sync input
-* press button to sync all and reset errors
+* press button to sync all 
 
 
 # Roadmap Features 
