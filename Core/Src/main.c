@@ -109,7 +109,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     subFrameCount = 240 - subFrameCountOffset;
   }
   if (htim == &htim4) {
-#if 1  // This block of code takes 1.9 uS and runs every 1 mS
+#if 0  // This block of code takes 1.9 uS and runs every 1 mS
     HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
     subFrameCount++;  // counting at rate 240 Hz
     if (subFrameCount >= 240) {
@@ -414,7 +414,11 @@ int main(void)
     HAL_TIM_IC_Start_IT( &htim8, TIM_CHANNEL_1 ); // start gps pps capture
 #endif
 
-  /* USER CODE END 2 */
+    HAL_DAC_Start( &hdac , DAC_CHANNEL_1 );
+    uint16_t dacValue = 10000-15; 
+    HAL_DAC_SetValue(&hdac,DAC_CHANNEL_1,DAC_ALIGN_12B_R,dacValue);
+
+    /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
