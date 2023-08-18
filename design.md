@@ -62,12 +62,18 @@ Display TImer drives LED and sync to main or aux rollover
 * does this need to capture syncMon ???
 
 ### Main Timer:
-* Use timer X
+* Use timer 2
 * 32 bits
 * clocked with ETR from main TCXO
 * use 20 Mhz 0.5 ppm JLCPCB C516500
 * period of 1 second ( adjusted in software )
 * adjustment store in EEPROM
+
+* ETR: PA15 or  PA0, PA5, PA15
+* Ch1: PA5 or PA0, PA5 - SYNC_out
+* Ch2: PA1 or PA1, PB3 - sync_in
+* ch3: PB10 or PA2, PB10 - gps 
+* ch4: PB11 or PA3,  PB11 - mon 
 
 * Capture Sync Mon
 * Capture Sync In
@@ -87,7 +93,15 @@ Display TImer drives LED and sync to main or aux rollover
 
 
 ### Aux Timer
-* Use 32 bit timer X
+* Use 32 bit timer 5
+
+* ETR:
+* CH1: PA0 - AUX_CLK
+* CH2:  PA1
+* CH3: PA2 - UUX_MON
+* Ch4: PA4
+
+
 * clocked with ETR from external 10 MHz
 * captures something to link this to Main timer
 * capture SyncMon
