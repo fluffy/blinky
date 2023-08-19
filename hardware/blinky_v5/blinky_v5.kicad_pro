@@ -60,9 +60,7 @@
           "width": 0.25
         }
       ],
-      "drc_exclusions": [
-        "courtyards_overlap|136859546|75137936|b61e8761-fcc8-4198-a01c-89b9eb6af79b|c0eb61ef-7eae-4fde-a445-1ff025265f9e"
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -94,9 +92,9 @@
         "missing_courtyard": "warning",
         "missing_footprint": "warning",
         "net_conflict": "warning",
-        "npth_inside_courtyard": "ignore",
+        "npth_inside_courtyard": "warning",
         "padstack": "warning",
-        "pth_inside_courtyard": "ignore",
+        "pth_inside_courtyard": "warning",
         "shorting_items": "error",
         "silk_edge_clearance": "warning",
         "silk_over_copper": "warning",
@@ -108,7 +106,7 @@
         "text_thickness": "warning",
         "through_hole_pad_without_hole": "error",
         "too_many_vias": "error",
-        "track_dangling": "warning",
+        "track_dangling": "error",
         "track_width": "error",
         "tracks_crossing": "error",
         "unconnected_items": "error",
@@ -218,10 +216,7 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [
-      "power_pin_not_driven|2120900|1460500|3ac09bef-f9a4-4922-a642-39185d215cb0|00000000-0000-0000-0000-000000000000|||",
-      "power_pin_not_driven|914400|2540000|b8ab3c2d-1381-44c5-b7b1-5118912ae272|00000000-0000-0000-0000-000000000000|||"
-    ],
+    "erc_exclusions": [],
     "meta": {
       "version": 0
     },
