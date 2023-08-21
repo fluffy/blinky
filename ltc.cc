@@ -1,4 +1,6 @@
-// COmpile with: gcc -o ltc ltc.cc -lstdc++
+// Compile with: gcc -o ltc ltc.cc -lstdc++
+//  Descrption of LTC can be found at https://en.wikipedia.org/wiki/Linear_timecode
+// Official specification in SMPTE 12M TODO
 
 #include <iostream>
 
