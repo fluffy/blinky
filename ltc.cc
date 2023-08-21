@@ -77,8 +77,8 @@ class LTC {
   void set(const TimeCode& time);
   void get(TimeCode& time);
 
-  void encode(TransitionSet& tSet);
-  void decode(const TransitionSet& tSet);
+  void encode(TransitionSet& tSet,  uint8_t fps=30 );
+  void decode1(const TransitionSet& tSet);
 
  private:
   uint8_t bits[10];
@@ -102,18 +102,16 @@ uint8_t LTC::parity() {
   return ret % 2;
 }
 
-void LTC::encode(TransitionSet& tSet) {
+void LTC::encode(TransitionSet& tSet,  uint8_t fps ) {
   // TransitionSet::TransitionSet( const LTC& ltc ){
   tSet.clear();
 
   uint32_t time = 0;
   // baud rate is 30 fps, 80 bits per frame , two transitions per bit for 1's =
   // 2400 Hz for 1
-  uint32_t oneInc =
-      1000000 /
-      2400;  // compute from baud and clk rate. Rate for a 1 (2 tranition)
-  uint32_t zeroInc =
-      oneInc * 2;  // compute from baud and clk rate. Rate for a 1 (2 tranition)
+  uint32_t baud = fps * 80 /* bits per frame */ ;
+  uint32_t zeroInc = 1000000 / baud;  // one time in micro seconds
+  uint32_t oneInc = zeroInc / 2;
 
   tSet.add(time);
 
@@ -140,9 +138,11 @@ void LTC::encode(TransitionSet& tSet) {
     }
     std::cout << "-";
   }
+
+  std::cout <<  " totalTime=" << time/1000 << "ms" << std::endl;
 }
 
-void LTC::decode(const TransitionSet& tSet) {
+void LTC::decode1(const TransitionSet& tSet) {
   valid = 0;
 
   uint8_t bitCount = 0;
@@ -161,7 +161,7 @@ void LTC::decode(const TransitionSet& tSet) {
 
     uint32_t delta = tSet.delta(i);
 
-    if ((delta > 700) && (delta < 900)) {
+    if ((delta > 416-50) && (delta < 416+50)) {
       // found a zero
       std::cout << "0";
 
@@ -173,7 +173,7 @@ void LTC::decode(const TransitionSet& tSet) {
         std::cout << "-";
       }
 
-    } else if ((delta > 300) && (delta < 500)) {
+    } else if ((delta > 208-50) && (delta < 208+50)) {
       // start of 1
       if (i + 1 >= tSet.size()) {
         std::cout << " missing last one i=" << i << " of " << (int)tSet.size()
@@ -182,7 +182,7 @@ void LTC::decode(const TransitionSet& tSet) {
         return;
       }
       uint32_t delta2 = tSet.delta(i + 1);
-      if ((delta > 300) && (delta < 500)) {
+      if ((delta > 208-50) && (delta < 208+50)) {
         // found a 1
         std::cout << "1";
 
@@ -283,7 +283,7 @@ int main(int argc, char* argv[]) {
 #endif
 
   LTC ltc2;
-  ltc2.decode(tSet);
+  ltc2.decode1(tSet);
 
   std::cout << std::endl << "done decode" << std::endl;
 
