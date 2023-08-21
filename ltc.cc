@@ -18,7 +18,11 @@ class TimeCode {
   };
 
   TimeCode(uint8_t h, uint8_t m, uint8_t s, uint8_t f)
-    : hour(h), min(m), sec(s), frame(f), valid(true) { h=h%24; m=m%60; s=s%60; };
+      : hour(h), min(m), sec(s), frame(f), valid(true) {
+    h = h % 24;
+    m = m % 60;
+    s = s % 60;
+  };
 
   uint32_t seconds() const {
     if (!valid) return 0;
@@ -37,7 +41,7 @@ class TimeCode {
   }
 
   bool isValid() const { return valid; }
-  
+
  private:
   uint8_t hour;
   uint8_t min;
@@ -106,7 +110,6 @@ uint8_t LTC::parity() {
 }
 
 void LTC::encode(TransitionSet& tSet, uint8_t fps) {
- 
   tSet.clear();
 
   uint32_t time = 0;
@@ -130,26 +133,26 @@ void LTC::encode(TransitionSet& tSet, uint8_t fps) {
         time += oneInc;
         tSet.add(time);
 
-        //std::cout << "1";
+        // std::cout << "1";
       } else {
         // encode a zero
         time += zeroInc;
         tSet.add(time);
 
-	// std::cout << "0";
+        // std::cout << "0";
       }
     }
-    //std::cout << "-";
+    // std::cout << "-";
   }
 
-  //std::cout << " totalTime=" << time / 1000 << "ms" << std::endl;
+  // std::cout << " totalTime=" << time / 1000 << "ms" << std::endl;
 }
 
-void LTC::decode(const TransitionSet& tSet, uint8_t fps ) {
+void LTC::decode(const TransitionSet& tSet, uint8_t fps) {
   uint32_t baud = fps * 80 /* bits per frame */;
   uint32_t zeroInc = 1000000 / baud;  // zero time in micro seconds
   uint32_t oneInc = zeroInc / 2;
-  
+
   // clear out the data before debcoding
   valid = 0;
   for (int i = 0; i < 10; i++) {
@@ -164,7 +167,7 @@ void LTC::decode(const TransitionSet& tSet, uint8_t fps ) {
   uint8_t done = 0;
   while (!done) {
     if (setIndex == 0) {
-      //std::cout << "mnot enough transitions" << std::endl;
+      // std::cout << "mnot enough transitions" << std::endl;
       return;
     }
 
@@ -172,27 +175,28 @@ void LTC::decode(const TransitionSet& tSet, uint8_t fps ) {
 
     if ((delta > zeroInc - 50) && (delta < zeroInc + 50)) {
       // found a zero
-      //std::cout << "0";
+      // std::cout << "0";
       setIndex--;
     } else if ((delta > oneInc - 50) && (delta < oneInc + 50)) {
       // found a start of 1
       if (setIndex < 1) {
-	//std::cout << "mnot enough transitions 2nd half of one" << std::endl;
+        // std::cout << "mnot enough transitions 2nd half of one" << std::endl;
         return;
       }
       uint32_t delta2 = tSet.delta(setIndex - 1);
       if ((delta > oneInc - 50) && (delta < oneInc + 50)) {
         // found a 1
-	//std::cout << "1";
+        // std::cout << "1";
 
         bits[byteCount] |= (1 << bitCount);
       } else {
-	//std::cout << "  2nd half 1 missing" << std::endl;
+        // std::cout << "  2nd half 1 missing" << std::endl;
         return;
       }
       setIndex -= 2;
     } else {
-      //std::cout << "  bad delta=" << delta << " at setIndex=" << (int)setIndex << std::endl;
+      // std::cout << "  bad delta=" << delta << " at setIndex=" <<
+      // (int)setIndex << std::endl;
       return;
     }
 
@@ -202,7 +206,7 @@ void LTC::decode(const TransitionSet& tSet, uint8_t fps ) {
         done = 1;
       } else {
         byteCount--;
-        //std::cout << "-";
+        // std::cout << "-";
       }
     } else {
       bitCount--;
@@ -210,21 +214,21 @@ void LTC::decode(const TransitionSet& tSet, uint8_t fps ) {
 
     if ((byteCount == 7) && (bitCount == 7)) {
       if (bits[8] != 0xFC) {
-        //std::cout << " bad sync1" << std::endl;
+        // std::cout << " bad sync1" << std::endl;
         return;
       }
     }
 
     if ((byteCount == 8) && (bitCount == 7)) {
       if (bits[9] != 0xBF) {
-	//std::cout << " bad sync2" << std::endl;
+        // std::cout << " bad sync2" << std::endl;
         return;
       }
     }
   }
 
   if (parity() != 0) {
-    //std::cout << " bad parity" << std::endl;
+    // std::cout << " bad parity" << std::endl;
     return;
   }
   valid = 1;
@@ -270,7 +274,7 @@ void LTC::get(TimeCode& time) {
   time.sec %= 60;
   time.min %= 60;
   time.hour %= 24;
-  
+
   time.valid = 1;
 }
 
