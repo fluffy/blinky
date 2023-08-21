@@ -6,7 +6,7 @@ class LTC;
 
 class TimeCode {
   friend class LTC;
-  
+
  public:
   TimeCode() { valid = 0; };
   TimeCode(uint32_t s, uint32_t us) {
@@ -20,9 +20,15 @@ class TimeCode {
   TimeCode(uint8_t h, uint8_t m, uint8_t s, uint8_t f)
       : hour(h), min(m), sec(s), frame(f){};
 
-  uint32_t seconds() { if (!valid) return 0; return ( uint32_t)sec + ( uint32_t) min * 60l + ( uint32_t)hour * 3600l; };
-  uint32_t microSeconds() { if (!valid) return 0; return  ( uint32_t)frame*1000000l/30l; };
-  
+  uint32_t seconds() {
+    if (!valid) return 0;
+    return (uint32_t)sec + (uint32_t)min * 60l + (uint32_t)hour * 3600l;
+  };
+  uint32_t microSeconds() {
+    if (!valid) return 0;
+    return (uint32_t)frame * 1000000l / 30l;
+  };
+
   uint32_t disp() {
     if (!valid) {
       return 0;
@@ -39,24 +45,23 @@ class TimeCode {
 };
 
 class TransitionSet {
-  //friend class LTC;
-public:
+  // friend class LTC;
+ public:
   TransitionSet() : numTransitions(0){};
-  void add(  uint32_t t ) {
-    if ( numTransitions >= maxTransitions ) return;
-    time[numTransitions]=t;
+  void add(uint32_t t) {
+    if (numTransitions >= maxTransitions) return;
+    time[numTransitions] = t;
     numTransitions++;
-  } ;
-  uint32_t delta(  uint16_t i ) const
-  {
-    if ( (i<1) || (i>=numTransitions) ) return 0;
-    return time[i] - time[i-1];
   };
-  uint16_t size() const { return numTransitions; } ;
-  void clear() { numTransitions=0; };
-  
-private:
-  static const uint16_t maxTransitions = 80*2+1;
+  uint32_t delta(uint16_t i) const {
+    if ((i < 1) || (i >= numTransitions)) return 0;
+    return time[i] - time[i - 1];
+  };
+  uint16_t size() const { return numTransitions; };
+  void clear() { numTransitions = 0; };
+
+ private:
+  static const uint16_t maxTransitions = 80 * 2 + 1;
   uint32_t time[maxTransitions];
   uint16_t numTransitions;
 };
@@ -75,7 +80,7 @@ class LTC {
   void encode(TransitionSet& tSet);
   void decode(const TransitionSet& tSet);
 
- public:
+ private:
   uint8_t bits[10];
   uint8_t parity();
   uint8_t valid;
@@ -100,7 +105,7 @@ uint8_t LTC::parity() {
 void LTC::encode(TransitionSet& tSet) {
   // TransitionSet::TransitionSet( const LTC& ltc ){
   tSet.clear();
-  
+
   uint32_t time = 0;
   // baud rate is 30 fps, 80 bits per frame , two transitions per bit for 1's =
   // 2400 Hz for 1
@@ -110,26 +115,27 @@ void LTC::encode(TransitionSet& tSet) {
   uint32_t zeroInc =
       oneInc * 2;  // compute from baud and clk rate. Rate for a 1 (2 tranition)
 
-  tSet.add( time );
+  tSet.add(time);
 
   for (int i = 0; i < 10; i++) {
     uint16_t data = bits[i];
     for (uint16_t bit = 0; bit < 8; bit++) {
-      //std::cout << " data=" << data << " dataShift=" << (data>>bit) << " bit=" << bit << " "  <<std::endl;
-      if ( (data>>bit) & 0x1) {
+      // std::cout << " data=" << data << " dataShift=" << (data>>bit) << "
+      // bit=" << bit << " "  <<std::endl;
+      if ((data >> bit) & 0x1) {
         // encode a one
         time += oneInc;
-        tSet.add(time );
+        tSet.add(time);
         time += oneInc;
-        tSet.add(time );
-	
-	 std::cout << "1";
+        tSet.add(time);
+
+        std::cout << "1";
       } else {
         // encode a zero
         time += zeroInc;
-        tSet.add(time );
+        tSet.add(time);
 
-	 std::cout << "0";
+        std::cout << "0";
       }
     }
     std::cout << "-";
@@ -147,36 +153,35 @@ void LTC::decode(const TransitionSet& tSet) {
   }
 
   for (int i = 1; i < tSet.size(); i++) {
-      if (byteCount >= 10) {
-        std::cout << " too many bytes i=" << i << " of " << (int)tSet.size()
-                  << std::endl;
-        return;
-      }
+    if (byteCount >= 10) {
+      std::cout << " too many bytes i=" << i << " of " << (int)tSet.size()
+                << std::endl;
+      return;
+    }
 
-      uint32_t delta = tSet.delta(i);
-      
+    uint32_t delta = tSet.delta(i);
+
     if ((delta > 700) && (delta < 900)) {
       // found a zero
       std::cout << "0";
 
-      // leave (1 << bitCount) in bits[byteCount] as zero 
+      // leave (1 << bitCount) in bits[byteCount] as zero
       bitCount++;
       if (bitCount >= 8) {
         bitCount = 0;
         byteCount++;
-	 std::cout << "-";
+        std::cout << "-";
       }
-    
 
     } else if ((delta > 300) && (delta < 500)) {
       // start of 1
-      if (i + 1 >= tSet.size() ) {
+      if (i + 1 >= tSet.size()) {
         std::cout << " missing last one i=" << i << " of " << (int)tSet.size()
                   << std::endl;
 
         return;
       }
-      uint32_t delta2 = tSet.delta( i+1 );
+      uint32_t delta2 = tSet.delta(i + 1);
       if ((delta > 300) && (delta < 500)) {
         // found a 1
         std::cout << "1";
@@ -186,13 +191,13 @@ void LTC::decode(const TransitionSet& tSet) {
         if (bitCount >= 8) {
           bitCount = 0;
           byteCount++;
-	   std::cout << "-";
+          std::cout << "-";
         }
 
         i++;  // skip 2nd transtion on  main loop
       } else {
-        std::cout << " bad transition time i=" << i << " of " << (int)tSet.size()
-                  << std::endl;
+        std::cout << " bad transition time i=" << i << " of "
+                  << (int)tSet.size() << std::endl;
         return;
       }
     } else {
@@ -259,16 +264,16 @@ void LTC::get(TimeCode& time) {
 int main(int argc, char* argv[]) {
   std::cout << "LTC Test" << std::endl;
 
-  TimeCode t1( 11 * 60 + 22, 500000l);
-  std::cout << "t1=" << t1.disp()  << " " <<  t1.microSeconds() <<  std::endl;
-  assert( t1.seconds() == 682 );
-  assert( t1.microSeconds() ==  500000l );
-  
+  TimeCode t1(11 * 60 + 22, 500000l);
+  std::cout << "t1=" << t1.disp() << " " << t1.microSeconds() << std::endl;
+  assert(t1.seconds() == 682);
+  assert(t1.microSeconds() == 500000l);
+
   LTC ltc1(t1);
 
   TransitionSet tSet;
   ltc1.encode(tSet);
- std::cout << std::endl << "done encode" << std::endl;
+  std::cout << std::endl << "done encode" << std::endl;
 
 #if 0
  std::cout << "tSet size=" << (int)tSet.size() << std::endl;
