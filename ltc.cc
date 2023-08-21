@@ -91,8 +91,9 @@ void LTC::encode(TransitionSet& tSet) {
   tSet.t[tSet.size++] = time;
 
   for (int i = 0; i < 10; i++) {
-    uint8_t data = bits[i];
-    for (int bit = 0; bit <= 8; bit++) {
+    uint16_t data = bits[i];
+    for (uint16_t bit = 0; bit < 8; bit++) {
+      //std::cout << " data=" << data << " dataShift=" << (data>>bit) << " bit=" << bit << " "  <<std::endl;
       if ( (data>>bit) & 0x1) {
         // encode a one
         time += oneInc;
@@ -138,7 +139,7 @@ void LTC::decode(const TransitionSet& tSet) {
 
       // leave (1 << bitCount) in bits[byteCount] as zero 
       bitCount++;
-      if (bitCount > 8) {
+      if (bitCount >= 8) {
         bitCount = 0;
         byteCount++;
 	 std::cout << "-";
@@ -160,7 +161,7 @@ void LTC::decode(const TransitionSet& tSet) {
 
         bits[byteCount] |= (1 << bitCount);
         bitCount++;
-        if (bitCount > 8) {
+        if (bitCount >= 8) {
           bitCount = 0;
           byteCount++;
 	   std::cout << "-";
@@ -183,11 +184,11 @@ void LTC::decode(const TransitionSet& tSet) {
     std::cout << " bad parity" << std::endl;
     return;
   }
-  if (bits[8] != 0x3F) {
+  if (bits[8] != 0xFC) {
     std::cout << " bad sync1" << std::endl;
     return;
   }
-  if (bits[9] != 0xFE) {
+  if (bits[9] != 0xBF) {
     std::cout << " bad sync2" << std::endl;
     return;
   }
@@ -203,8 +204,8 @@ void LTC::set(const TimeCode& time) {
   bits[5] = time.min / 10;
   bits[6] = time.hour % 10;
   bits[7] = time.hour / 10;
-  bits[8] = 0xFC; // 0x3F;  // sync1
-  bits[9] = 0xBF; // 0xFE;  // sync2
+  bits[8] = 0xFC;  // sync1
+  bits[9] = 0xBF;  // sync2
 
   if (parity() != 0) {
     // set polarity correction bit
@@ -218,10 +219,10 @@ void LTC::get(TimeCode& time) {
   if (!valid) {
     return;
   }
-  if (bits[8] != 0x3F) {
+  if (bits[8] != 0xFC) {
     return;
   }
-  if (bits[9] != 0xF3) {
+  if (bits[9] != 0xBF) {
     return;
   }
 
