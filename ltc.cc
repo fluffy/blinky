@@ -90,7 +90,7 @@ void LTC::encode(TransitionSet& tSet) {
 
   tSet.t[tSet.size++] = time;
 
-  for (int i = 0; i <= 10; i++) {
+  for (int i = 0; i < 10; i++) {
     uint8_t data = bits[i];
     for (int bit = 0; bit <= 8; bit++) {
       if ( (data>>bit) & 0x1) {
@@ -124,6 +124,12 @@ void LTC::decode(const TransitionSet& tSet) {
   }
 
   for (int i = 1; i < tSet.size; i++) {
+      if (byteCount >= 10) {
+        std::cout << " too many bytes i=" << i << " of " << (int)tSet.size
+                  << std::endl;
+        return;
+      }
+
     uint32_t delta = tSet.t[i] - tSet.t[i - 1];
 
     if ((delta > 700) && (delta < 900)) {
@@ -137,11 +143,7 @@ void LTC::decode(const TransitionSet& tSet) {
         byteCount++;
 	 std::cout << "-";
       }
-      if (byteCount >= 10) {
-        std::cout << " too many bytes0 i=" << i << " of " << (int)tSet.size
-                  << std::endl;
-        return;
-      }
+    
 
     } else if ((delta > 300) && (delta < 500)) {
       // start of 1
@@ -162,11 +164,6 @@ void LTC::decode(const TransitionSet& tSet) {
           bitCount = 0;
           byteCount++;
 	   std::cout << "-";
-        }
-        if (byteCount >= 10) {
-	    std::cout << " too many bytes1 i=" << i << " of " << (int)tSet.size
-                  << std::endl;
-          return;
         }
 
         i++;  // skip 2nd transtion on  main loop
