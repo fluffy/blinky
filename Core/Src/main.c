@@ -56,7 +56,7 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-const char *version = "0.2.230815";  // major , minor, year/moth/day
+const char *version = "0.2.230822";  // major , minor, year/moth/day
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -109,7 +109,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     subFrameCount = 240 - subFrameCountOffset;
   }
   if (htim == &htim4) {
-#if 0  // This block of code takes 1.9 uS and runs every 1 mS
+#if 1  // This block of code takes 1.9 uS and runs every 1 mS
     HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
     subFrameCount++;  // counting at rate 240 Hz
     if (subFrameCount >= 240) {
@@ -391,6 +391,8 @@ int main(void)
       snprintf(buffer, sizeof(buffer), "Unknown Hardware version %d \r\n",
                data[0]);
       HAL_UART_Transmit(&huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+
+      Error_Handler();
     }
   }
 
