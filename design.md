@@ -62,23 +62,40 @@ Display TImer drives LED and sync to main or aux rollover
 * does this need to capture syncMon ???
 
 ### Main Timer:
-* Use timer X
+* Use timer 2
+* max 42 Mhz 
 * 32 bits
 * clocked with ETR from main TCXO
 * use 20 Mhz 0.5 ppm JLCPCB C516500
 * period of 1 second ( adjusted in software )
 * adjustment store in EEPROM
 
+* ETR: PA15 or  PA0, PA5, PA15
+* Ch1: PA0 or PA0, PA5 - NA with ETR 
+* Ch2: PA3 or PA1, PB3 - sync_in
+* ch3: PB10 or PA2, PB10 - gps 
+* ch4: PB11 or PA3,  PB11 - mon 
+
+CH1 is disabled if ETR is in use 
+
 * Capture Sync Mon
 * Capture Sync In
 * Capture GPS PPS
 * Genrate Sync Out
 
-### MainSeconds Time
-* User Timer X, 16 bits
-* clocked from Main Timer
-* counts seconds, rollover 18 hours 
-* Capture Sync Mon
+### Sync Out Timer 
+* Use timer 1
+* max 84Mhz 
+* reset on 1 second from main and tick rate 50KHz
+* 16 bits 
+* sync off of tim 2 or 5 
+* CH on PA8 or  PA8,9,10,11
+
+### Sync In Timer 
+* User Tim8 
+* max 84Mhz
+* CH on PC6,7,8,9
+* can sync off tim 2 or 5 
 
 ### Blink Timer
 * trigger reset by main timer every second
@@ -87,19 +104,21 @@ Display TImer drives LED and sync to main or aux rollover
 
 
 ### Aux Timer
-* Use 32 bit timer X
+* Use 32 bit timer 5
+* max 42 Mhz
+* ETR:
+* CH1: PA0 - AUX_CLK
+* CH2:  PA1 - GPS 
+* CH3: PA2 - UUX_MON
+* Ch4: PA4  - NO 
+
+
 * clocked with ETR from external 10 MHz
 * captures something to link this to Main timer
 * capture SyncMon
 * capture GPS PPS
 * capture SyncIn
 
-### AuxSeconds  Time 2
-* clock from Aux timer
-* 16 bit
-* gives totall counter of 48 bits for external 10Mhz
-* rollover around 10 months 
-* Capture Sync Mon
 
 # Interrupt Handling
 
