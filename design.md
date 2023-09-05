@@ -83,7 +83,7 @@ CH1 is disabled if ETR is in use
 * Capture GPS PPS
 * Genrate Sync Out
 
-### Sync Out Timer 
+### PPS Out Timer 
 * Use timer 1
 * max 84Mhz 
 * reset on 1 second from main and tick rate 50KHz
@@ -91,13 +91,14 @@ CH1 is disabled if ETR is in use
 * sync off of tim 2 or 5 
 * CH on PA8 or  PA8,9,10,11
 
-### Sync In Timer 
+### LTC Sync In Timer 
 * User Tim8 
 * max 84Mhz
 * CH on PC6,7,8,9
 * can sync off tim 2 or 5 
 
 ### Blink Timer
+* use timer 4 ?????
 * trigger reset by main timer every second
 * period about1 ms 
 * interrupt ( less than 1KHz) to drive LEDs

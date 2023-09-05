@@ -59,3 +59,5 @@ On the V4 hardware 0.2 software have:
 * audio out of beep
 * audio in to detect beep
 * headset monitor of audio out
+
+* could we add QR code to video 
