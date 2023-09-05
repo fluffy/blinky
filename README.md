@@ -39,6 +39,8 @@ On the V4 hardware 0.2 software have:
 
 # Wishlist
 
+* usb port for serial data ... time into browser measure computer time offset 
+
 * Heavy board with GPS, OCXO, wall power, 3 x 10Mhz out, LTC sync out, LTC
   sync in, serial debug out, Ext 10 Mhz in, 10 Mhz out,
 * Light board with TXCO, LTC Sync in, LTC Sync out, LED grid, 
