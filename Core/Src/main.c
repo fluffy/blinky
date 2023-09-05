@@ -58,6 +58,9 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
+#define hADC hadc1 
+#define hDAC hdac
+#define hI2c hi2c1
 #define hUartDebug huart1
 #define hUartGps huart3
 
@@ -344,7 +347,7 @@ int main(void)
     uint8_t eepromMemAddr = 0;
     HAL_StatusTypeDef status;
 
-    status = HAL_I2C_IsDeviceReady(&hi2c1, i2cAddr << 1, 2, timeout);
+    status = HAL_I2C_IsDeviceReady(&hI2c, i2cAddr << 1, 2, timeout);
     if (status != HAL_OK) {
       snprintf(buffer, sizeof(buffer), "Error: EEProm not found \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -359,7 +362,7 @@ int main(void)
       data[0] = 5;   // hardware version
       data[1] = 2;  // osc speed ( 2= 2.048 MHx, 10=10 MHz )
 
-      status = HAL_I2C_Mem_Write(&hi2c1, i2cAddr << 1, eepromMemAddr,
+      status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
                                  sizeof(eepromMemAddr), data,
                                  (uint16_t)sizeof(data), timeout);
       if (status != HAL_OK) {
@@ -373,7 +376,7 @@ int main(void)
     }
 
     status =
-        HAL_I2C_Mem_Read(&hi2c1, i2cAddr << 1, eepromMemAddr,
+        HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1, eepromMemAddr,
                          sizeof(eepromMemAddr), data, (uint16_t)3, timeout);
     if (status != HAL_OK) {
       // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
@@ -429,9 +432,9 @@ int main(void)
     HAL_TIM_IC_Start_IT( &hTmeSync, TIM_CHANNEL_1 ); // start gps pps capture
 #endif
 
-    HAL_DAC_Start( &hdac , DAC_CHANNEL_1 );
+    HAL_DAC_Start( &hDAC , DAC_CHANNEL_1 );
     uint16_t dacValue = 10000-15; 
-    HAL_DAC_SetValue(&hdac,DAC_CHANNEL_1,DAC_ALIGN_12B_R,dacValue);
+    HAL_DAC_SetValue(&hDAC,DAC_CHANNEL_1,DAC_ALIGN_12B_R,dacValue);
 
   /* USER CODE END 2 */
 
