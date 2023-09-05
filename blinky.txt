@@ -1,6 +1,6 @@
 Configuration	blinky
 STM32CubeMX 	6.8.0
-Date	08/18/2023
+Date	09/05/2023
 MCU	STM32F405RGTx
 
 
@@ -16,6 +16,8 @@ RCC	Crystal/Ceramic Resonator	RCC_OSC_OUT	PH1-OSC_OUT
 SYS	Serial Wire	SYS_JTCK-SWCLK	PA14
 SYS	Serial Wire	SYS_JTMS-SWDIO	PA13
 SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+TIM1	Reset Mode	TIM1_VS_ControllerModeReset	VP_TIM1_VS_ControllerModeReset
+TIM1	ITR1	TIM1_VS_ClockSourceITR	VP_TIM1_VS_ClockSourceITR
 TIM1	Internal Clock	TIM1_VS_ClockSourceINT	VP_TIM1_VS_ClockSourceINT
 TIM1	Output Compare CH1	TIM1_CH1	PA8
 TIM2	ITR0	TIM2_VS_ClockSourceITR	VP_TIM2_VS_ClockSourceITR
@@ -23,11 +25,11 @@ TIM2	ETR2	TIM2_ETR	PA15
 TIM2	Input Capture direct mode	TIM2_CH2	PB3
 TIM2	Input Capture direct mode	TIM2_CH3	PB10
 TIM2	Input Capture direct mode	TIM2_CH4	PB11
-TIM3	ITR0	TIM3_VS_ClockSourceITR	VP_TIM3_VS_ClockSourceITR
 TIM5	TI1_ED	TIM5_CH1	PA0-WKUP
 TIM5	Input Capture direct mode	TIM5_CH2	PA1
 TIM5	Input Capture direct mode	TIM5_CH3	PA2
-TIM8	ITR0	TIM8_VS_ClockSourceITR	VP_TIM8_VS_ClockSourceITR
+TIM8	Reset Mode	TIM8_VS_ControllerModeReset	VP_TIM8_VS_ControllerModeReset
+TIM8	ITR1	TIM8_VS_ClockSourceITR	VP_TIM8_VS_ClockSourceITR
 TIM8	Internal Clock	TIM8_VS_ClockSourceINT	VP_TIM8_VS_ClockSourceINT
 TIM8	Input Capture direct mode	TIM8_CH1	PC6
 USART1	Asynchronous	USART1_RX	PB7
@@ -100,6 +102,8 @@ RCC	Crystal/Ceramic Resonator	RCC_OSC_OUT	PH1-OSC_OUT
 SYS	Serial Wire	SYS_JTCK-SWCLK	PA14
 SYS	Serial Wire	SYS_JTMS-SWDIO	PA13
 SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+TIM1	Reset Mode	TIM1_VS_ControllerModeReset	VP_TIM1_VS_ControllerModeReset
+TIM1	ITR1	TIM1_VS_ClockSourceITR	VP_TIM1_VS_ClockSourceITR
 TIM1	Internal Clock	TIM1_VS_ClockSourceINT	VP_TIM1_VS_ClockSourceINT
 TIM1	Output Compare CH1	TIM1_CH1	PA8
 TIM2	ITR0	TIM2_VS_ClockSourceITR	VP_TIM2_VS_ClockSourceITR
@@ -107,11 +111,11 @@ TIM2	ETR2	TIM2_ETR	PA15
 TIM2	Input Capture direct mode	TIM2_CH2	PB3
 TIM2	Input Capture direct mode	TIM2_CH3	PB10
 TIM2	Input Capture direct mode	TIM2_CH4	PB11
-TIM3	ITR0	TIM3_VS_ClockSourceITR	VP_TIM3_VS_ClockSourceITR
 TIM5	TI1_ED	TIM5_CH1	PA0-WKUP
 TIM5	Input Capture direct mode	TIM5_CH2	PA1
 TIM5	Input Capture direct mode	TIM5_CH3	PA2
-TIM8	ITR0	TIM8_VS_ClockSourceITR	VP_TIM8_VS_ClockSourceITR
+TIM8	Reset Mode	TIM8_VS_ControllerModeReset	VP_TIM8_VS_ControllerModeReset
+TIM8	ITR1	TIM8_VS_ClockSourceITR	VP_TIM8_VS_ClockSourceITR
 TIM8	Internal Clock	TIM8_VS_ClockSourceINT	VP_TIM8_VS_ClockSourceINT
 TIM8	Input Capture direct mode	TIM8_CH1	PC6
 USART1	Asynchronous	USART1_RX	PB7
