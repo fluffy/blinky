@@ -58,22 +58,38 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-#define hADC hadc1 
+#define hADC hadc1
+
 #define hDAC hdac
+#define DAC_CH_OSC_ADJ DAC_CHANNEL_1 
+#define DAC_CH_AUD_OUT DAC_CHANNEL_2 
+
 #define hI2c hi2c1
 #define hUartDebug huart1
 #define hUartGps huart3
 
 // TODO - set up correct IDR to reset htim4 
 #define hTimePps   htim1
+#define TimePps_CH_SYNC_OUT TIM_CHANNEL_1
+
 #define hTimeSync  htim2
+#define TimeSync_CH_GPS_PPS TIM_CHANNEL_3
+#define TimeSync_CH_SYNC_MON TIM_CHANNEL_4
+#define TimeSync_CH_SYNC_IN TIM_CHANNEL_2
+
 #define hTimeBlink htim4
+
 #define hTimeAux   htim5
+#define TimeAux_CH_AUX_CLK TIM_CHANNEL_1
+#define TimeAux_CH_AUX_GPS_PPS TIM_CHANNEL_2
+#define TimeAux_CH_AUX_SYNC_MON TIM_CHANNEL_3
+
 #define hTimeLtc   htim8
+#define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 
 
 
-const char *version = "0.30.230822a";  // major , minor, year/moth/day
+const char *version = "0.40.230908aa";  // major , minor, year/month/day
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -126,6 +142,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
     subFrameCount = 240 - subFrameCountOffset;
   }
+  
   if (htim == &hTimeBlink) {
 #if 1  // This block of code takes 1.9 uS and runs every 1 mS
     HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
@@ -202,24 +219,24 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
   uint32_t tick = HAL_GetTick();
   if (htim == &hTimeSync) {
     if (htim->Channel ==
-        HAL_TIM_ACTIVE_CHANNEL_1) {  // sync in falling edge. falling is rising
+        TimeSync_CH_SYNC_IN) {  // sync in falling edge. falling is rising
                                      // on inverted input
-      dataSyncCapture = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+      dataSyncCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_IN);
       dataSyncCaptureTick = tick;
     }
     if (htim->Channel ==
-        HAL_TIM_ACTIVE_CHANNEL_4) {  // sync mon falling edge. falling is rising
+        TimeSync_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
                                      // on inverted output
-      dataMonCapture = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_4);
+      dataMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_MON);
       dataMonCaptureTick = tick;
     }
   }
 #if 1
   if (htim == &hTimeSync) {
     if (htim->Channel ==
-        HAL_TIM_ACTIVE_CHANNEL_1) {  // sync in falling edge. falling is rising
+        TimeSync_CH_GPS_PPS ) {  // sync in falling edge. falling is rising
                                      // on inverted input
-      dataGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+      dataGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim,  TimeSync_CH_GPS_PPS);
       dataGpsPpsCaptureTick = tick;
     }
   }
@@ -230,13 +247,13 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &hTimePps) {
     // HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
 
-    uint16_t val = __HAL_TIM_GET_COMPARE(&hTimePps, TIM_CHANNEL_2);
+    uint16_t val = __HAL_TIM_GET_COMPARE(&hTimePps,TimePps_CH_SYNC_OUT );
     if (val != dataCurrentPhaseSyncOut) {
       // end of output pulse just happened, set up for next output pulse
       dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
-      __HAL_TIM_SET_COMPARE(&hTimePps, TIM_CHANNEL_2, dataNextSyncOutPhase);
+      __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT , dataNextSyncOutPhase);
       LL_TIM_OC_SetMode(
-          TIM3, LL_TIM_CHANNEL_CH2,
+          TIM1, LL_TIM_CHANNEL_CH1,
           LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
     } else {                        // val == dataCurrentPhaseSyncOut
       // start of output pulse just started, set up for the end of pulse
@@ -244,9 +261,9 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       if (val >= 10000) {
         val -= 10000;
       }
-      __HAL_TIM_SET_COMPARE(&hTimePps, TIM_CHANNEL_2, val);
+      __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT , val);
       LL_TIM_OC_SetMode(
-          TIM3, LL_TIM_CHANNEL_CH2,
+          TIM1, LL_TIM_CHANNEL_CH1,
           LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
     }
   }
@@ -422,19 +439,19 @@ int main(void)
   HAL_TIM_Base_Start_IT(&hTimeSync);
 
 
-  HAL_TIM_OC_Start_IT(&hTimePps, TIM_CHANNEL_2);  // start sync out
+  HAL_TIM_OC_Start_IT(&hTimePps,TimePps_CH_SYNC_OUT );  // start sync out
 
   // HAL_TIM_Base_Start_IT(&htim2);
-  HAL_TIM_IC_Start_IT(&hTimeSync, TIM_CHANNEL_1);  // start sync in capture
-  HAL_TIM_IC_Start_IT(&hTimeSync, TIM_CHANNEL_4);  // start sync mon capture
+  HAL_TIM_IC_Start_IT(&hTimeSync, TimeSync_CH_SYNC_IN );  // start sync in capture
+  HAL_TIM_IC_Start_IT(&hTimeSync,  TimeSync_CH_SYNC_MON );  // start sync mon capture
 #if 0
     // starting this send capture intruts into solid loop - TODO FIX
-    HAL_TIM_IC_Start_IT( &hTmeSync, TIM_CHANNEL_1 ); // start gps pps capture
+    HAL_TIM_IC_Start_IT( &hTmeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
 #endif
 
-    HAL_DAC_Start( &hDAC , DAC_CHANNEL_1 );
+    HAL_DAC_Start( &hDAC ,  DAC_CH_OSC_ADJ  );
     uint16_t dacValue = 10000-15; 
-    HAL_DAC_SetValue(&hDAC,DAC_CHANNEL_1,DAC_ALIGN_12B_R,dacValue);
+    HAL_DAC_SetValue( &hDAC,DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue );
 
   /* USER CODE END 2 */
 
@@ -507,7 +524,7 @@ int main(void)
       buttonWasPressed = 0;
     }
 
-    // uint32_t val = __HAL_TIM_GetCounter(&htim2);
+    // uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     // snprintf( buffer, sizeof(buffer), "val %ld \r\n", val/1000 );
     // HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
@@ -536,7 +553,7 @@ int main(void)
 
 #if 1
     if (dataExtClkCountTick != dataExtClkCountTickPrev) {
-      uint32_t val = __HAL_TIM_GetCounter(&htim1);
+      uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
       int32_t err = dataExtClkCountTick - dataExtClkCountTickOffset -
                     dataExtClkCount * 1000l;
       snprintf(buffer, sizeof(buffer), "   time: %ld s %ld ms err: %ld ms\r\n",
