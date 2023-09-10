@@ -82,6 +82,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
   if (htim == &hTimeSync) {
     HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
+
+    HAL_GPIO_TogglePin( LEDM2_GPIO_Port, LEDM2_Pin);  // toggle red error LED
+
+     
     dataExtClkCount++;
     dataExtClkCountTick = tick;
 
