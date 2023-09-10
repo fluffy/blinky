@@ -488,14 +488,13 @@ static void MX_TIM4_Init(void)
   /* USER CODE END TIM4_Init 0 */
 
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-  TIM_SlaveConfigTypeDef sSlaveConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
 
   /* USER CODE BEGIN TIM4_Init 1 */
 
   /* USER CODE END TIM4_Init 1 */
   htim4.Instance = TIM4;
-  htim4.Init.Prescaler = 84-1;
+  htim4.Init.Prescaler = 8400-1;
   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim4.Init.Period = 1000-1;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -506,12 +505,6 @@ static void MX_TIM4_Init(void)
   }
   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
   if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sSlaveConfig.SlaveMode = TIM_SLAVEMODE_RESET;
-  sSlaveConfig.InputTrigger = TIM_TS_ITR0;
-  if (HAL_TIM_SlaveConfigSynchro(&htim4, &sSlaveConfig) != HAL_OK)
   {
     Error_Handler();
   }
@@ -844,12 +837,8 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
-  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
-                    GPIO_PIN_RESET);  // turn on error LED
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
-                    GPIO_PIN_SET);  // turn off assert LED
-  HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
-                    GPIO_PIN_SET);  // turn off ok LED
+                    GPIO_PIN_RESET);  // turn on error LED
   while (1) {
   }
   /* USER CODE END Error_Handler_Debug */
@@ -870,12 +859,9 @@ void assert_failed(uint8_t *file, uint32_t line)
      number, ex: printf("Wrong parameters value: file %s on line %d\r\n", file,
      line) */
   __disable_irq();
-  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
-                    GPIO_PIN_SET);  // turn off error LED
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
-                    GPIO_PIN_RESET);  // turn on assert LED
-  HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
-                    GPIO_PIN_SET);  // turn off ok LED
+                    GPIO_PIN_RESET);  // turn on error LED
+
   while (1) {
   }
   /* USER CODE END 6 */

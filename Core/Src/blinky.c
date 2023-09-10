@@ -91,6 +91,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &hTimeBlink) {
 #if 1  // This block of code takes 1.9 uS and runs every 1 mS
     HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
+    
     subFrameCount++;  // counting at rate 240 Hz
     if (subFrameCount >= 240) {
       subFrameCount -= 240;
@@ -239,12 +240,12 @@ void blinkSetup(){
   // HAL_GPIO_WritePin(GPIOC, ROW4_Pin, GPIO_PIN_SET);
   // HAL_GPIO_WritePin(GPIOB, COL3_Pin, GPIO_PIN_RESET);
 
-  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
-                    GPIO_PIN_SET);  // turn off error LED
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
-                    GPIO_PIN_SET);  // turn off assert LED
+                    GPIO_PIN_SET);  // turn off red error LED
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
-                    GPIO_PIN_SET);  // turn off ok LED
+                    GPIO_PIN_SET);  // turn off yelow assert LED
+  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
+                    GPIO_PIN_SET);  // turn off green ok LED
 
   HAL_GPIO_WritePin(LEDA_GPIO_Port, LEDA_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LEDB_GPIO_Port, LEDB_Pin, GPIO_PIN_RESET);
@@ -325,20 +326,23 @@ void blinkSetup(){
       snprintf(buffer, sizeof(buffer), "  Hardware version: V4 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
+      /* 
       if (data[1] == 2) {
         // External CLK is 2.048 Mhz
-        __HAL_TIM_SET_AUTORELOAD(&htim1, 8192 - 1);
+        __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 2048000 - 1);
 
         snprintf(buffer, sizeof(buffer),
                  "  External clock set to 2.048 Mhz \r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       } else if (data[1] == 10) {
         // External CLK is 10 Mhz
-        __HAL_TIM_SET_AUTORELOAD(&htim1, 40000 - 1);
+        __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 10000000 - 1);
 
         snprintf(buffer, sizeof(buffer), "  External clock set to 10 Mhz \r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
+      */
+      
     } else {
       snprintf(buffer, sizeof(buffer), "Unknown Hardware version %d \r\n",
                data[0]);
@@ -374,9 +378,11 @@ void blinkRun(){
    /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
-                    GPIO_PIN_RESET);  // turn on ok LED
-
+#if 0 /// TODO 
+  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
+                    GPIO_PIN_RESET);  // turn on green ok LED
+#endif
+  
   int loopCount = 0;
   char buttonWasPressed = 0;
   uint32_t dataMonCaptureTickPrev = 0;
