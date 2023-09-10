@@ -282,9 +282,10 @@ void blinkSetup(){
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    const int writeConfigEEProm = 0;
 #ifdef FORMAT_EEPROM  // TODO move to seperate program
-    writeConfigEEProm = 1;
+    const int writeConfigEEProm = 1;
+#else
+    const int writeConfigEEProm = 0;
 #endif
     if (writeConfigEEProm) {
       // write config to EEProm
@@ -319,8 +320,8 @@ void blinkSetup(){
         HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
 
-    if (data[0] == 4) {
-      // This is V4 hardware
+    if (data[0] == 5) {
+      // This is V5 hardware
       snprintf(buffer, sizeof(buffer), "  Hardware version: V4 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
