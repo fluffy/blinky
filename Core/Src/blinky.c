@@ -1,11 +1,11 @@
-// Copyright (c) 2023 Cullen Jennings 
+// Copyright (c) 2023 Cullen Jennings
 
 #include <stdio.h>
 #include <stm32f4xx_ll_tim.h>
 #include <string.h>
 
-#include "main.h"
 #include "blink.h"
+#include "main.h"
 
 extern ADC_HandleTypeDef hadc1;
 
@@ -21,7 +21,6 @@ extern TIM_HandleTypeDef htim8;
 
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart3;
-
 
 #define hADC hadc1
 
@@ -73,19 +72,14 @@ uint32_t subFrameCount;  // counts at 240 sub frames per second, reset to 0
 uint32_t subFrameCountOffset;  // count in subFames into the second time when
                                // the syncOut pulse happens
 
-
-
-
-
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   uint32_t tick = HAL_GetTick();
 
   if (htim == &hTimeSync) {
     HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
 
-    HAL_GPIO_TogglePin( LEDM2_GPIO_Port, LEDM2_Pin);  // toggle red error LED
+    HAL_GPIO_TogglePin(LEDM2_GPIO_Port, LEDM2_Pin);  // toggle red error LED
 
-     
     dataExtClkCount++;
     dataExtClkCountTick = tick;
 
@@ -95,7 +89,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &hTimeBlink) {
 #if 1  // This block of code takes 1.9 uS and runs every 1 mS
     HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
-    
+
     subFrameCount++;  // counting at rate 240 Hz
     if (subFrameCount >= 240) {
       subFrameCount -= 240;
@@ -220,9 +214,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
   }
 }
 
-
 void blinkInit() {
-   
   dataMonCapture = 0xFFFFffff;
   dataMonCaptureTick = 0;
   dataSyncCapture = 0xFFFFffff;
@@ -237,9 +229,7 @@ void blinkInit() {
   subFrameCountOffset = 120;
 }
 
-
-void blinkSetup(){
- 
+void blinkSetup() {
   // HAL_GPIO_WritePin(GPIOC, ROW3_Pin, GPIO_PIN_SET);
   // HAL_GPIO_WritePin(GPIOC, ROW4_Pin, GPIO_PIN_SET);
   // HAL_GPIO_WritePin(GPIOB, COL3_Pin, GPIO_PIN_RESET);
@@ -247,7 +237,7 @@ void blinkSetup(){
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
                     GPIO_PIN_SET);  // turn off red error LED
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
-                    GPIO_PIN_SET);  // turn off yelow assert LED
+                    GPIO_PIN_SET);  // turn off yellow assert LED
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
                     GPIO_PIN_SET);  // turn off green ok LED
 
@@ -330,7 +320,7 @@ void blinkSetup(){
       snprintf(buffer, sizeof(buffer), "  Hardware version: V5 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      /* 
+      /*
       if (data[1] == 2) {
         // External CLK is 2.048 Mhz
         __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 2048000 - 1);
@@ -346,7 +336,7 @@ void blinkSetup(){
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
       */
-      
+
     } else {
       snprintf(buffer, sizeof(buffer), "Unknown Hardware version %d \r\n",
                data[0]);
@@ -360,40 +350,39 @@ void blinkSetup(){
 
 #if 1  // TODO
 
-   if (1) { // TODO
-   char buffer[100];
+  if (0) {  // TODO
+    char buffer[100];
     snprintf(buffer, sizeof(buffer), "Starting timer...\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
-   
+
   HAL_TIM_Base_Start_IT(&hTimeSync);
 
-  if (1) { // TODO
-   char buffer[100];
+  if (0) {  // TODO
+    char buffer[100];
     snprintf(buffer, sizeof(buffer), "  Done Starting timer\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 #endif
-  
-#if 0 // TODO 
+
+#if 0  // TODO 
   HAL_TIM_OC_Start_IT(&hTimePps, TimePps_CH_SYNC_OUT);  // start sync out
 #endif
-  
+
   // HAL_TIM_Base_Start_IT(&hTimeSync);
 
-#if 0 // TODO  
+#if 0  // TODO  
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_SYNC_IN);  // start sync in capture
 #endif
 
-#if 0 // TODO
+#if 1  // TODO
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_SYNC_MON);  // start sync mon capture
 #endif
 
-
 #if 0
-    // starting this send capture intruts into solid loop - TODO FIX
+    // starting this send capture interupts into solid loop - TODO FIX
     HAL_TIM_IC_Start_IT( &hTmeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
 #endif
 
@@ -401,142 +390,136 @@ void blinkSetup(){
   uint16_t dacValue = 10000 - 15;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
 
-  if (1) { // TODO 
+  if (1) {  // TODO
     char buffer[100];
-    snprintf(buffer, sizeof(buffer), "Finished Setup\r\n");
+    snprintf(buffer, sizeof(buffer), "Setup Dpne\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 }
 
-void blinkRun(){
-   /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-   
-#if 0 /// TODO 
+void blinkRun() {
+#if 0  /// TODO 
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
                     GPIO_PIN_RESET);  // turn on green ok LED
+
+  HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
+                    GPIO_PIN_RESET);  // turn off red error LED
+  HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
+                    GPIO_PIN_RESET);  // turn off yellow assert LED
+  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
+                    GPIO_PIN_RESET);  // turn off green ok LED
 #endif
-  
+
   static int loopCount = 0;
   static char buttonWasPressed = 0;
   static uint32_t dataMonCaptureTickPrev = 0;
-  static  uint32_t dataSyncCaptureTickPrev = 0;
+  static uint32_t dataSyncCaptureTickPrev = 0;
   static uint32_t dataExtClkCountTickPrev = 0;
   static uint32_t dataGpsPpsCaptureTickPrev = 0;
-  
 
-    char buffer[100];
+  char buffer[100];
 
-    if (loopCount % 10 == 0) {
-      snprintf(buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount);
+  if (loopCount % 10 == 0) {
+    snprintf(buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
+#if 1  // TODO
+  if (!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) {
+    if (!buttonWasPressed) {
+      uint32_t tick = HAL_GetTick();
+
+      snprintf(buffer, sizeof(buffer), "BTN1 press \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    }
 
-#if 0 // TODO 
-    if (!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) {
-      if (!buttonWasPressed) {
-        uint32_t tick = HAL_GetTick();
+      dataExtClkCountTickOffset = dataExtClkCountTick;
+      dataExtClkCount = 0;
 
-        snprintf(buffer, sizeof(buffer), "BTN1 press \r\n");
+      if ((tick > 2000) && (dataSyncCaptureTick + 2000 >
+                            tick)) {  // if had sync in last 2 seconds
+        int32_t deltaPhaseUs = dataSyncCapture - dataMonCapture;
+        int32_t deltaPhase =
+            deltaPhaseUs /
+            100l;  // div 100 for 1MHz to 10KHz counter conversion
+        if (deltaPhase < 0) deltaPhase += 10000;
+        uint32_t phase = dataNextSyncOutPhase + deltaPhase;
+        if (phase >= 10000) {
+          phase -= 10000;
+        }
+
+        dataNextSyncOutPhase = phase;
+
+        snprintf(buffer, sizeof(buffer), "  new phase: %ld\r\n", phase);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
-        dataExtClkCountTickOffset = dataExtClkCountTick;
-        dataExtClkCount = 0;
-
-        if ((tick > 2000) && (dataSyncCaptureTick + 2000 >
-                              tick)) {  // if had sync in last 2 seconds
-          int32_t deltaPhaseUs = dataSyncCapture - dataMonCapture;
-          int32_t deltaPhase =
-              deltaPhaseUs /
-              100l;  // div 100 for 1MHz to 10KHz counter conversion
-          if (deltaPhase < 0) deltaPhase += 10000;
-          uint32_t phase = dataNextSyncOutPhase + deltaPhase;
-          if (phase >= 10000) {
-            phase -= 10000;
-          }
-
-          dataNextSyncOutPhase = phase;
-
-          snprintf(buffer, sizeof(buffer), "  new phase: %ld\r\n", phase);
-          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer),
-                            1000);
-        } else {
-          snprintf(buffer, sizeof(buffer), "  No sync input\r\n");
-          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer),
-                            1000);
-        }
-
-        // set offset for the  LED  ( dataNextSyncOutPhase update 10KHz,
-        // subFrameCountOffset update 240 Hx )
-        subFrameCountOffset =
-            ((uint32_t)dataNextSyncOutPhase * 3l) / 125l;  // ratio of 240/10000
-        subFrameCountOffset += 2;
-        if (subFrameCountOffset < 0) {
-          subFrameCountOffset += 240;
-        }
-        if (subFrameCountOffset >= 240) {
-          subFrameCountOffset -= 240;
-        }
+      } else {
+        snprintf(buffer, sizeof(buffer), "  No sync input\r\n");
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
-      buttonWasPressed = 1;
-    } else {
-      buttonWasPressed = 0;
+
+      // set offset for the  LED  ( dataNextSyncOutPhase update 10KHz,
+      // subFrameCountOffset update 240 Hx )
+      subFrameCountOffset =
+          ((uint32_t)dataNextSyncOutPhase * 3l) / 125l;  // ratio of 240/10000
+      subFrameCountOffset += 2;
+      if (subFrameCountOffset < 0) {
+        subFrameCountOffset += 240;
+      }
+      if (subFrameCountOffset >= 240) {
+        subFrameCountOffset -= 240;
+      }
     }
+    buttonWasPressed = 1;
+  } else {
+    buttonWasPressed = 0;
+  }
 #endif
 
-#if 1 // TODO 
+#if 0  // TODO 
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     snprintf( buffer, sizeof(buffer), "Sync Time val %ld \r\n", val );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
-    
-    if (dataMonCaptureTick != dataMonCaptureTickPrev) {
-      snprintf(buffer, sizeof(buffer), "   mon : %ld ms\r\n",
-               dataMonCapture / 1000);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      dataMonCaptureTickPrev = dataMonCaptureTick;
-    }
 
-    if (dataSyncCaptureTick != dataSyncCaptureTickPrev) {
-      snprintf(buffer, sizeof(buffer), "   sync: %ld ms\r\n",
-               dataSyncCapture / 1000);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      dataSyncCaptureTickPrev = dataSyncCaptureTick;
-    }
+  if (dataMonCaptureTick != dataMonCaptureTickPrev) {
+    snprintf(buffer, sizeof(buffer), "   mon : %ld ms\r\n",
+             dataMonCapture / 1000);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    dataMonCaptureTickPrev = dataMonCaptureTick;
+  }
+
+  if (dataSyncCaptureTick != dataSyncCaptureTickPrev) {
+    snprintf(buffer, sizeof(buffer), "   sync: %ld ms\r\n",
+             dataSyncCapture / 1000);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    dataSyncCaptureTickPrev = dataSyncCaptureTick;
+  }
 
 #if 1
-    if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
-      snprintf(buffer, sizeof(buffer), "   gpsPPS: %ld ms\r\n",
-               dataGpsPpsCapture / 10);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      dataSyncCaptureTickPrev = dataSyncCaptureTick;
-    }
+  if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
+    snprintf(buffer, sizeof(buffer), "   gpsPPS: %ld ms\r\n",
+             dataGpsPpsCapture / 10);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    dataSyncCaptureTickPrev = dataSyncCaptureTick;
+  }
 #endif
 
 #if 1
-    if (dataExtClkCountTick != dataExtClkCountTickPrev) {
-      uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
-      int32_t err = dataExtClkCountTick - dataExtClkCountTickOffset -
-                    dataExtClkCount * 1000l;
-      snprintf(buffer, sizeof(buffer), "   time: %ld s %ld ms err: %ld ms\r\n",
-               dataExtClkCount, val, err);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      dataExtClkCountTickPrev = dataExtClkCountTick;
+  if (dataExtClkCountTick != dataExtClkCountTickPrev) {
+    uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
+    int32_t err = dataExtClkCountTick - dataExtClkCountTickOffset -
+                  dataExtClkCount * 1000l;
+    snprintf(buffer, sizeof(buffer), "   time: %ld s %ld ms err: %ld ms\r\n",
+             dataExtClkCount, val, err);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    dataExtClkCountTickPrev = dataExtClkCountTick;
 
-      // snprintf( buffer, sizeof(buffer), "   gridCount: %ld offset=%ld \r\n",
-      // dataGridCount,dataGridCountOffset); HAL_UART_Transmit( &hUartDebug,
-      // (uint8_t *)buffer, strlen(buffer), 1000);
-    }
+    // snprintf( buffer, sizeof(buffer), "   gridCount: %ld offset=%ld \r\n",
+    // dataGridCount,dataGridCountOffset); HAL_UART_Transmit( &hUartDebug,
+    // (uint8_t *)buffer, strlen(buffer), 1000);
+  }
 #endif
 
-    HAL_Delay(100);
+  HAL_Delay(100);
 
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-    loopCount++;
-  
+  loopCount++;
 }
-
-
-
