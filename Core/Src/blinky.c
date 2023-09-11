@@ -358,15 +358,28 @@ void blinkSetup(){
 
   HAL_TIM_Base_Start_IT(&hTimeBlink);
 
-#if 1  // TODO 
+#if 1  // TODO
+
+   if (1) { // TODO
+   char buffer[100];
+    snprintf(buffer, sizeof(buffer), "Starting timer...\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+   
   HAL_TIM_Base_Start_IT(&hTimeSync);
+
+  if (1) { // TODO
+   char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Done Starting timer\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
 #endif
   
 #if 0 // TODO 
   HAL_TIM_OC_Start_IT(&hTimePps, TimePps_CH_SYNC_OUT);  // start sync out
 #endif
   
-  // HAL_TIM_Base_Start_IT(&htim2);
+  // HAL_TIM_Base_Start_IT(&hTimeSync);
 
 #if 0 // TODO  
   HAL_TIM_IC_Start_IT(&hTimeSync,
@@ -387,28 +400,34 @@ void blinkSetup(){
   HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
   uint16_t dacValue = 10000 - 15;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
+
+  if (1) { // TODO 
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "Finished Setup\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
 }
 
 void blinkRun(){
    /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+   
 #if 0 /// TODO 
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
                     GPIO_PIN_RESET);  // turn on green ok LED
 #endif
   
-  int loopCount = 0;
-  char buttonWasPressed = 0;
-  uint32_t dataMonCaptureTickPrev = 0;
-  uint32_t dataSyncCaptureTickPrev = 0;
-  uint32_t dataExtClkCountTickPrev = 0;
-  uint32_t dataGpsPpsCaptureTickPrev = 0;
+  static int loopCount = 0;
+  static char buttonWasPressed = 0;
+  static uint32_t dataMonCaptureTickPrev = 0;
+  static  uint32_t dataSyncCaptureTickPrev = 0;
+  static uint32_t dataExtClkCountTickPrev = 0;
+  static uint32_t dataGpsPpsCaptureTickPrev = 0;
+  
 
-  while (1) {
     char buffer[100];
 
-    if (1) { // TODO if (loopCount % 10 == 0) {
+    if (loopCount % 10 == 0) {
       snprintf(buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
@@ -467,7 +486,7 @@ void blinkRun(){
 
 #if 1 // TODO 
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
-    snprintf( buffer, sizeof(buffer), "val %ld \r\n", val/1000 );
+    snprintf( buffer, sizeof(buffer), "Sync Time val %ld \r\n", val );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
     
@@ -516,7 +535,7 @@ void blinkRun(){
 
     /* USER CODE BEGIN 3 */
     loopCount++;
-  }
+  
 }
 
 
