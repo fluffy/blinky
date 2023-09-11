@@ -52,7 +52,7 @@ extern UART_HandleTypeDef huart3;
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 
-const char *version = "0.40.230908aa";  // major , minor, year/month/day
+const char *version = "0.50.230911";  // major , minor, year/month/day
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -327,7 +327,7 @@ void blinkSetup(){
 
     if (data[0] == 5) {
       // This is V5 hardware
-      snprintf(buffer, sizeof(buffer), "  Hardware version: V4 \r\n");
+      snprintf(buffer, sizeof(buffer), "  Hardware version: V5 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       /* 
@@ -357,15 +357,28 @@ void blinkSetup(){
   }
 
   HAL_TIM_Base_Start_IT(&hTimeBlink);
+
+#if 1  // TODO 
   HAL_TIM_Base_Start_IT(&hTimeSync);
-
+#endif
+  
+#if 0 // TODO 
   HAL_TIM_OC_Start_IT(&hTimePps, TimePps_CH_SYNC_OUT);  // start sync out
-
+#endif
+  
   // HAL_TIM_Base_Start_IT(&htim2);
+
+#if 0 // TODO  
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_SYNC_IN);  // start sync in capture
+#endif
+
+#if 0 // TODO
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_SYNC_MON);  // start sync mon capture
+#endif
+
+
 #if 0
     // starting this send capture intruts into solid loop - TODO FIX
     HAL_TIM_IC_Start_IT( &hTmeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
@@ -374,8 +387,6 @@ void blinkSetup(){
   HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
   uint16_t dacValue = 10000 - 15;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
-
-
 }
 
 void blinkRun(){
@@ -397,11 +408,12 @@ void blinkRun(){
   while (1) {
     char buffer[100];
 
-    if (loopCount % 10 == 0) {
+    if (1) { // TODO if (loopCount % 10 == 0) {
       snprintf(buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
+#if 0 // TODO 
     if (!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) {
       if (!buttonWasPressed) {
         uint32_t tick = HAL_GetTick();
@@ -451,11 +463,14 @@ void blinkRun(){
     } else {
       buttonWasPressed = 0;
     }
+#endif
 
-    // uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
-    // snprintf( buffer, sizeof(buffer), "val %ld \r\n", val/1000 );
-    // HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
+#if 1 // TODO 
+    uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
+    snprintf( buffer, sizeof(buffer), "val %ld \r\n", val/1000 );
+    HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+    
     if (dataMonCaptureTick != dataMonCaptureTickPrev) {
       snprintf(buffer, sizeof(buffer), "   mon : %ld ms\r\n",
                dataMonCapture / 1000);
