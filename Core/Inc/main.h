@@ -62,10 +62,10 @@ void Error_Handler(void);
 #define SYNC_OUT_FX 1000000
 #define BTN1_Pin GPIO_PIN_13
 #define BTN1_GPIO_Port GPIOC
-#define LEDM1_Pin GPIO_PIN_14
+#define LEDM3_Pin GPIO_PIN_14
+#define LEDM3_GPIO_Port GPIOC
+#define LEDM1_Pin GPIO_PIN_15
 #define LEDM1_GPIO_Port GPIOC
-#define LEDM2_Pin GPIO_PIN_15
-#define LEDM2_GPIO_Port GPIOC
 #define HSE_IN_Pin GPIO_PIN_0
 #define HSE_IN_GPIO_Port GPIOH
 #define HSE_OUT_Pin GPIO_PIN_1
@@ -84,8 +84,8 @@ void Error_Handler(void);
 #define AUX_GPS_PPS_GPIO_Port GPIOA
 #define AUX_SYNC_MON_Pin GPIO_PIN_2
 #define AUX_SYNC_MON_GPIO_Port GPIOA
-#define LEDM3_Pin GPIO_PIN_3
-#define LEDM3_GPIO_Port GPIOA
+#define LEDM2_Pin GPIO_PIN_3
+#define LEDM2_GPIO_Port GPIOA
 #define OSC_ADJ_Pin GPIO_PIN_4
 #define OSC_ADJ_GPIO_Port GPIOA
 #define AUD_OUT_Pin GPIO_PIN_5

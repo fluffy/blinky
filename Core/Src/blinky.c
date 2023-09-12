@@ -404,8 +404,9 @@ void blinkRun() {
 
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
                     GPIO_PIN_RESET);  // turn off red error LED
+  
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
-                    GPIO_PIN_RESET);  // turn off yellow assert LED
+                    GPIO_PIN_SET);  // turn off yellow assert LED
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
                     GPIO_PIN_RESET);  // turn off green ok LED
 #endif

@@ -688,12 +688,12 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LEDM1_Pin|LEDM2_Pin|ROW6_Pin|ROW7_Pin
+  HAL_GPIO_WritePin(GPIOC, LEDM3_Pin|LEDM1_Pin|ROW6_Pin|ROW7_Pin
                           |ROW8_Pin|ROW5_Pin|ROW3_Pin|ROW2_Pin
                           |ROW1_Pin|LEDA_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LEDM3_Pin|COL1_Pin|COL2_Pin|LEDE_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LEDM2_Pin|COL1_Pin|COL2_Pin|LEDE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(COL3_GPIO_Port, COL3_Pin, GPIO_PIN_SET);
@@ -717,20 +717,25 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(BTN1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LEDM1_Pin LEDM2_Pin ROW6_Pin ROW7_Pin
-                           ROW8_Pin ROW5_Pin COL3_Pin ROW3_Pin
-                           ROW2_Pin ROW1_Pin */
-  GPIO_InitStruct.Pin = LEDM1_Pin|LEDM2_Pin|ROW6_Pin|ROW7_Pin
-                          |ROW8_Pin|ROW5_Pin|COL3_Pin|ROW3_Pin
-                          |ROW2_Pin|ROW1_Pin;
+  /*Configure GPIO pins : LEDM3_Pin LEDM1_Pin */
+  GPIO_InitStruct.Pin = LEDM3_Pin|LEDM1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : ROW6_Pin ROW7_Pin ROW8_Pin ROW5_Pin
+                           COL3_Pin ROW3_Pin ROW2_Pin ROW1_Pin */
+  GPIO_InitStruct.Pin = ROW6_Pin|ROW7_Pin|ROW8_Pin|ROW5_Pin
+                          |COL3_Pin|ROW3_Pin|ROW2_Pin|ROW1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LEDM3_Pin COL1_Pin COL2_Pin LEDE_Pin
+  /*Configure GPIO pins : LEDM2_Pin COL1_Pin COL2_Pin LEDE_Pin
                            LEDD_Pin LEDC_Pin LEDB_Pin */
-  GPIO_InitStruct.Pin = LEDM3_Pin|COL1_Pin|COL2_Pin|LEDE_Pin
+  GPIO_InitStruct.Pin = LEDM2_Pin|COL1_Pin|COL2_Pin|LEDE_Pin
                           |LEDD_Pin|LEDC_Pin|LEDB_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
