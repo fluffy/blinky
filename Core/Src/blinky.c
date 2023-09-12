@@ -230,16 +230,12 @@ void blinkInit() {
 }
 
 void blinkSetup() {
-  // HAL_GPIO_WritePin(GPIOC, ROW3_Pin, GPIO_PIN_SET);
-  // HAL_GPIO_WritePin(GPIOC, ROW4_Pin, GPIO_PIN_SET);
-  // HAL_GPIO_WritePin(GPIOB, COL3_Pin, GPIO_PIN_RESET);
-
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
                     GPIO_PIN_SET);  // turn off red error LED
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
-                    GPIO_PIN_SET);  // turn off yellow assert LED
+                    GPIO_PIN_RESET);  // turn off yellow assert LED
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
-                    GPIO_PIN_SET);  // turn off green ok LED
+                    GPIO_PIN_RESET);  // turn off green ok LED
 
   HAL_GPIO_WritePin(LEDA_GPIO_Port, LEDA_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LEDB_GPIO_Port, LEDB_Pin, GPIO_PIN_RESET);
@@ -395,21 +391,20 @@ void blinkSetup() {
     snprintf(buffer, sizeof(buffer), "Setup Dpne\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
-}
 
-void blinkRun() {
-#if 0  /// TODO 
-  HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
-                    GPIO_PIN_RESET);  // turn on green ok LED
-
+#if 1  /// TODO 
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
-                    GPIO_PIN_RESET);  // turn off red error LED
+                    GPIO_PIN_SET);  // turn off red error LED
   
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
-                    GPIO_PIN_SET);  // turn off yellow assert LED
+                    GPIO_PIN_SET);  // turn on yellow assert LED
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
                     GPIO_PIN_RESET);  // turn off green ok LED
 #endif
+}
+
+void blinkRun() {
+
 
   static int loopCount = 0;
   static char buttonWasPressed = 0;
