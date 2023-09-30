@@ -5,8 +5,8 @@
   (paper "B")
 
   (title_block
-    (title "Blinky V6")
-    (rev "v6")
+    (title "Blink V7")
+    (rev "v7")
     (company "Cullen Jennings")
   )
 
@@ -4327,7 +4327,7 @@
     )
     (pin "1" (uuid 4cb8427f-4ff9-41f9-8c29-a5384280e79f))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR030") (unit 1)
         )
@@ -4359,7 +4359,7 @@
     (pin "1" (uuid afbfc801-8c90-4595-9014-b28dce3af8fc))
     (pin "2" (uuid 94e59b7e-e253-4c51-ab23-305a4ee4e23d))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R9") (unit 1)
         )
@@ -4389,7 +4389,7 @@
           (reference "#PWR?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR021") (unit 1)
         )
@@ -4421,7 +4421,7 @@
     (pin "1" (uuid efe5ae89-a9af-46c6-b35d-f36e93fdd729))
     (pin "2" (uuid b53f84a8-14ff-4b3f-95b6-9c6bb563ec71))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C23") (unit 1)
         )
@@ -4451,7 +4451,7 @@
           (reference "#PWR?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR033") (unit 1)
         )
@@ -4485,7 +4485,7 @@
           (reference "C?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C17") (unit 1)
         )
@@ -4510,7 +4510,7 @@
     )
     (pin "1" (uuid 7d8a7bc3-3a5a-4864-ba93-54b67b3daf49))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR058") (unit 1)
         )
@@ -4534,7 +4534,7 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "H3") (unit 1)
         )
@@ -4559,7 +4559,7 @@
     )
     (pin "1" (uuid ec3661a8-dae9-4694-b7cc-e9c1bfe27f28))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR049") (unit 1)
         )
@@ -4584,7 +4584,7 @@
     )
     (pin "1" (uuid 1b1d765f-2436-43dc-8a8c-aafb71e4b2dd))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR046") (unit 1)
         )
@@ -4618,7 +4618,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R1") (unit 1)
         )
@@ -4643,7 +4643,7 @@
     )
     (pin "1" (uuid ddc23943-8ba8-4e4d-af51-cd6a3c09f279))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR028") (unit 1)
         )
@@ -4668,7 +4668,7 @@
     )
     (pin "1" (uuid eee4518d-51ed-4ecb-84e6-695bcfa24ece))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR029") (unit 1)
         )
@@ -4693,7 +4693,7 @@
     )
     (pin "1" (uuid 35fe7603-db46-4f1b-9b8f-bcf07161a669))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR060") (unit 1)
         )
@@ -4725,7 +4725,7 @@
     (pin "1" (uuid f326897e-1ed4-4406-add9-8ca7fd819bb3))
     (pin "2" (uuid 56ff11d2-447f-4cbd-8e0f-2b8ec5a76726))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C16") (unit 1)
         )
@@ -4767,7 +4767,7 @@
           (reference "J?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J10") (unit 1)
         )
@@ -4792,7 +4792,7 @@
     )
     (pin "1" (uuid f688fa68-f1c1-4041-a43b-242d0ec3d7a4))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR035") (unit 1)
         )
@@ -4817,7 +4817,7 @@
     )
     (pin "1" (uuid 6a959a82-ce85-4217-a6a1-d1e84c5a0bee))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR012") (unit 1)
         )
@@ -4847,7 +4847,7 @@
           (reference "#PWR?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR039") (unit 1)
         )
@@ -4872,7 +4872,7 @@
     )
     (pin "1" (uuid a8dea4ef-4309-4c88-8dc7-b6f7621fe034))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR017") (unit 1)
         )
@@ -4904,7 +4904,7 @@
     (pin "1" (uuid 08fcf2e9-403d-4087-ae31-3e982e9570a1))
     (pin "2" (uuid 68e7b3f7-8e7f-48ac-99cb-00d21be4ff1f))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C19") (unit 1)
         )
@@ -4929,7 +4929,7 @@
     )
     (pin "1" (uuid 99b4901d-a208-49dd-8521-338299eca306))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR02") (unit 1)
         )
@@ -4954,7 +4954,7 @@
     )
     (pin "1" (uuid 1e8dc824-0fd0-4acc-929a-e22164dfecba))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR018") (unit 1)
         )
@@ -4979,7 +4979,7 @@
     )
     (pin "1" (uuid 2fca39d9-e74c-4e14-a213-504da6318fd7))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR047") (unit 1)
         )
@@ -5004,7 +5004,7 @@
     )
     (pin "1" (uuid be0a72d5-0ad7-4a9b-aed0-b3a755b57b27))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR07") (unit 1)
         )
@@ -5038,7 +5038,7 @@
           (reference "C?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C7") (unit 1)
         )
@@ -5063,7 +5063,7 @@
     )
     (pin "1" (uuid 24047599-4c58-4625-b042-5b86cac8c319))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR027") (unit 1)
         )
@@ -5087,7 +5087,7 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "H5") (unit 1)
         )
@@ -5119,7 +5119,7 @@
     (pin "1" (uuid f79c8874-a022-4132-9b8d-4b94cce195e8))
     (pin "2" (uuid cd8131b9-f2a8-414a-bc8e-31ef6e4f2b52))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C24") (unit 1)
         )
@@ -5144,7 +5144,7 @@
     )
     (pin "1" (uuid 1a05db12-b17e-46fb-9e80-2aed77f7fba5))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR010") (unit 1)
         )
@@ -5176,7 +5176,7 @@
     (pin "1" (uuid 163a2a4e-22dd-46aa-9bbc-8ae8c409cce0))
     (pin "2" (uuid 794cf44e-fa23-495b-9f76-80c755b60b49))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R24") (unit 1)
         )
@@ -5208,7 +5208,7 @@
     (pin "1" (uuid a5a6d32e-9fea-45e9-969e-b2de5de5ab4e))
     (pin "2" (uuid bab4929b-8265-41f2-827a-5656da5ff751))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R15") (unit 1)
         )
@@ -5242,7 +5242,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R8") (unit 1)
         )
@@ -5267,7 +5267,7 @@
     )
     (pin "1" (uuid ab1115e2-396d-4684-9564-838deec69cd1))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR020") (unit 1)
         )
@@ -5292,7 +5292,7 @@
     )
     (pin "1" (uuid 50cc99e2-a697-4ba2-babf-eea2862a130b))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR038") (unit 1)
         )
@@ -5322,7 +5322,7 @@
           (reference "#PWR?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR06") (unit 1)
         )
@@ -5347,7 +5347,7 @@
     )
     (pin "1" (uuid 8a11cce6-5f8f-45b7-9f8a-e8e958c14b77))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR045") (unit 1)
         )
@@ -5372,7 +5372,7 @@
     )
     (pin "1" (uuid 6ff42a5d-ed2a-4fc3-8d40-3fef74356d1a))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR026") (unit 1)
         )
@@ -5397,7 +5397,7 @@
     )
     (pin "1" (uuid 18d4a143-eada-4f37-aeaf-9ed3183b9f01))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR034") (unit 1)
         )
@@ -5440,7 +5440,7 @@
           (reference "J?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J12") (unit 1)
         )
@@ -5472,7 +5472,7 @@
     (pin "1" (uuid b2a5899e-7447-489d-81da-3d8f1a787f93))
     (pin "2" (uuid 0a5cb3e5-d2c5-4cb2-b233-a24554a50888))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R18") (unit 1)
         )
@@ -5497,7 +5497,7 @@
     )
     (pin "1" (uuid 98ec8ebc-0943-427b-84be-384b1de2b71a))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR059") (unit 1)
         )
@@ -5540,7 +5540,7 @@
           (reference "J?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J11") (unit 1)
         )
@@ -5565,7 +5565,7 @@
     )
     (pin "1" (uuid 3b3c71c7-fb23-4f3a-9bef-7c0c7a925f83))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR067") (unit 1)
         )
@@ -5599,7 +5599,7 @@
     (pin "3" (uuid 396c1558-2c9c-45ff-86ab-598d2fd0ef2f))
     (pin "4" (uuid b1c3e8fe-07dd-4e4c-b8f8-d3b7e01f891c))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "Y1") (unit 1)
         )
@@ -5696,7 +5696,7 @@
     (pin "8" (uuid b6812fea-773e-4efb-b699-c45d09e2080f))
     (pin "9" (uuid 877f1fd6-6919-4f71-be72-51d26689b118))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U4") (unit 1)
         )
@@ -5728,7 +5728,7 @@
     (pin "1" (uuid cec85bf0-3835-4ba0-9563-0ece6dc1f8b2))
     (pin "2" (uuid 243fe740-de56-4251-98a4-fd27990ea277))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C14") (unit 1)
         )
@@ -5760,7 +5760,7 @@
     (pin "1" (uuid def894ad-2721-44dd-8c7a-99082ec671b2))
     (pin "2" (uuid cce91110-5258-465b-afb8-ed26a6b34646))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C15") (unit 1)
         )
@@ -5785,7 +5785,7 @@
     )
     (pin "1" (uuid 38c8f852-f6a1-4d49-b872-4d2e77b73056))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR066") (unit 1)
         )
@@ -5809,7 +5809,7 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "H1") (unit 1)
         )
@@ -5834,7 +5834,7 @@
     )
     (pin "1" (uuid b115963e-8988-43c8-b5f2-92175d482eac))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR048") (unit 1)
         )
@@ -5866,7 +5866,7 @@
     (pin "1" (uuid 51985246-e5ca-4a08-9431-20ac3f64714d))
     (pin "2" (uuid d24aa881-9e63-4ab4-a6c5-7ced10d6d869))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J1") (unit 1)
         )
@@ -5898,7 +5898,7 @@
     (pin "1" (uuid f351087c-92d6-4011-9a3d-4d397f17e012))
     (pin "2" (uuid 2ac4edbe-ceab-4bd7-ad21-3f8413afbbf7))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C4") (unit 1)
         )
@@ -5930,7 +5930,7 @@
     (pin "1" (uuid 9de6f436-c0f8-4ac1-b177-49607e051582))
     (pin "2" (uuid ffdbd00a-b34a-4102-beb2-af037c6c5ff1))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C22") (unit 1)
         )
@@ -5973,7 +5973,7 @@
           (reference "J?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J13") (unit 1)
         )
@@ -6025,7 +6025,7 @@
           (reference "U?") (unit 2)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U2") (unit 2)
         )
@@ -6050,7 +6050,7 @@
     )
     (pin "1" (uuid c67aec6e-395a-4fb2-800b-9558d6e1c7b1))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR019") (unit 1)
         )
@@ -6082,7 +6082,7 @@
     (pin "1" (uuid 5d0a5c93-e3ab-4ae3-9d1b-54b50d06efd1))
     (pin "2" (uuid a8b1e7db-33e3-43ba-b5a3-0f89aee73ed6))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C11") (unit 1)
         )
@@ -6107,7 +6107,7 @@
     )
     (pin "1" (uuid 89f05619-398f-4491-b9dc-86c18c128769))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR024") (unit 1)
         )
@@ -6132,7 +6132,7 @@
     )
     (pin "1" (uuid 0ac7b35f-5a17-48bc-9fec-3ac4b3b2a653))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR055") (unit 1)
         )
@@ -6164,7 +6164,7 @@
     (pin "1" (uuid 83654b4f-13bd-4b9f-9d10-7238dc5c7eaa))
     (pin "2" (uuid f26e0338-e376-4a54-8bfb-8bf70d4cff74))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R23") (unit 1)
         )
@@ -6189,7 +6189,7 @@
     )
     (pin "1" (uuid 50cbdc42-87f1-43e0-a5e3-d3bd4aa8d808))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR016") (unit 1)
         )
@@ -6223,7 +6223,7 @@
           (reference "C?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C6") (unit 1)
         )
@@ -6248,7 +6248,7 @@
     )
     (pin "1" (uuid 29445667-1e2e-4abe-b7ad-aad39581aeae))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR063") (unit 1)
         )
@@ -6282,7 +6282,7 @@
           (reference "C?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C8") (unit 1)
         )
@@ -6314,7 +6314,7 @@
     (pin "1" (uuid bf14636c-5118-42a6-8589-5c6f01209d85))
     (pin "2" (uuid dc8039d0-8a14-4d45-8353-63f2935cb737))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R20") (unit 1)
         )
@@ -6348,7 +6348,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R4") (unit 1)
         )
@@ -6380,7 +6380,7 @@
     (pin "1" (uuid 44387b6e-99db-45d9-837a-9908d8b811b4))
     (pin "2" (uuid 42f0b6f3-76f5-4d14-9996-fbd16a2770a1))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R29") (unit 1)
         )
@@ -6405,7 +6405,7 @@
     )
     (pin "1" (uuid 0fa24db1-fa52-4eff-b546-46b8d628fc7a))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR011") (unit 1)
         )
@@ -6433,7 +6433,7 @@
     (pin "7" (uuid 69379dd5-71d2-46f2-ac65-c21856db7c29))
     (pin "8" (uuid a34b3c86-a91c-4993-a547-451cad767b23))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "X1") (unit 1)
         )
@@ -6458,7 +6458,7 @@
     )
     (pin "1" (uuid 18ceafd1-1273-4812-a100-d30dd916035c))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR061") (unit 1)
         )
@@ -6492,7 +6492,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R2") (unit 1)
         )
@@ -6531,7 +6531,7 @@
     (pin "5" (uuid 602f77f2-6d65-4688-9e9a-02b7d0ebe1f0))
     (pin "6" (uuid 36536d87-b621-4747-b2e1-dcebbf50904f))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J8") (unit 1)
         )
@@ -6561,7 +6561,7 @@
           (reference "#PWR?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR051") (unit 1)
         )
@@ -6586,7 +6586,7 @@
     )
     (pin "1" (uuid 8c421b3a-c40e-4c0a-a4b2-cdf9bf4c0556))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR064") (unit 1)
         )
@@ -6611,7 +6611,7 @@
     )
     (pin "1" (uuid 3cce089c-3430-48a9-ae1c-44204101b9d1))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR025") (unit 1)
         )
@@ -6636,7 +6636,7 @@
     )
     (pin "1" (uuid a6bbfd4e-447b-4b26-960e-ef0c96e93bfe))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG02") (unit 1)
         )
@@ -6661,7 +6661,7 @@
     )
     (pin "1" (uuid 0cda93fe-2b80-4fec-98ec-49d4a80e4fe2))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#FLG01") (unit 1)
         )
@@ -6693,7 +6693,7 @@
     (pin "1" (uuid 432673cd-917e-4984-ab8e-fa8c59a1d5c6))
     (pin "2" (uuid f584b3d2-cb17-4325-88a4-ace8c42b19ce))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C20") (unit 1)
         )
@@ -6727,7 +6727,7 @@
           (reference "C?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C9") (unit 1)
         )
@@ -6752,7 +6752,7 @@
     )
     (pin "1" (uuid 5a686cc7-7a4e-422d-a152-44ce0be5a920))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR015") (unit 1)
         )
@@ -6777,7 +6777,7 @@
     )
     (pin "1" (uuid 14de7fc4-3c56-472c-900c-cbf6c4f2d3b7))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR03") (unit 1)
         )
@@ -6802,7 +6802,7 @@
     )
     (pin "1" (uuid 15ac26fb-617c-4338-9ae7-dd3a590d6747))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR014") (unit 1)
         )
@@ -6834,7 +6834,7 @@
     (pin "1" (uuid 5df2eece-dce4-4ffc-b61e-7a9e2f171b90))
     (pin "2" (uuid 269b47f3-6f2c-4c7e-b1dc-a9a051d471f5))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C2") (unit 1)
         )
@@ -6870,7 +6870,7 @@
     (pin "2" (uuid b53818cd-dc0f-48e4-873d-41ca684d46de))
     (pin "3" (uuid 01a38f55-0134-4a39-9e49-54acd878b869))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U1") (unit 1)
         )
@@ -6895,7 +6895,7 @@
     )
     (pin "1" (uuid 113dd804-a7d1-4c61-b47e-6b98f069cd3b))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR042") (unit 1)
         )
@@ -6929,7 +6929,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R11") (unit 1)
         )
@@ -6954,7 +6954,7 @@
     )
     (pin "1" (uuid e636bf59-61e7-4869-befb-187f1609b596))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR050") (unit 1)
         )
@@ -7006,7 +7006,7 @@
           (reference "U?") (unit 3)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U2") (unit 3)
         )
@@ -7031,7 +7031,7 @@
     )
     (pin "1" (uuid 2cbdbd4e-edac-4853-8001-d475ad5f5b58))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR032") (unit 1)
         )
@@ -7069,7 +7069,7 @@
     (pin "4" (uuid 75566f72-04ea-4e8d-87af-ca990684f218))
     (pin "5" (uuid 1f9e2dc2-61ae-4186-88ee-c80db0a42820))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U5") (unit 1)
         )
@@ -7104,7 +7104,7 @@
     (pin "1" (uuid 21ea7f3c-5a73-4524-bd38-94487e379dae))
     (pin "2" (uuid 3e11a61c-3d64-4d5a-b5e2-9059e40310ab))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "S2") (unit 1)
         )
@@ -7129,7 +7129,7 @@
     )
     (pin "1" (uuid fd7c5570-3ffa-49eb-891f-88a91a935e09))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR041") (unit 1)
         )
@@ -7170,7 +7170,7 @@
     (pin "7" (uuid f4af2bcd-addd-41b4-b56c-dca63c3a0de3))
     (pin "8" (uuid ddcdb212-0926-48a3-a30c-0f00618f6905))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U3") (unit 1)
         )
@@ -7204,7 +7204,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R3") (unit 1)
         )
@@ -7238,7 +7238,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R13") (unit 1)
         )
@@ -7262,7 +7262,7 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "H4") (unit 1)
         )
@@ -7296,7 +7296,7 @@
     (pin "3" (uuid 7fd6d6f0-3ce4-433d-85c1-0db8b463df1b))
     (pin "4" (uuid 01e1ceae-ec40-4112-8200-a5c53510484d))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J6") (unit 1)
         )
@@ -7355,7 +7355,7 @@
     (pin "8" (uuid f82f13c3-6fbc-4d6b-b9ed-42ebad1e2890))
     (pin "9" (uuid c9209dc1-d666-44cd-9608-c9ad999693b5))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J14") (unit 1)
         )
@@ -7387,7 +7387,7 @@
     (pin "1" (uuid a197d852-8f4f-404a-a87e-d79e7461598c))
     (pin "2" (uuid 1a411b84-30ce-4fa1-9fa6-1121b547b824))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C10") (unit 1)
         )
@@ -7421,7 +7421,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R7") (unit 1)
         )
@@ -7453,7 +7453,7 @@
     (pin "1" (uuid 356ed148-f2e1-4b0d-98df-11cf6b1f3f18))
     (pin "2" (uuid 9c648f11-6da2-45eb-b943-2f21dad1cd52))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C25") (unit 1)
         )
@@ -7487,7 +7487,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R5") (unit 1)
         )
@@ -7525,7 +7525,7 @@
     (pin "4" (uuid 38c232c6-d8a3-490f-a400-b8b5f1cb92bb))
     (pin "5" (uuid d769e7a5-ae59-48c6-bbcf-5f1e0031c6c8))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U6") (unit 1)
         )
@@ -7560,7 +7560,7 @@
     (pin "1" (uuid 8b8bb0cd-2582-44d1-95f7-a471404eb6e2))
     (pin "2" (uuid 942729f4-ddf5-4d6f-ac6b-fdbd6174f066))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "S1") (unit 1)
         )
@@ -7585,7 +7585,7 @@
     )
     (pin "1" (uuid 72db361e-ae97-4e4b-8d5d-a1c0920e1ff2))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR04") (unit 1)
         )
@@ -7610,7 +7610,7 @@
     )
     (pin "1" (uuid 24ab9d9b-850e-4bc3-847c-7faba3bcc49c))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR037") (unit 1)
         )
@@ -7635,7 +7635,7 @@
     )
     (pin "1" (uuid 9c90c719-3561-430f-b245-b4278d40a10c))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR043") (unit 1)
         )
@@ -7660,7 +7660,7 @@
     )
     (pin "1" (uuid ce5514d3-f9bb-4b7c-bec8-f68158b465e9))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR09") (unit 1)
         )
@@ -7692,7 +7692,7 @@
     (pin "1" (uuid aebffdae-32be-44f1-bd2c-90c2b87d5e2a))
     (pin "2" (uuid f1c580fc-d3b9-400b-bd1c-154ab9761a39))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R17") (unit 1)
         )
@@ -7737,7 +7737,7 @@
           (reference "J?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J2") (unit 1)
         )
@@ -7769,7 +7769,7 @@
     (pin "1" (uuid e7dec386-05a7-488b-8394-acd0a19899b0))
     (pin "2" (uuid ecd2de87-9b1a-4e24-9fc9-009467f11e3c))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C18") (unit 1)
         )
@@ -7801,7 +7801,7 @@
     (pin "1" (uuid d726e13a-e3d1-456f-b37c-af56b3454b89))
     (pin "2" (uuid 8f9a3d5c-255f-41d8-a640-d255cc039254))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "FB1") (unit 1)
         )
@@ -7833,7 +7833,7 @@
     (pin "1" (uuid fd15f34e-55b9-4431-8db1-34b26f1cd1ef))
     (pin "2" (uuid 5701b139-b874-42df-a554-a1e124c5bc08))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C3") (unit 1)
         )
@@ -7867,7 +7867,7 @@
           (reference "C?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C5") (unit 1)
         )
@@ -7899,7 +7899,7 @@
     (pin "1" (uuid 5c6f3391-5168-4581-9e81-60d3aaa84ed9))
     (pin "2" (uuid 5b2419f9-8a47-474a-b425-02a2db743c70))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C21") (unit 1)
         )
@@ -7924,7 +7924,7 @@
     )
     (pin "1" (uuid 5d9e4b39-5e70-4617-b770-c6dd99b9183d))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR036") (unit 1)
         )
@@ -7956,7 +7956,7 @@
     (pin "1" (uuid 2901d6d0-52ce-4d3d-829c-c001c3e7d9bb))
     (pin "2" (uuid 8b2ab31f-539e-4ba8-a86d-88d8d7f909c6))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R14") (unit 1)
         )
@@ -8001,7 +8001,7 @@
           (reference "J?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J3") (unit 1)
         )
@@ -8026,7 +8026,7 @@
     )
     (pin "1" (uuid 0a8e6245-d465-429b-8528-3abe504faef8))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR044") (unit 1)
         )
@@ -8051,7 +8051,7 @@
     )
     (pin "1" (uuid 897e42dc-403c-4cfd-8adf-4f844d9804c6))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR062") (unit 1)
         )
@@ -8085,7 +8085,7 @@
           (reference "C?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C26") (unit 1)
         )
@@ -8119,7 +8119,7 @@
           (reference "C?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C13") (unit 1)
         )
@@ -8144,7 +8144,7 @@
     )
     (pin "1" (uuid f0954303-a40c-4001-8d8a-d9f62aa0e8e5))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR08") (unit 1)
         )
@@ -8176,7 +8176,7 @@
     (pin "1" (uuid 17e5dcda-0b96-4939-bb1c-7a88b75fd993))
     (pin "2" (uuid cb2e5859-2d04-4184-9147-0b81d2e8b4ea))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R12") (unit 1)
         )
@@ -8208,7 +8208,7 @@
     (pin "1" (uuid 86160aa7-f2f1-4614-bc06-e7624d763d2b))
     (pin "2" (uuid 752d6a4c-c783-4773-90c7-f5dd822c18ba))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C12") (unit 1)
         )
@@ -8251,7 +8251,7 @@
           (reference "J?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J4") (unit 1)
         )
@@ -8283,7 +8283,7 @@
     (pin "1" (uuid be675aab-1d60-4ffe-935e-9152311ad83c))
     (pin "2" (uuid f8d65577-75bc-4578-a898-1b0d63a3190e))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R28") (unit 1)
         )
@@ -8335,7 +8335,7 @@
           (reference "U?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "U2") (unit 1)
         )
@@ -8369,7 +8369,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R19") (unit 1)
         )
@@ -8394,7 +8394,7 @@
     )
     (pin "1" (uuid ee3369f5-09e5-4be7-98aa-bf4b33a2aef1))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR01") (unit 1)
         )
@@ -8419,7 +8419,7 @@
     )
     (pin "1" (uuid dbacf680-0f21-40ef-b488-46d53606a59b))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR031") (unit 1)
         )
@@ -8449,7 +8449,7 @@
     (pin "5" (uuid af6e37c6-072d-4c3d-8cb8-f19ca29bb623))
     (pin "6" (uuid a74219c0-e2f2-48f6-9275-00fc4eab6db8))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J7") (unit 1)
         )
@@ -8483,7 +8483,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R6") (unit 1)
         )
@@ -8508,7 +8508,7 @@
     )
     (pin "1" (uuid 4b31406b-c0c8-4380-9719-575cacf5348d))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR065") (unit 1)
         )
@@ -8542,7 +8542,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R16") (unit 1)
         )
@@ -8572,7 +8572,7 @@
           (reference "#PWR?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR013") (unit 1)
         )
@@ -8606,7 +8606,7 @@
     (pin "3" (uuid 7f153b13-b62d-44d4-9aa5-4c3328b17b0f))
     (pin "4" (uuid 73317431-d71a-446a-b085-297be6cb94d7))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "J5") (unit 1)
         )
@@ -8631,7 +8631,7 @@
     )
     (pin "1" (uuid 59f2ad03-8881-4355-92f6-804e11f34cb0))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR05") (unit 1)
         )
@@ -8656,7 +8656,7 @@
     )
     (pin "1" (uuid 764748a3-b3f1-4b56-99af-18c602cd90f2))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR040") (unit 1)
         )
@@ -8690,7 +8690,7 @@
           (reference "R?") (unit 1)
         )
       )
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R10") (unit 1)
         )
@@ -8722,7 +8722,7 @@
     (pin "1" (uuid 5d775234-bb66-4ecd-a880-059b9586e097))
     (pin "2" (uuid 16ca8b3b-6655-4832-abda-954d7296fdad))
     (instances
-      (project "blink_v6"
+      (project "blink_v7"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "C1") (unit 1)
         )

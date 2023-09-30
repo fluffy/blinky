@@ -4,9 +4,9 @@
     (thickness 1.6)
   )
 
-  (paper "A4")
+  (paper "USLetter")
   (title_block
-    (title "Blinky V4")
+    (title "Blink V7")
     (date "2023-07-04")
     (company "Cullen Jennings")
   )
@@ -5201,7 +5201,7 @@
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp 8aa9d187-0635-4a26-b810-4c667cc9e989))
   (gr_line (start 111 38) (end 111 130)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp f710403a-f799-429d-9e51-1ed631a07644))
-  (gr_text "Blink Rev 6.0 Cullen Jennings Sept 2023" (at 176.739349 127.829283) (layer "F.SilkS") (tstamp 0442abe3-b6f1-4db1-b42d-556674de7dba)
+  (gr_text "Blink Rev 7.0 Cullen Jennings 2023" (at 176.739349 127.829283) (layer "F.SilkS") (tstamp 0442abe3-b6f1-4db1-b42d-556674de7dba)
     (effects (font (size 1 1) (thickness 0.15)) (justify left bottom))
   )
   (gr_text "JLCJLCJLCJLC" (at 125.838388 40.904035) (layer "F.SilkS") (tstamp 8d933234-a8c8-4d4c-8305-b178990ecc51)
