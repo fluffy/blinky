@@ -6,8 +6,9 @@
 
   (paper "USLetter")
   (title_block
-    (title "Blink V7")
+    (title "Blink")
     (date "2023-07-04")
+    (rev "V7")
     (company "Cullen Jennings")
   )
 

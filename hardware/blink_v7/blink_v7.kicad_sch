@@ -5,8 +5,8 @@
   (paper "B")
 
   (title_block
-    (title "Blink V7")
-    (rev "v7")
+    (title "Blink ")
+    (rev "V7")
     (company "Cullen Jennings")
   )
 
