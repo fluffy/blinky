@@ -5178,7 +5178,7 @@
     (uuid ceb45a28-ae22-4705-b8a9-e3556e978c15)
   )
   (text "Mounting Holes" (at 116.84 49.53 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid da1e0e6d-0c33-43b3-ac5a-f0cd68ba2357)
   )
 
@@ -9389,7 +9389,7 @@
     (property "Value" "SW_SPST" (at 45.72 59.69 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 45.72 63.5 0)
+    (property "Footprint" "Button_Switch_THT:SW_SPST_Omron_B3F-315x_Angled" (at 45.72 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 45.72 63.5 0)
