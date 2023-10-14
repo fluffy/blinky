@@ -796,7 +796,7 @@ void Error_Handler(void)
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
-                    GPIO_PIN_RESET);  // turn on error LED
+                    GPIO_PIN_SET);  // turn on error LED
   while (1) {
   }
   /* USER CODE END Error_Handler_Debug */
@@ -818,7 +818,7 @@ void assert_failed(uint8_t *file, uint32_t line)
      line) */
   __disable_irq();
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
-                    GPIO_PIN_RESET);  // turn on error LED
+                    GPIO_PIN_SET);  // turn on error LED
 
   while (1) {
   }
