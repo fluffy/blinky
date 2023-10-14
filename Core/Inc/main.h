@@ -104,8 +104,6 @@ void Error_Handler(void);
 #define COL4_GPIO_Port GPIOB
 #define BOOT1_Pin GPIO_PIN_2
 #define BOOT1_GPIO_Port GPIOB
-#define GPS_PPS_Pin GPIO_PIN_10
-#define GPS_PPS_GPIO_Port GPIOB
 #define SYNC_MON_Pin GPIO_PIN_11
 #define SYNC_MON_GPIO_Port GPIOB
 #define LEDH_Pin GPIO_PIN_12

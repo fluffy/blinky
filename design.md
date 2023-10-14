@@ -13,8 +13,8 @@ Mon refers to monitor of PPS
 - RefIn 10 Mhz OCXO input
 - ExtOut 10 MHz output from MCO 
  
-- SyncOut 1 pps output - inverts on buffer 
-- SyncMon 1 pps in ( from SyncOut )
+- SyncOut 1 pps output - inverts on on output buffer - PA8 on Timer #1 
+- SyncMon 1 pps in ( from SyncOut ) - 
 - SyncIn 1 pps input - inverts on buffer 
 - GpsIn 1 pps input 
  
@@ -44,13 +44,20 @@ Main and Aux can generate SyncOut
 Display TImer drives LED and sync to main or aux rollover 
 * does this need to capture syncMon ???
 
-### Sync out timer - hTimePps 
-This time runnint at 168 Mhz input clck
+### PPS Out Timer #1  - hTimePps 
+
+* Use timer 1
+This time runnint at 168 Mhz input clock
 * CH1 - PA8 - TimePps_CH_SYNC_OUT 
 increments at 10KHz 
-does 20 ms wide output pulse ever 1 second 
+does 20 ms wide output pulse every 1 second 
+TODO * reset on 1 second from main and tick rate 50KHz
+* 16 bits 
+* sync off of timer 2
+* CH on PA8  - SYNC_OUT 
 
-### Main Timer: // hTimeSync 
+
+### Main Timer #2 - hTimeSync 
 
 * Use timer 2
 * max 42 Mhz 
@@ -60,30 +67,16 @@ does 20 ms wide output pulse ever 1 second
 * adjustment store in EEPROM
 
 * ETR: PA15 
-* Ch1: PA0 - NA with ETR 
-* DISABLED Ch2: PA3  - sync_in   TimeSync_CH_SYNC_IN 
-* DISABLED ch3: PB10  - gps   TimeSync_CH_GPS_PPS  
-* ch4: PB11  - sync_mon   TimeSync_CH_SYNC_MON 
+* CH1: PA0 - NA with ETR 
+* CH2: PA3  - sync_in   TimeSync_CH_SYNC_IN 
+* CH3: PB10  - gps   TimeSync_CH_GPS_PPS  
+* CH4: PB11  - sync_mon   TimeSync_CH_SYNC_MON 
 
 CH1 is disabled if ETR is in use 
 
 * Capture Sync Mon
-* Capture Sync In
+* Capture PPS In
 * Capture GPS PPS
-* Genrate Sync Out
-
-
-### PPS Out Timer 
-
-DISABLED 
-* Use timer 1
-* max 84Mhz 
-* reset on 1 second from main and tick rate 50KHz
-* 16 bits 
-* sync off of tim 2 or 5 
-* CH on PA8  - SYNC_OUT 
-* CH on PC6,7,8,9
-* can sync off tim 2 or 5 
 
 
 ### Blink Timer
@@ -140,7 +133,7 @@ On each Main Timer rollover
 
 On each Blink Timer
 * increment msTime
-* set all the LEDS based on msTime and local Sconds
+* set all the LEDS based on msTime and local Seconds
 
 
 Periodically on main thread
@@ -159,6 +152,7 @@ Periodically on main thread
 * adjust period of main to match GPS, Aux, Sync in that priority order 
 
 # TODO
+
 * figure out how to base everything off Aux if that is there instead of Main
 * figure out how to base everything off of GPS if that is there instead of main
 

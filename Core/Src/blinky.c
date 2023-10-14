@@ -32,7 +32,6 @@ extern UART_HandleTypeDef huart3;
 #define hUartDebug huart1
 #define hUartGps huart3
 
-// TODO - set up correct IDR to reset htim4
 #define hTimePps htim1
 #define TimePps_CH_SYNC_OUT TIM_CHANNEL_1
 
@@ -60,7 +59,7 @@ uint32_t dataSyncCaptureTick;
 uint32_t dataGpsPpsCapture;
 uint32_t dataGpsPpsCaptureTick;
 
-uint32_t dataExtClkCount;
+uint32_t dataExtClkCount; // counting seconds 
 uint32_t dataExtClkCountTick;
 int32_t  dataExtClkCountTickOffset;
 
@@ -76,18 +75,19 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   uint32_t tick = HAL_GetTick();
 
   if (htim == &hTimeSync) {
-    HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
+    //HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
 
     dataExtClkCount++;
     dataExtClkCountTick = tick;
 
-    subFrameCount = 240 - subFrameCountOffset;
+    subFrameCount = 240 - subFrameCountOffset; /// TODO - not sure whawt this does anymore 
   }
 
   if (htim == &hTimeBlink) {
 #if 1  // This block of code takes 1.9 uS and runs every 1 mS
-    HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
+    //HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
 
+    // TODO - redo this to be based on time of main counter 
     subFrameCount++;  // counting at rate 240 Hz
     if (subFrameCount >= 240) {
       subFrameCount -= 240;
@@ -152,7 +152,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                         (binCount & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET);
     }
 
-    HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_RESET);
+    //HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_RESET);
 #endif
   }
 }
@@ -340,8 +340,7 @@ void blinkSetup() {
 
   HAL_TIM_Base_Start_IT(&hTimeBlink);
 
-#if 1  // TODO
-
+#if 1 
   if (0) {  // TODO
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "Starting timer...\r\n");
@@ -357,23 +356,23 @@ void blinkSetup() {
   }
 #endif
 
-#if 1  // TODO 
+#if 1 
   HAL_TIM_OC_Start_IT(&hTimePps, TimePps_CH_SYNC_OUT);  // start sync out
 #endif
 
   // HAL_TIM_Base_Start_IT(&hTimeSync);
 
-#if 1  // TODO  
+#if 1 
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_SYNC_IN);  // start sync in capture
 #endif
 
-#if 1  // TODO
+#if 1  
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_SYNC_MON);  // start sync mon capture
 #endif
 
-#if 0
+#if 0 // TODO 
     // starting this send capture interupts into solid loop - TODO FIX
     HAL_TIM_IC_Start_IT( &hTmeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
 #endif
@@ -382,25 +381,21 @@ void blinkSetup() {
   uint16_t dacValue = 10000 - 15;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
 
-  if (1) {  // TODO
-    char buffer[100];
-    snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  }
-
-
-  HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
-                    GPIO_PIN_RESET);  // turn off red error LED
+  // set LED to on but not sync ( yellow, not greeen ) 
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
                     GPIO_PIN_SET);  // turn on yellow assert LED
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
                     GPIO_PIN_RESET);  // turn off green ok LED
-
+  
+  if (1) {  
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
 }
 
+
 void blinkRun() {
-
-
   static int loopCount = 0;
   static char buttonWasPressed = 0;
   
