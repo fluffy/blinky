@@ -363,7 +363,7 @@ void blinkSetup() {
 
   // HAL_TIM_Base_Start_IT(&hTimeSync);
 
-#if 0  // TODO  
+#if 1  // TODO  
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_SYNC_IN);  // start sync in capture
 #endif
@@ -466,7 +466,7 @@ void blinkRun() {
   }
 #endif
 
-#if 1  // TODO 
+#if 0 
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     snprintf( buffer, sizeof(buffer), "Sync Time val %ld \r\n", val );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -486,12 +486,12 @@ void blinkRun() {
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
 
-#if 1
+#if 0 // TODO 
   if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   gpsPPS: %ld ms\r\n",
              dataGpsPpsCapture / 10);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    dataSyncCaptureTickPrev = dataSyncCaptureTick;
+    dataGpsPpsCaptureTickPrev = dataGpsPpsCaptureTick;
   }
 #endif
 
