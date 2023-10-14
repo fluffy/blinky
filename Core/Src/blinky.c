@@ -280,7 +280,7 @@ void blinkSetup() {
 #endif
     if (writeConfigEEProm) {
       // write config to EEProm
-      data[0] = 5;  // hardware version
+      data[0] = 6;  // hardware version
       data[1] = 2;  // osc speed ( 2= 2.048 MHx, 10=10 MHz )
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
@@ -311,9 +311,9 @@ void blinkSetup() {
         HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
 
-    if (data[0] == 5) {
+    if (data[0] == 6) {
       // This is V5 hardware
-      snprintf(buffer, sizeof(buffer), "  Hardware version: V5 \r\n");
+      snprintf(buffer, sizeof(buffer), "  Hardware version: V6 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       /*
