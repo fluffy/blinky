@@ -36,21 +36,21 @@ extern UART_HandleTypeDef huart3;
 #define TimePps_CH_SYNC_OUT TIM_CHANNEL_1
 
 #define hTimeSync htim2
-#define TimeSync_CH_GPS_PPS TIM_CHANNEL_3
-#define TimeSync_CH_SYNC_MON TIM_CHANNEL_4
 #define TimeSync_CH_SYNC_IN TIM_CHANNEL_2
+//#define TimeSync_CH_GPS_PPS TIM_CHANNEL_3
+#define TimeSync_CH_SYNC_MON TIM_CHANNEL_4
 
 #define hTimeBlink htim4
 
 #define hTimeAux htim5
-#define TimeAux_CH_AUX_CLK TIM_CHANNEL_1
-#define TimeAux_CH_AUX_GPS_PPS TIM_CHANNEL_2
+//#define TimeAux_CH_AUX_CLK TIM_CHANNEL_1
+//#define TimeAux_CH_AUX_GPS_PPS TIM_CHANNEL_2
 #define TimeAux_CH_AUX_SYNC_MON TIM_CHANNEL_3
 
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 
-const char *version = "0.60.231013";  // major , minor, year/month/day
+const char *version = "0.60.231014";  // major , minor, year/month/day
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -172,17 +172,15 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       dataMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_MON);
       dataMonCaptureTick = tick;
     }
-  }
-#if 1
-  if (htim == &hTimeSync) {
+#if 0
     if (htim->Channel ==
         TimeSync_CH_GPS_PPS) {  // sync in falling edge. falling is rising
                                 // on inverted input
       dataGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_GPS_PPS);
       dataGpsPpsCaptureTick = tick;
     }
-  }
 #endif
+  }
 }
 
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
@@ -312,7 +310,7 @@ void blinkSetup() {
       snprintf(buffer, sizeof(buffer), "  Hardware version: V6 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      /*
+#if 1
       if (data[1] == 2) {
         // External CLK is 2.048 Mhz
         __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 2048000 - 1);
@@ -327,7 +325,7 @@ void blinkSetup() {
         snprintf(buffer, sizeof(buffer), "  External clock set to 10 Mhz \r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
-      */
+#endif
 
     } else {
       snprintf(buffer, sizeof(buffer), "Unknown Hardware version %d \r\n",
@@ -372,8 +370,7 @@ void blinkSetup() {
                       TimeSync_CH_SYNC_MON);  // start sync mon capture
 #endif
 
-#if 0 // TODO 
-    // starting this send capture interupts into solid loop - TODO FIX
+#if 0 
     HAL_TIM_IC_Start_IT( &hTmeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
 #endif
 
@@ -461,7 +458,7 @@ void blinkRun() {
   }
 #endif
 
-#if 0 
+#if 1
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     snprintf( buffer, sizeof(buffer), "Sync Time val %ld \r\n", val );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);

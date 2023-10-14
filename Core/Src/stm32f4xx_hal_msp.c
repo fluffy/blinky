@@ -305,12 +305,11 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOA_CLK_ENABLE();
     /**TIM2 GPIO Configuration
-    PB10     ------> TIM2_CH3
     PB11     ------> TIM2_CH4
     PA15     ------> TIM2_ETR
     PB3     ------> TIM2_CH2
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_10|SYNC_MON_Pin|SYNC_IN_Pin;
+    GPIO_InitStruct.Pin = SYNC_MON_Pin|SYNC_IN_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -355,16 +354,14 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 
     __HAL_RCC_GPIOA_CLK_ENABLE();
     /**TIM5 GPIO Configuration
-    PA0-WKUP     ------> TIM5_CH1
-    PA1     ------> TIM5_CH2
     PA2     ------> TIM5_CH3
     */
-    GPIO_InitStruct.Pin = AUX_CLK_Pin|AUX_GPS_PPS_Pin|AUX_SYNC_MON_Pin;
+    GPIO_InitStruct.Pin = AUX_SYNC_MON_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM5;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_Init(AUX_SYNC_MON_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN TIM5_MspInit 1 */
 
@@ -459,12 +456,11 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     __HAL_RCC_TIM2_CLK_DISABLE();
 
     /**TIM2 GPIO Configuration
-    PB10     ------> TIM2_CH3
     PB11     ------> TIM2_CH4
     PA15     ------> TIM2_ETR
     PB3     ------> TIM2_CH2
     */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_10|SYNC_MON_Pin|SYNC_IN_Pin);
+    HAL_GPIO_DeInit(GPIOB, SYNC_MON_Pin|SYNC_IN_Pin);
 
     HAL_GPIO_DeInit(CLK_GPIO_Port, CLK_Pin);
 
@@ -497,11 +493,9 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     __HAL_RCC_TIM5_CLK_DISABLE();
 
     /**TIM5 GPIO Configuration
-    PA0-WKUP     ------> TIM5_CH1
-    PA1     ------> TIM5_CH2
     PA2     ------> TIM5_CH3
     */
-    HAL_GPIO_DeInit(GPIOA, AUX_CLK_Pin|AUX_GPS_PPS_Pin|AUX_SYNC_MON_Pin);
+    HAL_GPIO_DeInit(AUX_SYNC_MON_GPIO_Port, AUX_SYNC_MON_Pin);
 
   /* USER CODE BEGIN TIM5_MspDeInit 1 */
 
@@ -563,30 +557,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
 
   /* USER CODE END USART1_MspInit 1 */
   }
-  else if(huart->Instance==USART3)
-  {
-  /* USER CODE BEGIN USART3_MspInit 0 */
-
-  /* USER CODE END USART3_MspInit 0 */
-    /* Peripheral clock enable */
-    __HAL_RCC_USART3_CLK_ENABLE();
-
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-    /**USART3 GPIO Configuration
-    PC10     ------> USART3_TX
-    PC11     ------> USART3_RX
-    */
-    GPIO_InitStruct.Pin = GPS_RX1_Pin|GPS_TX1_Pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /* USER CODE BEGIN USART3_MspInit 1 */
-
-  /* USER CODE END USART3_MspInit 1 */
-  }
 
 }
 
@@ -615,24 +585,6 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
   /* USER CODE BEGIN USART1_MspDeInit 1 */
 
   /* USER CODE END USART1_MspDeInit 1 */
-  }
-  else if(huart->Instance==USART3)
-  {
-  /* USER CODE BEGIN USART3_MspDeInit 0 */
-
-  /* USER CODE END USART3_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_USART3_CLK_DISABLE();
-
-    /**USART3 GPIO Configuration
-    PC10     ------> USART3_TX
-    PC11     ------> USART3_RX
-    */
-    HAL_GPIO_DeInit(GPIOC, GPS_RX1_Pin|GPS_TX1_Pin);
-
-  /* USER CODE BEGIN USART3_MspDeInit 1 */
-
-  /* USER CODE END USART3_MspDeInit 1 */
   }
 
 }

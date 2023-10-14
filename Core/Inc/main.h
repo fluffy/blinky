@@ -59,7 +59,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define SYNC_OUT_FX 1000000
 #define BTN1_Pin GPIO_PIN_13
 #define BTN1_GPIO_Port GPIOC
 #define LEDM3_Pin GPIO_PIN_14
@@ -78,10 +77,6 @@ void Error_Handler(void);
 #define ROW7_GPIO_Port GPIOC
 #define ROW8_Pin GPIO_PIN_3
 #define ROW8_GPIO_Port GPIOC
-#define AUX_CLK_Pin GPIO_PIN_0
-#define AUX_CLK_GPIO_Port GPIOA
-#define AUX_GPS_PPS_Pin GPIO_PIN_1
-#define AUX_GPS_PPS_GPIO_Port GPIOA
 #define AUX_SYNC_MON_Pin GPIO_PIN_2
 #define AUX_SYNC_MON_GPIO_Port GPIOA
 #define LEDM2_Pin GPIO_PIN_3
@@ -138,10 +133,6 @@ void Error_Handler(void);
 #define SWDCLK_GPIO_Port GPIOA
 #define CLK_Pin GPIO_PIN_15
 #define CLK_GPIO_Port GPIOA
-#define GPS_RX1_Pin GPIO_PIN_10
-#define GPS_RX1_GPIO_Port GPIOC
-#define GPS_TX1_Pin GPIO_PIN_11
-#define GPS_TX1_GPIO_Port GPIOC
 #define LEDA_Pin GPIO_PIN_12
 #define LEDA_GPIO_Port GPIOC
 #define DB3_Pin GPIO_PIN_2
