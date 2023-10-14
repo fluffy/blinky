@@ -78,8 +78,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &hTimeSync) {
     HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
 
-    HAL_GPIO_TogglePin(LEDM2_GPIO_Port, LEDM2_Pin);  // toggle red error LED
-
     dataExtClkCount++;
     dataExtClkCountTick = tick;
 
@@ -189,8 +187,6 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &hTimePps) {
-    // HAL_GPIO_TogglePin(LEDM3_GPIO_Port, LEDM3_Pin ); // toggle ok LED
-
     uint16_t val = __HAL_TIM_GET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT);
     if (val != dataCurrentPhaseSyncOut) {
       // end of output pulse just happened, set up for next output pulse
@@ -231,7 +227,7 @@ void blinkInit() {
 
 void blinkSetup() {
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
-                    GPIO_PIN_SET);  // turn off red error LED
+                    GPIO_PIN_SET);  // turn on red error LED
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
                     GPIO_PIN_RESET);  // turn off yellow assert LED
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
@@ -392,15 +388,14 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-#if 1  /// TODO 
+
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
                     GPIO_PIN_RESET);  // turn off red error LED
-  
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
                     GPIO_PIN_SET);  // turn on yellow assert LED
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
-                    GPIO_PIN_SET);  // turn off green ok LED
-#endif
+                    GPIO_PIN_RESET);  // turn off green ok LED
+
 }
 
 void blinkRun() {
