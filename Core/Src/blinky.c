@@ -51,7 +51,7 @@ extern UART_HandleTypeDef huart3;
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 
-const char *version = "0.50.230911";  // major , minor, year/month/day
+const char *version = "0.60.231013";  // major , minor, year/month/day
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -62,7 +62,7 @@ uint32_t dataGpsPpsCaptureTick;
 
 uint32_t dataExtClkCount;
 uint32_t dataExtClkCountTick;
-int32_t dataExtClkCountTickOffset;
+int32_t  dataExtClkCountTickOffset;
 
 uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut;
@@ -384,7 +384,7 @@ void blinkSetup() {
 
   if (1) {  // TODO
     char buffer[100];
-    snprintf(buffer, sizeof(buffer), "Setup Dpne\r\n");
+    snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
@@ -403,6 +403,7 @@ void blinkRun() {
 
   static int loopCount = 0;
   static char buttonWasPressed = 0;
+  
   static uint32_t dataMonCaptureTickPrev = 0;
   static uint32_t dataSyncCaptureTickPrev = 0;
   static uint32_t dataExtClkCountTickPrev = 0;
@@ -465,7 +466,7 @@ void blinkRun() {
   }
 #endif
 
-#if 0  // TODO 
+#if 1  // TODO 
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     snprintf( buffer, sizeof(buffer), "Sync Time val %ld \r\n", val );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);

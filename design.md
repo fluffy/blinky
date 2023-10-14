@@ -1,27 +1,5 @@
-# Design Notes for  V4
 
-Tim1 - 1 KHz tick, 1-second period 
-* ch1: ext clk in onboard 1 connected to TXCO at 2.048 MHz 
-
-Tim2 - 1 Mhz tick, 1 second loop, reset by Tim1 
-* Ch1: sync in 
-* Ch4: sync_mon in 
-
-Tim3 - 10 KHz tick, 1 second loop , reset by Tim1 
-* ch2: sync out 
-
-No slave on tim7 so use Tim4 - drives the LEDs 
-Tim4 - 24 KHz tick, 240 Hz loop , reset by Tim1 
-
-Tim8 - Osc freq /250 tick, 1 second loop, reset by Tim1 
-* ch1: GPS PPS 
-
-Tim5 - not used - 32 bit 
-* could ext clock perhaps from PA0, or PA1 (LEDM3 , LEDM1 ) 
-
-MCO: conflict PA8 ( ex clk in), and PC9 (row1) 
-
-# Design Notes for V5
+# Design Notes for V6
 
 Sync refers to Sync In
 
@@ -36,13 +14,18 @@ Mon refers to monitor of PPS
 - ExtOut 10 MHz output from MCO 
  
 - SyncOut 1 pps output - inverts on buffer 
-- SyncMon 1 pps in ( from SyncOut )  
+- SyncMon 1 pps in ( from SyncOut )
 - SyncIn 1 pps input - inverts on buffer 
 - GpsIn 1 pps input 
  
+ On blink board 
+ - AUX_CLK, AUX_GPS_PPS , GPS_RX, GPX_TX not used 
+ 
+ - CLK on PA15 is 2.048 Mhz signal 
  
  ## Timers 
  
+
 system clock or RefIn drives main 32 bit counter with overflow to 16
  bit 
  
@@ -61,20 +44,23 @@ Main and Aux can generate SyncOut
 Display TImer drives LED and sync to main or aux rollover 
 * does this need to capture syncMon ???
 
-### Main Timer:
+### Sync out timer - hTimePps 
+* CH1 - PA8 - TimePps_CH_SYNC_OUT 
+
+### Main Timer: // hTimeSync 
+
 * Use timer 2
 * max 42 Mhz 
 * 32 bits
-* clocked with ETR from main TCXO
-* use 20 Mhz 0.5 ppm JLCPCB C516500
+* clocked with ETR from main TCXO at 2.024 MHz 
 * period of 1 second ( adjusted in software )
 * adjustment store in EEPROM
 
-* ETR: PA15 or  PA0, PA5, PA15
-* Ch1: PA0 or PA0, PA5 - NA with ETR 
-* Ch2: PA3 or PA1, PB3 - sync_in
-* ch3: PB10 or PA2, PB10 - gps 
-* ch4: PB11 or PA3,  PB11 - mon 
+* ETR: PA15 
+* Ch1: PA0 - NA with ETR 
+* DISABLED Ch2: PA3  - sync_in   TimeSync_CH_SYNC_IN 
+* DISABLED ch3: PB10  - gps   TimeSync_CH_GPS_PPS  
+* ch4: PB11  - sync_mon   TimeSync_CH_SYNC_MON 
 
 CH1 is disabled if ETR is in use 
 
@@ -83,28 +69,30 @@ CH1 is disabled if ETR is in use
 * Capture GPS PPS
 * Genrate Sync Out
 
+
 ### PPS Out Timer 
+
+DISABLED 
 * Use timer 1
 * max 84Mhz 
 * reset on 1 second from main and tick rate 50KHz
 * 16 bits 
 * sync off of tim 2 or 5 
-* CH on PA8 or  PA8,9,10,11
-
-### LTC Sync In Timer 
-* User Tim8 
-* max 84Mhz
+* CH on PA8  - SYNC_OUT 
 * CH on PC6,7,8,9
 * can sync off tim 2 or 5 
 
+
 ### Blink Timer
-* use timer 4 ?????
+
+* use timer 4 
 * trigger reset by main timer every second
-* period about1 ms 
+* period about 1 ms 
 * interrupt ( less than 1KHz) to drive LEDs
 
 
 ### Aux Timer
+
 * Use 32 bit timer 5
 * max 42 Mhz
 * ETR:
@@ -119,6 +107,9 @@ CH1 is disabled if ETR is in use
 * capture SyncMon
 * capture GPS PPS
 * capture SyncIn
+
+### TImer 8 ???
+1.5 sc , count up on main at 10 KHz
 
 
 # Interrupt Handling
