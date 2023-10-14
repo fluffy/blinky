@@ -357,7 +357,7 @@ void blinkSetup() {
   }
 #endif
 
-#if 0  // TODO 
+#if 1  // TODO 
   HAL_TIM_OC_Start_IT(&hTimePps, TimePps_CH_SYNC_OUT);  // start sync out
 #endif
 

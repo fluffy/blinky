@@ -45,7 +45,10 @@ Display TImer drives LED and sync to main or aux rollover
 * does this need to capture syncMon ???
 
 ### Sync out timer - hTimePps 
+This time runnint at 168 Mhz input clck
 * CH1 - PA8 - TimePps_CH_SYNC_OUT 
+increments at 10KHz 
+does 20 ms wide output pulse ever 1 second 
 
 ### Main Timer: // hTimeSync 
 
