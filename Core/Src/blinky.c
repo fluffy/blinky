@@ -458,7 +458,7 @@ void blinkRun() {
   }
 #endif
 
-#if 1
+#if 0 // prints too much stuff 
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     snprintf( buffer, sizeof(buffer), "Sync Time val %ld \r\n", val );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
