@@ -37,7 +37,7 @@ extern UART_HandleTypeDef huart3;
 
 #define hTimeSync htim2
 #define TimeSync_CH_SYNC_IN TIM_CHANNEL_2
-//#define TimeSync_CH_GPS_PPS TIM_CHANNEL_3
+#define TimeSync_CH_GPS_PPS TIM_CHANNEL_3
 #define TimeSync_CH_SYNC_MON TIM_CHANNEL_4
 
 #define hTimeBlink htim4
@@ -158,26 +158,70 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 }
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
+
+#if 0 // TODO 
+   if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "\r\n*\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+#endif
+   
   uint32_t tick = HAL_GetTick();
   if (htim == &hTimeSync) {
+                                   // on inverted output
+#if o // TODO 
+   if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "\r\n? %d \r\n", htim->Channel );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+#endif
+
+   
     if (htim->Channel ==
         TimeSync_CH_SYNC_IN) {  // sync in falling edge. falling is rising
                                 // on inverted input
+      #if 1 // TODO 
+   if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "S\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+#endif
+   
       dataSyncCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_IN);
       dataSyncCaptureTick = tick;
     }
     if (htim->Channel ==
         TimeSync_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
                                  // on inverted output
+#if 1 // TODO 
+   if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "M\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+#endif
+   
       dataMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_MON);
       dataMonCaptureTick = tick;
     }
-#if 0
+#if 1
     if (htim->Channel ==
         TimeSync_CH_GPS_PPS) {  // sync in falling edge. falling is rising
                                 // on inverted input
       dataGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_GPS_PPS);
       dataGpsPpsCaptureTick = tick;
+      
+#if 1 // TODO 
+   if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "G\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+#endif
+   
     }
 #endif
   }
@@ -358,16 +402,14 @@ void blinkSetup() {
   HAL_TIM_OC_Start_IT(&hTimePps, TimePps_CH_SYNC_OUT);  // start sync out
 #endif
 
-  // HAL_TIM_Base_Start_IT(&hTimeSync);
+  HAL_TIM_Base_Start_IT(&hTimeSync);
 
 #if 1 
-  HAL_TIM_IC_Start_IT(&hTimeSync,
-                      TimeSync_CH_SYNC_IN);  // start sync in capture
+  HAL_TIM_IC_Start_IT(&hTimeSync, TimeSync_CH_SYNC_IN);  // start sync in capture
 #endif
 
 #if 1  
-  HAL_TIM_IC_Start_IT(&hTimeSync,
-                      TimeSync_CH_SYNC_MON);  // start sync mon capture
+  HAL_TIM_IC_Start_IT(&hTimeSync, TimeSync_CH_SYNC_MON);  // start sync mon capture
 #endif
 
 #if 0 
