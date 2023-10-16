@@ -6505,7 +6505,7 @@
   )
 
   (symbol (lib_id "Jumper:SolderJumper_2_Bridged") (at 85.09 107.95 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom no) (on_board yes) (dnp yes) (fields_autoplaced)
     (uuid 0d3e7bb4-4dea-49bb-893e-8c87819364cb)
     (property "Reference" "JP1" (at 85.09 101.6 0)
       (effects (font (size 1.27 1.27)))
@@ -8190,9 +8190,6 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "https://datasheet.lcsc.com/lcsc/2204281430_Guangdong-Hottech-1N5819WS_C191023.pdf" (at 26.67 67.31 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "JLCPCB#" "" (at 26.67 67.31 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLCPCB Part #" "C191023" (at 26.67 67.31 0)
@@ -9978,7 +9975,7 @@
   )
 
   (symbol (lib_id "Jumper:SolderJumper_2_Bridged") (at 86.36 120.65 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom no) (on_board yes) (dnp yes)
     (uuid a6dfc2ab-48fd-4bdc-8cbf-50bae569c9d3)
     (property "Reference" "JP2" (at 86.36 114.3 0)
       (effects (font (size 1.27 1.27)))
