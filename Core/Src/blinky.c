@@ -209,7 +209,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     }
 #if 1
     if (htim->Channel ==
-        TimeSync_CH_GPS_PPS) {  // sync in falling edge. falling is rising
+        TimeSync_CH_GPS_PPS) {  // sync in on falling edge. falling is rising
                                 // on inverted input
       dataGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_GPS_PPS);
       dataGpsPpsCaptureTick = tick;
@@ -545,6 +545,27 @@ void blinkRun() {
   }
 #endif
 
+#if 1 // TODO remove this 
+  // try out poll
+  if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "Polling\r\n" );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+    
+  uint32_t tick = HAL_GetTick();
+  
+  dataSyncCapture = HAL_TIM_ReadCapturedValue( &hTimeSync, TimeSync_CH_SYNC_IN);
+  dataSyncCaptureTick = tick;
+
+  dataMonCapture = HAL_TIM_ReadCapturedValue( &hTimeSync, TimeSync_CH_SYNC_MON);
+  dataMonCaptureTick = tick;
+  
+  //dataGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_GPS_PPS);
+  //dataGpsPpsCaptureTick = tick;
+      
+#endif
+  
   HAL_Delay(100);
 
   loopCount++;
