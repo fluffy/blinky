@@ -170,7 +170,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
   uint32_t tick = HAL_GetTick();
   if (htim == &hTimeSync) {
                                    // on inverted output
-#if o // TODO 
+#if 0 // TODO 
    if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "\r\n? %d \r\n", htim->Channel );
@@ -182,7 +182,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     if (htim->Channel ==
         TimeSync_CH_SYNC_IN) {  // sync in falling edge. falling is rising
                                 // on inverted input
-      #if 1 // TODO 
+#if 1 // TODO 
    if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "S\r\n");
@@ -350,7 +350,7 @@ void blinkSetup() {
 #endif
 
     if (data[0] == 6) {
-      // This is V5 hardware
+      // This is V6 hardware
       snprintf(buffer, sizeof(buffer), "  Hardware version: V6 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
