@@ -6,7 +6,8 @@
 
   (title_block
     (title "Blink ")
-    (rev "V7")
+    (date "2023-10-16")
+    (rev "V7.1")
     (company "Cullen Jennings")
   )
 
