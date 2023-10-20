@@ -7314,7 +7314,7 @@
     (property "LCSC" "" (at 38.1 36.83 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "JLCPCB Part #" "C4109" (at 38.1 36.83 0)
+    (property "JLCPCB Part #" "C22975" (at 38.1 36.83 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid e4b6b4ae-1d3c-47f2-98e2-0a7ccc6fda4b))

@@ -97,7 +97,6 @@ CH1 is disabled if ETR is in use
 * CH3: PA2 - UUX_MON
 * Ch4: PA4  - NO 
 
-
 * clocked with ETR from external 10 MHz
 * captures something to link this to Main timer
 * capture SyncMon
@@ -105,6 +104,7 @@ CH1 is disabled if ETR is in use
 * capture SyncIn
 
 ### TImer 8 ???
+
 1.5 sc , count up on main at 10 KHz
 
 
@@ -120,12 +120,11 @@ on each Main SyncIn
 - save syncIn local seconds and microsecond
 
 on each Main SyncOut
-- if off, turn on, load syncOutOffset+100ms
+- if off, turn on, load syncOutOffset+10ms * (seconds%10)
 - in on, turn off, load syncOutOffset
 
 on each Aux SyncMon
 * save aux 32+16 bit timer in AuxSyncMon auxSeconds, auxMicroseconds
-
 
 On each Main Timer rollover
 * reset ms time and offset by syncOutOffset
@@ -138,8 +137,8 @@ On each Blink Timer
 
 Periodically on main thread
 * compute gps offset microseconds (32 bit signed)
-* compute syncIn offset microsoeconds (16 bit signed)
-* compute syncMon offset microseconds (16 bit signed)
+* compute syncIn offset microsoeconds (32 bit signed)
+* compute syncMon offset microseconds (32 bit signed)
 * compute aux offset microseconds ( 32 bit ) from synMon times on main and aux
 * if have recent syncIn, adjust syncOutOffset to match syncIn
 * if have recent gpsPPS, adjust syncOutOffset to match gps pps
