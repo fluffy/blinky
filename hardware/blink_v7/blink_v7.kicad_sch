@@ -6491,7 +6491,7 @@
   )
 
   (symbol (lib_id "Jumper:SolderJumper_2_Bridged") (at 85.09 107.95 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom no) (on_board yes) (dnp yes) (fields_autoplaced)
     (uuid 0d3e7bb4-4dea-49bb-893e-8c87819364cb)
     (property "Reference" "JP1" (at 85.09 101.6 0)
       (effects (font (size 1.27 1.27)))
@@ -11550,7 +11550,7 @@
   )
 
   (symbol (lib_id "Jumper:SolderJumper_2_Bridged") (at 302.26 182.88 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom no) (on_board yes) (dnp yes)
     (uuid e4b82856-f421-4972-8802-6eb9f317c5e8)
     (property "Reference" "JP4" (at 302.26 185.42 0)
       (effects (font (size 1.27 1.27)))
@@ -11865,7 +11865,7 @@
   )
 
   (symbol (lib_id "Connector:Conn_01x04_Pin") (at 160.02 80.01 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp yes) (fields_autoplaced)
+    (in_bom no) (on_board yes) (dnp yes) (fields_autoplaced)
     (uuid ed44ebe1-6951-4945-b61b-b4f703c36835)
     (property "Reference" "J5" (at 158.75 82.55 0)
       (effects (font (size 1.27 1.27)) (justify right))
@@ -11993,7 +11993,7 @@
   )
 
   (symbol (lib_id "Jumper:SolderJumper_2_Bridged") (at 302.26 177.8 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom no) (on_board yes) (dnp yes)
     (uuid f8001302-7b9b-461e-b4b6-ebca23a227fb)
     (property "Reference" "JP3" (at 302.26 175.26 0)
       (effects (font (size 1.27 1.27)))
