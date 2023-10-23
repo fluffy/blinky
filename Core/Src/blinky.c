@@ -38,17 +38,17 @@ extern UART_HandleTypeDef huart3;
 
 #define hTimeSync htim2
 #define TimeSync_CH_SYNC_IN TIM_CHANNEL_2
-#define TimeSync_HAL_CH_SYNC_IN HAL_TIM_ACTIVE_CHANNEL_2 
+#define TimeSync_HAL_CH_SYNC_IN HAL_TIM_ACTIVE_CHANNEL_2
 #define TimeSync_CH_GPS_PPS TIM_CHANNEL_3
-#define TimeSync_HAL_CH_GPS_PPS HAL_TIM_ACTIVE_CHANNEL_3 
+#define TimeSync_HAL_CH_GPS_PPS HAL_TIM_ACTIVE_CHANNEL_3
 #define TimeSync_CH_SYNC_MON TIM_CHANNEL_4
-#define TimeSync_HAL_CH_SYNC_MON HAL_TIM_ACTIVE_CHANNEL_4 
+#define TimeSync_HAL_CH_SYNC_MON HAL_TIM_ACTIVE_CHANNEL_4
 
 #define hTimeBlink htim4
 
 #define hTimeAux htim5
-//#define TimeAux_CH_AUX_CLK TIM_CHANNEL_1
-//#define TimeAux_CH_AUX_GPS_PPS TIM_CHANNEL_2
+// #define TimeAux_CH_AUX_CLK TIM_CHANNEL_1
+// #define TimeAux_CH_AUX_GPS_PPS TIM_CHANNEL_2
 #define TimeAux_CH_AUX_SYNC_MON TIM_CHANNEL_3
 
 #define hTimeLtc htim8
@@ -63,9 +63,9 @@ uint32_t dataSyncCaptureTick;
 uint32_t dataGpsPpsCapture;
 uint32_t dataGpsPpsCaptureTick;
 
-uint32_t dataExtClkCount; // counting seconds 
+uint32_t dataExtClkCount;  // counting seconds
 uint32_t dataExtClkCountTick;
-int32_t  dataExtClkCountTickOffset;
+int32_t dataExtClkCountTickOffset;
 
 uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut;
@@ -79,19 +79,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   uint32_t tick = HAL_GetTick();
 
   if (htim == &hTimeSync) {
-    //HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
+    // HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
 
     dataExtClkCount++;
     dataExtClkCountTick = tick;
 
-    subFrameCount = 240 - subFrameCountOffset; /// TODO - not sure whawt this does anymore 
+    subFrameCount =
+        240 - subFrameCountOffset;  /// TODO - not sure whawt this does anymore
   }
 
   if (htim == &hTimeBlink) {
 #if 1  // This block of code takes 1.9 uS and runs every 1 mS
-    //HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
+    // HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
 
-    // TODO - redo this to be based on time of main counter 
+    // TODO - redo this to be based on time of main counter
     subFrameCount++;  // counting at rate 240 Hz
     if (subFrameCount >= 240) {
       subFrameCount -= 240;
@@ -156,13 +157,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                         (binCount & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET);
     }
 
-    //HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_RESET);
+    // HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_RESET);
 #endif
   }
 }
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-
 #if 0
    if (1) {
     char buffer[100];
@@ -170,31 +170,29 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 #endif
-   
+
   uint32_t tick = HAL_GetTick();
   if (htim == &hTimeSync) {
-   
     if (htim->Channel ==
         TimeSync_HAL_CH_SYNC_IN) {  // sync in falling edge. falling is rising
-                                // on inverted input
+                                    // on inverted input
       dataSyncCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_IN);
       dataSyncCaptureTick = tick;
     }
 
     if (htim->Channel ==
         TimeSync_HAL_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
-                                 // on inverted output
+                                     // on inverted output
       dataMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_MON);
       dataMonCaptureTick = tick;
     }
 
-    if (htim->Channel ==
-        TimeSync_HAL_CH_GPS_PPS) {  // sync in on falling edge. falling is rising
-                                // on inverted input
+    if (htim->Channel == TimeSync_HAL_CH_GPS_PPS) {  // sync in on falling edge.
+                                                     // falling is rising
+                                                     // on inverted input
       dataGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_GPS_PPS);
       dataGpsPpsCaptureTick = tick;
     }
-
   }
 }
 
@@ -207,7 +205,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT,
                             dataNextSyncOutPhase);
       LL_TIM_OC_SetMode(
-                        TIM1, TimePps_LL_CH_SYNC_OUT, 
+          TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
     } else {                        // val == dataCurrentPhaseSyncOut
       // start of output pulse just started, set up for the end of pulse
@@ -217,7 +215,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       }
       __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, val);
       LL_TIM_OC_SetMode(
-                        TIM1, TimePps_LL_CH_SYNC_OUT, 
+          TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
     }
   }
@@ -353,7 +351,7 @@ void blinkSetup() {
 
   HAL_TIM_Base_Start_IT(&hTimeBlink);
 
-#if 1 
+#if 1
   if (0) {  // TODO
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "Starting timer...\r\n");
@@ -369,18 +367,20 @@ void blinkSetup() {
   }
 #endif
 
-#if 1 
+#if 1
   HAL_TIM_OC_Start_IT(&hTimePps, TimePps_CH_SYNC_OUT);  // start sync out
 #endif
 
   HAL_TIM_Base_Start_IT(&hTimeSync);
 
-#if 1 
-  HAL_TIM_IC_Start_IT(&hTimeSync, TimeSync_CH_SYNC_IN);  // start sync in capture
+#if 1
+  HAL_TIM_IC_Start_IT(&hTimeSync,
+                      TimeSync_CH_SYNC_IN);  // start sync in capture
 #endif
 
-#if 1  
-  HAL_TIM_IC_Start_IT(&hTimeSync, TimeSync_CH_SYNC_MON);  // start sync mon capture
+#if 1
+  HAL_TIM_IC_Start_IT(&hTimeSync,
+                      TimeSync_CH_SYNC_MON);  // start sync mon capture
 #endif
 
 #if 0 
@@ -391,24 +391,23 @@ void blinkSetup() {
   uint16_t dacValue = 10000 - 15;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
 
-  // set LED to on but not sync ( yellow, not greeen ) 
+  // set LED to on but not sync ( yellow, not greeen )
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
                     GPIO_PIN_SET);  // turn on yellow assert LED
   HAL_GPIO_WritePin(LEDM1_GPIO_Port, LEDM1_Pin,
                     GPIO_PIN_RESET);  // turn off green ok LED
-  
-  if (1) {  
+
+  if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 }
 
-
 void blinkRun() {
   static int loopCount = 0;
   static char buttonWasPressed = 0;
-  
+
   static uint32_t dataMonCaptureTickPrev = 0;
   static uint32_t dataSyncCaptureTickPrev = 0;
   static uint32_t dataExtClkCountTickPrev = 0;
@@ -471,7 +470,7 @@ void blinkRun() {
   }
 #endif
 
-#if 0 // prints too much stuff 
+#if 0  // prints too much stuff 
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     snprintf( buffer, sizeof(buffer), "Sync Time val %ld \r\n", val );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -491,7 +490,7 @@ void blinkRun() {
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
 
-#if 0 // TODO 
+#if 0  // TODO 
   if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   gpsPPS: %ld ms\r\n",
              dataGpsPpsCapture / 10);
