@@ -37,8 +37,11 @@ extern UART_HandleTypeDef huart3;
 
 #define hTimeSync htim2
 #define TimeSync_CH_SYNC_IN TIM_CHANNEL_2
+#define TimeSync_HAL_CH_SYNC_IN HAL_TIM_ACTIVE_CHANNEL_2 
 #define TimeSync_CH_GPS_PPS TIM_CHANNEL_3
+#define TimeSync_HAL_CH_GPS_PPS HAL_TIM_ACTIVE_CHANNEL_3 
 #define TimeSync_CH_SYNC_MON TIM_CHANNEL_4
+#define TimeSync_HAL_CH_SYNC_MON HAL_TIM_ACTIVE_CHANNEL_4 
 
 #define hTimeBlink htim4
 
@@ -159,10 +162,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
-#if 0 // TODO 
+#if 1 // TODO 
    if (1) {
     char buffer[100];
-    snprintf(buffer, sizeof(buffer), "\r\n*\r\n");
+    snprintf(buffer, sizeof(buffer), "\r\n* %d\r\n",htim->Channel );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 #endif
@@ -180,7 +183,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
    
     if (htim->Channel ==
-        TimeSync_CH_SYNC_IN) {  // sync in falling edge. falling is rising
+        TimeSync_HAL_CH_SYNC_IN) {  // sync in falling edge. falling is rising
                                 // on inverted input
 #if 1 // TODO 
    if (1) {
@@ -194,7 +197,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       dataSyncCaptureTick = tick;
     }
     if (htim->Channel ==
-        TimeSync_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
+        TimeSync_HAL_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
                                  // on inverted output
 #if 1 // TODO 
    if (1) {
@@ -209,7 +212,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     }
 #if 1
     if (htim->Channel ==
-        TimeSync_CH_GPS_PPS) {  // sync in on falling edge. falling is rising
+        TimeSync_HAL_CH_GPS_PPS) {  // sync in on falling edge. falling is rising
                                 // on inverted input
       dataGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_GPS_PPS);
       dataGpsPpsCaptureTick = tick;
