@@ -34,6 +34,7 @@ extern UART_HandleTypeDef huart3;
 
 #define hTimePps htim1
 #define TimePps_CH_SYNC_OUT TIM_CHANNEL_1
+#define TimePps_LL_CH_SYNC_OUT LL_TIM_CHANNEL_CH1
 
 #define hTimeSync htim2
 #define TimeSync_CH_SYNC_IN TIM_CHANNEL_2
@@ -53,7 +54,7 @@ extern UART_HandleTypeDef huart3;
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 
-const char *version = "0.60.231014";  // major , minor, year/month/day
+const char *version = "0.60.231023";  // major , minor, year/month/day
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -206,7 +207,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT,
                             dataNextSyncOutPhase);
       LL_TIM_OC_SetMode(
-          TIM1, LL_TIM_CHANNEL_CH1,
+                        TIM1, TimePps_LL_CH_SYNC_OUT, 
           LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
     } else {                        // val == dataCurrentPhaseSyncOut
       // start of output pulse just started, set up for the end of pulse
@@ -216,7 +217,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       }
       __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, val);
       LL_TIM_OC_SetMode(
-          TIM1, LL_TIM_CHANNEL_CH1,
+                        TIM1, TimePps_LL_CH_SYNC_OUT, 
           LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
     }
   }
