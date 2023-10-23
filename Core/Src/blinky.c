@@ -162,7 +162,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
-#if 1 // TODO 
+#if 0
    if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "\r\n* %d\r\n",htim->Channel );
@@ -172,61 +172,28 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
    
   uint32_t tick = HAL_GetTick();
   if (htim == &hTimeSync) {
-                                   // on inverted output
-#if 0 // TODO 
-   if (1) {
-    char buffer[100];
-    snprintf(buffer, sizeof(buffer), "\r\n? %d \r\n", htim->Channel );
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  }
-#endif
-
    
     if (htim->Channel ==
         TimeSync_HAL_CH_SYNC_IN) {  // sync in falling edge. falling is rising
                                 // on inverted input
-#if 1 // TODO 
-   if (1) {
-    char buffer[100];
-    snprintf(buffer, sizeof(buffer), "S\r\n");
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  }
-#endif
-   
       dataSyncCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_IN);
       dataSyncCaptureTick = tick;
     }
+
     if (htim->Channel ==
         TimeSync_HAL_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
                                  // on inverted output
-#if 1 // TODO 
-   if (1) {
-    char buffer[100];
-    snprintf(buffer, sizeof(buffer), "M\r\n");
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  }
-#endif
-   
       dataMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_MON);
       dataMonCaptureTick = tick;
     }
-#if 1
+
     if (htim->Channel ==
         TimeSync_HAL_CH_GPS_PPS) {  // sync in on falling edge. falling is rising
                                 // on inverted input
       dataGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_GPS_PPS);
       dataGpsPpsCaptureTick = tick;
-      
-#if 1 // TODO 
-   if (1) {
-    char buffer[100];
-    snprintf(buffer, sizeof(buffer), "G\r\n");
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  }
-#endif
-   
     }
-#endif
+
   }
 }
 
@@ -548,27 +515,6 @@ void blinkRun() {
   }
 #endif
 
-#if 1 // TODO remove this 
-  // try out poll
-  if (1) {
-    char buffer[100];
-    snprintf(buffer, sizeof(buffer), "Polling\r\n" );
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  }
-    
-  uint32_t tick = HAL_GetTick();
-  
-  dataSyncCapture = HAL_TIM_ReadCapturedValue( &hTimeSync, TimeSync_CH_SYNC_IN);
-  dataSyncCaptureTick = tick;
-
-  dataMonCapture = HAL_TIM_ReadCapturedValue( &hTimeSync, TimeSync_CH_SYNC_MON);
-  dataMonCaptureTick = tick;
-  
-  //dataGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_GPS_PPS);
-  //dataGpsPpsCaptureTick = tick;
-      
-#endif
-  
   HAL_Delay(100);
 
   loopCount++;
