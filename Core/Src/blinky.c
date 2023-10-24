@@ -295,8 +295,8 @@ void blinkSetup() {
     if (writeConfigEEProm) {
       // write config to EEProm
       data[0] = 6;  // hardware version
-      data[1] = 2;  // osc speed ( 2= 2.048 MHx, 10=10 MHz )
-      vcoOffset = 8 ; 
+      data[1] = 0;  // osc speed ( 2= 2.048 MHx, 10=10 MHz, 0=Internal )
+      vcoOffset = 0 ; 
       data[2] = 100 + vcoOffset; // VCO voltage offset 
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
