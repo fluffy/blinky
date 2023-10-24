@@ -56,6 +56,10 @@ extern UART_HandleTypeDef huart3;
 
 const char *version = "0.60.231023";  // major , minor, year/month/day
 
+#define captureFreqHz 2048000ul
+// next macro must have capture2uS( captureFreqHz ) fit in 32 bit calculation
+#define capture2uS( c )   ((c)*1000ul/2048ul)
+
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
 uint32_t dataSyncCapture;
@@ -472,20 +476,20 @@ void blinkRun() {
 
 #if 0  // prints too much stuff 
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
-    snprintf( buffer, sizeof(buffer), "Sync Time val %ld \r\n", val );
+    snprintf( buffer, sizeof(buffer), "Sync Time val %ld uS\r\n",  capture2uS(val) );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
 
   if (dataMonCaptureTick != dataMonCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   mon : %ld ms\r\n",
-             dataMonCapture / 1000);
+             capture2uS( dataMonCapture ) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataMonCaptureTickPrev = dataMonCaptureTick;
   }
 
   if (dataSyncCaptureTick != dataSyncCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   sync: %ld ms\r\n",
-             dataSyncCapture / 1000);
+             capture2uS( dataSyncCapture ) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
@@ -493,13 +497,13 @@ void blinkRun() {
 #if 0  // TODO 
   if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   gpsPPS: %ld ms\r\n",
-             dataGpsPpsCapture / 10);
+             capture2uS( dataGpsPpsCapture ) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataGpsPpsCaptureTickPrev = dataGpsPpsCaptureTick;
   }
 #endif
 
-#if 1
+#if 0 // TODO 
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     int32_t err = dataExtClkCountTick - dataExtClkCountTickOffset -
