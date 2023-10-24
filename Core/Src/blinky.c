@@ -448,6 +448,9 @@ void blinkRun() {
             deltaPhaseUs /
             100l;  // div 100 for 1MHz to 10KHz counter conversion
         if (deltaPhase < 0) deltaPhase += 10000;
+
+        deltaPhase += 0; // offset
+        
         uint32_t phase = dataNextSyncOutPhase + deltaPhase;
         if (phase >= 10000) {
           phase -= 10000;
