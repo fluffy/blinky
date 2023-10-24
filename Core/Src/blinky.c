@@ -267,6 +267,8 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
+  int16_t vcoOffset=0;
+  
   // access EEProm
   if (1) {
     char buffer[100];
@@ -294,6 +296,8 @@ void blinkSetup() {
       // write config to EEProm
       data[0] = 6;  // hardware version
       data[1] = 2;  // osc speed ( 2= 2.048 MHx, 10=10 MHz )
+      vcoOffset = 8 ; 
+      data[2] = 100 + vcoOffset; // VCO voltage offset 
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
                                  sizeof(eepromMemAddr), data,
@@ -310,7 +314,7 @@ void blinkSetup() {
 
     status =
         HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1, eepromMemAddr,
-                         sizeof(eepromMemAddr), data, (uint16_t)3, timeout);
+                         sizeof(eepromMemAddr), data, (uint16_t)(3), timeout);
     if (status != HAL_OK) {
       // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
       snprintf(buffer, sizeof(buffer),
@@ -328,7 +332,6 @@ void blinkSetup() {
       snprintf(buffer, sizeof(buffer), "  Hardware version: V6 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-#if 1
       if (data[1] == 2) {
         // External CLK is 2.048 Mhz
         __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 2048000 - 1);
@@ -343,8 +346,13 @@ void blinkSetup() {
         snprintf(buffer, sizeof(buffer), "  External clock set to 10 Mhz \r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
-#endif
 
+      vcoOffset = (int16_t)(data[2]) - 100;
+                            
+      snprintf(buffer, sizeof(buffer),
+               "  VCO offset: %d\r\n", vcoOffset );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      
     } else {
       snprintf(buffer, sizeof(buffer), "Unknown Hardware version %d \r\n",
                data[0]);
@@ -388,7 +396,8 @@ void blinkSetup() {
   // +8 gave -10
   // +6 gave +5
   // +7 gave +2 ns with range -9 to +14
-  uint16_t dacValue = 10000 + 7;
+  //vcoOffset = 8; 
+  uint16_t dacValue = 10000 + vcoOffset ;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
 
   // set LED to on but not sync ( yellow, not greeen )
