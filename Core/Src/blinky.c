@@ -437,7 +437,7 @@ void blinkRun() {
 
       if ((tick > 2000) && (dataSyncCaptureTick + 2000 >
                             tick)) {  // if had sync in last 2 seconds
-        int32_t deltaPhaseUs = dataSyncCapture - dataMonCapture;
+        int32_t deltaPhaseUs =  capture2uS(dataSyncCapture) -  capture2uS(dataMonCapture);
         int32_t deltaPhase =
             deltaPhaseUs /
             100l;  // div 100 for 1MHz to 10KHz counter conversion
