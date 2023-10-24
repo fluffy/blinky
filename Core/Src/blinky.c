@@ -362,6 +362,24 @@ void blinkSetup() {
     }
   }
 
+#if 1 // TODO
+  if (1) {
+    TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+    
+    htim2.Init.Prescaler = 41-1;
+    htim2.Init.Period = 2048780-1-120;
+    sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+    
+    if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK) {
+      Error_Handler();
+    }
+    if (HAL_TIM_IC_Init(&htim2) != HAL_OK){
+      Error_Handler();
+    }
+  }
+#endif
+
+  
   HAL_TIM_Base_Start_IT(&hTimeBlink);
 
 #if 1
