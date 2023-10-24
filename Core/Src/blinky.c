@@ -267,8 +267,8 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-  int16_t vcoOffset=0;
-  
+  int16_t vcoOffset = 0;
+
   // access EEProm
   if (1) {
     char buffer[100];
@@ -295,9 +295,9 @@ void blinkSetup() {
     if (writeConfigEEProm) {
       // write config to EEProm
       data[0] = 6;  // hardware version
-      data[1] = 2;  // osc speed ( 2= 2.048 MHx, 10=10 MHz )
-      vcoOffset = 8 ; 
-      data[2] = 100 + vcoOffset; // VCO voltage offset 
+      data[1] = 2;  // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
+      vcoOffset = 8;
+      data[2] = 100 + vcoOffset;  // VCO voltage offset
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
                                  sizeof(eepromMemAddr), data,
@@ -334,25 +334,38 @@ void blinkSetup() {
 
       if (data[1] == 2) {
         // External CLK is 2.048 Mhz
-        __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 2048000 - 1);
+        __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 2048000ul - 1ul);
 
         snprintf(buffer, sizeof(buffer),
                  "  External clock set to 2.048 Mhz \r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       } else if (data[1] == 10) {
         // External CLK is 10 Mhz
-        __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 10000000 - 1);
+        __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 10000000ul - 1ul);
 
         snprintf(buffer, sizeof(buffer), "  External clock set to 10 Mhz \r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      } else if (data[1] == 0) {
+        // CLK is internal 84 Mhz
+        TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+
+        htim2.Init.Prescaler = 41 - 1;
+        htim2.Init.Period = 2048780 - 1 - 121;
+        sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+
+        if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK) {
+          Error_Handler();
+        }
+        if (HAL_TIM_IC_Init(&htim2) != HAL_OK) {
+          Error_Handler();
+        }
       }
 
       vcoOffset = (int16_t)(data[2]) - 100;
-                            
-      snprintf(buffer, sizeof(buffer),
-               "  VCO offset: %d\r\n", vcoOffset );
+
+      snprintf(buffer, sizeof(buffer), "  VCO offset: %d\r\n", vcoOffset);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      
+
     } else {
       snprintf(buffer, sizeof(buffer), "Unknown Hardware version %d \r\n",
                data[0]);
@@ -389,15 +402,15 @@ void blinkSetup() {
 #endif
 
   HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
-  // -15 gave +118 ns on period 
+  // -15 gave +118 ns on period
   // -115 gave +714 ns
   // -5 gave +63 ns
   // +5 gave +15
   // +8 gave -10
   // +6 gave +5
   // +7 gave +2 ns with range -9 to +14
-  //vcoOffset = 8; 
-  uint16_t dacValue = 10000 + vcoOffset ;
+  // vcoOffset = 8;
+  uint16_t dacValue = 10000 + vcoOffset;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
 
   // set LED to on but not sync ( yellow, not greeen )
@@ -449,8 +462,8 @@ void blinkRun() {
             100l;  // div 100 for 1MHz to 10KHz counter conversion
         if (deltaPhase < 0) deltaPhase += 10000;
 
-        deltaPhase += 0; // offset
-        
+        deltaPhase += 0;  // offset
+
         uint32_t phase = dataNextSyncOutPhase + deltaPhase;
         if (phase >= 10000) {
           phase -= 10000;
