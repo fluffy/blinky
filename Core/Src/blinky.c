@@ -58,7 +58,7 @@ const char *version = "0.60.231023";  // major , minor, year/month/day
 
 #define captureFreqHz 2048000ul
 // next macro must have capture2uS( captureFreqHz ) fit in 32 bit calculation
-#define capture2uS( c )   ((c)*1000ul/2048ul)
+#define capture2uS(c) ((c) * 1000ul / 2048ul)
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -74,11 +74,10 @@ int32_t dataExtClkCountTickOffset;
 uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut;
 
-
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   uint32_t tick = HAL_GetTick();
 
-#if 0 // TODO 
+#if 0  // TODO 
   if (htim == &hTimeSync) {
     // HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
 
@@ -86,23 +85,25 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     dataExtClkCountTick = tick;
   }
 #endif
-  
+
   if (htim == &hTimeBlink) {
     // This block of code takes 1.9 uS and runs every 1 mS
     // HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
 
     uint32_t mainCapture = __HAL_TIM_GetCounter(&hTimeSync);
-    uint32_t mainUs = capture2uS( mainCapture );
-    uint32_t monUs = capture2uS( dataMonCapture );
+    uint32_t mainUs = capture2uS(mainCapture);
+    uint32_t monUs = capture2uS(dataMonCapture);
     int32_t ledUs = mainUs - monUs;
-    if ( ledUs < 0 ) { ledUs += 1000000ul; }
+    if (ledUs < 0) {
+      ledUs += 1000000ul;
+    }
 
-    uint32_t subFrameCount = (240ul * ledUs ) / ( 1000ul *1000ul);
+    uint32_t subFrameCount = (240ul * ledUs) / (1000ul * 1000ul);
 
     if (subFrameCount >= 240) {
       subFrameCount -= 240;
     }
-    
+
     int16_t gridCount =
         subFrameCount;  // counting up in 1/8 of 30 frames per second
     int16_t binCount = subFrameCount / 8;  // counting up in frames at 30 fps
@@ -236,8 +237,8 @@ void blinkInit() {
   dataExtClkCountTickOffset = -1000;
   dataNextSyncOutPhase = 5000;
   dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
-  //subFrameCount = 0;
-  //subFrameCountOffset = 120;
+  // subFrameCount = 0;
+  // subFrameCountOffset = 120;
 }
 
 void blinkSetup() {
@@ -412,7 +413,7 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-#if 1 
+#if 1
   if (!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) {
     if (!buttonWasPressed) {
       uint32_t tick = HAL_GetTick();
@@ -425,7 +426,8 @@ void blinkRun() {
 
       if ((tick > 2000) && (dataSyncCaptureTick + 2000 >
                             tick)) {  // if had sync in last 2 seconds
-        int32_t deltaPhaseUs =  capture2uS(dataSyncCapture) -  capture2uS(dataMonCapture);
+        int32_t deltaPhaseUs =
+            capture2uS(dataSyncCapture) - capture2uS(dataMonCapture);
         int32_t deltaPhase =
             deltaPhaseUs /
             100l;  // div 100 for 1MHz to 10KHz counter conversion
@@ -442,7 +444,7 @@ void blinkRun() {
       } else {
         snprintf(buffer, sizeof(buffer), "  No sync input\r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      }      
+      }
     }
     buttonWasPressed = 1;
   } else {
@@ -458,14 +460,14 @@ void blinkRun() {
 
   if (dataMonCaptureTick != dataMonCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   mon : %ld ms\r\n",
-             capture2uS( dataMonCapture ) / 1000);
+             capture2uS(dataMonCapture) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataMonCaptureTickPrev = dataMonCaptureTick;
   }
 
   if (dataSyncCaptureTick != dataSyncCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   sync: %ld ms\r\n",
-             capture2uS( dataSyncCapture ) / 1000);
+             capture2uS(dataSyncCapture) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
@@ -479,7 +481,7 @@ void blinkRun() {
   }
 #endif
 
-#if 0 // TODO 
+#if 0  // TODO 
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     int32_t err = dataExtClkCountTick - dataExtClkCountTickOffset -
