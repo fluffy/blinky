@@ -51,7 +51,8 @@ This time runnint at 168 Mhz input clock
 * CH1 - PA8 - TimePps_CH_SYNC_OUT 
 increments at 10KHz 
 does 20 ms wide output pulse every 1 second 
-TODO * reset on 1 second from main and tick rate 50KHz
+Resets based on ITR1 from Tim2 Update Event (main) 
+TODO * tick rate to 50KHz
 * 16 bits 
 * sync off of timer 2
 * CH on PA8  - SYNC_OUT 
