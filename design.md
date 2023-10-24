@@ -84,8 +84,9 @@ CH1 is disabled if ETR is in use
 
 * use timer 4 
 * trigger reset by main timer every second
-* period about 1 ms 
-* interrupt ( less than 1KHz) to drive LEDs
+* Reset on ITR1 from Tim2 
+* period 1 ms 
+* interrupt ( 1 KHz) to drive LEDs
 
 
 ### Aux Timer

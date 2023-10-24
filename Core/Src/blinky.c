@@ -74,34 +74,55 @@ int32_t dataExtClkCountTickOffset;
 uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut;
 
-uint32_t subFrameCount;  // counts at 240 sub frames per second, reset to 0
+#if 0 // TOOO
+uint32_t subFrame02Count;  // counts at 240 sub frames per second, reset to 0
                          // every second
 uint32_t subFrameCountOffset;  // count in subFames into the second time when
                                // the syncOut pulse happens
+#endif
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   uint32_t tick = HAL_GetTick();
 
+#if 0 // TODO 
   if (htim == &hTimeSync) {
     // HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
 
     dataExtClkCount++;
     dataExtClkCountTick = tick;
-
-    subFrameCount =
-        240 - subFrameCountOffset;  /// TODO - not sure whawt this does anymore
   }
-
+#endif
+  
   if (htim == &hTimeBlink) {
-#if 1  // This block of code takes 1.9 uS and runs every 1 mS
+    // This block of code takes 1.9 uS and runs every 1 mS
     // HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
 
     // TODO - redo this to be based on time of main counter
-    subFrameCount++;  // counting at rate 240 Hz
+    uint32_t mainCapture = __HAL_TIM_GetCounter(&hTimeSync);
+    uint32_t mainUs = capture2uS( mainCapture ); 
+
+    // TODO - move back to 240 
+    //uint32_t subFrameCount = (240ul * mainUs ) / ( 1000ul *1000ul);
+    uint32_t subFrameCount = (8ul * mainUs ) / ( 1000ul *1000ul);
+
+    
+#if 0 // TODO 
+    static uint32_t count=0;
+
+    if (count%100 == 0) {
+      char buffer[100];
+      snprintf(buffer, sizeof(buffer), "%lu %lu\r\n", mainUs, subFrameCount  );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+    
+    count++;
+    subFrameCount = ( count / 100 ) % 240 ;
+#endif
+    
     if (subFrameCount >= 240) {
       subFrameCount -= 240;
     }
-
+    
     int16_t gridCount =
         subFrameCount;  // counting up in 1/8 of 30 frames per second
     int16_t binCount = subFrameCount / 8;  // counting up in frames at 30 fps
@@ -162,7 +183,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     }
 
     // HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_RESET);
-#endif
   }
 }
 
@@ -236,8 +256,8 @@ void blinkInit() {
   dataExtClkCountTickOffset = -1000;
   dataNextSyncOutPhase = 5000;
   dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
-  subFrameCount = 0;
-  subFrameCountOffset = 120;
+  //subFrameCount = 0;
+  //subFrameCountOffset = 120;
 }
 
 void blinkSetup() {
@@ -456,6 +476,7 @@ void blinkRun() {
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
 
+#if 0 // TODO 
       // set offset for the  LED  ( dataNextSyncOutPhase update 10KHz,
       // subFrameCountOffset update 240 Hx )
       subFrameCountOffset =
@@ -467,6 +488,8 @@ void blinkRun() {
       if (subFrameCountOffset >= 240) {
         subFrameCountOffset -= 240;
       }
+#endif
+      
     }
     buttonWasPressed = 1;
   } else {
