@@ -157,3 +157,11 @@ Periodically on main thread
 * figure out how to base everything off Aux if that is there instead of Main
 * figure out how to base everything off of GPS if that is there instead of main
 
+
+### Adjusting
+On Freq counter. INtrurment setup timeout off.
+Noise Reject on, DC, 1M ohm, manual level 200 mV
+History grom from 1 s - 20 ns to 1 s+20 ns, 40 bins
+
+Seeing data fall from -6 to +12 ns.
+Say 10 ppb ??? => 36 ms / hour ???

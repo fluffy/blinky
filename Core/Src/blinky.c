@@ -381,7 +381,14 @@ void blinkSetup() {
 #endif
 
   HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
-  uint16_t dacValue = 10000 - 15;
+  // -15 gave +118 ns on period 
+  // -115 gave +714 ns
+  // -5 gave +63 ns
+  // +5 gave +15
+  // +8 gave -10
+  // +6 gave +5
+  // +7 gave +2 ns with range -9 to +14
+  uint16_t dacValue = 10000 + 7;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
 
   // set LED to on but not sync ( yellow, not greeen )
