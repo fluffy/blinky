@@ -99,26 +99,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
     // TODO - redo this to be based on time of main counter
     uint32_t mainCapture = __HAL_TIM_GetCounter(&hTimeSync);
-    uint32_t mainUs = capture2uS( mainCapture ); 
-
+    uint32_t mainUs = capture2uS( mainCapture );
+    uint32_t monUs = capture2uS( dataMonCapture );
+    int32_t ledUs = mainUs - monUs;
+    if ( ledUs < 0 ) { ledUs += 1000000ul; }
+    
     // TODO - move back to 240 
-    //uint32_t subFrameCount = (240ul * mainUs ) / ( 1000ul *1000ul);
-    uint32_t subFrameCount = (8ul * mainUs ) / ( 1000ul *1000ul);
+    uint32_t subFrameCount = (240ul * ledUs ) / ( 1000ul *1000ul);
+    //uint32_t subFrameCount = (8ul * ledUs ) / ( 1000ul *1000ul);
 
-    
-#if 0 // TODO 
-    static uint32_t count=0;
-
-    if (count%100 == 0) {
-      char buffer[100];
-      snprintf(buffer, sizeof(buffer), "%lu %lu\r\n", mainUs, subFrameCount  );
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    }
-    
-    count++;
-    subFrameCount = ( count / 100 ) % 240 ;
-#endif
-    
     if (subFrameCount >= 240) {
       subFrameCount -= 240;
     }
