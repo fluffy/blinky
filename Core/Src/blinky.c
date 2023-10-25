@@ -273,9 +273,10 @@ void setClk(uint8_t clk, uint8_t adj) {
     // CLK is internal 84 Mhz
     TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 
+    int32_t freqOffset = (int32_t)(adj)-100l;
     htim2.Init.Prescaler = 8 - 1;
-    htim2.Init.Period = 10500ul * 1000ul - 1ul -
-                        605ul;  // 605 is manual correction TOOO put in eeprom
+    htim2.Init.Period = 10500ul * 1000ul - 1ul 
+                        + freqOffset*10 ;  // 60+100 is abouut manual correction TOOO put in eeprom
     sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
     capture2uSRatioM = 2;
     capture2uSRatioN = 21;
