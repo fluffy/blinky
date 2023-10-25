@@ -56,9 +56,17 @@ extern UART_HandleTypeDef huart3;
 
 const char *version = "0.60.231023";  // major , minor, year/month/day
 
-#define captureFreqHz 2048000ul
-// next macro must have capture2uS( captureFreqHz ) fit in 32 bit calculation
-#define capture2uS(c) ((c) * 1000ul / 2048ul)
+// #define captureFreqHz 2048000ul
+//  next macro must have capture2uS( captureFreqHz ) fit in 32 bit calculation
+// #define capture2uS(c) ((c) * 1000ul / 2048ul)
+
+// The main timer counter max value (typically 10 MHz ) * M need to fit in 32
+// bits
+uint32_t capture2uSRatioM = 125;
+uint32_t capture2uSRatioN = 256;
+inline uint32_t capture2uS(const uint32_t c) {
+  return (c * capture2uSRatioM) / capture2uSRatioN;
+}
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -98,6 +106,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
       ledUs += 1000000ul;
     }
 
+    // uS to 240 Hz
     uint32_t subFrameCount = (240ul * ledUs) / (1000ul * 1000ul);
 
     if (subFrameCount >= 240) {
@@ -241,6 +250,65 @@ void blinkInit() {
   // subFrameCountOffset = 120;
 }
 
+void setClk(uint8_t clk, uint8_t adj) {
+  char buffer[100];
+
+  if (clk == 2) {
+    // External CLK is 2.048 Mhz
+    __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 2048ul * 1000ul - 1ul);
+    capture2uSRatioM = 125;
+    capture2uSRatioN = 256;
+
+    snprintf(buffer, sizeof(buffer), "  External clock set to 2.048 Mhz \r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  } else if (clk == 10) {
+    // External CLK is 10 Mhz
+    __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 10ul * 1000ul * 1000ul - 1ul);
+    capture2uSRatioM = 1;
+    capture2uSRatioN = 10;
+
+    snprintf(buffer, sizeof(buffer), "  External clock set to 10 Mhz \r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  } else if (clk == 0) {
+    // CLK is internal 84 Mhz
+    TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+
+    htim2.Init.Prescaler = 8 - 1;
+    htim2.Init.Period = 10500ul * 1000ul - 1ul -
+                        605ul;  // 605 is manual correction TOOO put in eeprom
+    sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+    capture2uSRatioM = 2;
+    capture2uSRatioN = 21;
+
+    if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK) {
+      Error_Handler();
+    }
+    if (HAL_TIM_IC_Init(&htim2) != HAL_OK) {
+      Error_Handler();
+    }
+
+    snprintf(buffer, sizeof(buffer), "  Internal clock set to 10.5 MHz \r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
+  int16_t vcoOffset = (int16_t)(adj)-100;
+  snprintf(buffer, sizeof(buffer), "  VCO offset: %d\r\n", vcoOffset);
+  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
+  HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
+  // TODO - compute slope 
+  // -15 gave +118 ns on period
+  // -115 gave +714 ns
+  // -5 gave +63 ns
+  // +5 gave +15
+  // +8 gave -10
+  // +6 gave +5
+  // +7 gave +2 ns with range -9 to +14
+  // vcoOffset = 8;
+  uint16_t dacValue = 10000 + vcoOffset;
+  HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
+}
+
 void blinkSetup() {
   HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
                     GPIO_PIN_SET);  // turn on red error LED
@@ -267,8 +335,6 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-  int16_t vcoOffset = 0;
-
   // access EEProm
   if (1) {
     char buffer[100];
@@ -294,10 +360,9 @@ void blinkSetup() {
 #endif
     if (writeConfigEEProm) {
       // write config to EEProm
-      data[0] = 6;  // hardware version
-      data[1] = 2;  // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
-      vcoOffset = 8;
-      data[2] = 100 + vcoOffset;  // VCO voltage offset
+      data[0] = 6;        // hardware version
+      data[1] = 2;        // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
+      data[2] = 100 + 8;  // VCO voltage offset
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
                                  sizeof(eepromMemAddr), data,
@@ -311,6 +376,8 @@ void blinkSetup() {
       HAL_Delay(
           2);  // chip has 1.5 ms max page write time when it will not respond
     }
+
+    // TODO put sleep here
 
     status =
         HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1, eepromMemAddr,
@@ -332,40 +399,7 @@ void blinkSetup() {
       snprintf(buffer, sizeof(buffer), "  Hardware version: V6 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      if (data[1] == 2) {
-        // External CLK is 2.048 Mhz
-        __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 2048000ul - 1ul);
-
-        snprintf(buffer, sizeof(buffer),
-                 "  External clock set to 2.048 Mhz \r\n");
-        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      } else if (data[1] == 10) {
-        // External CLK is 10 Mhz
-        __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 10000000ul - 1ul);
-
-        snprintf(buffer, sizeof(buffer), "  External clock set to 10 Mhz \r\n");
-        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      } else if (data[1] == 0) {
-        // CLK is internal 84 Mhz
-        TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-
-        htim2.Init.Prescaler = 41 - 1;
-        htim2.Init.Period = 2048780 - 1 - 121;
-        sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-
-        if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK) {
-          Error_Handler();
-        }
-        if (HAL_TIM_IC_Init(&htim2) != HAL_OK) {
-          Error_Handler();
-        }
-      }
-
-      vcoOffset = (int16_t)(data[2]) - 100;
-
-      snprintf(buffer, sizeof(buffer), "  VCO offset: %d\r\n", vcoOffset);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
+      setClk(data[1], data[2]);
     } else {
       snprintf(buffer, sizeof(buffer), "Unknown Hardware version %d \r\n",
                data[0]);
@@ -400,18 +434,6 @@ void blinkSetup() {
 #if 0 
     HAL_TIM_IC_Start_IT( &hTmeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
 #endif
-
-  HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
-  // -15 gave +118 ns on period
-  // -115 gave +714 ns
-  // -5 gave +63 ns
-  // +5 gave +15
-  // +8 gave -10
-  // +6 gave +5
-  // +7 gave +2 ns with range -9 to +14
-  // vcoOffset = 8;
-  uint16_t dacValue = 10000 + vcoOffset;
-  HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
 
   // set LED to on but not sync ( yellow, not greeen )
   HAL_GPIO_WritePin(LEDM3_GPIO_Port, LEDM3_Pin,
