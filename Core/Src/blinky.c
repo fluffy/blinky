@@ -75,7 +75,6 @@ uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-  uint32_t tick = HAL_GetTick();
 
 #if 0  // TODO 
   if (htim == &hTimeSync) {
@@ -432,9 +431,12 @@ void blinkRun() {
 
   static uint32_t dataMonCaptureTickPrev = 0;
   static uint32_t dataSyncCaptureTickPrev = 0;
+
+#if 0 // TODO 
   static uint32_t dataExtClkCountTickPrev = 0;
   static uint32_t dataGpsPpsCaptureTickPrev = 0;
-
+#endif
+  
   char buffer[100];
 
   if (loopCount % 10 == 0) {
