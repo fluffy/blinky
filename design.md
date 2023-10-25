@@ -105,6 +105,12 @@ CH1 is disabled if ETR is in use
 * capture GPS PPS
 * capture SyncIn
 
+### DAC Timer - Timer 6 
+
+* 1 Mhz count rate 
+* 8 KHz period ( 1000 count ) 
+* trigger out to DAC2
+
 ### TImer 8 ???
 
 1.5 seconds , count up on main at 10 KHz
