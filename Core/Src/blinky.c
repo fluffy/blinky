@@ -74,6 +74,15 @@ int32_t dataExtClkCountTickOffset;
 uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut;
 
+void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac){
+}
+
+void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac){
+}
+
+void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac){
+}
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 #if 0  // TODO 
@@ -423,6 +432,19 @@ void blinkSetup() {
     snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
+
+#if 1
+  // DMA for Audio Out DAC
+  uint16_t dValue = 10000;
+  HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dValue);
+
+  const int dataLen=10;
+  uint32_t data[dataLen];
+  
+  HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2,data,dataLen, DAC_ALIGN_12B_R);
+  
+  // HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
+#endif
 }
 
 void blinkRun() {
