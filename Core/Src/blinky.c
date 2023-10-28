@@ -461,11 +461,31 @@ void blinkSetup() {
   uint16_t dValue = 10000;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dValue);
 
-  const int dataLen=10; 
-  uint32_t data[dataLen];
-  
+  const int dataLen=20; 
+  uint32_t data[] = { 
+    1000,
+    1155,
+    1294,
+    1405,
+    1476,
+    1500,
+    1476,
+    1405,
+    1294,
+    1155,
+    1000,
+    845,
+    706,
+    595,
+    524,
+    500,
+    524,
+    595,
+    706,
+    845 };
+    
   HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2,
-		    data,dataLen, // TODO datalen bytes or words 
+		    data,dataLen, //  datalen is in 32 bit words 
 		    DAC_ALIGN_12B_R);
   
   // HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
