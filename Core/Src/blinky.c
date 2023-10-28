@@ -58,7 +58,7 @@ const char *version = "0.60.231023";  // major , minor, year/month/day
 
 #define captureFreqHz 2048000ul
 // next macro must have capture2uS( captureFreqHz ) fit in 32 bit calculation
-#define capture2uS(c) ((c) * 1000ul / 2048ul)
+#define capture2uS(c) ((c)*1000ul / 2048ul)
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -74,17 +74,19 @@ int32_t dataExtClkCountTickOffset;
 uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut;
 
-void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac){
-}
+// dacBuffer has 20 point sin wave center on 1000 with amplitude 500
+const int dacBufferLen = 20;
+uint32_t dacBuffer[] = {1000, 1155, 1294, 1405, 1476, 1500, 1476,
+                        1405, 1294, 1155, 1000, 845,  706,  595,
+                        524,  500,  524,  595,  706,  845};
 
-void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac){
-}
+void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
 
-void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac){
-}
+void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
+
+void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac) {}
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-
 #if 0  // TODO 
   if (htim == &hTimeSync) {
     // HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
@@ -220,9 +222,14 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
+#if 1
+      // stop audio output
+      HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
+#endif
+      
     } else {                        // val == dataCurrentPhaseSyncOut
       // start of output pulse just started, set up for the end of pulse
-      val = dataCurrentPhaseSyncOut + 200;  // 20 ms wide pulse
+      val = dataCurrentPhaseSyncOut + 100*10;  // 100 ms wide pulse
       if (val >= 10000) {
         val -= 10000;
       }
@@ -230,6 +237,12 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
+#if 1
+      // start audio output
+       HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
+                    dacBufferLen,  //  dacBufferlen is in 32 bit words
+                    DAC_ALIGN_12B_R);
+#endif
     }
   }
 }
@@ -438,33 +451,10 @@ void blinkSetup() {
   uint16_t dValue = 10000;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dValue);
 
-  const int dataLen=20; 
-  uint32_t data[] = { 
-    1000,
-    1155,
-    1294,
-    1405,
-    1476,
-    1500,
-    1476,
-    1405,
-    1294,
-    1155,
-    1000,
-    845,
-    706,
-    595,
-    524,
-    500,
-    524,
-    595,
-    706,
-    845 };
-    
-  HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2,
-		    data,dataLen, //  datalen is in 32 bit words 
-		    DAC_ALIGN_12B_R);
-  
+  HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
+                    dacBufferLen,  //  dacBufferlen is in 32 bit words
+                    DAC_ALIGN_12B_R);
+
   // HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
 #endif
 }
@@ -476,11 +466,11 @@ void blinkRun() {
   static uint32_t dataMonCaptureTickPrev = 0;
   static uint32_t dataSyncCaptureTickPrev = 0;
 
-#if 0 // TODO 
+#if 0  // TODO 
   static uint32_t dataExtClkCountTickPrev = 0;
   static uint32_t dataGpsPpsCaptureTickPrev = 0;
 #endif
-  
+
   char buffer[100];
 
   if (loopCount % 10 == 0) {
