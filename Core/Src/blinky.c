@@ -87,6 +87,9 @@ const int dacBufferLen = 20;
 uint32_t dacBuffer[] = {1000, 1155, 1294, 1405, 1476, 1500, 1476,
                         1405, 1294, 1155, 1000, 845,  706,  595,
                         524,  500,  524,  595,  706,  845};
+const int adcBufferLen = 20;
+uint32_t adcBuffer[20];
+
 
 void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
 
