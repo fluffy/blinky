@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "blink.h"
+#include "detect.h"
 #include "main.h"
 
 extern ADC_HandleTypeDef hadc1;
@@ -96,6 +97,13 @@ uint32_t dacBuffer[] = {1000, 1155, 1294, 1405, 1476, 1500, 1476,
 const int adcBufferLen = 20;
 uint32_t adcBuffer[20];
 
+void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc) {
+  detectUpdatePos( &(adcBuffer[0]) , adcBufferLen/2 );
+}
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
+  detectUpdateNeg( &( adcBuffer[adcBufferLen/2] ) , adcBufferLen/2 );
+}
 
 void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
 
@@ -488,6 +496,11 @@ void blinkSetup() {
                     DAC_ALIGN_12B_R);
 
   // HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
+#endif
+
+#if 1
+  // DMA for ADC
+  HAL_ADC_Start_DMA(&hADC, adcBuffer, adcBufferLen);
 #endif
 }
 

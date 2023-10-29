@@ -1,3 +1,4 @@
+// Copyright (c) 2023 Cullen Jennings
 #ifndef __BLINK_H
 #define __BLINK_H
 
