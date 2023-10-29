@@ -44,7 +44,7 @@ Main and Aux can generate SyncOut
 Display TImer drives LED and sync to main or aux rollover 
 * does this need to capture syncMon ???
 
-### PPS Out Timer #1  - hTimePps 
+### PPS Out Timer #1  - hTimePps (aka Sync Out)
 
 * Use timer 1
 This time runnint at 168 Mhz input clock
@@ -58,7 +58,7 @@ TODO * tick rate to 50KHz
 * CH on PA8  - SYNC_OUT 
 
 
-### Main Timer #2 - hTimeSync 
+### Main Timer #2 - hTimeSync (aka SyncIn/main)
 
 * Use timer 2
 * max 42 Mhz 
@@ -79,8 +79,13 @@ CH1 is disabled if ETR is in use
 * Capture PPS In
 * Capture GPS PPS
 
+### ADC Timer - Timer 3 
 
-### Blink Timer
+* count at 1MHz
+* 114 count - about 440*20 Hz
+* not sync, trigger out to ADC1
+
+### Blink Timer - TImer 4
 
 * use timer 4 
 * trigger reset by main timer every second
@@ -89,7 +94,7 @@ CH1 is disabled if ETR is in use
 * interrupt ( 1 KHz) to drive LEDs
 
 
-### Aux Timer
+### Aux Timer - Timer 5 
 
 * Use 32 bit timer 5
 * max 42 Mhz
@@ -106,12 +111,15 @@ CH1 is disabled if ETR is in use
 * capture SyncIn
 
 ### DAC Timer - Timer 6 
-
+* note this does not reset on main 
 * 1 Mhz count rate 
 * 8 KHz period ( 1000 count ) 
 * trigger out to DAC2
 
-### TImer 8 ???
+### TImer 8 - used to time LCT
+* has SYCN_IN2 on CH1 
+* reset on main 
+* 10 KHz rate 
 
 1.5 seconds , count up on main at 10 KHz
 
@@ -123,6 +131,9 @@ CH2 is audio out - PA5
 * DAC2 is DMA stream 6 mem to pehriphrial on DMA controller #1 
 * Normal not circular 
 
+## ADC
+
+* can use TIM 2,3,8
 
 # Interrupt Handling
 

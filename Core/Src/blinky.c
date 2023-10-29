@@ -15,8 +15,10 @@ extern I2C_HandleTypeDef hi2c1;
 
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
+extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim8;
 
 extern UART_HandleTypeDef huart1;
@@ -44,12 +46,16 @@ extern UART_HandleTypeDef huart3;
 #define TimeSync_CH_SYNC_MON TIM_CHANNEL_4
 #define TimeSync_HAL_CH_SYNC_MON HAL_TIM_ACTIVE_CHANNEL_4
 
+#define hTimeADC htim3
+
 #define hTimeBlink htim4
 
 #define hTimeAux htim5
 // #define TimeAux_CH_AUX_CLK TIM_CHANNEL_1
 // #define TimeAux_CH_AUX_GPS_PPS TIM_CHANNEL_2
 #define TimeAux_CH_AUX_SYNC_MON TIM_CHANNEL_3
+
+#define hTimeDAC htim6
 
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
