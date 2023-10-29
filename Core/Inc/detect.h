@@ -3,13 +3,19 @@
 #ifndef __DETECT_H
 #define __DETECT_H
 
+#include <stdbool.h>
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
   void detectInit( int cycleLen );
-  void detectUpdatePos( uint32_t* pData, int len );
-  void detectUpdateNeg( uint32_t* pData, int len );
+  void detectUpdate( uint32_t* pData, int len , bool invert );
+  
+  void detectUpdateMlp( uint32_t time );
+  void detectGetMlpTime( uint32_t* timeP, float* valP );
+  void detectResetMlp();
   
 #ifdef __cplusplus
 }

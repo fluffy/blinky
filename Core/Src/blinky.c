@@ -98,11 +98,11 @@ const int adcBufferLen = 20;
 uint32_t adcBuffer[20];
 
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc) {
-  detectUpdatePos( &(adcBuffer[0]) , adcBufferLen/2 );
+  detectUpdate( &(adcBuffer[0]) , adcBufferLen/2 , false);
 }
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
-  detectUpdateNeg( &( adcBuffer[adcBufferLen/2] ) , adcBufferLen/2 );
+  detectUpdate( &( adcBuffer[adcBufferLen/2] ) , adcBufferLen/2 , true );
 }
 
 void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
@@ -286,6 +286,8 @@ void blinkInit() {
   dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
   // subFrameCount = 0;
   // subFrameCountOffset = 120;
+
+  detectInit( adcBufferLen );
 }
 
 void setClk(uint8_t clk, uint8_t adj) {
@@ -518,7 +520,7 @@ void blinkRun() {
 
   char buffer[100];
 
-  if (loopCount % 10 == 0) {
+  if (loopCount % 100 == 0) {
     snprintf(buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
@@ -565,12 +567,37 @@ void blinkRun() {
   }
 #endif
 
-#if 0  // prints too much stuff 
+#if 0  // prints too much stuff
+  if (1) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     snprintf( buffer, sizeof(buffer), "Sync Time val %ld uS\r\n",  capture2uS(val) );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
 #endif
 
+#if 1
+  if (1) {
+    static uint32_t prevVal=0;
+    uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
+
+    if ( val < prevVal ) { // 1 second loop
+      float mlpVal;
+      uint32_t mltTime;
+      detectGetMlpTime( &mltTime, &mlpVal );
+      
+      snprintf( buffer, sizeof(buffer), "Audio Time %ld uS vaL=%f r\n",
+		capture2uS(mltTime),mlpVal );
+      HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
+      detectResetMlp();
+    }
+    
+    detectUpdateMlp( val ); 
+    prevVal =val;
+  }
+#endif
+
+    
   if (dataMonCaptureTick != dataMonCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   mon : %ld ms\r\n",
              capture2uS(dataMonCapture) / 1000);
@@ -606,7 +633,7 @@ void blinkRun() {
   }
 #endif
 
-  HAL_Delay(100);
+  HAL_Delay(10);
 
   loopCount++;
 }
