@@ -6,10 +6,10 @@
 extern "C" {
 #endif
 
-  void blinkInit();
-  void blinkSetup();
-  void blinkRun();
-  
+void blinkInit();
+void blinkSetup();
+void blinkRun();
+
 #ifdef __cplusplus
 }
 #endif
