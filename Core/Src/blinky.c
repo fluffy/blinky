@@ -109,7 +109,13 @@ void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
 
 void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
 
-void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac) {}
+void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac) {
+  char buffer[100];
+  snprintf(buffer, sizeof(buffer), "ERROR hand DAC CH1\r\n");
+  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  
+  Error_Handler();
+}
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 #if 0  // TODO 
