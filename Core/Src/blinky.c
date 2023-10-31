@@ -117,9 +117,9 @@ void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
   debugDacCpltCount++;
 }
 
-void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac) {
+void HAL_DAC_ErrorCallbackCh2(DAC_HandleTypeDef *hdac) {
   char buffer[100];
-  snprintf(buffer, sizeof(buffer), "ERROR hand DAC CH1\r\n");
+  snprintf(buffer, sizeof(buffer), "ERROR hand DAC CH2\r\n");
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   
   Error_Handler();
@@ -262,7 +262,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
-#if 1
+#if 0 // TOOO
       // stop audio output
       HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
 #endif
@@ -277,7 +277,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
-#if 1
+#if 0 // TODO
       // start audio output
       HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
                         dacBufferLen,  //  dacBufferlen is in 32 bit words
