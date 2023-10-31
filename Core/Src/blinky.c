@@ -75,8 +75,10 @@ inline uint32_t capture2uS(const uint32_t c) {
   return (c * capture2uSRatioM) / capture2uSRatioN;
 }
 
-uint32_t debugAdcCpltCount=0;
-uint32_t debugDacCpltCount=0;
+volatile uint32_t debugAdcCpltCount=0;
+volatile uint32_t debugDacCpltCount=0;
+volatile uint32_t debugDacTimerCnt=0;
+volatile uint32_t debugAdcTimerCnt=0;
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -135,6 +137,18 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   }
 #endif
 
+#if 1
+  if (htim == &hTimeDAC) {
+    debugDacTimerCnt++;
+  }
+#endif
+  
+#if 1
+  if (htim == &hTimeADC) {
+    debugAdcTimerCnt++;
+  }
+#endif
+  
   if (htim == &hTimeBlink) {
     // This block of code takes 1.9 uS and runs every 1 mS
     // HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
@@ -504,19 +518,22 @@ void blinkSetup() {
 
 #if 1
   // DMA for Audio Out DAC
-  uint16_t dValue = 10000;
+  uint16_t dValue = 4095;
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dValue);
 
   HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
                     dacBufferLen,  //  dacBufferlen is in 32 bit words
                     DAC_ALIGN_12B_R);
 
+   HAL_TIM_Base_Start_IT(&hTimeDAC);
   // HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
 #endif
 
-#if 1
+#if 0 // TODO 
   // DMA for ADC
   HAL_ADC_Start_DMA(&hADC, adcBuffer, adcBufferLen);
+
+  HAL_TIM_Base_Start_IT(&hTimeADC);
 #endif
 }
 
@@ -539,7 +556,8 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
 #if 1
-    snprintf(buffer, sizeof(buffer), "  DAC/ADC Cplt %d %d \r\n", debugDacCpltCount, debugAdcCpltCount );
+    snprintf(buffer, sizeof(buffer), "  DAC/ADC Cplt %lu %lu itr= %lu %lu\r\n", debugDacCpltCount, debugAdcCpltCount,
+             debugDacTimerCnt , debugAdcTimerCnt);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
   }
