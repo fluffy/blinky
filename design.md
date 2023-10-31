@@ -93,7 +93,7 @@ CH1 is disabled if ETR is in use
 
 * Use 32 bit timer 5
 * max 42 Mhz
-* ETR:
+`* ETR:
 * CH1: PA0 - AUX_CLK
 * CH2:  PA1 - GPS 
 * CH3: PA2 - UUX_MON
@@ -105,9 +105,23 @@ CH1 is disabled if ETR is in use
 * capture GPS PPS
 * capture SyncIn
 
+### DAC Timer - Timer 6 
+
+* 1 Mhz count rate 
+* 8 KHz period ( 1000 count ) 
+* trigger out to DAC2
+
 ### TImer 8 ???
 
-1.5 sc , count up on main at 10 KHz
+1.5 seconds , count up on main at 10 KHz
+
+# DAC
+
+CH1 is voltage toVCO - PA4 
+CH2 is audio out - PA5 
+
+* DAC2 is DMA stream 6 mem to pehriphrial on DMA controller #1 
+* Normal not circular 
 
 
 # Interrupt Handling
