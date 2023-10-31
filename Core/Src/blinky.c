@@ -75,6 +75,9 @@ inline uint32_t capture2uS(const uint32_t c) {
   return (c * capture2uSRatioM) / capture2uSRatioN;
 }
 
+uint32_t debugAdcCpltCount=0;
+uint32_t debugDacCpltCount=0;
+
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
 uint32_t dataSyncCapture;
@@ -103,11 +106,16 @@ void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
   detectUpdate(&(adcBuffer[adcBufferLen / 2]), adcBufferLen / 2, true);
+  
+  debugAdcCpltCount++;
 }
 
-void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
+void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
+}
 
-void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
+void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
+  debugDacCpltCount++;
+}
 
 void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac) {
   char buffer[100];
@@ -529,6 +537,11 @@ void blinkRun() {
   if (loopCount % 100 == 0) {
     snprintf(buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
+#if 1
+    snprintf(buffer, sizeof(buffer), "  DAC/ADC Cplt %d %d \r\n", debugDacCpltCount, debugAdcCpltCount );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
   }
 
 #if 1
