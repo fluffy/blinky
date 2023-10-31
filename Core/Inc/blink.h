@@ -1,3 +1,4 @@
+// Copyright (c) 2023 Cullen Jennings
 #ifndef __BLINK_H
 #define __BLINK_H
 
@@ -5,10 +6,10 @@
 extern "C" {
 #endif
 
-  void blinkInit();
-  void blinkSetup();
-  void blinkRun();
-  
+void blinkInit();
+void blinkSetup();
+void blinkRun();
+
 #ifdef __cplusplus
 }
 #endif

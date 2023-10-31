@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "blink.h"
+#include "detect.h"
 #include "main.h"
 
 extern ADC_HandleTypeDef hadc1;
@@ -15,8 +16,10 @@ extern I2C_HandleTypeDef hi2c1;
 
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
+extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim8;
 
 extern UART_HandleTypeDef huart1;
@@ -44,12 +47,16 @@ extern UART_HandleTypeDef huart3;
 #define TimeSync_CH_SYNC_MON TIM_CHANNEL_4
 #define TimeSync_HAL_CH_SYNC_MON HAL_TIM_ACTIVE_CHANNEL_4
 
+#define hTimeADC htim3
+
 #define hTimeBlink htim4
 
 #define hTimeAux htim5
 // #define TimeAux_CH_AUX_CLK TIM_CHANNEL_1
 // #define TimeAux_CH_AUX_GPS_PPS TIM_CHANNEL_2
 #define TimeAux_CH_AUX_SYNC_MON TIM_CHANNEL_3
+
+#define hTimeDAC htim6
 
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
@@ -87,6 +94,16 @@ const int dacBufferLen = 20;
 uint32_t dacBuffer[] = {1000, 1155, 1294, 1405, 1476, 1500, 1476,
                         1405, 1294, 1155, 1000, 845,  706,  595,
                         524,  500,  524,  595,  706,  845};
+const int adcBufferLen = 20;
+uint32_t adcBuffer[20];
+
+void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
+  detectUpdate(&(adcBuffer[0]), adcBufferLen / 2, false);
+}
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
+  detectUpdate(&(adcBuffer[adcBufferLen / 2]), adcBufferLen / 2, true);
+}
 
 void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
 
@@ -235,10 +252,10 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       // stop audio output
       HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
 #endif
-      
-    } else {                        // val == dataCurrentPhaseSyncOut
+
+    } else {  // val == dataCurrentPhaseSyncOut
       // start of output pulse just started, set up for the end of pulse
-      val = dataCurrentPhaseSyncOut + 100*10;  // 100 ms wide pulse
+      val = dataCurrentPhaseSyncOut + 100 * 10;  // 100 ms wide pulse
       if (val >= 10000) {
         val -= 10000;
       }
@@ -248,9 +265,9 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
           LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
 #if 1
       // start audio output
-       HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
-                    dacBufferLen,  //  dacBufferlen is in 32 bit words
-                    DAC_ALIGN_12B_R);
+      HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
+                        dacBufferLen,  //  dacBufferlen is in 32 bit words
+                        DAC_ALIGN_12B_R);
 #endif
     }
   }
@@ -269,6 +286,8 @@ void blinkInit() {
   dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
   // subFrameCount = 0;
   // subFrameCountOffset = 120;
+
+  detectInit(adcBufferLen);
 }
 
 void setClk(uint8_t clk, uint8_t adj) {
@@ -480,6 +499,11 @@ void blinkSetup() {
 
   // HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
 #endif
+
+#if 1
+  // DMA for ADC
+  HAL_ADC_Start_DMA(&hADC, adcBuffer, adcBufferLen);
+#endif
 }
 
 void blinkRun() {
@@ -496,7 +520,7 @@ void blinkRun() {
 
   char buffer[100];
 
-  if (loopCount % 10 == 0) {
+  if (loopCount % 100 == 0) {
     snprintf(buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
@@ -543,10 +567,34 @@ void blinkRun() {
   }
 #endif
 
-#if 0  // prints too much stuff 
+#if 0  // prints too much stuff
+  if (1) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     snprintf( buffer, sizeof(buffer), "Sync Time val %ld uS\r\n",  capture2uS(val) );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+#endif
+
+#if 1
+  if (1) {
+    static uint32_t prevVal = 0;
+    uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
+
+    if (val < prevVal) {  // 1 second loop
+      float mlpVal;
+      uint32_t mltTime;
+      detectGetMlpTime(&mltTime, &mlpVal);
+
+      snprintf(buffer, sizeof(buffer), "Audio Time %ld uS vaL=%f r\n",
+               capture2uS(mltTime), mlpVal);
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
+      detectResetMlp();
+    }
+
+    detectUpdateMlp(val);
+    prevVal = val;
+  }
 #endif
 
   if (dataMonCaptureTick != dataMonCaptureTickPrev) {
@@ -584,7 +632,7 @@ void blinkRun() {
   }
 #endif
 
-  HAL_Delay(100);
+  HAL_Delay(10);
 
   loopCount++;
 }
