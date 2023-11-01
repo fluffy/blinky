@@ -569,8 +569,7 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
 #if 1
-    snprintf(buffer, sizeof(buffer), "  DAC/ADC Cplt %lu %lu itr= %lu %lu\r\n", debugDacCpltCount, debugAdcCpltCount,
-             debugDacTimerCnt , debugAdcTimerCnt);
+    snprintf(buffer, sizeof(buffer), "  DAC/ADC Cplt %lu %lu \r\n", debugDacCpltCount, debugAdcCpltCount );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
   }
@@ -635,7 +634,7 @@ void blinkRun() {
       uint32_t mltTime;
       detectGetMlpTime(&mltTime, &mlpVal);
 
-      snprintf(buffer, sizeof(buffer), "Audio Time %ld uS vaL=%f r\n",
+      snprintf(buffer, sizeof(buffer), "  Audio Time %ld uS vaL=%f \r\n",
                capture2uS(mltTime), mlpVal);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
