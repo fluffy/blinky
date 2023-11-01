@@ -296,7 +296,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
-#if 0 // TOOO
+#if 1 // TOOO
       // stop audio output
       HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
 #endif
@@ -311,7 +311,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
-#if 0 // TODO
+#if 1 // TODO
       // start audio output
       HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
                         dacBufferLen,  //  dacBufferlen is in 32 bit words
