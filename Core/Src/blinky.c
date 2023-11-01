@@ -435,8 +435,8 @@ void blinkSetup() {
 #endif
     if (writeConfigEEProm) {
       // write config to EEProm
-      data[0] = 6;        // hardware version
-      data[1] = 2;        // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
+      data[0] = 71;        // hardware version
+      data[1] = 0;        // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
       data[2] = 100 + 8;  // VCO voltage offset
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
@@ -448,11 +448,11 @@ void blinkSetup() {
                  "EEProm Write Error:  data hal error %d \r\n", status);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
-      HAL_Delay(
-          2);  // chip has 1.5 ms max page write time when it will not respond
+
+      // chip has 1.5 ms max page write time when it will not respond
+      HAL_Delay( 2 /*ms */ );  
     }
 
-    // TODO put sleep here
 
     status =
         HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1, eepromMemAddr,
@@ -469,9 +469,9 @@ void blinkSetup() {
         HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
 
-    if (data[0] == 6) {
+    if (data[0] == 71) {
       // This is V6 hardware
-      snprintf(buffer, sizeof(buffer), "  Hardware version: V6 \r\n");
+      snprintf(buffer, sizeof(buffer), "  Hardware version: V7.1 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       setClk(data[1], data[2]);
