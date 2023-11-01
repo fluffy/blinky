@@ -75,10 +75,10 @@ inline uint32_t capture2uS(const uint32_t c) {
   return (c * capture2uSRatioM) / capture2uSRatioN;
 }
 
-volatile uint32_t debugAdcCpltCount=0;
-volatile uint32_t debugDacCpltCount=0;
-volatile uint32_t debugDacTimerCnt=0;
-volatile uint32_t debugAdcTimerCnt=0;
+volatile uint32_t debugAdcCpltCount = 0;
+volatile uint32_t debugDacCpltCount = 0;
+volatile uint32_t debugDacTimerCnt = 0;
+volatile uint32_t debugAdcTimerCnt = 0;
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -108,23 +108,21 @@ void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
   detectUpdate(&(adcBuffer[adcBufferLen / 2]), adcBufferLen / 2, true);
-  
+
   debugAdcCpltCount++;
 }
 
-void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
-}
+void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
 
 void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
   debugDacCpltCount++;
 }
 
-
 void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac) {
   char buffer[100];
   snprintf(buffer, sizeof(buffer), "ERROR hand DAC CH1\r\n");
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  
+
   Error_Handler();
 }
 
@@ -132,7 +130,7 @@ void HAL_DAC_ErrorCallbackCh2(DAC_HandleTypeDef *hdac) {
   char buffer[100];
   snprintf(buffer, sizeof(buffer), "ERROR hand DAC CH2\r\n");
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  
+
   Error_Handler();
 }
 
@@ -151,13 +149,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     debugDacTimerCnt++;
   }
 #endif
-  
+
 #if 1
   if (htim == &hTimeADC) {
     debugAdcTimerCnt++;
   }
 #endif
-  
+
   if (htim == &hTimeBlink) {
     // This block of code takes 1.9 uS and runs every 1 mS
     // HAL_GPIO_WritePin(DB2_GPIO_Port, DB2_Pin, GPIO_PIN_SET);
@@ -349,8 +347,10 @@ void setClk(uint8_t clk, uint8_t adj) {
 
     int32_t freqOffset = (int32_t)(adj)-100l;
     htim2.Init.Prescaler = 8 - 1;
-    htim2.Init.Period = 10500ul * 1000ul - 1ul 
-                        + freqOffset*10 ;  // 60+100 is abouut manual correction TOOO put in eeprom
+    htim2.Init.Period =
+        10500ul * 1000ul - 1ul +
+        freqOffset *
+            10;  // 60+100 is abouut manual correction TOOO put in eeprom
     sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
     capture2uSRatioM = 2;
     capture2uSRatioN = 21;
@@ -371,7 +371,7 @@ void setClk(uint8_t clk, uint8_t adj) {
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
   HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
-  // TODO - compute slope 
+  // TODO - compute slope
   // -15 gave +118 ns on period
   // -115 gave +714 ns
   // -5 gave +63 ns
@@ -525,24 +525,24 @@ void blinkSetup() {
 #if 1
   // DMA for Audio Out DAC
 
-   uint16_t dValue = 4095;
-   //HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dValue);
+  uint16_t dValue = 4095;
+  // HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dValue);
 
-   HAL_StatusTypeDef err;
-   err = HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
-                           dacBufferLen,  //  dacBufferlen is in 32 bit words
-                           DAC_ALIGN_12B_R);
-   if ( err != HAL_OK ) {
-     char buffer[100];
-     snprintf(buffer, sizeof(buffer), "HAL DAC error %d r\n", err);
-     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-     Error_Handler();
-   }
+  HAL_StatusTypeDef err;
+  err = HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
+                          dacBufferLen,  //  dacBufferlen is in 32 bit words
+                          DAC_ALIGN_12B_R);
+  if (err != HAL_OK) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "HAL DAC error %d r\n", err);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    Error_Handler();
+  }
 
-   HAL_TIM_Base_Start_IT(&hTimeDAC);
+  HAL_TIM_Base_Start_IT(&hTimeDAC);
 #endif
 
-#if 1 // TODO 
+#if 1  // TODO
   // DMA for ADC
   HAL_ADC_Start_DMA(&hADC, adcBuffer, adcBufferLen);
 
@@ -634,12 +634,12 @@ void blinkRun() {
       uint32_t mltTime;
       detectGetMlpTime(&mltTime, &mlpVal);
 
-      if ( mlpVal > 5000.0 ) {
+      if (mlpVal > 5000.0) {
         snprintf(buffer, sizeof(buffer), "    Audio %ld ms vaL=%d \r\n",
-                 capture2uS(mltTime)/1000, (int)mlpVal);
+                 capture2uS(mltTime) / 1000, (int)mlpVal);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
-      
+
 #if 0
       float min, max, avg, last;
       detectGetDebug( &min, &max, &avg, &last);
@@ -648,7 +648,7 @@ void blinkRun() {
                (int)min, (int)max, (int)avg, (int)last);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
-      
+
       detectResetMlp();
     }
 
@@ -665,7 +665,7 @@ void blinkRun() {
     dataMonCaptureTickPrev = dataMonCaptureTick;
   }
 #endif
-  
+
   if (dataSyncCaptureTick != dataSyncCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   sync: %ld ms\r\n",
              capture2uS(dataSyncCapture) / 1000);
