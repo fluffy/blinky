@@ -13,6 +13,7 @@ static float dataSum[maxCycleLen];
 static float dataAvg100;
 static float maxSum;
 static float maxSumTime;
+static float lastVal;
 
 void detectInit(int cycleLen) {
   assert(cycleLen <= maxCycleLen);
@@ -23,6 +24,10 @@ void detectInit(int cycleLen) {
   dataMin = 1e6;
   dataMax = -1e6;
   dataAvg100 = 0.0;
+ 
+  lastVal = 1e6;
+  maxSum = 0.0;
+  maxSumTime = 0;
 }
 
 void detectUpdate(uint32_t* pData, int len, bool invert) {
@@ -41,6 +46,8 @@ void detectUpdate(uint32_t* pData, int len, bool invert) {
     dataAvg100 = dataAvg100 * 0.99 + 0.01 * f;
     float v = f - dataAvg100;
 
+    lastVal = v;
+    
     if (invert) {
       dataSum[i] = dataSum[i] * 0.95 - v;
     } else {
@@ -59,12 +66,22 @@ void detectUpdateMlp(uint32_t time) {
   }
 }
 
-void detectGetMlpTime(uint32_t* timeP, float* valP) {
+void detectGetMlpTime(uint32_t* timeP, float* valP ) {
   *timeP = maxSumTime;
   *valP = maxSum;
 }
 
 void detectResetMlp() {
+  dataMin = 1e6;
+  dataMax = -1e6;
+  lastVal = 1e6;
   maxSum = 0.0;
   maxSumTime = 0;
+}
+
+void detectGetDebug(float* minP, float* maxP, float* avgP, float* lastP) {
+  *minP = dataMin;
+  *maxP = dataMax; 
+  *avgP = dataAvg100;
+  *lastP = lastVal;
 }

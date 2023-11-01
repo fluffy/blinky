@@ -568,7 +568,7 @@ void blinkRun() {
     snprintf(buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-#if 1
+#if 0
     snprintf(buffer, sizeof(buffer), "  DAC/ADC Cplt %lu %lu \r\n", debugDacCpltCount, debugAdcCpltCount );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
@@ -634,10 +634,21 @@ void blinkRun() {
       uint32_t mltTime;
       detectGetMlpTime(&mltTime, &mlpVal);
 
-      snprintf(buffer, sizeof(buffer), "  Audio Time %ld uS vaL=%f \r\n",
-               capture2uS(mltTime), mlpVal);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      if ( mlpVal > 5000.0 ) {
+        snprintf(buffer, sizeof(buffer), "    Audio %ld ms vaL=%d \r\n",
+                 capture2uS(mltTime)/1000, (int)mlpVal);
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      }
+      
+#if 0
+      float min, max, avg, last;
+      detectGetDebug( &min, &max, &avg, &last);
 
+      snprintf(buffer, sizeof(buffer), "  Audio debug %d %d %d %d \r\n",
+               (int)min, (int)max, (int)avg, (int)last);
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+      
       detectResetMlp();
     }
 
@@ -646,13 +657,15 @@ void blinkRun() {
   }
 #endif
 
+#if 0 
   if (dataMonCaptureTick != dataMonCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   mon : %ld ms\r\n",
              capture2uS(dataMonCapture) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataMonCaptureTickPrev = dataMonCaptureTick;
   }
-
+#endif
+  
   if (dataSyncCaptureTick != dataSyncCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   sync: %ld ms\r\n",
              capture2uS(dataSyncCapture) / 1000);

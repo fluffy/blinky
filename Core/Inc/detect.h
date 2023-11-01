@@ -17,6 +17,8 @@ void detectUpdateMlp(uint32_t time);
 void detectGetMlpTime(uint32_t* timeP, float* valP);
 void detectResetMlp();
 
+void detectGetDebug(float* minP, float* maxP, float* avgP, float* lastP);
+  
 #ifdef __cplusplus
 }
 #endif
