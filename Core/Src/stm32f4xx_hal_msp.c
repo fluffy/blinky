@@ -115,8 +115,8 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     hdma_adc1.Init.Direction = DMA_PERIPH_TO_MEMORY;
     hdma_adc1.Init.PeriphInc = DMA_PINC_DISABLE;
     hdma_adc1.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_adc1.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    hdma_adc1.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+    hdma_adc1.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+    hdma_adc1.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
     hdma_adc1.Init.Mode = DMA_CIRCULAR;
     hdma_adc1.Init.Priority = DMA_PRIORITY_LOW;
     hdma_adc1.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
@@ -204,8 +204,8 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
     hdma_dac2.Init.Direction = DMA_MEMORY_TO_PERIPH;
     hdma_dac2.Init.PeriphInc = DMA_PINC_DISABLE;
     hdma_dac2.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_dac2.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    hdma_dac2.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+    hdma_dac2.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+    hdma_dac2.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
     hdma_dac2.Init.Mode = DMA_CIRCULAR;
     hdma_dac2.Init.Priority = DMA_PRIORITY_LOW;
     hdma_dac2.Init.FIFOMode = DMA_FIFOMODE_DISABLE;

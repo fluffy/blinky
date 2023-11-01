@@ -113,10 +113,30 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 }
 
 void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
+#if 0 // TODO 
+  char buffer[100];
+  snprintf(buffer, sizeof(buffer), "DEBUG haf conv done Ch2r\n");
+  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
 }
 
 void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
+#if 0 // TODO 
+  char buffer[100];
+  snprintf(buffer, sizeof(buffer), "DEBUG cplt conv done Ch2r\n");
+  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+  
   debugDacCpltCount++;
+}
+
+
+void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac) {
+  char buffer[100];
+  snprintf(buffer, sizeof(buffer), "ERROR hand DAC CH1\r\n");
+  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  
+  Error_Handler();
 }
 
 void HAL_DAC_ErrorCallbackCh2(DAC_HandleTypeDef *hdac) {
@@ -518,18 +538,27 @@ void blinkSetup() {
 
 #if 1
   // DMA for Audio Out DAC
-  uint16_t dValue = 4095;
-  HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dValue);
 
-  HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
-                    dacBufferLen,  //  dacBufferlen is in 32 bit words
-                    DAC_ALIGN_12B_R);
+   uint16_t dValue = 4095;
+   //HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dValue);
+   
+   HAL_StatusTypeDef err;
+   err = HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
+                           dacBufferLen,  //  dacBufferlen is in 32 bit words
+                           DAC_ALIGN_12B_R);
+   if ( err != HAL_OK ) {
+     char buffer[100];
+     snprintf(buffer, sizeof(buffer), "HAL DAC error %d r\n", err);
+     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+     Error_Handler();
+   }
 
-   HAL_TIM_Base_Start_IT(&hTimeDAC);
+      HAL_TIM_Base_Start_IT(&hTimeDAC);
+
   // HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
 #endif
 
-#if 0 // TODO 
+#if 1 // TODO 
   // DMA for ADC
   HAL_ADC_Start_DMA(&hADC, adcBuffer, adcBufferLen);
 
