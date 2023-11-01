@@ -113,20 +113,9 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 }
 
 void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
-#if 0 // TODO 
-  char buffer[100];
-  snprintf(buffer, sizeof(buffer), "DEBUG haf conv done Ch2r\n");
-  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-#endif
 }
 
 void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
-#if 0 // TODO 
-  char buffer[100];
-  snprintf(buffer, sizeof(buffer), "DEBUG cplt conv done Ch2r\n");
-  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-#endif
-  
   debugDacCpltCount++;
 }
 
@@ -296,11 +285,9 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
-#if 1 // TOOO
+
       // stop audio output
       HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
-#endif
-
     } else {  // val == dataCurrentPhaseSyncOut
       // start of output pulse just started, set up for the end of pulse
       val = dataCurrentPhaseSyncOut + 100 * 10;  // 100 ms wide pulse
@@ -311,12 +298,11 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
-#if 1 // TODO
+
       // start audio output
       HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
                         dacBufferLen,  //  dacBufferlen is in 32 bit words
                         DAC_ALIGN_12B_R);
-#endif
     }
   }
 }
@@ -541,7 +527,7 @@ void blinkSetup() {
 
    uint16_t dValue = 4095;
    //HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dValue);
-   
+
    HAL_StatusTypeDef err;
    err = HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
                            dacBufferLen,  //  dacBufferlen is in 32 bit words
@@ -553,9 +539,7 @@ void blinkSetup() {
      Error_Handler();
    }
 
-      HAL_TIM_Base_Start_IT(&hTimeDAC);
-
-  // HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
+   HAL_TIM_Base_Start_IT(&hTimeDAC);
 #endif
 
 #if 1 // TODO 
