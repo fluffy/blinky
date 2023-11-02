@@ -61,7 +61,7 @@ extern UART_HandleTypeDef huart3;
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 
-const char *version = "0.60.231031";  // major , minor, year/month/day
+const char *version = "0.70.231101";  // major , minor, year/month/day
 
 // #define captureFreqHz 2048000ul
 //  next macro must have capture2uS( captureFreqHz ) fit in 32 bit calculation
@@ -366,12 +366,12 @@ void setClk(uint8_t clk, uint8_t adj) {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-  int16_t vcoOffset = (int16_t)(adj)-100;
-  snprintf(buffer, sizeof(buffer), "  VCO offset: %d\r\n", vcoOffset);
+  uint16_t vcoOffset = (uint16_t)(adj);
+  snprintf(buffer, sizeof(buffer), "  VCO: %ud\r\n", vcoOffset);
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
   HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
-  // TODO - compute slope
+  // TODO - compute slope on serial 0 
   // -15 gave +118 ns on period
   // -115 gave +714 ns
   // -5 gave +63 ns
@@ -380,7 +380,20 @@ void setClk(uint8_t clk, uint8_t adj) {
   // +6 gave +5
   // +7 gave +2 ns with range -9 to +14
   // vcoOffset = 8;
-  uint16_t dacValue = 10000 + vcoOffset;
+
+  uint16_t dacValue = vcoOffset*10l;
+  // Compute on serial 1
+  // 1200 = 4713
+  // 1800 = 877
+  // 1900 = 247
+  // 1950 = -70
+  // 1940 = +2
+
+  // compute on serial 2
+  // 1940 = +76
+  // 1950 = +13
+  //dacValue = 195ul*10;; 
+  
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
 }
 
@@ -435,9 +448,10 @@ void blinkSetup() {
 #endif
     if (writeConfigEEProm) {
       // write config to EEProm
-      data[0] = 71;        // hardware version
-      data[1] = 0;        // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
-      data[2] = 100 + 8;  // VCO voltage offset
+      data[0] = 71;   // hardware version
+      data[1] = 2;    // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
+      data[2] = 195;  // VCO voltage offset
+      data[4] = 2;    // serial 
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
                                  sizeof(eepromMemAddr), data,
@@ -456,7 +470,7 @@ void blinkSetup() {
 
     status =
         HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1, eepromMemAddr,
-                         sizeof(eepromMemAddr), data, (uint16_t)(3), timeout);
+                         sizeof(eepromMemAddr), data, (uint16_t)(4), timeout);
     if (status != HAL_OK) {
       // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
       snprintf(buffer, sizeof(buffer),
@@ -524,9 +538,6 @@ void blinkSetup() {
 
 #if 1
   // DMA for Audio Out DAC
-
-  uint16_t dValue = 4095;
-  // HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_2, DAC_ALIGN_12B_R, dValue);
 
   HAL_StatusTypeDef err;
   err = HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
