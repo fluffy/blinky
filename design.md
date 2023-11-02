@@ -1,5 +1,5 @@
 
-# Design Notes for V6
+# Design Notes for V7
 
 Sync refers to Sync In
 
@@ -47,7 +47,7 @@ Display TImer drives LED and sync to main or aux rollover
 ### PPS Out Timer #1  - hTimePps (aka Sync Out)
 
 * Use timer 1
-This time runnint at 168 Mhz input clock
+This timer running at 168 Mhz input clock
 * CH1 - PA8 - TimePps_CH_SYNC_OUT 
 increments at 10KHz 
 does 20 ms wide output pulse every 1 second 
@@ -111,24 +111,26 @@ CH1 is disabled if ETR is in use
 * capture SyncIn
 
 ### DAC Timer - Timer 6 
+
 * note this does not reset on main 
 * 1 Mhz count rate 
 * 8 KHz period ( 1000 count ) 
 * trigger out to DAC2
 
 ### TImer 8 - used to time LCT
+
 * has SYCN_IN2 on CH1 
 * reset on main 
 * 10 KHz rate 
 
 1.5 seconds , count up on main at 10 KHz
 
-# DAC
+## DAC
 
 CH1 is voltage toVCO - PA4 
 CH2 is audio out - PA5 
 
-* DAC2 is DMA stream 6 mem to pehriphrial on DMA controller #1 
+* DAC2 is DMA stream 6 memory to peripheral on DMA controller #1 
 * Normal not circular 
 
 ## ADC
@@ -164,7 +166,7 @@ On each Blink Timer
 
 Periodically on main thread
 * compute gps offset microseconds (32 bit signed)
-* compute syncIn offset microsoeconds (32 bit signed)
+* compute syncIn offset microseconds (32 bit signed)
 * compute syncMon offset microseconds (32 bit signed)
 * compute aux offset microseconds ( 32 bit ) from synMon times on main and aux
 * if have recent syncIn, adjust syncOutOffset to match syncIn
@@ -179,14 +181,11 @@ Periodically on main thread
 
 # TODO
 
-* figure out how to base everything off Aux if that is there instead of Main
-* figure out how to base everything off of GPS if that is there instead of main
-
-
 ### Adjusting
-On Freq counter. INtrurment setup timeout off.
+
+On frequency counter. On "internal setup" set timeout off.
 Noise Reject on, DC, 1M ohm, manual level 200 mV
 History grom from 1 s - 20 ns to 1 s+20 ns, 40 bins
 
 Seeing data fall from -6 to +12 ns.
-Say 10 ppb ??? => 36 ms / hour ???
+
