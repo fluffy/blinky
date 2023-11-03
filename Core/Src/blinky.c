@@ -563,7 +563,9 @@ void blinkSetup() {
 
 void blinkRun() {
   static int loopCount = 0;
-  static char buttonWasPressed = 0;
+  static char button1WasPressed = 0;
+  static char button2WasPressed = 0;
+  static char button3WasPressed = 0;
 
   static uint32_t dataMonCaptureTickPrev = 0;
   static uint32_t dataSyncCaptureTickPrev = 0;
@@ -586,11 +588,35 @@ void blinkRun() {
   }
 
 #if 1
+  if (!HAL_GPIO_ReadPin(DB3_GPIO_Port, DB3_Pin)) {
+    if (!button2WasPressed) {
+      snprintf(buffer, sizeof(buffer), "Button 2 press \r\n");
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+    button2WasPressed = 1;
+  } else {
+    button2WasPressed = 0;
+  }
+#endif
+
+#if 1
+  if (!HAL_GPIO_ReadPin(BOOT1_GPIO_Port, BOOT1_Pin)) {
+    if (!button3WasPressed) {
+      snprintf(buffer, sizeof(buffer), "Button 3 press \r\n");
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+    button3WasPressed = 1;
+  } else {
+    button3WasPressed = 0;
+  }
+#endif
+  
+#if 1
   if (!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) {
-    if (!buttonWasPressed) {
+    if (!button1WasPressed) {
       uint32_t tick = HAL_GetTick();
 
-      snprintf(buffer, sizeof(buffer), "BTN1 press \r\n");
+      snprintf(buffer, sizeof(buffer), "Button 1 press \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       dataExtClkCountTickOffset = dataExtClkCountTick;
@@ -621,9 +647,9 @@ void blinkRun() {
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
     }
-    buttonWasPressed = 1;
+    button1WasPressed = 1;
   } else {
-    buttonWasPressed = 0;
+    button1WasPressed = 0;
   }
 #endif
 
