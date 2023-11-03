@@ -600,7 +600,7 @@ void blinkRun() {
 #endif
 
 #if 1
-  if (!HAL_GPIO_ReadPin(BOOT1_GPIO_Port, BOOT1_Pin)) {
+  if ( HAL_GPIO_ReadPin(BOOT1_GPIO_Port, BOOT1_Pin)) {
     if (!button3WasPressed) {
       snprintf(buffer, sizeof(buffer), "Button 3 press \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
