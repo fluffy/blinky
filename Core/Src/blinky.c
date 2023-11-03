@@ -80,6 +80,9 @@ volatile uint32_t debugDacCpltCount = 0;
 volatile uint32_t debugDacTimerCnt = 0;
 volatile uint32_t debugAdcTimerCnt = 0;
 
+uint8_t blinkMute=0;
+uint8_t blinkBlank=0;
+
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
 uint32_t dataSyncCapture;
@@ -590,8 +593,11 @@ void blinkRun() {
 #if 1
   if (!HAL_GPIO_ReadPin(DB3_GPIO_Port, DB3_Pin)) {
     if (!button2WasPressed) {
-      snprintf(buffer, sizeof(buffer), "Button 2 press \r\n");
+      blinkMute = (blinkMute) ? 0 :1;
+      
+      snprintf(buffer, sizeof(buffer), "Button 2 press. Mute=%d \r\n",(int)blinkMute );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
     }
     button2WasPressed = 1;
   } else {
@@ -602,7 +608,9 @@ void blinkRun() {
 #if 1
   if ( HAL_GPIO_ReadPin(BOOT1_GPIO_Port, BOOT1_Pin)) {
     if (!button3WasPressed) {
-      snprintf(buffer, sizeof(buffer), "Button 3 press \r\n");
+      blinkBlank = (blinkBlank) ? 0 :1;
+      
+      snprintf(buffer, sizeof(buffer), "Button 3 press. Blank=%d \r\n",(int)blinkBlank );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
     button3WasPressed = 1;
