@@ -176,7 +176,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     }
 
     int16_t gridCount =
-        subFrameCount;  // counting up in 1/8 of 30 frames per second
+        subFrameCount/8;  // counting up in 30 frames per second
     int16_t binCount = subFrameCount / 8;  // counting up in frames at 30 fps
 
     if (1) {
