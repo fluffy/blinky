@@ -3959,9 +3959,7 @@
 
   (no_connect (at 54.61 63.5) (uuid 03773458-835b-4fce-8362-3be5486b57ce))
   (no_connect (at 340.36 181.61) (uuid 0d21d18b-419f-4163-8fa8-cda6c0467041))
-  (no_connect (at 372.11 71.12) (uuid 15912aca-4960-435b-86c6-3c176f07545d))
   (no_connect (at 389.89 166.37) (uuid 2ccdfc54-ec7b-45c9-a5c2-1d28e8f499c6))
-  (no_connect (at 384.81 71.12) (uuid 33ee9db4-30f0-408c-bdcb-74200f2e1402))
   (no_connect (at 389.89 168.91) (uuid 3f009ce1-f5ff-4dbb-a3a0-fec5552fc545))
   (no_connect (at 266.7 152.4) (uuid 515e96aa-d434-451d-86be-5c516cb979dd))
   (no_connect (at 412.75 158.75) (uuid 573adc96-bd1a-4104-8c17-2808eb2f47d3))
@@ -4001,6 +3999,10 @@
   (wire (pts (xy 332.74 172.72) (xy 332.74 173.99))
     (stroke (width 0) (type default))
     (uuid 02fcaad7-4422-461b-99bd-2daf16f76eb8)
+  )
+  (wire (pts (xy 387.35 71.12) (xy 384.81 71.12))
+    (stroke (width 0) (type default))
+    (uuid 035f8468-5b1f-4a65-a8be-8f96e4b18540)
   )
   (wire (pts (xy 383.54 203.2) (xy 383.54 209.55))
     (stroke (width 0) (type default))
@@ -4746,6 +4748,10 @@
     (stroke (width 0) (type default))
     (uuid 93e31e7d-7bd0-419a-9139-b18813b1445e)
   )
+  (wire (pts (xy 370.84 71.12) (xy 372.11 71.12))
+    (stroke (width 0) (type default))
+    (uuid 94f900a6-85cf-4e35-84eb-73eb66b89aef)
+  )
   (wire (pts (xy 118.11 82.55) (xy 120.65 82.55))
     (stroke (width 0) (type default))
     (uuid 95384bc1-f491-4955-ad6d-5ce767a00d80)
@@ -5432,6 +5438,10 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 194a89c6-4179-4514-9b88-563e38347317)
   )
+  (label "AUX_GPS_PPS" (at 370.84 71.12 180) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify right bottom))
+    (uuid 1b617a06-995e-4fca-94c1-eefe6551f0e0)
+  )
   (label "DB3" (at 207.01 50.8 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 1df24cb2-a9be-49e6-87c2-c484ef4e4053)
@@ -5643,6 +5653,10 @@
   (label "ROW3" (at 207.01 73.66 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 91fb2f17-ab88-41a3-a04e-a1453a7f56b5)
+  )
+  (label "AUX_CLK" (at 387.35 71.12 0) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 96f37cfe-d99d-48fe-81bd-afb56d72ad28)
   )
   (label "NRST" (at 316.23 27.94 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right bottom))
@@ -5976,7 +5990,7 @@
   )
 
   (symbol (lib_id "Connector_Generic:Conn_01x01") (at 369.57 81.28 180) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom no) (on_board yes) (dnp yes) (fields_autoplaced)
     (uuid 02076053-91de-452d-9145-d6c2253f99fa)
     (property "Reference" "J15" (at 369.57 74.93 0)
       (effects (font (size 1.27 1.27)))
@@ -7773,7 +7787,7 @@
   (symbol (lib_id "Device:R_US") (at 193.04 88.9 90) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4ccc042c-3708-4439-bec8-b7aa2a5b1704)
-    (property "Reference" "R?" (at 193.04 85.09 90)
+    (property "Reference" "R34" (at 193.04 85.09 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "4K7" (at 193.04 86.36 90)
@@ -7796,7 +7810,7 @@
     (instances
       (project "blink_v8"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-          (reference "R?") (unit 1)
+          (reference "R34") (unit 1)
         )
       )
     )
@@ -8666,7 +8680,7 @@
   )
 
   (symbol (lib_id "Connector_Generic:Conn_01x01") (at 384.81 81.28 180) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom no) (on_board yes) (dnp yes) (fields_autoplaced)
     (uuid 77c06b8e-6828-4cff-ab0d-172f31271f37)
     (property "Reference" "J16" (at 384.81 74.93 0)
       (effects (font (size 1.27 1.27)))
@@ -8773,7 +8787,7 @@
   (symbol (lib_id "Device:R_Small_US") (at 284.48 134.62 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 7b4f0251-1130-44a4-919a-51735e239277)
-    (property "Reference" "R?" (at 289.56 135.89 90)
+    (property "Reference" "R36" (at 289.56 135.89 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "200R" (at 287.02 134.62 90)
@@ -8796,7 +8810,7 @@
     (instances
       (project "blink_v8"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-          (reference "R?") (unit 1)
+          (reference "R36") (unit 1)
         )
       )
     )
@@ -8805,7 +8819,7 @@
   (symbol (lib_id "Device:R_Small_US") (at 172.72 151.13 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 7b792c73-6fa0-41a8-a0f8-b3ce28fba449)
-    (property "Reference" "R?" (at 177.8 152.4 90)
+    (property "Reference" "R25" (at 177.8 152.4 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "200R" (at 175.26 151.13 90)
@@ -8828,7 +8842,7 @@
     (instances
       (project "blink_v8"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-          (reference "R?") (unit 1)
+          (reference "R25") (unit 1)
         )
       )
     )
@@ -10450,7 +10464,7 @@
   (symbol (lib_id "Device:R_Small_US") (at 226.06 149.86 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid c8badbad-1429-4cfc-9a5a-3644ca3f5421)
-    (property "Reference" "R?" (at 231.14 151.13 90)
+    (property "Reference" "R35" (at 231.14 151.13 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "200R" (at 228.6 149.86 90)
@@ -10473,7 +10487,7 @@
     (instances
       (project "blink_v8"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-          (reference "R?") (unit 1)
+          (reference "R35") (unit 1)
         )
       )
     )
