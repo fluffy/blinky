@@ -6,7 +6,7 @@
 
   (title_block
     (title "Disp")
-    (date "2023-11-10")
+    (date "2023-11-12")
     (rev "V8")
     (company "Cullen Jennings")
   )
@@ -556,35 +556,6 @@
         (pin passive line (at 0 -3.81 90) (length 1.27)
           (name "~" (effects (font (size 1.27 1.27))))
           (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Mechanical:MountingHole" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
-      (property "Reference" "H" (at 0 5.08 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "MountingHole" (at 0 3.175 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "mounting hole" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Mounting Hole without connection" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "MountingHole*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "MountingHole_0_1"
-        (circle (center 0 0) (radius 1.27)
-          (stroke (width 1.27) (type default))
-          (fill (type none))
         )
       )
     )
@@ -2524,11 +2495,6 @@
     (uuid ffcad28c-643b-43b6-a5e9-d3159cccda9e)
   )
 
-  (text "Mounting Holes" (at 19.05 76.2 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid da1e0e6d-0c33-43b3-ac5a-f0cd68ba2357)
-  )
-
   (label "LED3" (at 73.66 140.97 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 0b29cca7-7fd8-48b9-9658-87dce57c2a01)
@@ -3128,30 +3094,6 @@
       (project "disp_v8"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "#PWR09") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Mechanical:MountingHole") (at 30.48 81.28 0) (unit 1)
-    (in_bom no) (on_board yes) (dnp yes) (fields_autoplaced)
-    (uuid 0a5f764f-3b52-420b-8311-ec6591645b87)
-    (property "Reference" "H2" (at 33.02 80.01 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "M2" (at 33.02 82.55 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "MountingHole:MountingHole_2.2mm_M2" (at 30.48 81.28 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 30.48 81.28 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (instances
-      (project "disp_v8"
-        (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-          (reference "H2") (unit 1)
         )
       )
     )
@@ -3775,30 +3717,6 @@
       (project "disp_v8"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "D41") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Mechanical:MountingHole") (at 31.75 88.9 0) (unit 1)
-    (in_bom no) (on_board yes) (dnp yes)
-    (uuid 31975282-b0fa-4447-8ef8-9b313a1cc53a)
-    (property "Reference" "H4" (at 34.29 87.63 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "M2" (at 30.48 92.71 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "MountingHole:MountingHole_2.2mm_M2" (at 31.75 88.9 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 31.75 88.9 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (instances
-      (project "disp_v8"
-        (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-          (reference "H4") (unit 1)
         )
       )
     )
@@ -4526,30 +4444,6 @@
       (project "disp_v8"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "D52") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Mechanical:MountingHole") (at 20.32 81.28 0) (unit 1)
-    (in_bom no) (on_board yes) (dnp yes) (fields_autoplaced)
-    (uuid 59154395-9e34-4a0c-8ec0-61ae293ba560)
-    (property "Reference" "H1" (at 22.86 80.01 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "M2" (at 22.86 82.55 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "MountingHole:MountingHole_2.2mm_M2" (at 20.32 81.28 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 20.32 81.28 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (instances
-      (project "disp_v8"
-        (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-          (reference "H1") (unit 1)
         )
       )
     )
@@ -6252,30 +6146,6 @@
       (project "disp_v8"
         (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
           (reference "R50") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Mechanical:MountingHole") (at 20.32 88.9 0) (unit 1)
-    (in_bom no) (on_board yes) (dnp yes)
-    (uuid b6764977-cb65-41fb-9ce1-abc9b33c9535)
-    (property "Reference" "H5" (at 22.86 87.63 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "M2" (at 19.05 92.71 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "MountingHole:MountingHole_2.2mm_M2" (at 20.32 88.9 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 20.32 88.9 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (instances
-      (project "disp_v8"
-        (path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-          (reference "H5") (unit 1)
         )
       )
     )

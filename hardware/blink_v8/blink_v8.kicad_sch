@@ -6,7 +6,7 @@
 
   (title_block
     (title "Blink ")
-    (date "2023-11-11")
+    (date "2023-11-12")
     (rev "V8.0")
     (company "Cullen Jennings")
   )
@@ -7543,6 +7543,9 @@
     (property "JLCPCB Part #" "C105432" (at 323.85 62.23 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "JLCPCB Rotation Offset" "180" (at 323.85 62.23 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "1" (uuid 244f98e2-4b76-46db-b1a4-8c697ac90392))
     (pin "2" (uuid 04292242-f8de-4f10-b718-1870dbf8340a))
     (pin "3" (uuid d7681e5a-abfd-498d-a158-93fe77a7c76b))
@@ -12302,6 +12305,9 @@
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "JLCPCB Part #" "C2150" (at 325.12 39.37 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLCPCB Rotation Offset" "180" (at 325.12 39.37 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 725b2cbc-2606-457a-8497-4022d5b5d153))
