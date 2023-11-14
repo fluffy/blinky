@@ -1,11 +1,11 @@
 (footprint "SW_147873-2" (version 20221018) (generator pcbnew)
   (layer "F.Cu")
   (attr smd)
-  (fp_text reference "REF**" (at -0.818505 -2.357851) (layer "F.SilkS")
+  (fp_text reference "REF**" (at 0 -2.6) (layer "F.SilkS") hide
       (effects (font (size 0.640395 0.640395) (thickness 0.15)))
     (tstamp 58a1e678-4907-4624-8575-8eec4a9bf780)
   )
-  (fp_text value "SW_147873-2" (at 1.521977 2.446129) (layer "F.Fab")
+  (fp_text value "SW_147873-2" (at 0 2.7) (layer "F.Fab")
       (effects (font (size 0.640664 0.640664) (thickness 0.15)))
     (tstamp 36db72a4-10ff-4724-a221-d96354e66109)
   )
