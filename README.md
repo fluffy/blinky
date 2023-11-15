@@ -32,7 +32,7 @@ On the V7 hardware 0.3 software have:
 
 * Status LEDs: error(red), external synced ( green ), external not sync (
   yellow ) but PPS 
-* sounds output that works over opus codec ( FSK ???, 2400 Hz ) 
+* sounds output that works over opus codec
 * audio in to detect beep 
 
 # Roadmap Features 
@@ -42,10 +42,13 @@ On the V7 hardware 0.3 software have:
 * Show current PPS offset from GPS PPS
 * Compare PPS accuracy to GPS over 24 hours 
 * Adjust local oscilator to GPS and store correction 
-* serial display of: Time, GPS Error, SyncIn Error, Aux Count Error
+* serial display of: Time, GPS Error, SyncIn Error
+
 
 
 # Wishlist
+
+* Aux Count Error
 
 * time into browser measure computer time offset 
 
@@ -54,7 +57,6 @@ On the V7 hardware 0.3 software have:
 * Light board with TXCO, LTC Sync in, LTC Sync out, LED grid, 
   battery power, USB charge, audio in/out
 * display
-* buttons for menu/select/up/down
 * set input time delay from length of GPS cable
 * nice box
 * battery with 2h life and USB charger
@@ -62,4 +64,5 @@ On the V7 hardware 0.3 software have:
 * RTC clock and battery 
 * do SMPT LTC time codes on sync in / out 
 
-* could we add QR code to video 
+* could we add flash video and flash detect 
+
