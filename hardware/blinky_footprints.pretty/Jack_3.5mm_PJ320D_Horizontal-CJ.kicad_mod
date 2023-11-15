@@ -3,7 +3,7 @@
   (descr "Headphones with microphone connector, 3.5mm, 4 pins (http://www.qingpu-electronics.com/en/products/WQP-PJ320D-72.html)")
   (tags "3.5mm jack mic microphone phones headphones 4pins audio plug")
   (attr smd)
-  (fp_text reference "REF**" (at -0.74 -5.36) (layer "F.SilkS")
+  (fp_text reference "REF**" (at -4.3 -5.8) (layer "F.SilkS")
       (effects (font (size 1 1) (thickness 0.15)))
     (tstamp 72bf4862-6c38-4c04-9e53-30a1f44b04e7)
   )

@@ -1,7 +1,7 @@
 (footprint "U.FL-R-SMT-1" (version 20221018) (generator pcbnew)
   (layer "F.Cu")
   (attr smd)
-  (fp_text reference "REF**" (at 0.45 -1.908) (layer "F.SilkS")
+  (fp_text reference "REF**" (at 0.45 -1.908) (layer "F.SilkS") hide
       (effects (font (size 0.8 0.8) (thickness 0.15)))
     (tstamp dc6ed67a-2f09-4c29-824d-464218a6ede3)
   )

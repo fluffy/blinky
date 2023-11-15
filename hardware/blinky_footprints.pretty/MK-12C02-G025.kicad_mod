@@ -2,7 +2,7 @@
   (layer "F.Cu")
   (tags "MK-12C02-G020 ")
   (attr smd)
-  (fp_text reference "REF**" (at 2.032 -4.064 unlocked) (layer "F.SilkS")
+  (fp_text reference "REF**" (at -1.2 -5.7 unlocked) (layer "F.SilkS")
       (effects (font (size 1 1) (thickness 0.15)))
     (tstamp c773a153-2f38-4e3a-afc2-b36f215ee053)
   )
