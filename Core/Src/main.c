@@ -896,7 +896,7 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
-  HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
+  HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
                     GPIO_PIN_SET);  // turn on error LED
   while (1) {
   }
@@ -918,7 +918,7 @@ void assert_failed(uint8_t *file, uint32_t line)
      number, ex: printf("Wrong parameters value: file %s on line %d\r\n", file,
      line) */
   __disable_irq();
-  HAL_GPIO_WritePin(LEDM2_GPIO_Port, LEDM2_Pin,
+  HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
                     GPIO_PIN_SET);  // turn on error LED
 
   while (1) {
