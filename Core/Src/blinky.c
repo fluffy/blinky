@@ -170,48 +170,52 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
       ledUs += 1000000ul;
     }
 
-    // uS to 240 Hz
-    uint32_t subFrameCount = (240ul * ledUs) / (1000ul * 1000ul);
+    // uS to 500 Hz
+    uint32_t subFrameCount = (500ul * ledUs) / (1000ul * 1000ul);
 
-    if (subFrameCount >= 240) {
-      subFrameCount -= 240;
+    if (subFrameCount >= 500) {
+      subFrameCount -= 500;
     }
 
     int16_t gridCount =
-        subFrameCount/8;  // counting up in 30 frames per second
-    int16_t binCount = subFrameCount / 8;  // counting up in frames at 30 fps
+        subFrameCount/10;  // counting up in 30 frames per second
+    int16_t binCount = 1<<(subFrameCount %10);  // counting up in frames at 30 fps
 
     if (1) {
-      int row = 1 + ((gridCount) % 8);
-      int col = 1 + ((gridCount / 8) % 5);
+      int row = 1 + (gridCount /5 );
+      int col = 1 + (gridCount % 10) ;
 
       HAL_GPIO_WritePin(NCOL1_GPIO_Port, NCOL1_Pin,
-                        (row == 5) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+                        (row == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(NCOL2_GPIO_Port, NCOL2_Pin,
-                        (row == 4) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+                        (row == 2) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(NCOL3_GPIO_Port, NCOL3_Pin,
                         (row == 3) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(NCOL4_GPIO_Port, NCOL4_Pin,
-                        (row == 2) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+                        (row == 4) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(NCOL5_GPIO_Port, NCOL5_Pin,
-                        (row == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+                        (row == 5) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(NCOL6_GPIO_Port, NCOL6_Pin,
                         (row == 6) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(NCOL7_GPIO_Port, NCOL7_Pin,
                         (row == 7) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(NCOL8_GPIO_Port, NCOL8_Pin,
                         (row == 8) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+     HAL_GPIO_WritePin(NCOL8_GPIO_Port, NCOL9_Pin,
+                        (row == 9) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+     HAL_GPIO_WritePin(NCOL8_GPIO_Port, NCOL10_Pin,
+                        (row == 10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
       HAL_GPIO_WritePin(NROW1_GPIO_Port, NROW1_Pin,
-                        (col == 2) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-      HAL_GPIO_WritePin(NROW2_GPIO_Port, NROW2_Pin,
                         (col == 1) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+      HAL_GPIO_WritePin(NROW2_GPIO_Port, NROW2_Pin,
+                        (col == 2) ? GPIO_PIN_RESET : GPIO_PIN_SET);
       HAL_GPIO_WritePin(NROW3_GPIO_Port, NROW3_Pin,
-                        (col == 5) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-      HAL_GPIO_WritePin(NROW4_GPIO_Port, NROW4_Pin,
                         (col == 3) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-      HAL_GPIO_WritePin(NROW5_GPIO_Port, NROW5_Pin,
+      HAL_GPIO_WritePin(NROW4_GPIO_Port, NROW4_Pin,
                         (col == 4) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+      HAL_GPIO_WritePin(NROW5_GPIO_Port, NROW5_Pin,
+                        (col == 5) ? GPIO_PIN_RESET : GPIO_PIN_SET);
     }
 
     if (1) {
@@ -226,15 +230,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                         (binCount & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
       // High 4 bits of display
+#if 0 // TOOO
+      // problems LED 5,6 input only
       HAL_GPIO_WritePin(LED5_GPIO_Port, LED5_Pin,
                         (binCount & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED6_GPIO_Port, LED6_Pin,
                         (binCount & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+#endif
       HAL_GPIO_WritePin(LED7_GPIO_Port, LED7_Pin,
                         (binCount & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin,
                         (binCount & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-    }
+
+      HAL_GPIO_WritePin(LED9_GPIO_Port, LED9_Pin,
+                        (binCount & 0x100) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(LED10_GPIO_Port, LED10_Pin,
+                        (binCount & 0x200) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+}
 
   }
 }
