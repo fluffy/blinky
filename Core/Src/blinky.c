@@ -230,13 +230,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                         (binCount & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
       // High 4 bits of display
-#if 0 // TOOO
       // problems LED 5,6 input only
       HAL_GPIO_WritePin(LED5_GPIO_Port, LED5_Pin,
                         (binCount & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED6_GPIO_Port, LED6_Pin,
                         (binCount & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-#endif
       HAL_GPIO_WritePin(LED7_GPIO_Port, LED7_Pin,
                         (binCount & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin,
@@ -246,7 +244,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                         (binCount & 0x100) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED10_GPIO_Port, LED10_Pin,
                         (binCount & 0x200) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-}
+    }
 
   }
 }
