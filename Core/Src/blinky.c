@@ -61,7 +61,7 @@ extern UART_HandleTypeDef huart3;
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 
-const char *version = "0.71.231112";  // major , minor, year/month/day
+const char *version = "0.80.231123";  // major , minor, year/month/day
 
 // #define captureFreqHz 2048000ul
 //  next macro must have capture2uS( captureFreqHz ) fit in 32 bit calculation
@@ -462,10 +462,10 @@ void blinkSetup() {
 #endif
     if (writeConfigEEProm) {
       // write config to EEProm
-      data[0] = 71;   // hardware version
-      data[1] = 2;    // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
+      data[0] = 80;   // hardware version
+      data[1] = 10;    // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
       data[2] = 195;  // VCO voltage offset
-      data[4] = 2;    // serial 
+      data[4] = 4;    // serial 
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
                                  sizeof(eepromMemAddr), data,
@@ -497,9 +497,8 @@ void blinkSetup() {
         HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
 
-    if (data[0] == 71) {
-      // This is V6 hardware
-      snprintf(buffer, sizeof(buffer), "  Hardware version: V7.1 \r\n");
+    if (data[0] == 80) {
+      snprintf(buffer, sizeof(buffer), "  Hardware version: V8.0 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       setClk(data[1], data[2]);
