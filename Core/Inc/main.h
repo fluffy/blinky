@@ -139,6 +139,10 @@ void Error_Handler(void);
 #define SWDCLK_GPIO_Port GPIOA
 #define CLK_Pin GPIO_PIN_15
 #define CLK_GPIO_Port GPIOA
+#define GPS_RX1_Pin GPIO_PIN_10
+#define GPS_RX1_GPIO_Port GPIOC
+#define GPS_TX1_Pin GPIO_PIN_11
+#define GPS_TX1_GPIO_Port GPIOC
 #define NCOL9_Pin GPIO_PIN_12
 #define NCOL9_GPIO_Port GPIOC
 #define DB3_Pin GPIO_PIN_2

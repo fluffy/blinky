@@ -125,6 +125,12 @@ CH1 is disabled if ETR is in use
 
 1.5 seconds , count up on main at 10 KHz
 
+## Serial 
+
+USB\_RX/TX on PB6/PB7 on USART1
+GPS\_RX1/TX1 on PC10/PC11
+
+
 ## DAC
 
 CH1 is voltage toVCO - PA4 
