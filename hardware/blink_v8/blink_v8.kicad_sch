@@ -5568,6 +5568,11 @@
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid da1e0e6d-0c33-43b3-ac5a-f0cd68ba2357)
   )
+  (text "On blink board:\nAUX_GPS_PPS is LED5 \nAUX_CLK is LED6 \n"
+    (at 261.62 33.02 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid f0482fec-3ac9-4b6f-b614-12e837ff94e2)
+  )
 
   (label "AUX_GPS_PPS" (at 242.57 35.56 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
