@@ -603,6 +603,19 @@ void blinkRun() {
     snprintf(buffer, sizeof(buffer), "  DAC/ADC Cplt %lu %lu \r\n", debugDacCpltCount, debugAdcCpltCount );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
+
+#if 1 // TODO remove 
+    while (1) {
+      char buf[9];
+      HAL_UART_Receive (&huart3, (uint8_t*)buf, sizeof(buf)-1, 500 /*timeout ms*/);
+      buf[sizeof(buf)-1]=0;
+
+      snprintf(buffer, sizeof(buffer), "GPS: %s \r\n",
+               buf );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+#endif
+    
   }
 
 #if 1

@@ -130,6 +130,8 @@ CH1 is disabled if ETR is in use
 USB\_RX/TX on PB6/PB7 on USART1
 GPS\_RX1/TX1 on PC10/PC11
 
+GPS is NMEA-0183 set at 4800 baud 8N1 
+GPS is Garmin "GPS 16x LVS"
 
 ## DAC
 
