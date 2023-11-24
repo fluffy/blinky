@@ -335,6 +335,21 @@ void blinkInit() {
   detectInit(adcBufferLen);
 }
 
+int captureDeltaUs( uint32_t pps, uint32_t mon )  {
+  // Return delta from two capture times in ms
+  int32_t ppsUs = capture2uS(pps);
+  int32_t monUs = capture2uS(mon);
+  int32_t diffUs = ppsUs - monUs;
+  if ( diffUs <= -500000 ) {
+    diffUs += 1000000;
+  }
+  if ( diffUs > 500000 ) {
+    diffUs -= 1000000;
+  }
+  int retMs = diffUs;
+  return retMs;
+}
+
 void setClk(uint8_t clk, uint8_t adj) {
   char buffer[100];
 
@@ -588,13 +603,9 @@ void blinkRun() {
   static char button2WasPressed = 0;
   static char button3WasPressed = 0;
 
-  static uint32_t dataMonCaptureTickPrev = 0;
   static uint32_t dataSyncCaptureTickPrev = 0;
-
-#if 1  // TODO 
   static uint32_t dataExtClkCountTickPrev = 0;
   static uint32_t dataGpsPpsCaptureTickPrev = 0;
-#endif
 
   char buffer[100];
 
@@ -743,30 +754,20 @@ void blinkRun() {
   }
 #endif
 
-#if 0 
-  if (dataMonCaptureTick != dataMonCaptureTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   mon : %ld ms\r\n",
-             capture2uS(dataMonCapture) / 1000);
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    dataMonCaptureTickPrev = dataMonCaptureTick;
-  }
-#endif
 
   if (dataSyncCaptureTick != dataSyncCaptureTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   sync: %ld ms\r\n",
-             capture2uS(dataSyncCapture) / 1000);
+    snprintf(buffer, sizeof(buffer), "   in  delta: %d ms\r\n",
+             captureDeltaUs(dataSyncCapture, dataMonCapture)/1000 );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
 
-#if 1  // TODO 
   if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   gpsPPS: %ld ms\r\n",
-             capture2uS( dataGpsPpsCapture ) / 1000);
+    snprintf(buffer, sizeof(buffer), "   gps delta: %d ms\r\n",
+             captureDeltaUs(dataGpsPpsCapture, dataMonCapture)/1000 );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataGpsPpsCaptureTickPrev = dataGpsPpsCaptureTick;
   }
-#endif
 
 #if 1  // TODO 
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
