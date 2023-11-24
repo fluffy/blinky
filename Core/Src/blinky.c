@@ -80,8 +80,8 @@ volatile uint32_t debugDacCpltCount = 0;
 volatile uint32_t debugDacTimerCnt = 0;
 volatile uint32_t debugAdcTimerCnt = 0;
 
-uint8_t blinkMute=0;
-uint8_t blinkBlank=0;
+uint8_t blinkMute = 0;
+uint8_t blinkBlank = 0;
 
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
@@ -107,21 +107,21 @@ uint32_t adcBuffer[20];
 
 const int gpsBufferLen = 20;
 uint8_t gpsBuffer[20];
-uint8_t gpsBufLen=0;
-char gpsTime[7]; // This will have ASCII chars 123456 to indicate time is 12:34:56 UTC 
+uint8_t gpsBufLen = 0;
+char gpsTime[7];  // This will have ASCII chars 123456 to indicate time is
+                  // 12:34:56 UTC
 uint32_t gpsTimeTick;
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart){
-  if ( huart == &hUartGps ) {
-    if ( gpsBufLen == 1 )  {
-      if ( gpsBuffer[0] != '$' ) {
-        gpsBufLen = 0; // keep looking for start of line
-
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+  if (huart == &hUartGps) {
+    if (gpsBufLen == 1) {
+      if (gpsBuffer[0] != '$') {
+        gpsBufLen = 0;  // keep looking for start of line
       }
     }
-    if (  gpsBufLen > 1 ) {
+    if (gpsBufLen > 1) {
       // found a line
-      gpsBuffer[ gpsBufLen ] = 0;
+      gpsBuffer[gpsBufLen] = 0;
 
 #if 0
       if (1) {
@@ -130,13 +130,13 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart){
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
 #endif
-      const char* find = "GPRMC";
-      if ( memcmp( (char*)gpsBuffer+1 , find, strlen( find )  ) == 0 ) {
+      const char *find = "GPRMC";
+      if (memcmp((char *)gpsBuffer + 1, find, strlen(find)) == 0) {
         // found "$GPRMC
-        if ( gpsBuffer[14] == 'A'  ) {
+        if (gpsBuffer[14] == 'A') {
           // GPS daa is valid
-          strncpy( gpsTime , (char*)gpsBuffer+7, sizeof( gpsTime )-1 );
-          gpsTime[ sizeof( gpsTime )-1 ] = 0 ; // terminate time string
+          strncpy(gpsTime, (char *)gpsBuffer + 7, sizeof(gpsTime) - 1);
+          gpsTime[sizeof(gpsTime) - 1] = 0;  // terminate time string
 
           uint32_t tick = HAL_GetTick();
           gpsTimeTick = tick;
@@ -149,30 +149,30 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart){
 #endif
         }
       }
-      
-      gpsBufLen =0;
+
+      gpsBufLen = 0;
     }
-    
-    if ( gpsBufLen== 0 ) {
+
+    if (gpsBufLen == 0) {
       // look for $ start of line
       gpsBufLen = 1;
-      HAL_StatusTypeDef stat = HAL_UART_Receive_IT( &hUartGps, gpsBuffer, 1 /* size */ );
-      if ( stat !=  HAL_UART_ERROR_NONE ) {
+      HAL_StatusTypeDef stat =
+          HAL_UART_Receive_IT(&hUartGps, gpsBuffer, 1 /* size */);
+      if (stat != HAL_UART_ERROR_NONE) {
         Error_Handler();
       }
     } else {
-      gpsBufLen = 16; // Long enough to get the part of NMEA $GPRMC line with timestamp 
-      HAL_StatusTypeDef stat = HAL_UART_Receive_IT( &hUartGps, gpsBuffer+1, gpsBufLen-1 /* size */ );
-      if ( stat !=  HAL_UART_ERROR_NONE ) {
+      gpsBufLen =
+          16;  // Long enough to get the part of NMEA $GPRMC line with timestamp
+      HAL_StatusTypeDef stat = HAL_UART_Receive_IT(&hUartGps, gpsBuffer + 1,
+                                                   gpsBufLen - 1 /* size */);
+      if (stat != HAL_UART_ERROR_NONE) {
         Error_Handler();
       }
     }
-
   }
 }
-  
 
-  
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
   detectUpdate(&(adcBuffer[0]), adcBufferLen / 2, false);
 }
@@ -206,7 +206,7 @@ void HAL_DAC_ErrorCallbackCh2(DAC_HandleTypeDef *hdac) {
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-#if 0 // TODO 
+#if 0  // TODO 
   if (htim == &hTimeSync) {
     // HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
 
@@ -246,12 +246,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     }
 
     int16_t gridCount =
-        subFrameCount/10;  // counting up in 30 frames per second
-    int16_t binCount = 1<<(subFrameCount %10);  // counting up in frames at 30 fps
+        subFrameCount / 10;  // counting up in 30 frames per second
+    int16_t binCount =
+        1 << (subFrameCount % 10);  // counting up in frames at 30 fps
 
     if (1) {
-      int row = 1 + (gridCount /5 );
-      int col = 1 + (gridCount % 10) ;
+      int row = 1 + (gridCount / 5);
+      int col = 1 + (gridCount % 10);
 
       HAL_GPIO_WritePin(NCOL1_GPIO_Port, NCOL1_Pin,
                         (row == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
@@ -269,9 +270,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                         (row == 7) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(NCOL8_GPIO_Port, NCOL8_Pin,
                         (row == 8) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-     HAL_GPIO_WritePin(NCOL8_GPIO_Port, NCOL9_Pin,
+      HAL_GPIO_WritePin(NCOL8_GPIO_Port, NCOL9_Pin,
                         (row == 9) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-     HAL_GPIO_WritePin(NCOL8_GPIO_Port, NCOL10_Pin,
+      HAL_GPIO_WritePin(NCOL8_GPIO_Port, NCOL10_Pin,
                         (row == 10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
       HAL_GPIO_WritePin(NROW1_GPIO_Port, NROW1_Pin,
@@ -287,8 +288,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     }
 
     if (1) {
-#if 0 // TODO 
-      // Low 4 bits of display
+#if 0  // TODO
+       // Low 4 bits of display
       HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
                         (binCount & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin,
@@ -315,7 +316,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                         (binCount & 0x200) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 #endif
     }
-
   }
 }
 
@@ -399,21 +399,21 @@ void blinkInit() {
   dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
   // subFrameCount = 0;
   // subFrameCountOffset = 120;
-  gpsTimeTick =0;
-  memset( gpsTime, 0 , sizeof(gpsTime) );
-  
+  gpsTimeTick = 0;
+  memset(gpsTime, 0, sizeof(gpsTime));
+
   detectInit(adcBufferLen);
 }
 
-int captureDeltaUs( uint32_t pps, uint32_t mon )  {
+int captureDeltaUs(uint32_t pps, uint32_t mon) {
   // Return delta from two capture times in ms
   int32_t ppsUs = capture2uS(pps);
   int32_t monUs = capture2uS(mon);
   int32_t diffUs = ppsUs - monUs;
-  if ( diffUs <= -500000 ) {
+  if (diffUs <= -500000) {
     diffUs += 1000000;
   }
-  if ( diffUs > 500000 ) {
+  if (diffUs > 500000) {
     diffUs -= 1000000;
   }
   int retMs = diffUs;
@@ -469,7 +469,7 @@ void setClk(uint8_t clk, uint8_t adj) {
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
   HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
-  // TODO - compute slope on serial 0 
+  // TODO - compute slope on serial 0
   // -15 gave +118 ns on period
   // -115 gave +714 ns
   // -5 gave +63 ns
@@ -479,7 +479,7 @@ void setClk(uint8_t clk, uint8_t adj) {
   // +7 gave +2 ns with range -9 to +14
   // vcoOffset = 8;
 
-  uint16_t dacValue = vcoOffset*10l;
+  uint16_t dacValue = vcoOffset * 10l;
   // Compute on serial 1
   // 1200 = 4713
   // 1800 = 877
@@ -490,8 +490,8 @@ void setClk(uint8_t clk, uint8_t adj) {
   // compute on serial 2
   // 1940 = +76
   // 1950 = +13
-  //dacValue = 195ul*10;; 
-  
+  // dacValue = 195ul*10;;
+
   HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
 }
 
@@ -503,7 +503,7 @@ void blinkSetup() {
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
                     GPIO_PIN_SET);  // turn off green ok LED
 
-#if 0 // TODO 
+#if 0  // TODO 
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
@@ -517,7 +517,7 @@ void blinkSetup() {
   HAL_GPIO_WritePin(LED9_GPIO_Port, LED9_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED10_GPIO_Port, LED10_Pin, GPIO_PIN_RESET);
 #endif
-  
+
   if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "\r\nStarting...\r\n");
@@ -552,9 +552,9 @@ void blinkSetup() {
     if (writeConfigEEProm) {
       // write config to EEProm
       data[0] = 80;   // hardware version
-      data[1] = 10;    // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
+      data[1] = 10;   // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
       data[2] = 195;  // VCO voltage offset
-      data[4] = 4;    // serial 
+      data[4] = 4;    // serial
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
                                  sizeof(eepromMemAddr), data,
@@ -567,9 +567,8 @@ void blinkSetup() {
       }
 
       // chip has 1.5 ms max page write time when it will not respond
-      HAL_Delay( 2 /*ms */ );  
+      HAL_Delay(2 /*ms */);
     }
-
 
     status =
         HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1, eepromMemAddr,
@@ -594,9 +593,8 @@ void blinkSetup() {
       Error_Handler();
     }
 
-    snprintf(buffer, sizeof(buffer), "  Serial: %d \r\n",data[4]);
+    snprintf(buffer, sizeof(buffer), "  Serial: %d \r\n", data[4]);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
   }
 
   HAL_TIM_Base_Start_IT(&hTimeBlink);
@@ -613,8 +611,8 @@ void blinkSetup() {
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_SYNC_MON);  // start sync mon capture
 
-  HAL_TIM_IC_Start_IT( &hTimeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
-
+  HAL_TIM_IC_Start_IT(&hTimeSync,
+                      TimeSync_CH_GPS_PPS);  // start gps pps capture
 
   // set LED to on but not sync ( yellow, not greeen )
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
@@ -652,11 +650,11 @@ void blinkSetup() {
   HAL_TIM_Base_Start_IT(&hTimeADC);
 #endif
 
-  
 #if 1
   // start receving for GPS serial
-  HAL_StatusTypeDef stat = HAL_UART_Receive_IT( &hUartGps, gpsBuffer, 1 /* size */ );
-  if ( stat !=  HAL_UART_ERROR_NONE ) {
+  HAL_StatusTypeDef stat =
+      HAL_UART_Receive_IT(&hUartGps, gpsBuffer, 1 /* size */);
+  if (stat != HAL_UART_ERROR_NONE) {
     Error_Handler();
   }
 #endif
@@ -684,7 +682,7 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
 
-#if 0 // TODO remove 
+#if 0  // TODO remove 
     while (1) {
       char buf[9];
       HAL_UART_Receive (&huart3, (uint8_t*)buf, sizeof(buf)-1, 500 /*timeout ms*/);
@@ -695,17 +693,16 @@ void blinkRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 #endif
-    
   }
 
 #if 1
   if (!HAL_GPIO_ReadPin(DB3_GPIO_Port, DB3_Pin)) {
     if (!button2WasPressed) {
-      blinkMute = (blinkMute) ? 0 :1;
-      
-      snprintf(buffer, sizeof(buffer), "Button 2 press. Mute=%d \r\n",(int)blinkMute );
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      blinkMute = (blinkMute) ? 0 : 1;
 
+      snprintf(buffer, sizeof(buffer), "Button 2 press. Mute=%d \r\n",
+               (int)blinkMute);
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
     button2WasPressed = 1;
   } else {
@@ -714,11 +711,12 @@ void blinkRun() {
 #endif
 
 #if 1
-  if ( HAL_GPIO_ReadPin(BOOT1_GPIO_Port, BOOT1_Pin)) {
+  if (HAL_GPIO_ReadPin(BOOT1_GPIO_Port, BOOT1_Pin)) {
     if (!button3WasPressed) {
-      blinkBlank = (blinkBlank) ? 0 :1;
-      
-      snprintf(buffer, sizeof(buffer), "Button 3 press. Blank=%d \r\n",(int)blinkBlank );
+      blinkBlank = (blinkBlank) ? 0 : 1;
+
+      snprintf(buffer, sizeof(buffer), "Button 3 press. Blank=%d \r\n",
+               (int)blinkBlank);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
     button3WasPressed = 1;
@@ -726,7 +724,7 @@ void blinkRun() {
     button3WasPressed = 0;
   }
 #endif
-  
+
 #if 1
   if (!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) {
     if (!button1WasPressed) {
@@ -738,8 +736,7 @@ void blinkRun() {
       dataExtClkCountTickOffset = dataExtClkCountTick;
       dataExtClkCount = 0;
 
-      if ((tick > 2000) && (dataSyncCaptureTick + 2000 >
-                            tick)) {
+      if ((tick > 2000) && (dataSyncCaptureTick + 2000 > tick)) {
         //  had sync in last 2 seconds
         int32_t deltaPhaseUs =
             capture2uS(dataSyncCapture) - capture2uS(dataMonCapture);
@@ -757,11 +754,11 @@ void blinkRun() {
 
         dataNextSyncOutPhase = phase;
 
-        snprintf(buffer, sizeof(buffer), "  SYCN IN: new phase: %ld\r\n", phase);
+        snprintf(buffer, sizeof(buffer), "  SYCN IN: new phase: %ld\r\n",
+                 phase);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      } else  if ((tick > 2000) && (dataGpsPpsCaptureTick + 2000 >
-                            tick)) {
-          //  had GPS sync in last 2 seconds
+      } else if ((tick > 2000) && (dataGpsPpsCaptureTick + 2000 > tick)) {
+        //  had GPS sync in last 2 seconds
         int32_t deltaPhaseUs =
             capture2uS(dataGpsPpsCapture) - capture2uS(dataMonCapture);
         int32_t deltaPhase =
@@ -780,8 +777,7 @@ void blinkRun() {
 
         snprintf(buffer, sizeof(buffer), "  GPS: new phase: %ld\r\n", phase);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      }
-          else {
+      } else {
         snprintf(buffer, sizeof(buffer), "  No sync input\r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
@@ -805,7 +801,8 @@ void blinkRun() {
     static uint32_t prevVal = 0;
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
 
-    if (val < prevVal) {  // 1 second loop  // TODO - this this comparison backwards
+    if (val <
+        prevVal) {  // 1 second loop  // TODO - this this comparison backwards
       float mlpVal;
       uint32_t mltTime;
       detectGetMlpTime(&mltTime, &mlpVal);
@@ -833,31 +830,27 @@ void blinkRun() {
   }
 #endif
 
-
   if (dataSyncCaptureTick != dataSyncCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   in  delta: %d ms\r\n",
-             captureDeltaUs(dataSyncCapture, dataMonCapture)/1000 );
+             captureDeltaUs(dataSyncCapture, dataMonCapture) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
 
   if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   gps delta: %d ms\r\n",
-             captureDeltaUs(dataGpsPpsCapture, dataMonCapture)/1000 );
+             captureDeltaUs(dataGpsPpsCapture, dataMonCapture) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataGpsPpsCaptureTickPrev = dataGpsPpsCaptureTick;
   }
 
   if (gpsTimeTick != gpsTimeTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   gps time: %s UTC\r\n",
-             gpsTime );
+    snprintf(buffer, sizeof(buffer), "   gps time: %s UTC\r\n", gpsTime);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     gpsTimeTickPrev = gpsTimeTick;
   }
 
-  
-
-#if 1  // TODO 
+#if 1  // TODO
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     int32_t err = dataExtClkCountTick - dataExtClkCountTickOffset -
