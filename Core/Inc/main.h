@@ -77,10 +77,10 @@ void Error_Handler(void);
 #define NROW3_GPIO_Port GPIOC
 #define NROW4_Pin GPIO_PIN_3
 #define NROW4_GPIO_Port GPIOC
-#define LED6_Pin GPIO_PIN_0
-#define LED6_GPIO_Port GPIOA
-#define LED5_Pin GPIO_PIN_1
-#define LED5_GPIO_Port GPIOA
+#define AUX_CLK_Pin GPIO_PIN_0
+#define AUX_CLK_GPIO_Port GPIOA
+#define AUX_GPS_PPS_Pin GPIO_PIN_1
+#define AUX_GPS_PPS_GPIO_Port GPIOA
 #define AUX_SYNC_MON_Pin GPIO_PIN_2
 #define AUX_SYNC_MON_GPIO_Port GPIOA
 #define LED4_Pin GPIO_PIN_3

@@ -219,6 +219,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     }
 
     if (1) {
+#if 0 // TODO 
       // Low 4 bits of display
       HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
                         (binCount & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
@@ -244,6 +245,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                         (binCount & 0x100) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED10_GPIO_Port, LED10_Pin,
                         (binCount & 0x200) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+#endif
     }
 
   }
@@ -416,6 +418,7 @@ void blinkSetup() {
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
                     GPIO_PIN_SET);  // turn off green ok LED
 
+#if 0 // TODO 
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
@@ -428,7 +431,8 @@ void blinkSetup() {
 
   HAL_GPIO_WritePin(LED9_GPIO_Port, LED9_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED10_GPIO_Port, LED10_Pin, GPIO_PIN_RESET);
-
+#endif
+  
   if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "\r\nStarting...\r\n");
@@ -484,7 +488,7 @@ void blinkSetup() {
 
     status =
         HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1, eepromMemAddr,
-                         sizeof(eepromMemAddr), data, (uint16_t)(4), timeout);
+                         sizeof(eepromMemAddr), data, (uint16_t)(5), timeout);
     if (status != HAL_OK) {
       // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
       snprintf(buffer, sizeof(buffer),
@@ -509,6 +513,10 @@ void blinkSetup() {
 
       Error_Handler();
     }
+
+    snprintf(buffer, sizeof(buffer), "  Serial: %d \r\n",data[4]);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
   }
 
   HAL_TIM_Base_Start_IT(&hTimeBlink);
