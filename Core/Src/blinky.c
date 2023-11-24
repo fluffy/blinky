@@ -511,11 +511,6 @@ void blinkSetup() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-#if 0
-        snprintf( buffer, sizeof(buffer), "EEProm: data=%d %d %d\r\n", data[0] , data[1], data[3] );
-        HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-#endif
-
     if (data[0] == 80) {
       snprintf(buffer, sizeof(buffer), "  Hardware version: V8.0 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -536,29 +531,20 @@ void blinkSetup() {
 
   HAL_TIM_Base_Start_IT(&hTimeBlink);
 
-#if 1
   HAL_TIM_Base_Start_IT(&hTimeSync);
-#endif
 
-#if 1
   HAL_TIM_OC_Start_IT(&hTimePps, TimePps_CH_SYNC_OUT);  // start sync out
-#endif
 
   HAL_TIM_Base_Start_IT(&hTimeSync);
 
-#if 1
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_SYNC_IN);  // start sync in capture
-#endif
 
-#if 1
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_SYNC_MON);  // start sync mon capture
-#endif
 
-#if 1 
-    HAL_TIM_IC_Start_IT( &hTimeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
-#endif
+  HAL_TIM_IC_Start_IT( &hTimeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
+
 
   // set LED to on but not sync ( yellow, not greeen )
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
@@ -726,7 +712,7 @@ void blinkRun() {
     static uint32_t prevVal = 0;
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
 
-    if (val < prevVal) {  // 1 second loop
+    if (val < prevVal) {  // 1 second loop  // TODO - this this comparison backwards
       float mlpVal;
       uint32_t mltTime;
       detectGetMlpTime(&mltTime, &mlpVal);
