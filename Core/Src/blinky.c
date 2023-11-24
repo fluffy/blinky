@@ -138,7 +138,7 @@ void HAL_DAC_ErrorCallbackCh2(DAC_HandleTypeDef *hdac) {
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-#if 0  // TODO 
+#if 0 // TODO 
   if (htim == &hTimeSync) {
     // HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
 
@@ -533,8 +533,8 @@ void blinkSetup() {
                       TimeSync_CH_SYNC_MON);  // start sync mon capture
 #endif
 
-#if 0 
-    HAL_TIM_IC_Start_IT( &hTmeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
+#if 1 
+    HAL_TIM_IC_Start_IT( &hTimeSync, TimeSync_CH_GPS_PPS  ); // start gps pps capture
 #endif
 
   // set LED to on but not sync ( yellow, not greeen )
@@ -583,7 +583,7 @@ void blinkRun() {
   static uint32_t dataMonCaptureTickPrev = 0;
   static uint32_t dataSyncCaptureTickPrev = 0;
 
-#if 0  // TODO 
+#if 1  // TODO 
   static uint32_t dataExtClkCountTickPrev = 0;
   static uint32_t dataGpsPpsCaptureTickPrev = 0;
 #endif
@@ -728,7 +728,7 @@ void blinkRun() {
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
 
-#if 0  // TODO 
+#if 1  // TODO 
   if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   gpsPPS: %ld ms\r\n",
              capture2uS( dataGpsPpsCapture ) / 1000);
@@ -737,7 +737,7 @@ void blinkRun() {
   }
 #endif
 
-#if 0  // TODO 
+#if 1  // TODO 
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
     int32_t err = dataExtClkCountTick - dataExtClkCountTickOffset -
