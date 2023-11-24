@@ -410,11 +410,11 @@ void setClk(uint8_t clk, uint8_t adj) {
 
 void blinkSetup() {
   HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
-                    GPIO_PIN_SET);  // turn on red error LED
+                    GPIO_PIN_RESET);  // turn on red error LED
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
-                    GPIO_PIN_RESET);  // turn off yellow assert LED
+                    GPIO_PIN_SET);  // turn off yellow assert LED
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
-                    GPIO_PIN_RESET);  // turn off green ok LED
+                    GPIO_PIN_SET);  // turn off green ok LED
 
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
@@ -539,9 +539,9 @@ void blinkSetup() {
 
   // set LED to on but not sync ( yellow, not greeen )
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
-                    GPIO_PIN_SET);  // turn on yellow assert LED
+                    GPIO_PIN_RESET);  // turn on yellow assert LED
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
-                    GPIO_PIN_RESET);  // turn off green ok LED
+                    GPIO_PIN_SET);  // turn off green ok LED
 
   if (1) {
     char buffer[100];
