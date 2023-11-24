@@ -238,21 +238,21 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
       ledUs += 1000000ul;
     }
 
-    // uS to 500 Hz
-    int32_t subFrameCount = (500ul * ledUs) / (1000ul * 1000ul);
+    // uS to 1000 Hz
+    int32_t subFrameCount = (1000ul * ledUs) / (1000ul * 1000ul);
 
-    if (subFrameCount >= 500) {
-      subFrameCount -= 500;
+    if (subFrameCount >= 1000) {
+      subFrameCount -= 1000;
     }
 
     int16_t gridCount =
-        subFrameCount / 10;  // counting up in 30 frames per second
+        subFrameCount / 10;  // counting up in 10 ms 
     int16_t binCount =
-        1 << (subFrameCount % 10);  // counting up in frames at 30 fps
+      1 << ( 9 - ( (subFrameCount) % 10));  // counting up 4 ms
 
     if (1) {
-      int row = 1 + (gridCount / 10) % 5;
-      int col = 1 + (gridCount % 10);
+      int row = 1 + (gridCount / 10) % 10 ;
+      int col = 10 - (gridCount % 10);
 
       //row = 4; col=6;
       
