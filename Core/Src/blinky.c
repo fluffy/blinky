@@ -649,7 +649,8 @@ void blinkRun() {
       dataExtClkCount = 0;
 
       if ((tick > 2000) && (dataSyncCaptureTick + 2000 >
-                            tick)) {  // if had sync in last 2 seconds
+                            tick)) {
+        //  had sync in last 2 seconds
         int32_t deltaPhaseUs =
             capture2uS(dataSyncCapture) - capture2uS(dataMonCapture);
         int32_t deltaPhase =
@@ -666,9 +667,31 @@ void blinkRun() {
 
         dataNextSyncOutPhase = phase;
 
-        snprintf(buffer, sizeof(buffer), "  new phase: %ld\r\n", phase);
+        snprintf(buffer, sizeof(buffer), "  SYCN IN: new phase: %ld\r\n", phase);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      } else {
+      } else  if ((tick > 2000) && (dataGpsPpsCaptureTick + 2000 >
+                            tick)) {
+          //  had GPS sync in last 2 seconds
+        int32_t deltaPhaseUs =
+            capture2uS(dataGpsPpsCapture) - capture2uS(dataMonCapture);
+        int32_t deltaPhase =
+            deltaPhaseUs /
+            100l;  // div 100 for 1MHz to 10KHz counter conversion
+        if (deltaPhase < 0) deltaPhase += 10000;
+
+        deltaPhase += 0;  // offset
+
+        uint32_t phase = dataNextSyncOutPhase + deltaPhase;
+        if (phase >= 10000) {
+          phase -= 10000;
+        }
+
+        dataNextSyncOutPhase = phase;
+
+        snprintf(buffer, sizeof(buffer), "  GPS: new phase: %ld\r\n", phase);
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      }
+          else {
         snprintf(buffer, sizeof(buffer), "  No sync input\r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
