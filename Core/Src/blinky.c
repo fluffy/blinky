@@ -109,6 +109,7 @@ const int gpsBufferLen = 20;
 uint8_t gpsBuffer[20];
 uint8_t gpsBufLen=0;
 char gpsTime[7]; // This will have ASCII chars 123456 to indicate time is 12:34:56 UTC 
+uint32_t gpsTimeTick;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart){
   if ( huart == &hUartGps ) {
@@ -137,7 +138,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart){
           strncpy( gpsTime , (char*)gpsBuffer+7, sizeof( gpsTime )-1 );
           gpsTime[ sizeof( gpsTime )-1 ] = 0 ; // terminate time string
 
-#if 1
+          uint32_t tick = HAL_GetTick();
+          gpsTimeTick = tick;
+
+#if 0
           if (1) { char buffer[100];
           snprintf(buffer, sizeof(buffer), "   gps time UTC: %s \r\n", gpsTime );
           HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -395,7 +399,9 @@ void blinkInit() {
   dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
   // subFrameCount = 0;
   // subFrameCountOffset = 120;
-
+  gpsTimeTick =0;
+  memset( gpsTime, 0 , sizeof(gpsTime) );
+  
   detectInit(adcBufferLen);
 }
 
@@ -665,6 +671,7 @@ void blinkRun() {
   static uint32_t dataSyncCaptureTickPrev = 0;
   static uint32_t dataExtClkCountTickPrev = 0;
   static uint32_t dataGpsPpsCaptureTickPrev = 0;
+  static uint32_t gpsTimeTickPrev = 0;
 
   char buffer[100];
 
@@ -840,6 +847,15 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataGpsPpsCaptureTickPrev = dataGpsPpsCaptureTick;
   }
+
+  if (gpsTimeTick != gpsTimeTickPrev) {
+    snprintf(buffer, sizeof(buffer), "   gps time: %s UTC\r\n",
+             gpsTime );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    gpsTimeTickPrev = gpsTimeTick;
+  }
+
+  
 
 #if 1  // TODO 
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
