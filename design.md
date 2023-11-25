@@ -187,9 +187,13 @@ Periodically on main thread
 
 * adjust period of main to match GPS, Aux, Sync in that priority order 
 
-# TODO
+# Charging
 
-### Adjusting
+Max charges rate is 500 mA up to 4.1 V then drops off with m charges up
+to 4.2 V. This charge rate selected to not go over USB limit.  Using 820
+mAH battery. Current consumption of about 170 mA when *not* on battery.
+
+# Adjusting
 
 On frequency counter. On "internal setup" set timeout off.
 Noise Reject on, DC, 1M ohm, manual level 200 mV
@@ -197,3 +201,5 @@ History grom from 1 s - 20 ns to 1 s+20 ns, 40 bins
 
 Seeing data fall from -6 to +12 ns.
 
+
+# TODO
