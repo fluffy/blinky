@@ -235,24 +235,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     uint32_t monUs = capture2uS(dataMonCapture);
     int32_t ledUs = nowUs - monUs;
     if (ledUs < 0) {
-      ledUs += 1000000ul;
+      ledUs += 1000000l;
     }
+   
+    int32_t ledMs =  ledUs / 1000l;
 
-    // uS to 1000 Hz
-    int32_t subFrameCount = (1000ul * ledUs) / (1000ul * 1000ul);
-
-    if (subFrameCount >= 1000) {
-      subFrameCount -= 1000;
+    if ( ledMs >= 1000) {
+      ledMs -= 1000;
     }
-
-    int16_t gridCount =
-        subFrameCount / 10;  // counting up in 10 ms 
-    int16_t binCount =
-      1 << ( 9 - ( (subFrameCount) % 10));  // counting up 4 ms
+  
+    int16_t binCount =  (ledMs/100)%10;  // 2.5 ms
 
     if (1) {
-      int row = 1 + (gridCount / 10) % 10 ;
-      int col = 10 - (gridCount % 10);
+      int row = 5 - (ledMs / 2 ) % 5 ; // 2 ms across
+      int col = 10 - (ledMs / 10) % 10; // 10 ms down 
 
       //row = 4; col=6;
       
