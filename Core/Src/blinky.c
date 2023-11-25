@@ -249,8 +249,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (1) {
       int row = 5 - (ledMs / 2 ) % 5 ; // 2 ms across
       int col = 10 - (ledMs / 10) % 10; // 10 ms down 
-
-      //row = 4; col=6;
       
       HAL_GPIO_WritePin(NCOL1_GPIO_Port, NCOL1_Pin,
                         (col == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
@@ -400,7 +398,7 @@ void blinkInit() {
   // subFrameCountOffset = 120;
   gpsTimeTick = 0;
   memset(gpsTime, 0, sizeof(gpsTime));
-
+   
   detectInit(adcBufferLen);
 }
 
@@ -495,12 +493,12 @@ void setClk(uint8_t clk, uint8_t adj) {
 }
 
 void blinkSetup() {
-  HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
-                    GPIO_PIN_RESET);  // turn on red error LED
+  //HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
+  //                  GPIO_PIN_RESET);  // turn on red error LED
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
-                    GPIO_PIN_SET);  // turn off yellow assert LED
+                    GPIO_PIN_SET);  // turn on yellow  LED
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
-                    GPIO_PIN_SET);  // turn off green ok LED
+                    GPIO_PIN_SET);  // turn on green ok LED
 
 
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
@@ -616,9 +614,9 @@ void blinkSetup() {
 
   // set LED to on but not sync ( yellow, not greeen )
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
-                    GPIO_PIN_RESET);  // turn on yellow assert LED
+                    GPIO_PIN_SET);  // turn on yellow assert LED
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
-                    GPIO_PIN_SET);  // turn off green ok LED
+                    GPIO_PIN_RESET);  // turn off green ok LED
 
   if (1) {
     char buffer[100];

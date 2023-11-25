@@ -841,7 +841,8 @@ static void MX_GPIO_Init(void)
                           |NCOL2_Pin|NCOL9_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED4_Pin|LED1_Pin|LED2_Pin|NCOL1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED4_Pin|LED1_Pin|LED2_Pin|NCOL1_Pin
+                          |LEDMR_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin, GPIO_PIN_SET);
@@ -854,7 +855,7 @@ static void MX_GPIO_Init(void)
                           |LED3_Pin|NROW5_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LEDMY_Pin|LEDMG_Pin|LEDMR_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, LEDMY_Pin|LEDMG_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DB3_GPIO_Port, DB3_Pin, GPIO_PIN_RESET);
