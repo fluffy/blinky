@@ -52,9 +52,11 @@ extern UART_HandleTypeDef huart3;
 #define hTimeBlink htim4
 
 #define hTimeAux htim5
-// #define TimeAux_CH_AUX_CLK TIM_CHANNEL_1
-// #define TimeAux_CH_AUX_GPS_PPS TIM_CHANNEL_2
-#define TimeAux_CH_AUX_SYNC_MON TIM_CHANNEL_3
+#define TimeAux_CH_AUX_CLK TIM_CHANNEL_1
+#define TimeAux_CH_GPS_PPS TIM_CHANNEL_2
+#define TimeAux_HAL_CH_GPS_PPS HAL_TIM_ACTIVE_CHANNEL_3
+#define TimeAux_CH_SYNC_MON TIM_CHANNEL_3
+#define TimeAux_HAL_CH_SYNC_MON HAL_TIM_ACTIVE_CHANNEL_3
 
 #define hTimeDAC htim6
 
@@ -106,12 +108,17 @@ volatile uint32_t debugAdcTimerCnt = 0;
 uint8_t blinkMute = 0;
 uint8_t blinkBlank = 0;
 
-uint32_t dataMonCapture;
-uint32_t dataMonCaptureTick;
 uint32_t dataSyncCapture;
 uint32_t dataSyncCaptureTick;
+uint32_t dataMonCapture;
+uint32_t dataMonCaptureTick;
 uint32_t dataGpsPpsCapture;
 uint32_t dataGpsPpsCaptureTick;
+
+uint32_t dataAuxMonCapture;
+uint32_t dataAuxMonCaptureTick;
+uint32_t dataAuxGpsPpsCapture;
+uint32_t dataAuxGpsPpsCaptureTick;
 
 uint32_t dataExtClkCount;  // counting seconds
 uint32_t dataExtClkCountTick;
@@ -229,10 +236,10 @@ void HAL_DAC_ErrorCallbackCh2(DAC_HandleTypeDef *hdac) {
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-#if 0  // TODO 
-  if (htim == &hTimeSync) {
-    // HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
-
+#if 1
+   uint32_t tick = HAL_GetTick();
+   
+  if (htim == &hTimeAux) {
     dataExtClkCount++;
     dataExtClkCountTick = tick;
   }
@@ -371,6 +378,24 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       dataGpsPpsCaptureTick = tick;
     }
   }
+
+#if 1
+  if (htim == &hTimeAux) {
+    if (htim->Channel ==
+        TimeAux_HAL_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
+                                     // on inverted output
+      dataAuxMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeAux_CH_SYNC_MON);
+      dataAuxMonCaptureTick = tick;
+    }
+
+    if (htim->Channel == TimeAux_HAL_CH_GPS_PPS) {  // sync in on falling edge.
+                                                     // falling is rising
+                                                     // on inverted input
+      dataAuxGpsPpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeAux_CH_GPS_PPS);
+      dataAuxGpsPpsCaptureTick = tick;
+    }
+  }
+#endif
 }
 
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
@@ -588,6 +613,8 @@ void blinkSetup() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
+    config.vcoValue = 111; // TODO remove - test time drift
+      
     if ( (config.version < 1) || ( config.version > 10 )  ) {
       snprintf(buffer, sizeof(buffer), "EEProm not initalized: %d \r\n",config.version );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -629,6 +656,17 @@ void blinkSetup() {
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_GPS_PPS);  // start gps pps capture
 
+#if 1 
+  HAL_TIM_Base_Start_IT(&hTimeAux);
+
+  HAL_TIM_IC_Start_IT(&hTimeAux,
+                      TimeAux_CH_SYNC_MON );  // start sync mon capture on aux 
+
+   HAL_TIM_IC_Start_IT(&hTimeAux,
+                       TimeAux_CH_GPS_PPS);  // start gps pps capture on aux 
+#endif
+   
+   
   // set LED to on but not sync ( yellow, not greeen )
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
                     GPIO_PIN_SET);  // turn on yellow assert LED
@@ -684,8 +722,10 @@ void blinkRun() {
   static uint32_t dataSyncCaptureTickPrev = 0;
   static uint32_t dataExtClkCountTickPrev = 0;
   static uint32_t dataGpsPpsCaptureTickPrev = 0;
+  static uint32_t dataAuxMonCaptureTickPrev = 0; 
   static uint32_t gpsTimeTickPrev = 0;
-
+  static uint32_t dataExtClkCountMonPrev= 0;
+  
   char buffer[100];
 
   if (loopCount % 100 == 0) {
@@ -809,6 +849,12 @@ void blinkRun() {
     snprintf( buffer, sizeof(buffer), "Sync Time val %ld uS\r\n",  capture2uS(val) );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
+
+   if (1) {
+    uint32_t val = __HAL_TIM_GetCounter(&hTimeAux);
+    snprintf( buffer, sizeof(buffer), "Aux Time val %ld\r\n",  val );
+    HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
 #endif
 
 #if 1
@@ -859,22 +905,29 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataGpsPpsCaptureTickPrev = dataGpsPpsCaptureTick;
   }
-
+  
   if (gpsTimeTick != gpsTimeTickPrev) {
     snprintf(buffer, sizeof(buffer), "   gps time: %s UTC\r\n", gpsTime);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     gpsTimeTickPrev = gpsTimeTick;
   }
 
-#if 1  // TODO
+#if 0  // TODO
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
-    uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
-    int32_t err = dataExtClkCountTick - dataExtClkCountTickOffset -
-                  dataExtClkCount * 1000l;
-    snprintf(buffer, sizeof(buffer), "   time: %ld s %ld ms err: %ld ms\r\n",
-             dataExtClkCount, val, err);
+    snprintf(buffer, sizeof(buffer), "   ext time: %ld s\r\n",
+             dataExtClkCount );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataExtClkCountTickPrev = dataExtClkCountTick;
+  }
+#endif
+
+#if 1 // handle AUX stuff 
+  if ( (dataAuxMonCaptureTick != dataAuxMonCaptureTickPrev ) && ( dataExtClkCount != dataExtClkCountMonPrev ) )  {
+    snprintf(buffer, sizeof(buffer), "   Aux Mon: external time %lu S %lu.%lu uS\r\n",
+             dataExtClkCount,dataAuxMonCapture/10 , dataAuxMonCapture%10 );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    dataAuxMonCaptureTickPrev = dataAuxMonCaptureTick;
+    dataExtClkCountMonPrev = dataExtClkCount;
   }
 #endif
 

@@ -115,8 +115,6 @@ void Error_Handler(void);
 #define NCOL6_GPIO_Port GPIOB
 #define NCOL5_Pin GPIO_PIN_15
 #define NCOL5_GPIO_Port GPIOB
-#define SYNC_IN2_Pin GPIO_PIN_6
-#define SYNC_IN2_GPIO_Port GPIOC
 #define NCOL4_Pin GPIO_PIN_7
 #define NCOL4_GPIO_Port GPIOC
 #define NCOL3_Pin GPIO_PIN_8
