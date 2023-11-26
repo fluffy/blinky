@@ -101,7 +101,7 @@ CH1 is disabled if ETR is in use
 `* ETR:
 * CH1: PA0 - AUX_CLK
 * CH2:  PA1 - GPS 
-* CH3: PA2 - UUX_MON
+* CH3: PA2 - AUX_MON
 * Ch4: PA4  - NO 
 
 * clocked with ETR from external 10 MHz
