@@ -61,7 +61,7 @@ extern UART_HandleTypeDef huart3;
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 
-const char *version = "0.80.231123";  // major , minor, year/month/day
+const char *version = "0.80.231125";  // major , minor, year/month/day
 
 // #define captureFreqHz 2048000ul
 //  next macro must have capture2uS( captureFreqHz ) fit in 32 bit calculation
