@@ -61,7 +61,30 @@ extern UART_HandleTypeDef huart3;
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 
-const char *version = "0.80.231125";  // major , minor, year/month/day
+// Uses Semantic versioning https://semver.org/
+// major.minor.patch,
+// patch=year/month/day
+const char *version = "0.80.231126";  
+
+
+// This structure is saved in EEPROM
+// keep size padded to 32 bits
+typedef struct {
+  uint8_t  version; // 1 
+  uint8_t  product; // 1=blink, 2=clock
+  uint8_t  revMajor; // 0x1 is Rev A 
+  uint8_t  revMinor; // start at 0 
+
+  uint16_t serialNum; // 0 is not valid
+  
+  int8_t   oscAdj; // offset for intenal oscilator in Hz  
+  uint8_t  extOsc; //  external osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
+  uint16_t vcoValue; // value loaded in DAC for VCO
+
+  uint8_t zeroPad1; // keep size of struct multiple of 32 bits
+  uint8_t checkSum; // simple xor of data before this. 
+} Config;
+static Config config;
 
 // #define captureFreqHz 2048000ul
 //  next macro must have capture2uS( captureFreqHz ) fit in 32 bit calculation
@@ -528,11 +551,7 @@ void blinkSetup() {
   if (1) {
     char buffer[100];
     const uint16_t i2cAddr = 0x50;
-    uint8_t data[16];
-    for (int i = 0; i < sizeof(data); i++) {
-      data[i] = 0;
-    }
-    uint32_t timeout = 2;
+    uint32_t timeout = 256;
     uint8_t eepromMemAddr = 0;
     HAL_StatusTypeDef status;
 
@@ -541,7 +560,7 @@ void blinkSetup() {
       snprintf(buffer, sizeof(buffer), "Error: EEProm not found \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
-
+  
 #ifdef FORMAT_EEPROM  // TODO move to seperate program
     const int writeConfigEEProm = 1;
 #else
@@ -549,14 +568,23 @@ void blinkSetup() {
 #endif
     if (writeConfigEEProm) {
       // write config to EEProm
-      data[0] = 80;   // hardware version
-      data[1] = 2;   // osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
-      data[2] = 195;  // VCO voltage offset
-      data[4] = 6;    // serial
+      config.version=1;
+      config.product = 1;
+      config.revMajor = 0;
+      config.revMinor = 8;
+      config.serialNum = 6;
 
-      status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
-                                 sizeof(eepromMemAddr), data,
-                                 (uint16_t)sizeof(data), timeout);
+      config.oscAdj = 0;
+      config.extOsc = 2;
+      config.vcoValue = 190;
+
+      config.zeroPad1 = 0; 
+      config.checkSum = 0;
+      
+      status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1,
+                                 eepromMemAddr, sizeof(eepromMemAddr),
+                                 (uint8_t *)&config, (uint16_t)sizeof(config),
+                                 timeout);
       if (status != HAL_OK) {
         // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
         snprintf(buffer, sizeof(buffer),
@@ -569,8 +597,10 @@ void blinkSetup() {
     }
 
     status =
-        HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1, eepromMemAddr,
-                         sizeof(eepromMemAddr), data, (uint16_t)(5), timeout);
+        HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1,
+                         eepromMemAddr,sizeof(eepromMemAddr),
+                         (uint8_t *)&config, (uint16_t)sizeof(config),
+                         timeout);
     if (status != HAL_OK) {
       // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
       snprintf(buffer, sizeof(buffer),
@@ -578,20 +608,27 @@ void blinkSetup() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    if (data[0] == 80) {
-      snprintf(buffer, sizeof(buffer), "  Hardware version: V8.0 \r\n");
+    if ( (config.version < 1) || ( config.version > 10 )  ) {
+      snprintf(buffer, sizeof(buffer), "EEProm not initalized: %d \r\n",config.version );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      
+      Error_Handler();
+    }
+  
+    if ( ( config.revMajor == 0 ) && ( config.revMinor == 8 ) ) {
+      snprintf(buffer, sizeof(buffer), "  Hardware version: EV8 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      setClk(data[1], data[2]);
+      setClk( config.extOsc, config.vcoValue );
     } else {
-      snprintf(buffer, sizeof(buffer), "Unknown Hardware version %d \r\n",
-               data[0]);
+      snprintf(buffer, sizeof(buffer), "Unknown hardware version %d.%d\r\n",
+               config.revMajor , config.revMinor  );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       Error_Handler();
     }
 
-    snprintf(buffer, sizeof(buffer), "  Serial: %d \r\n", data[4]);
+    snprintf(buffer, sizeof(buffer), "  Serial: %d \r\n", config.serialNum );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
