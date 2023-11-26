@@ -1,0 +1,4 @@
+﻿Date,Calibration,Product,Rev,Serial,intOsc,vcoValue,minError(ns),maxError(ns),deltaVco(ns)
+11/1/23,53220A,Blink,EV6,1,0,1940,2,2,-7.2
+11/1/23,53220A,Blink,EV6,2,0,1950,13,13,-6.3
+11/26/23,53220A,Blink,EV8,6,-534,497,-10,8,-0.3

@@ -77,9 +77,9 @@ typedef struct {
 
   uint16_t serialNum; // 0 is not valid
   
-  int8_t   oscAdj; // offset for intenal oscilator in Hz  
-  uint8_t  extOsc; //  external osc speed ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
+  int16_t  oscAdj; // offset for intenal oscilator counter   
   uint16_t vcoValue; // value loaded in DAC for VCO
+  uint8_t  extOscType; // external osc type ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
 
   uint8_t zeroPad1; // keep size of struct multiple of 32 bits
   uint8_t checkSum; // simple xor of data before this. 
@@ -440,10 +440,10 @@ int captureDeltaUs(uint32_t pps, uint32_t mon) {
   return retMs;
 }
 
-void setClk(uint8_t clk, uint8_t adj) {
+void setClk(uint8_t extOscTypeType, uint16_t vcoValue, int16_t oscAdj ) {
   char buffer[100];
 
-  if (clk == 2) {
+  if (extOscTypeType == 2) {
     // External CLK is 2.048 Mhz
     __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 2048ul * 1000ul - 1ul);
     capture2uSRatioM = 125;
@@ -451,7 +451,7 @@ void setClk(uint8_t clk, uint8_t adj) {
 
     snprintf(buffer, sizeof(buffer), "  External clock set to 2.048 Mhz \r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  } else if (clk == 10) {
+  } else if (extOscTypeType == 10) {
     // External CLK is 10 Mhz
     __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 10ul * 1000ul * 1000ul - 1ul);
     capture2uSRatioM = 1;
@@ -459,16 +459,16 @@ void setClk(uint8_t clk, uint8_t adj) {
 
     snprintf(buffer, sizeof(buffer), "  External clock set to 10 Mhz \r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  } else if (clk == 0) {
+  } else if (extOscTypeType == 0) {
     // CLK is internal 84 Mhz
     TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 
-    int32_t freqOffset = (int32_t)(adj)-100l;
+    //oscAdj=-534; // -17 to +2,  delta 90 ,  , serial# 6 Nov 26, 2023
+     
     htim2.Init.Prescaler = 8 - 1;
     htim2.Init.Period =
         10500ul * 1000ul - 1ul +
-        freqOffset *
-            10;  // 60+100 is abouut manual correction TOOO put in eeprom
+        oscAdj;  
     sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
     capture2uSRatioM = 2;
     capture2uSRatioN = 21;
@@ -484,35 +484,13 @@ void setClk(uint8_t clk, uint8_t adj) {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-  uint16_t vcoOffset = (uint16_t)(adj);
-  snprintf(buffer, sizeof(buffer), "  VCO: %ud\r\n", vcoOffset);
+  //vcoValue = 497; // -8 to 10 ns , delta = 30/-100 = -0.30  , serial# 6 Nov 26, 2023
+  
+  snprintf(buffer, sizeof(buffer), "  VCO: %u\r\n",  vcoValue);
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
   HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
-  // TODO - compute slope on serial 0
-  // -15 gave +118 ns on period
-  // -115 gave +714 ns
-  // -5 gave +63 ns
-  // +5 gave +15
-  // +8 gave -10
-  // +6 gave +5
-  // +7 gave +2 ns with range -9 to +14
-  // vcoOffset = 8;
-
-  uint16_t dacValue = vcoOffset * 10l;
-  // Compute on serial 1
-  // 1200 = 4713
-  // 1800 = 877
-  // 1900 = 247
-  // 1950 = -70
-  // 1940 = +2
-
-  // compute on serial 2
-  // 1940 = +76
-  // 1950 = +13
-  // dacValue = 195ul*10;;
-
-  HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dacValue);
+  HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R,  vcoValue );
 }
 
 void blinkSetup() {
@@ -574,9 +552,9 @@ void blinkSetup() {
       config.revMinor = 8;
       config.serialNum = 6;
 
-      config.oscAdj = 0;
-      config.extOsc = 2;
-      config.vcoValue = 190;
+      config.oscAdj = -534;
+      config.extOscType = 2;
+      config.vcoValue = 497;
 
       config.zeroPad1 = 0; 
       config.checkSum = 0;
@@ -594,6 +572,7 @@ void blinkSetup() {
 
       // chip has 1.5 ms max page write time when it will not respond
       HAL_Delay(2 /*ms */);
+      HAL_Delay(20 /*ms */);
     }
 
     status =
@@ -619,7 +598,7 @@ void blinkSetup() {
       snprintf(buffer, sizeof(buffer), "  Hardware version: EV8 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      setClk( config.extOsc, config.vcoValue );
+      setClk( config.extOscType, config.vcoValue, config.oscAdj );
     } else {
       snprintf(buffer, sizeof(buffer), "Unknown hardware version %d.%d\r\n",
                config.revMajor , config.revMinor  );
