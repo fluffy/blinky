@@ -613,7 +613,7 @@ void blinkSetup() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    config.vcoValue = 111; // TODO remove - test time drift
+    // config.vcoValue = 111; // TODO remove - test time drift
       
     if ( (config.version < 1) || ( config.version > 10 )  ) {
       snprintf(buffer, sizeof(buffer), "EEProm not initalized: %d \r\n",config.version );
@@ -912,7 +912,7 @@ void blinkRun() {
     gpsTimeTickPrev = gpsTimeTick;
   }
 
-#if 0  // TODO
+#if 1  // TODO
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
     snprintf(buffer, sizeof(buffer), "   ext time: %ld s\r\n",
              dataExtClkCount );
