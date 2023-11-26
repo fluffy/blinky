@@ -486,7 +486,7 @@ void setClk(uint8_t extOscTypeType, uint16_t vcoValue, int16_t oscAdj ) {
   }
 
   //vcoValue = 497; // -8 to 10 ns , delta = 30/-100 = -0.30  , serial# 6 Nov 26, 2023
-   
+  
   snprintf(buffer, sizeof(buffer), "  VCO: %u\r\n",  vcoValue);
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
@@ -548,14 +548,14 @@ void blinkSetup() {
     if (writeConfigEEProm) {
       // write config to EEProm
       config.version=1;
-      config.product = 1;
+      config.product = 2; 
       config.revMajor = 0;
       config.revMinor = 8;
-      config.serialNum = 3;
+      config.serialNum = 4;
 
-      config.oscAdj = -542;
-      config.extOscType = 2;
-      config.vcoValue = 3253;
+      config.oscAdj = 0;
+      config.extOscType = 10;
+      config.vcoValue = 3250;
 
       config.zeroPad1 = 0; 
       config.checkSum = 0;
