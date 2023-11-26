@@ -464,7 +464,8 @@ void setClk(uint8_t extOscTypeType, uint16_t vcoValue, int16_t oscAdj ) {
     TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 
     //oscAdj=-534; // -17 to +2,  delta 90 ,  , serial# 6 Nov 26, 2023
-     
+    //oscAdj=-542; // 65,  delta 90 ,  , serial# 3 Nov 26, 2023
+    
     htim2.Init.Prescaler = 8 - 1;
     htim2.Init.Period =
         10500ul * 1000ul - 1ul +
@@ -485,7 +486,7 @@ void setClk(uint8_t extOscTypeType, uint16_t vcoValue, int16_t oscAdj ) {
   }
 
   //vcoValue = 497; // -8 to 10 ns , delta = 30/-100 = -0.30  , serial# 6 Nov 26, 2023
-  
+   
   snprintf(buffer, sizeof(buffer), "  VCO: %u\r\n",  vcoValue);
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
@@ -550,11 +551,11 @@ void blinkSetup() {
       config.product = 1;
       config.revMajor = 0;
       config.revMinor = 8;
-      config.serialNum = 6;
+      config.serialNum = 3;
 
-      config.oscAdj = -534;
+      config.oscAdj = -542;
       config.extOscType = 2;
-      config.vcoValue = 497;
+      config.vcoValue = 3253;
 
       config.zeroPad1 = 0; 
       config.checkSum = 0;

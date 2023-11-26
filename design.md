@@ -199,7 +199,8 @@ On frequency counter. On "internal setup" set timeout off.
 Noise Reject on, DC, 1M ohm, manual level 200 mV
 History grom from 1 s - 20 ns to 1 s+20 ns, 40 bins
 
-Seeing data fall from -6 to +12 ns.
+On the 2.048 Mhz VCO, will need to adjust pot to get in range. 30 degree
+turn made huge difference. 
 
 
 # TODO
