@@ -613,6 +613,8 @@ void blinkSetup() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
+    config.vcoValue = 100; // TODO REMVOE - test time drift
+      
     if ( (config.version < 1) || ( config.version > 10 )  ) {
       snprintf(buffer, sizeof(buffer), "EEProm not initalized: %d \r\n",config.version );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);

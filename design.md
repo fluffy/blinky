@@ -96,6 +96,8 @@ CH1 is disabled if ETR is in use
 
 ### Aux Timer - Timer 5 
 
+Assumes that that Aux signal is getting a 10Mhz signal. 
+
 * Use 32 bit timer 5
 * max 42 Mhz
 * ETR:
@@ -105,7 +107,7 @@ CH1 is disabled if ETR is in use
 * Ch4: PA4  - no 
 
 CH1 ends up feeding clock.  Capture the Captures both edges of external
-so ends up at couting at 20 MHz. The SyncMon capture time allows this to
+so scale by 2 to  couting at 10 MHz. The SyncMon capture time allows this to
 be coorelated with the other main clock. 
 
 * capture SyncMon
