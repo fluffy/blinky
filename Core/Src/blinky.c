@@ -236,10 +236,10 @@ void HAL_DAC_ErrorCallbackCh2(DAC_HandleTypeDef *hdac) {
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-#if 0  // TODO 
-  if (htim == &hTimeSync) {
-    // HAL_GPIO_TogglePin(DB1_GPIO_Port, DB1_Pin);  // toggle DB1 LED
-
+#if 1
+   uint32_t tick = HAL_GetTick();
+   
+  if (htim == &hTimeAux) {
     dataExtClkCount++;
     dataExtClkCountTick = tick;
   }
@@ -613,7 +613,7 @@ void blinkSetup() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    config.vcoValue = 100; // TODO REMVOE - test time drift
+    config.vcoValue = 111; // TODO remove - test time drift
       
     if ( (config.version < 1) || ( config.version > 10 )  ) {
       snprintf(buffer, sizeof(buffer), "EEProm not initalized: %d \r\n",config.version );
@@ -724,7 +724,8 @@ void blinkRun() {
   static uint32_t dataGpsPpsCaptureTickPrev = 0;
   static uint32_t dataAuxMonCaptureTickPrev = 0; 
   static uint32_t gpsTimeTickPrev = 0;
-
+  static uint32_t dataExtClkCountMonPrev= 0;
+  
   char buffer[100];
 
   if (loopCount % 100 == 0) {
@@ -904,16 +905,6 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataGpsPpsCaptureTickPrev = dataGpsPpsCaptureTick;
   }
-
-#if 1 // handle AUX stuff 
-  
-  if (dataAuxMonCaptureTick != dataAuxMonCaptureTickPrev ) {
-    snprintf(buffer, sizeof(buffer), "   Aux Mon: %lu \r\n", dataAuxMonCapture  );
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    dataAuxMonCaptureTickPrev = dataAuxMonCaptureTick;
-  }
-
-#endif
   
   if (gpsTimeTick != gpsTimeTickPrev) {
     snprintf(buffer, sizeof(buffer), "   gps time: %s UTC\r\n", gpsTime);
@@ -921,15 +912,22 @@ void blinkRun() {
     gpsTimeTickPrev = gpsTimeTick;
   }
 
-#if 1  // TODO
+#if 0  // TODO
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
-    uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
-    int32_t err = dataExtClkCountTick - dataExtClkCountTickOffset -
-                  dataExtClkCount * 1000l;
-    snprintf(buffer, sizeof(buffer), "   time: %ld s %ld ms err: %ld ms\r\n",
-             dataExtClkCount, val, err);
+    snprintf(buffer, sizeof(buffer), "   ext time: %ld s\r\n",
+             dataExtClkCount );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataExtClkCountTickPrev = dataExtClkCountTick;
+  }
+#endif
+
+#if 1 // handle AUX stuff 
+  if ( (dataAuxMonCaptureTick != dataAuxMonCaptureTickPrev ) && ( dataExtClkCount != dataExtClkCountMonPrev ) )  {
+    snprintf(buffer, sizeof(buffer), "   Aux Mon: external time %lu S %lu.%lu uS\r\n",
+             dataExtClkCount,dataAuxMonCapture/10 , dataAuxMonCapture%10 );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    dataAuxMonCaptureTickPrev = dataAuxMonCaptureTick;
+    dataExtClkCountMonPrev = dataExtClkCount;
   }
 #endif
 
