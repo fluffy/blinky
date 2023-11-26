@@ -98,7 +98,7 @@ CH1 is disabled if ETR is in use
 
 * Use 32 bit timer 5
 * max 42 Mhz
-`* ETR:
+* ETR:
 * CH1: PA0 - AUX_CLK
 * CH2:  PA1 - GPS 
 * CH3: PA2 - AUX_MON
@@ -117,7 +117,7 @@ CH1 is disabled if ETR is in use
 * 8 KHz period ( 1000 count ) 
 * trigger out to DAC2
 
-### TImer 8 - used to time LCT
+### TImer 8 - used to time LTC 
 
 * has SYCN_IN2 on CH1 
 * reset on main 
