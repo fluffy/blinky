@@ -102,10 +102,12 @@ CH1 is disabled if ETR is in use
 * CH1: PA0 - AUX_CLK
 * CH2:  PA1 - GPS 
 * CH3: PA2 - AUX_MON
-* Ch4: PA4  - NO 
+* Ch4: PA4  - no 
 
-* clocked with ETR from external 10 MHz
-* captures something to link this to Main timer
+CH1 ends up feeding clock.  Capture the Captures both edges of external
+so ends up at couting at 20 MHz. The SyncMon capture time allows this to
+be coorelated with the other main clock. 
+
 * capture SyncMon
 * capture GPS PPS
 * capture SyncIn
