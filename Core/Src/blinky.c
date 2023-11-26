@@ -806,8 +806,9 @@ void blinkRun() {
       detectGetMlpTime(&mltTime, &mlpVal);
 
       if (mlpVal > 5000.0) {
-        snprintf(buffer, sizeof(buffer), "    Audio %ld ms vaL=%d \r\n",
-                 capture2uS(mltTime) / 1000, (int)mlpVal);
+        const int audioPulseLenMs = 100; // TODO 
+        snprintf(buffer, sizeof(buffer), "   Audio delay: %d ms\r\n",
+                 captureDeltaUs(mltTime, dataMonCapture) / 1000  - audioPulseLenMs );
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
 
