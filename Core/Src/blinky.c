@@ -82,9 +82,6 @@ typedef struct {
   int16_t  oscAdj; // offset for intenal oscilator counter   
   uint16_t vcoValue; // value loaded in DAC for VCO
   uint8_t  extOscType; // external osc type ( 2= 2.048 MHz, 10=10 MHz, 0=Internal ) )
-
-  uint8_t zeroPad1; // keep size of struct multiple of 32 bits
-  uint8_t checkSum; // simple xor of data before this. 
 } Config;
 static Config config;
 
@@ -576,15 +573,12 @@ void blinkSetup() {
       config.product = 2; 
       config.revMajor = 0;
       config.revMinor = 8;
-      config.serialNum = 4;
+      config.serialNum = 5;
 
-      config.oscAdj = 0;
-      config.extOscType = 10;
-      config.vcoValue = 3250;
+      config.extOscType = 0;
+      config.oscAdj = -658 ;
+      config.vcoValue = 2000;
 
-      config.zeroPad1 = 0; 
-      config.checkSum = 0;
-      
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1,
                                  eepromMemAddr, sizeof(eepromMemAddr),
                                  (uint8_t *)&config, (uint16_t)sizeof(config),
@@ -614,7 +608,8 @@ void blinkSetup() {
     }
 
     // config.vcoValue = 111; // TODO remove - test time drift
-      
+    // config.oscAdj = -658 ; // TODO remove 
+    
     if ( (config.version < 1) || ( config.version > 10 )  ) {
       snprintf(buffer, sizeof(buffer), "EEProm not initalized: %d \r\n",config.version );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
