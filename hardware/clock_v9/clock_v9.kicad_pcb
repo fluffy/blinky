@@ -7,8 +7,8 @@
   (paper "A4")
   (title_block
     (title "Clock")
-    (date "2023-11-15")
-    (rev "V8")
+    (date "2023-12-02")
+    (rev "V9.0")
     (company "Cullen Jennings")
   )
 
@@ -10744,7 +10744,7 @@
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp 8aa9d187-0635-4a26-b810-4c667cc9e989))
   (gr_line (start 95 38) (end 95 130)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp f710403a-f799-429d-9e51-1ed631a07644))
-  (gr_text "Cullen Jennings Clock Rev 8.0	\n" (at 162.4 128.7) (layer "F.SilkS") (tstamp 0442abe3-b6f1-4db1-b42d-556674de7dba)
+  (gr_text "Cullen Jennings Clock Rev 9.0	\n" (at 162.4 128.7) (layer "F.SilkS") (tstamp 0442abe3-b6f1-4db1-b42d-556674de7dba)
     (effects (font (size 1.5 1.2) (thickness 0.15)) (justify left bottom))
   )
   (gr_text "3.3V\n" (at 178.334387 118.358361) (layer "F.SilkS") (tstamp 4056fa96-e9ba-4e45-be71-80be3dc098cf)
