@@ -5658,7 +5658,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 1efe70ca-c796-48b4-822d-634fa1f6ee1d)
   )
-  (label "SYNC_IN2" (at 207.01 71.12 180) (fields_autoplaced)
+  (label "AUX_SYNC_IN" (at 207.01 71.12 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 244356aa-307b-4ba9-9241-1499179342cb)
   )
@@ -6083,7 +6083,7 @@
     (uuid fbf81cfd-4ea9-4c62-8b26-d2184b5931ca)
   )
 
-  (global_label "SYNC_IN2" (shape input) (at 287.02 217.17 0) (fields_autoplaced)
+  (global_label "AUX_SYNC_IN" (shape input) (at 287.02 217.17 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid c72a5b2c-1495-4dcd-b911-0627ff52d238)
     (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 298.9368 217.17 0)
