@@ -206,5 +206,13 @@ History grom from 1 s - 20 ns to 1 s+20 ns, 40 bins
 On the 2.048 Mhz VCO, will need to adjust pot to get in range. 30 degree
 turn made huge difference. 
 
+# ESD 
+
+The SN74LVC1G14 provide ESD protection. The USB has pretection with
+the TODO chip. The AD8397 for audio ciricuits on blink board have no
+protection on current design. The ADA4807 on clock board have no
+protection. The power input on clock board has no protection. 
+
+
 
 # TODO
