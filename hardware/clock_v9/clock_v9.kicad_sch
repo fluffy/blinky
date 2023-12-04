@@ -6898,6 +6898,14 @@
     )
   )
 
+  (netclass_flag "" (length 2.54) (shape rectangle) (at 297.18 156.21 0) (fields_autoplaced)
+    (effects (font (size 2 2)) (justify left bottom))
+    (uuid 84432f3e-a546-4e40-8040-5c51b2827f80)
+    (property "Netclass" "Analog" (at 298.496 153.67 0)
+      (effects (font (size 1.27 1.27) italic) (justify left))
+    )
+  )
+
   (symbol (lib_id "power:+5V") (at 78.74 171.45 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 00305a9a-c11b-4ad6-9ce1-825b95966b38)
