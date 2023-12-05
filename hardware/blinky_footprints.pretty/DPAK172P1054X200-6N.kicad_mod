@@ -1,7 +1,7 @@
 (footprint "DPAK172P1054X200-6N" (version 20221018) (generator pcbnew)
   (layer "F.Cu")
   (attr smd)
-  (fp_text reference "REF**" (at -2.77 -5.8825) (layer "F.SilkS")
+  (fp_text reference "REF**" (at -2.77 -5.8825) (layer "F.SilkS") hide
       (effects (font (size 1 1) (thickness 0.15)))
     (tstamp 329e0cb6-e2d6-4c6d-a33a-5d165475ac36)
   )
