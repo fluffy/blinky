@@ -514,12 +514,16 @@
     },
     "netclass_patterns": [
       {
-        "netclass": "Default",
+        "netclass": "Analog",
         "pattern": "/Vadj"
       },
       {
-        "netclass": "Default",
+        "netclass": "Digital",
         "pattern": "/BOOT0"
+      },
+      {
+        "netclass": "Default",
+        "pattern": ""
       }
     ]
   },
