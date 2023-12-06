@@ -1993,8 +1993,8 @@
       (net 26 "GND") (pinfunction "Pin_2") (pintype "passive") (tstamp 41e1ef59-b3be-44df-887a-f1b6306ad2f2))
     (pad "3" smd roundrect (at 2 -2.85 270) (size 1 3.5) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25)
       (net 38 "/SWDCLK") (pinfunction "Pin_3") (pintype "passive") (tstamp b48710ff-5d6a-494b-9bfd-7b0a6b22ac18))
-    (pad "MP" smd roundrect (at -4.35 2.9 270) (size 1.5 3.4) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.166667) (tstamp e66f7665-e5d6-483a-bd84-d7a2e564758b))
-    (pad "MP" smd roundrect (at 4.35 2.9 270) (size 1.5 3.4) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.166667) (tstamp 4ca6898d-a12a-47e8-8afe-6ec826529482))
+    (pad "MP" smd roundrect (at -4.35 2.9 270) (size 1.5 3.4) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.1666673333) (tstamp e66f7665-e5d6-483a-bd84-d7a2e564758b))
+    (pad "MP" smd roundrect (at 4.35 2.9 270) (size 1.5 3.4) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.1666673333) (tstamp 4ca6898d-a12a-47e8-8afe-6ec826529482))
     (model "${KICAD6_3DMODEL_DIR}/Connector_JST.3dshapes/JST_PH_S3B-PH-SM4-TB_1x03-1MP_P2.00mm_Horizontal.wrl"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
