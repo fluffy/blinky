@@ -46,4 +46,9 @@
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 0))
   )
+  (model "/Users/fluffy/src/blinky/hardware/blinky_footprints.pretty/LC1258OASP.step"
+    (offset (xyz -0 -2.5 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
 )
