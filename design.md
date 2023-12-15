@@ -221,7 +221,10 @@ Buttons controll the varios modes.
 Sync button causes it to sync to an input. If it has GPS then use
 that, otherwise if have sync in, use that. 
 
-Display button moves between: blink, audio latency, off 
+Display button moves between: blink fast, blink slow, audio latency,
+off 
+
+TODO - how to display what mode it is in ????
 
 Mute button moves between: rx only, rx & tx 
 
