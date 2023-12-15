@@ -102,8 +102,10 @@ volatile uint32_t debugDacCpltCount = 0;
 volatile uint32_t debugDacTimerCnt = 0;
 volatile uint32_t debugAdcTimerCnt = 0;
 
-uint8_t blinkMute = 0;
-uint8_t blinkBlank = 0;
+uint8_t blinkMute = 0;  // mutes audio outout 
+uint8_t blinkBlank = 0;  // causes LED to be off
+uint8_t blinkDispAudio = 0; // caused audio latency to be displayed on LED
+
 
 uint32_t dataSyncCapture;
 uint32_t dataSyncCaptureTick;
@@ -270,13 +272,22 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if ( ledMs >= 1000) {
       ledMs -= 1000;
     }
-  
     int16_t binCount =  (ledMs/100)%10;  // 2.5 ms
 
+    if ( blinkDispAudio ) {
+      // TODO 
+    }
+    
+    int row = 5 - (ledMs / 2 ) % 5 ; // 2 ms across
+    int col = 10 - (ledMs / 10) % 10; // 10 ms down
+    
+    if ( blinkBlank ) {
+      binCount = 0x1000;
+      row=255;
+      col=255;
+    }
+    
     if (1) {
-      int row = 5 - (ledMs / 2 ) % 5 ; // 2 ms across
-      int col = 10 - (ledMs / 10) % 10; // 10 ms down 
-      
       HAL_GPIO_WritePin(NCOL1_GPIO_Port, NCOL1_Pin,
                         (col == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(NCOL2_GPIO_Port, NCOL2_Pin,
@@ -421,10 +432,12 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
 
+      if ( !blinkMute ) {
       // start audio output
       HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
                         dacBufferLen,  //  dacBufferlen is in 32 bit words
                         DAC_ALIGN_12B_R);
+      }
     }
   }
 }
