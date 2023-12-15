@@ -197,7 +197,7 @@ Max charges rate is 500 mA up to 4.1 V then drops off with m charges up
 to 4.2 V. This charge rate selected to not go over USB limit.  Using 820
 mAH battery. Current consumption of about 170 mA when *not* on battery.
 
-# Adjusting
+# Calibrating and Adjusting
 
 On frequency counter. On "internal setup" set timeout off.
 Noise Reject on, DC, 1M ohm, manual level 200 mV
@@ -209,10 +209,21 @@ turn made huge difference.
 # ESD 
 
 The SN74LVC1G14 provide ESD protection. The USB has pretection with
-the TODO chip. The AD8397 for audio ciricuits on blink board have no
+the TODO chip. The USB power CC1/2 power monitor circuits have no
+protection. The AD8397 for audio ciricuits on blink board have no
 protection on current design. The ADA4807 on clock board have no
-protection. The power input on clock board has no protection. 
+protection. The power input on clock board has no protection.
 
+# UI and Modes
 
+Buttons controll the varios modes. 
+
+Sync button causes it to sync to an input. If it has GPS then use
+that, otherwise if have sync in, use that. 
+
+Display button moves between: blink, audio latency, off 
+
+Mute button moves between: rx only, rx & tx 
 
 # TODO
+
