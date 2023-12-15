@@ -353,6 +353,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 #endif
 
   uint32_t tick = HAL_GetTick();
+  
   if (htim == &hTimeSync) {
     if (htim->Channel ==
         TimeSync_HAL_CH_SYNC_IN) {  // sync in falling edge. falling is rising
@@ -888,14 +889,14 @@ void blinkRun() {
 #endif
 
   if (dataSyncCaptureTick != dataSyncCaptureTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   in  delta: %d ms\r\n",
+    snprintf(buffer, sizeof(buffer), "   sync delta: %d ms\r\n",
              captureDeltaUs(dataSyncCapture, dataMonCapture) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
 
   if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   gps delta: %d ms\r\n",
+    snprintf(buffer, sizeof(buffer), "   gps  delta: %d ms\r\n",
              captureDeltaUs(dataGpsPpsCapture, dataMonCapture) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataGpsPpsCaptureTickPrev = dataGpsPpsCaptureTick;

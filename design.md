@@ -9,37 +9,33 @@ Mon refers to monitor of PPS
 
 ## Signals 
  
-- ExtIn 10 MHz input 
-- RefIn 10 Mhz OCXO input
-- ExtOut 10 MHz output from MCO 
+- ExtIn 10 MHz input on PA0
+- RefIn 10 Mhz OCXO input on PA15
  
-- SyncOut 1 pps output - inverts on on output buffer - PA8 on Timer #1 
-- SyncMon 1 pps in ( from SyncOut ) - 
-- SyncIn 1 pps input - inverts on buffer 
-- GpsIn 1 pps input 
+- PPS 1 pps output - inverts on on output buffer - PA8 on Timer #1 
+- Mon 1 pps in ( from PPS ) - PB11 & AUX PA2 
+- SyncIn 1 pps input - inverts on buffer  - PB3 and aux PC6
+- GpsIn 1 pps input - PB10 and aux PA1 
  
- On blink board 
+ On blink board:
  - AUX_CLK, AUX_GPS_PPS , GPS_RX, GPX_TX not used 
- 
  - CLK on PA15 is 2.048 Mhz signal 
  
  ## Timers 
  
 
-system clock or RefIn drives main 32 bit counter with overflow to 16
- bit 
+system clock or RefIn drives main 32 bit counter
  
-ExtIn drives aux 32 bit counter with 16 bit overflow. 
+ExtIn drives aux 32 bit counter 
  
 Main and aux count at 10 Mhz and wrap ever second. 
  
-Every timer can capture syncMon to provide sync of counters. Probably
-don't need for the secondary counter for main and aux
+Every timer can capture syncMon to provide sync of counters
  
 Main and Aux can capture 
  SyncMon, SyncIn, GpsIn 
  
-Main and Aux can generate SyncOut 
+Timer 1 can generate SyncOut and can sync to Main or Aux timer. 
 
 Display TImer drives LED and sync to main or aux rollover 
 * does this need to capture syncMon ???
@@ -52,10 +48,9 @@ This timer running at 168 Mhz input clock
 increments at 10KHz 
 does 20 ms wide output pulse every 1 second 
 Resets based on ITR1 from Tim2 Update Event (main) 
-TODO * tick rate to 50KHz
 * 16 bits 
 * sync off of timer 2
-* CH on PA8  - SYNC_OUT 
+TODO * tick rate to 50KHz 
 
 
 ### Main Timer #2 - hTimeSync (aka SyncIn/main)
@@ -63,7 +58,7 @@ TODO * tick rate to 50KHz
 * Use timer 2
 * max 42 Mhz 
 * 32 bits
-* clocked with ETR from main TCXO at 2.024 MHz 
+* clocked with ETR from main TCXO at 2.024 MHz or 10 MHz 
 * period of 1 second ( adjusted in software )
 * adjustment store in EEPROM
 
@@ -147,7 +142,7 @@ CH2 is audio out - PA5
 
 ## ADC
 
-* can use TIM 2,3,8
+* uses TIM 3
 
 # Interrupt Handling
 
@@ -165,7 +160,7 @@ on each Main SyncOut
 - in on, turn off, load syncOutOffset
 
 on each Aux SyncMon
-* save aux 32+16 bit timer in AuxSyncMon auxSeconds, auxMicroseconds
+* save aux 32 bit timer in AuxSyncMon auxSeconds
 
 On each Main Timer rollover
 * reset ms time and offset by syncOutOffset
