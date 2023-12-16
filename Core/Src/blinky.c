@@ -777,10 +777,20 @@ void blinkRun() {
 #if 1
   if (HAL_GPIO_ReadPin(BOOT1_GPIO_Port, BOOT1_Pin)) {
     if (!button3WasPressed) {
-      blinkBlank = (blinkBlank) ? 0 : 1;
+     
+      if ( blinkBlank ) {
+	blinkDispAudio=1; blinkBlank=0;
+      }
+      else if ( blinkDispAudio ) {
+	blinkDispAudio=0; blinkBlank=0;
+      }
+      else {
+	blinkDispAudio=0; blinkBlank=1;
+      }
+      
 
-      snprintf(buffer, sizeof(buffer), "Button 3 press. Blank=%d \r\n",
-               (int)blinkBlank);
+      snprintf(buffer, sizeof(buffer), "Button 3 press. Blank=%d dispAudio=%d\r\n",
+               (int)blinkBlank, (int)blinkDispAudio );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
     button3WasPressed = 1;
