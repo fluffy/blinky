@@ -126,6 +126,8 @@ int32_t dataExtClkCountTickOffset;
 uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut;
 
+int32_t blinkAudioDelayMs;
+
 // dacBuffer has 20 point sin wave center on 1000 with amplitude 500
 const int dacBufferLen = 20;
 uint32_t dacBuffer[] = {1000, 1155, 1294, 1405, 1476, 1500, 1476,
@@ -269,15 +271,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
    
     int32_t ledMs =  ledUs / 1000l;
 
+    if ( blinkDispAudio ) {
+      ledMs = blinkAudioDelayMs;
+    }
+    
+
     if ( ledMs >= 1000) {
       ledMs -= 1000;
     }
     int16_t binCount =  (ledMs/100)%10;  // 2.5 ms
 
-    if ( blinkDispAudio ) {
-      // TODO 
-    }
-    
     int row = 5 - (ledMs / 2 ) % 5 ; // 2 ms across
     int col = 10 - (ledMs / 10) % 10; // 10 ms down
     
@@ -888,10 +891,18 @@ void blinkRun() {
       detectGetMlpTime(&mltTime, &mlpVal);
 
       if (mlpVal > 5000.0) {
-        const int audioPulseLenMs = 100; // TODO 
+        const int audioPulseLenMs = 100; // TODO
+	blinkAudioDelayMs = captureDeltaUs(mltTime, dataMonCapture) / 1000  - audioPulseLenMs;
+	if ( blinkAudioDelayMs < 0 ) {
+	  blinkAudioDelayMs += 1000;
+	}
+	
         snprintf(buffer, sizeof(buffer), "   Audio delay: %d ms\r\n",
-                 captureDeltaUs(mltTime, dataMonCapture) / 1000  - audioPulseLenMs );
+		 (int) blinkAudioDelayMs );
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      }
+      else {
+	blinkAudioDelayMs = 0;
       }
 
 #if 0
