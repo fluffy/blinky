@@ -63,6 +63,7 @@ extern UART_HandleTypeDef huart3;
 
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
+#define TimeLtc_HAL_CH_SYNC_IN2 HAL_TIM_ACTIVE_CHANNEL_1
 
 // Uses Semantic versioning https://semver.org/
 // major.minor.patch,
@@ -109,6 +110,8 @@ uint8_t blinkDispAudio = 0; // caused audio latency to be displayed on LED
 
 uint32_t dataSyncCapture;
 uint32_t dataSyncCaptureTick;
+uint32_t dataLtcCapture;
+uint32_t dataLtcCaptureTick;
 uint32_t dataMonCapture;
 uint32_t dataMonCaptureTick;
 uint32_t dataGpsPpsCapture;
@@ -124,7 +127,7 @@ uint32_t dataExtClkCountTick;
 int32_t dataExtClkCountTickOffset;
 
 uint16_t dataNextSyncOutPhase;
-uint16_t dataCurrentPhaseSyncOut;
+uint16_t dataCurrentPhaseSyncOut; // TODO change PhaseSyncOut to SyncOutPhase
 
 int32_t blinkAudioDelayMs;
 
@@ -144,6 +147,7 @@ char gpsTime[7];  // This will have ASCII chars 123456 to indicate time is
 uint32_t gpsTimeTick;
 
 LtcTransitionSet ltcSendTransitions;
+LtcTransitionSet ltcRecvTransitions;
 
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
@@ -370,6 +374,25 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 #endif
 
   uint32_t tick = HAL_GetTick();
+
+#if 1
+  // LTC Stuff
+  if (htim == &hTimeLtc) {
+    if (htim->Channel == TimeLtc_HAL_CH_SYNC_IN2)  {  // sync on both edges
+      uint32_t val;
+      val = HAL_TIM_ReadCapturedValue(htim, TimeLtc_CH_SYNC_IN2 );
+      ltcRecvTransitions.transitionTime[ltcRecvTransitions.numTransitions++] = val * 100l; // convert to uSec
+
+      dataLtcCapture = val;
+      dataLtcCaptureTick = tick;
+      
+      if ( ltcRecvTransitions.numTransitions >= ltcMaxTransitions ) {
+	ltcRecvTransitions.numTransitions = 0;
+      }
+    }
+  }
+#endif
+
   
   if (htim == &hTimeSync) {
     if (htim->Channel ==
@@ -496,9 +519,11 @@ void blinkInit() {
   ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
   ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 1200l ; // send 0 
   ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 1200l ; // send 0   
-  ltcSendTransitions.transitionTime[n]=t; // send final   
+  ltcSendTransitions.transitionTime[n++]=t; // send final   
   ltcSendTransitions.numTransitions=n;
   ltcSendTransitions.nextTransition=0;
+
+  ltcRecvTransitions.numTransitions = 0;
 }
 
 int captureDeltaUs(uint32_t pps, uint32_t mon) {
@@ -705,6 +730,16 @@ void blinkSetup() {
   HAL_TIM_IC_Start_IT(&hTimeSync,
                       TimeSync_CH_GPS_PPS);  // start gps pps capture
 
+#if 1
+  // start LTC timer
+   HAL_TIM_Base_Start_IT(&hTimeLtc);
+
+   HAL_TIM_IC_Start_IT(&hTimeLtc,
+		       TimeLtc_CH_SYNC_IN2);  // start sync in capture
+  
+#endif
+  
+
 #if 1 
   HAL_TIM_Base_Start_IT(&hTimeAux);
 
@@ -768,6 +803,7 @@ void blinkRun() {
   static char button3WasPressed = 0;
 
   static uint32_t dataSyncCaptureTickPrev = 0;
+  static uint32_t dataLtcCaptureTickPrev = 0;
   static uint32_t dataExtClkCountTickPrev = 0;
   static uint32_t dataGpsPpsCaptureTickPrev = 0;
   static uint32_t dataAuxMonCaptureTickPrev = 0; 
@@ -963,6 +999,25 @@ void blinkRun() {
              captureDeltaUs(dataSyncCapture, dataMonCapture) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
+  }
+
+   if (dataLtcCaptureTick != dataLtcCaptureTickPrev) {
+    snprintf(buffer, sizeof(buffer), "   LTC num: %d\r\n",
+           ltcRecvTransitions.numTransitions );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    
+    int stop = ltcRecvTransitions.numTransitions;
+    if ( stop > 5 ) {
+      int start = stop-5;
+      for ( int i=start; i< stop-1 ; i++ ) {
+	 snprintf(buffer, sizeof(buffer), "   LTC delta: %lu\r\n",
+           ltcRecvTransitions.transitionTime[i+1]-ltcRecvTransitions.transitionTime[i] );
+	 HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      }
+    }
+    
+
+    dataLtcCaptureTickPrev = dataLtcCaptureTick;
   }
 
   if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {

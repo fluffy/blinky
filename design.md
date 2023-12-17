@@ -118,7 +118,7 @@ be coorelated with the other main clock.
 
 ### TImer 8 - used to time LTC 
 
-* has SYCN_IN2 on CH1 
+* has SYCN_IN2 on CH1 on PC6 
 * reset on main 
 * 10 KHz rate 
 
