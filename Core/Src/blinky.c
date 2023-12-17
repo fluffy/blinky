@@ -102,8 +102,8 @@ volatile uint32_t debugDacCpltCount = 0;
 volatile uint32_t debugDacTimerCnt = 0;
 volatile uint32_t debugAdcTimerCnt = 0;
 
-uint8_t blinkMute = 0;  // mutes audio outout 
-uint8_t blinkBlank = 0;  // causes LED to be off
+uint8_t blinkMute = 1;  // mutes audio outout 
+uint8_t blinkBlank = 1;  // causes LED to be off
 uint8_t blinkDispAudio = 0; // caused audio latency to be displayed on LED
 
 
