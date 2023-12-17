@@ -276,14 +276,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (ledUs < 0) {
       ledUs += 1000000l;
     }
-   
+    if (ledUs >= 1000000l) {
+      ledUs -= 1000000l;
+    }
     int32_t ledMs =  ledUs / 1000l;
 
     if ( blinkDispAudio ) {
       ledMs = blinkAudioDelayMs;
     }
     
-
     if ( ledMs >= 1000) {
       ledMs -= 1000;
     }
