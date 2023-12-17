@@ -130,6 +130,7 @@ uint16_t dataNextSyncOutPhase;
 uint16_t dataCurrentPhaseSyncOut; // TODO change PhaseSyncOut to SyncOutPhase
 
 int32_t blinkAudioDelayMs;
+const uint32_t blinkAudioPulseWidthMs = 100;
 
 // dacBuffer has 20 point sin wave center on 1000 with amplitude 500
 const int dacBufferLen = 20;
@@ -451,7 +452,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
   
   if ( n == ltcSendTransitions.numTransitions) {
     // add in a compare at pulse with time with no outptu state change
-     uint32_t v = dataCurrentPhaseSyncOut + 100 * 10; // convert uS to 10 KHz timer time - TODO define audio pulse with
+     uint32_t v = dataCurrentPhaseSyncOut + blinkAudioPulseWidthMs * 10; // convert uS to 10 KHz timer time
     
     if ( v >= 10000 ) {
       v-= 10000;
@@ -500,7 +501,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
     } else {  // val == dataCurrentPhaseSyncOut
       // start of output pulse just started, set up for the end of pulse
-      val = dataCurrentPhaseSyncOut + 100 * 10;  // 100 ms wide pulse - TODO define len in single var 
+      val = dataCurrentPhaseSyncOut + blinkAudioPulseWidthMs * 10;  
       if (val >= 10000) {
         val -= 10000;
       }
