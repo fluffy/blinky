@@ -764,11 +764,9 @@ void blinkSetup() {
    HAL_TIM_Base_Start_IT(&hTimeLtc);
 
    HAL_TIM_IC_Start_IT(&hTimeLtc,
-		       TimeLtc_CH_SYNC_IN2);  // start sync in capture
-  
+		       TimeLtc_CH_SYNC_IN2);  // start sync in capture  
 #endif
   
-
 #if 1 
   HAL_TIM_Base_Start_IT(&hTimeAux);
 
@@ -778,8 +776,7 @@ void blinkSetup() {
    HAL_TIM_IC_Start_IT(&hTimeAux,
                        TimeAux_CH_GPS_PPS);  // start gps pps capture on aux 
 #endif
-   
-   
+    
   // set LED to on but not sync ( yellow, not green )
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
                     GPIO_PIN_SET);  // turn on yellow assert LED
@@ -808,7 +805,7 @@ void blinkSetup() {
   HAL_TIM_Base_Start_IT(&hTimeDAC);
 #endif
 
-#if 1  // TODO
+#if 1  
   // DMA for ADC
   HAL_ADC_Start_DMA(&hADC, adcBuffer, adcBufferLen);
 
@@ -986,7 +983,7 @@ void blinkRun() {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
 
     if (val <
-        prevVal) {  // 1 second loop  // TODO - is this comparison backwards
+        prevVal) {  // 1 second loop  
       float mlpVal;
       uint32_t mltTime;
       detectGetMlpTime(&mltTime, &mlpVal);
@@ -1030,25 +1027,33 @@ void blinkRun() {
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
 
-   if (dataLtcCaptureTick != dataLtcCaptureTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   LTC num: %d\r\n",
-           ltcRecvTransitions.numTransitions );
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    
-    int stop = ltcRecvTransitions.numTransitions;
-    if ( stop > 5 ) {
-      int start = stop-5;
-      for ( int i=start; i< stop-1 ; i++ ) {
-	 snprintf(buffer, sizeof(buffer), "   LTC delta: %lu\r\n",
-           ltcRecvTransitions.transitionTime[i+1]-ltcRecvTransitions.transitionTime[i] );
-	 HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#if 1
+  uint32_t tick = HAL_GetTick();
+  if ( dataLtcCaptureTick + 100 /*ms*/ < tick ) { // been 100 ms since lask Ltc transition
+    if (dataLtcCaptureTick != dataLtcCaptureTickPrev) {
+      snprintf(buffer, sizeof(buffer), "   LTC num: %d\r\n",
+	       ltcRecvTransitions.numTransitions );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      
+      int stop = ltcRecvTransitions.numTransitions;
+      if ( stop > 5 ) {
+	int start = stop-5;
+	for ( int i=start; i< stop-1 ; i++ ) {
+	  snprintf(buffer, sizeof(buffer), "   LTC delta: %lu\r\n",
+		   ltcRecvTransitions.transitionTime[i+1]-ltcRecvTransitions.transitionTime[i] );
+	  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+	}
       }
+      dataLtcCaptureTickPrev = dataLtcCaptureTick;
+
+      // TODO - process LTC transition data
+
+      ltcRecvTransitions.numTransitions = 0; // reset ltc capture for next cycle 
     }
-    
-
-    dataLtcCaptureTickPrev = dataLtcCaptureTick;
   }
+#endif
 
+#if 1
   if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   gps  delta: %d ms\r\n",
              captureDeltaUs(dataGpsPpsCapture, dataMonCapture) / 1000);
@@ -1061,6 +1066,7 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     gpsTimeTickPrev = gpsTimeTick;
   }
+#endif
 
 #if 1  // TODO
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
