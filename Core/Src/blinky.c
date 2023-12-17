@@ -438,11 +438,40 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
 #if 1 // DO LTC
-  // TODO start and stop audio DMA - see old code bellow
+  uint16_t n=ltcSendTransitions.nextTransition++;
 
-  uint16_t n=ltcSendTransitions.nextTransition; 
+  if ( n == 1 ) {
+    if ( !blinkMute ) {
+      // start audio output
+      HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
+                        dacBufferLen,  //  dacBufferlen is in 32 bit words
+                        DAC_ALIGN_12B_R);
+    }
+  }
+  
+  if ( n == ltcSendTransitions.numTransitions) {
+    // add in a compare at pulse with time with no outptu state change
+     uint32_t v = dataCurrentPhaseSyncOut + 100 * 10; // convert uS to 10 KHz timer time - TODO define audio pulse with
+    
+    if ( v >= 10000 ) {
+      v-= 10000;
+    }
+    
+    __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, v ); 
+      LL_TIM_OC_SetMode( TIM1, TimePps_LL_CH_SYNC_OUT,
+			 ( (n-1)%2) ? LL_TIM_OCMODE_INACTIVE : LL_TIM_OCMODE_ACTIVE );  // inverted due to inverting output buffer	
+  }
+   
+  if ( n > ltcSendTransitions.numTransitions) {
+    ltcSendTransitions.nextTransition  = 1; // restart
+    n=0;
+    dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
+
+    // stop audio n
+    HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);  
+  }
+    
   if ( n < ltcSendTransitions.numTransitions) {
-
     uint32_t v = ltcSendTransitions.transitionTime[n] / 100 + dataCurrentPhaseSyncOut; // convert uS to 10 KHz timer time 
     
     if ( v >= 10000 ) {
@@ -453,13 +482,6 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
     LL_TIM_OC_SetMode( TIM1, TimePps_LL_CH_SYNC_OUT,
 		       (n%2) ? LL_TIM_OCMODE_INACTIVE : LL_TIM_OCMODE_ACTIVE );  // inverted due to inverting output buffer
     
-    ltcSendTransitions.nextTransition++;
-
-    if ( ltcSendTransitions.nextTransition >= ltcSendTransitions.numTransitions ) {
-      ltcSendTransitions.nextTransition  = 0; // restart
-      dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
-      
-    }
   }
   
 #else // OLD non LTC 
