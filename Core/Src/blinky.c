@@ -7,6 +7,7 @@
 #include "blink.h"
 #include "detect.h"
 #include "main.h"
+#include "ltc.h"
 
 extern ADC_HandleTypeDef hadc1;
 
@@ -141,6 +142,9 @@ uint8_t gpsBufLen = 0;
 char gpsTime[7];  // This will have ASCII chars 123456 to indicate time is
                   // 12:34:56 UTC
 uint32_t gpsTimeTick;
+
+LtcTransitionSet ltcSendTransitions;
+
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
   if (huart == &hUartGps) {
@@ -410,6 +414,21 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 }
 
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
+#if 1 // DO LTC
+  // TODO start and stop audio DMA - see old code bellow
+
+  uint16_t n=ltcSendTransitions.nextTransition; 
+  if ( n < ltcSendTransitions.numTransitions) {
+  
+    __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT,
+			  ltcSendTransitions.transitionTime[n] );
+    LL_TIM_OC_SetMode( TIM1, TimePps_LL_CH_SYNC_OUT,
+		       (n%2) ? LL_TIM_OCMODE_INACTIVE : LL_TIM_OCMODE_ACTIVE );  // inverted due to inverting output buffer
+    
+    ltcSendTransitions.nextTransition++;
+  }
+  
+#else // OLD non LTC 
   if (htim == &hTimePps) {
     uint16_t val = __HAL_TIM_GET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT);
     if (val != dataCurrentPhaseSyncOut) {
@@ -425,7 +444,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
     } else {  // val == dataCurrentPhaseSyncOut
       // start of output pulse just started, set up for the end of pulse
-      val = dataCurrentPhaseSyncOut + 100 * 10;  // 100 ms wide pulse
+      val = dataCurrentPhaseSyncOut + 100 * 10;  // 100 ms wide pulse - TODO define len in single var 
       if (val >= 10000) {
         val -= 10000;
       }
@@ -442,6 +461,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       }
     }
   }
+#endif
 }
 
 void blinkInit() {
@@ -461,6 +481,18 @@ void blinkInit() {
   memset(gpsTime, 0, sizeof(gpsTime));
    
   detectInit(adcBufferLen);
+
+  // 1 is sent and 2400 Hz in microsecods, 0 is 1200 Hz 
+  uint32_t t=0;  uint16_t n=0;  ltcSendTransitions.numTransitions=0; 
+  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
+  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
+  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
+  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
+  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 1200l ; // send 0 
+  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 1200l ; // send 0   
+  ltcSendTransitions.transitionTime[n]=t; // send final   
+  ltcSendTransitions.numTransitions=n;
+  ltcSendTransitions.nextTransition=0;
 }
 
 int captureDeltaUs(uint32_t pps, uint32_t mon) {
@@ -678,7 +710,7 @@ void blinkSetup() {
 #endif
    
    
-  // set LED to on but not sync ( yellow, not greeen )
+  // set LED to on but not sync ( yellow, not green )
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
                     GPIO_PIN_SET);  // turn on yellow assert LED
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
@@ -692,7 +724,6 @@ void blinkSetup() {
 
 #if 1
   // DMA for Audio Out DAC
-
   HAL_StatusTypeDef err;
   err = HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
                           dacBufferLen,  //  dacBufferlen is in 32 bit words
@@ -884,7 +915,7 @@ void blinkRun() {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
 
     if (val <
-        prevVal) {  // 1 second loop  // TODO - this this comparison backwards
+        prevVal) {  // 1 second loop  // TODO - is this comparison backwards
       float mlpVal;
       uint32_t mltTime;
       detectGetMlpTime(&mltTime, &mlpVal);

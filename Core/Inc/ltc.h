@@ -1,4 +1,6 @@
 
+#include <stdint.h>
+
 #if 0
 
 class LTC;
@@ -48,7 +50,9 @@ class TimeCode {
   uint8_t frame;
   uint8_t valid;
 };
+#endif
 
+#if 0
 class TransitionSet {
   // circular buffer that holds 80 bits worth of transitions
  public:
@@ -71,7 +75,18 @@ class TransitionSet {
   uint32_t time[maxTransitions];
   uint16_t numTransitions;
 };
+#endif
 
+enum {  ltcMaxTransitions = 80 * 2 + 1 }; // use enum to get const integer for array size 
+
+typedef struct {
+  uint32_t transitionTime[ltcMaxTransitions];
+  uint16_t numTransitions;
+  uint16_t nextTransition;
+} LtcTransitionSet;
+
+
+#if 0
 class LTC {
  public:
   LTC() { valid = 0; };
