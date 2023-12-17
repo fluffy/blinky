@@ -421,11 +421,17 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
   if ( n < ltcSendTransitions.numTransitions) {
   
     __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT,
-			  ltcSendTransitions.transitionTime[n] );
+			  ltcSendTransitions.transitionTime[n] / 100 ); // convers uS to 10 KHz timer time 
     LL_TIM_OC_SetMode( TIM1, TimePps_LL_CH_SYNC_OUT,
 		       (n%2) ? LL_TIM_OCMODE_INACTIVE : LL_TIM_OCMODE_ACTIVE );  // inverted due to inverting output buffer
     
     ltcSendTransitions.nextTransition++;
+
+    if (1) { // TODO remove ???
+      if ( ltcSendTransitions.nextTransition >= ltcSendTransitions.numTransitions ) {
+	ltcSendTransitions.nextTransition  = 0; // restart 
+      }
+    }
   }
   
 #else // OLD non LTC 
@@ -482,7 +488,7 @@ void blinkInit() {
    
   detectInit(adcBufferLen);
 
-  // 1 is sent and 2400 Hz in microsecods, 0 is 1200 Hz 
+  // 1 is sent and 2400 baud in microsecods, 0 is twice as long 
   uint32_t t=0;  uint16_t n=0;  ltcSendTransitions.numTransitions=0; 
   ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
   ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
