@@ -442,18 +442,23 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
 
   uint16_t n=ltcSendTransitions.nextTransition; 
   if ( n < ltcSendTransitions.numTransitions) {
-  
-    __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT,
-			  ltcSendTransitions.transitionTime[n] / 100 ); // convers uS to 10 KHz timer time 
+
+    uint32_t v = ltcSendTransitions.transitionTime[n] / 100 + dataCurrentPhaseSyncOut; // convert uS to 10 KHz timer time 
+    
+    if ( v >= 10000 ) {
+      v-= 10000;
+    }
+    
+    __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, v ); 
     LL_TIM_OC_SetMode( TIM1, TimePps_LL_CH_SYNC_OUT,
 		       (n%2) ? LL_TIM_OCMODE_INACTIVE : LL_TIM_OCMODE_ACTIVE );  // inverted due to inverting output buffer
     
     ltcSendTransitions.nextTransition++;
 
-    if (1) { // TODO remove ???
-      if ( ltcSendTransitions.nextTransition >= ltcSendTransitions.numTransitions ) {
-	ltcSendTransitions.nextTransition  = 0; // restart 
-      }
+    if ( ltcSendTransitions.nextTransition >= ltcSendTransitions.numTransitions ) {
+      ltcSendTransitions.nextTransition  = 0; // restart
+      dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
+      
     }
   }
   
