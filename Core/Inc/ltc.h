@@ -30,29 +30,6 @@ void LtcTransitionSetAdd(LtcTransitionSet* set, uint32_t timeUs);
 uint16_t LtcTransitionSetSize(LtcTransitionSet* set);
 uint32_t LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i);
 
-#if 0
-class LTC {
- public:
-  LTC() { valid = 0; };
-  LTC(const TimeCode& time) {
-    set(time);
-    valid = 1;
-  };
-
-  void set(const TimeCode& time);
-  void get(TimeCode& time);
-
-  void encode(TransitionSet& tSet, uint8_t fps = 30);
-  void decode(const TransitionSet& tSet, uint8_t fps = 30);
-
- private:
-  uint8_t bits[10]; // 80 bits total 
-  uint8_t parity();
-  uint8_t valid;
-};
-
-#endif
-
 typedef struct {
   uint8_t bits[10];  // 80 bits total
   uint8_t valid;
