@@ -80,7 +80,7 @@ class TransitionSet {
 enum {  ltcMaxTransitions = 80 * 2 + 1 }; // use enum to get const integer for array size 
 
 typedef struct {
-  uint32_t transitionTime[ltcMaxTransitions];
+  uint32_t transitionTimeUs[ltcMaxTransitions];
   uint16_t numTransitions;
   uint16_t nextTransition;
 } LtcTransitionSet;

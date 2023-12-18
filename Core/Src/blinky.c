@@ -383,7 +383,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     if (htim->Channel == TimeLtc_HAL_CH_SYNC_IN2)  {  // sync on both edges
       uint32_t val;
       val = HAL_TIM_ReadCapturedValue(htim, TimeLtc_CH_SYNC_IN2 );
-      ltcRecvTransitions.transitionTime[ltcRecvTransitions.numTransitions++] = val * 100l; // convert to uSec
+      ltcRecvTransitions.transitionTimeUs[ltcRecvTransitions.numTransitions++] = val * 100l; // convert to uSec
 
       dataLtcCapture = val;
       dataLtcCaptureTick = tick;
@@ -478,7 +478,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
   }
     
   if ( n < ltcSendTransitions.numTransitions) {
-    uint32_t v = ltcSendTransitions.transitionTime[n] / 100 + dataCurrentPhaseSyncOut; // convert uS to 10 KHz timer time 
+    uint32_t v = ltcSendTransitions.transitionTimeUs[n] / 100 + dataCurrentPhaseSyncOut; // convert uS to 10 KHz timer time 
     
     if ( v >= 10000 ) {
       v-= 10000;
@@ -546,13 +546,13 @@ void blinkInit() {
 
   // 1 is sent and 2400 baud in microsecods, 0 is twice as long 
   uint32_t t=0;  uint16_t n=0;  ltcSendTransitions.numTransitions=0; 
-  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
-  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
-  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
-  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 2400l ; // send 1 
-  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 1200l ; // send 0 
-  ltcSendTransitions.transitionTime[n++]=t; t += 1000000l / 1200l ; // send 0   
-  ltcSendTransitions.transitionTime[n++]=t; // send final   
+  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 2400l ; // send 1 
+  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 2400l ; // send 1 
+  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 2400l ; // send 1 
+  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 2400l ; // send 1 
+  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 1200l ; // send 0 
+  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 1200l ; // send 0   
+  ltcSendTransitions.transitionTimeUs[n++]=t; // send final   
   ltcSendTransitions.numTransitions=n;
   ltcSendTransitions.nextTransition=0;
 
@@ -1044,7 +1044,7 @@ void blinkRun() {
 	int start = stop-5;
 	for ( int i=start; i< stop-1 ; i++ ) {
 	  snprintf(buffer, sizeof(buffer), "   LTC delta: %lu\r\n",
-		   ltcRecvTransitions.transitionTime[i+1]-ltcRecvTransitions.transitionTime[i] );
+		   ltcRecvTransitions.transitionTimeUs[i+1]-ltcRecvTransitions.transitionTimeUs[i] );
 	  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 	}
       }
