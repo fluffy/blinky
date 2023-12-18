@@ -113,3 +113,8 @@ void audioStop(){
     HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
 }
 
+ void audioInit(){
+  detectInit(adcBufferLen);
+
+}
+ 

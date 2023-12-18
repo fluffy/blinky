@@ -128,11 +128,12 @@ uint16_t dataCurrentPhaseSyncOut;  // TODO change PhaseSyncOut to SyncOutPhase
 int32_t blinkAudioDelayMs;
 const uint32_t blinkAudioPulseWidthMs = 100;
 
+#if 0
 extern const int dacBufferLen; 
 extern uint32_t dacBuffer[];
 extern const int adcBufferLen; 
 extern uint32_t adcBuffer[];
-
+#endif
 
 const int gpsBufferLen = 20;
 uint8_t gpsBuffer[20];
@@ -515,7 +516,7 @@ void blinkInit() {
 
   blinkLocalSeconds = 0;
   
-  detectInit(adcBufferLen);
+  audioInit();
 
   LtcTransitionSetClear(&ltcSendTransitions);
   LtcTransitionSetClear(&ltcRecvTransitions);
