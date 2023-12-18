@@ -462,10 +462,10 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
     // add in a compare at pulse with time with no outptu state change
     uint32_t v =
         dataCurrentPhaseSyncOut +
-        blinkAudioPulseWidthMs * 10;  // convert uS to 10 KHz timer time
+        blinkAudioPulseWidthMs * 50;  // convert uS to 50 KHz timer time
 
-    if (v >= 10000) {
-      v -= 10000;
+    if (v >= 50000) {
+      v -= 50000;
     }
 
     __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, v);
@@ -486,11 +486,11 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
   }
 
   if (n < ltcSendTransitions.numTransitions) {
-    uint32_t v = ltcSendTransitions.transitionTimeUs[n] / 100 +
-                 dataCurrentPhaseSyncOut;  // convert uS to 10 KHz timer time
+    uint32_t v = ltcSendTransitions.transitionTimeUs[n] / 20 +
+                 dataCurrentPhaseSyncOut * 5 ;  // convert uS to 50 KHz timer time
 
-    if (v >= 10000) {
-      v -= 10000;
+    if (v >= 50000) {
+      v -= 50000;
     }
 
     __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, v);
@@ -517,9 +517,9 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
     } else {  // val == dataCurrentPhaseSyncOut
       // start of output pulse just started, set up for the end of pulse
-      val = dataCurrentPhaseSyncOut + blinkAudioPulseWidthMs * 10;
-      if (val >= 10000) {
-        val -= 10000;
+      val = dataCurrentPhaseSyncOut + blinkAudioPulseWidthMs * 50;
+      if (val >= 50000) {
+        val -= 50000;
       }
       __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, val);
       LL_TIM_OC_SetMode(

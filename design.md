@@ -45,12 +45,12 @@ Display TImer drives LED and sync to main or aux rollover
 * Use timer 1
 This timer running at 168 Mhz input clock
 * CH1 - PA8 - TimePps_CH_SYNC_OUT 
-increments at 10KHz 
+increments at 50 KHz 
 does 20 ms wide output pulse every 1 second 
 Resets based on ITR1 from Tim2 Update Event (main) 
 * 16 bits 
 * sync off of timer 2
-TODO * tick rate to 50KHz 
+loop ever 1.1 seconds 
 
 
 ### Main Timer #2 - hTimeSync (aka SyncIn/main)
