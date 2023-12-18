@@ -1040,6 +1040,10 @@ void blinkRun() {
   if ( dataMonCaptureTick != dataMonCaptureTickPrev ) {
     // TODO delay 100 ms
     if ( dataMonCaptureTick+200 < tick ) {
+      
+      // TODO FIX
+      blinkLocalSeconds++ ; // TODO - this shoudl heppen elsewhere
+      
       snprintf(buffer, sizeof(buffer), "   mon local seconds: %lu s %lu %lu \r\n",
                blinkLocalSeconds ,dataMonCaptureTick , tick );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
