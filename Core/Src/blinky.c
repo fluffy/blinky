@@ -544,19 +544,17 @@ void blinkInit() {
    
   detectInit(adcBufferLen);
 
-  // 1 is sent and 2400 baud in microsecods, 0 is twice as long 
-  uint32_t t=0;  uint16_t n=0;  ltcSendTransitions.numTransitions=0; 
-  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 2400l ; // send 1 
-  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 2400l ; // send 1 
-  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 2400l ; // send 1 
-  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 2400l ; // send 1 
-  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 1200l ; // send 0 
-  ltcSendTransitions.transitionTimeUs[n++]=t; t += 1000000l / 1200l ; // send 0   
-  ltcSendTransitions.transitionTimeUs[n++]=t; // send final   
-  ltcSendTransitions.numTransitions=n;
-  ltcSendTransitions.nextTransition=0;
+  LtcTransitionSetClear( &ltcSendTransitions );
 
-  ltcRecvTransitions.numTransitions = 0;
+  LtcTransitionSetAdd(  &ltcSendTransitions ,  1000000l / 2400l ); // send 1 at 2400 baud 
+  LtcTransitionSetAdd(  &ltcSendTransitions ,  1000000l / 2400l ); // send 1 at 2400 baud 
+  LtcTransitionSetAdd(  &ltcSendTransitions ,  1000000l / 2400l ); // send 1 at 2400 baud 
+  LtcTransitionSetAdd(  &ltcSendTransitions ,  1000000l / 2400l ); // send 1 at 2400 baud 
+
+  LtcTransitionSetAdd(  &ltcSendTransitions ,  1000000l / 2400l ); // send 0 at 1200 baud 
+  LtcTransitionSetAdd(  &ltcSendTransitions ,  1000000l / 2400l ); // send 0 at 1200 baud 
+
+  LtcTransitionSetClear( &ltcRecvTransitions );
 }
 
 int captureDeltaUs(uint32_t pps, uint32_t mon) {

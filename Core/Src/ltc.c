@@ -290,10 +290,10 @@ int main(int argc, char* argv[]) {
   std::cout << "done encode" << std::endl;
 
   if (0 ) {
- std::cout << "tSet size=" << (int)tSet.size() << std::endl;
- for( int i=1; i < tSet.size(); i++ ){
-   std::cout << "delta[" << i << "]=" << tSet.delta(i) << std::endl;
-  }
+    std::cout << "tSet size=" << (int)tSet.size() << std::endl;
+    for( int i=1; i < tSet.size(); i++ ){
+      std::cout << "delta[" << i << "]=" << tSet.delta(i) << std::endl;
+    }
   }
 
   std::cout << "start decode" << std::endl;

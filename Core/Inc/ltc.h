@@ -97,9 +97,21 @@ class LTC {
   void decode(const TransitionSet& tSet, uint8_t fps = 30);
 
  private:
-  uint8_t bits[10];
+  uint8_t bits[10]; // 80 bits total 
   uint8_t parity();
   uint8_t valid;
 };
 
 #endif
+
+typedef struct {
+  uint8_t bits[10]; // 80 bits total 
+  uint8_t valid;
+} Ltc;
+
+void ltcClear(Ltc* ltc);
+void ltcSet(Ltc* ltc, LtcTimeCode* time);
+void ltcGet(Ltc* ltc, LtcTimeCode* time);
+uint8_t ltcParity(Ltc* ltc);
+void ltcEncode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps);
+void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps);
