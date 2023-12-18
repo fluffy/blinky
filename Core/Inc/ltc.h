@@ -52,30 +52,6 @@ class TimeCode {
 };
 #endif
 
-#if 0
-class TransitionSet {
-  // circular buffer that holds 80 bits worth of transitions
- public:
-  TransitionSet() : numTransitions(0){};
-  void add(uint32_t t) {
-    time[numTransitions % maxTransitions] = t;
-    numTransitions++;
-  };
-  uint32_t delta(uint16_t i) const {
-    if ((i < 1) || (i >= numTransitions)) return 0;
-    uint32_t curr = i % maxTransitions;
-    uint32_t prev = (i - 1) % maxTransitions;
-    return time[curr] - time[prev];
-  };
-  uint16_t size() const { return numTransitions; };
-  void clear() { numTransitions = 0; };
-
- private:
-  static const uint16_t maxTransitions = 80 * 2 + 1;
-  uint32_t time[maxTransitions];
-  uint16_t numTransitions;
-};
-#endif
 
 enum {  ltcMaxTransitions = 80 * 2 + 1 }; // use enum to get const integer for array size 
 
@@ -85,6 +61,10 @@ typedef struct {
   uint16_t nextTransition;
 } LtcTransitionSet;
 
+void LtcTransitionSetClear( LtcTransitionSet* set );
+void LtcTransitionSetAdd(LtcTransitionSet* set,uint32_t timeUs);
+uint16_t LtcTransitionSetSize(LtcTransitionSet* set);
+uint32_t  LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i);
 
 #if 0
 class LTC {

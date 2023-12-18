@@ -5,6 +5,29 @@
 
 #include "ltc.h"
 
+
+void LtcTransitionSetClear( LtcTransitionSet* set ) {
+  set->numTransitions = 0;
+  set->nextTransition = 0;
+}
+
+void LtcTransitionSetAdd(LtcTransitionSet* set,uint32_t timeUs){
+  set->transitionTimeUs[ (set->numTransitions) % ltcMaxTransitions ] = timeUs;
+  set->numTransitions++;
+}
+
+uint16_t LtcTransitionSetSize(LtcTransitionSet* set){
+  return set->numTransitions;
+}
+
+uint32_t  LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i){
+    if ((i < 1) || (i >= set->numTransitions)) return 0;
+    uint32_t curr = i % ltcMaxTransitions;
+    uint32_t prev = (i - 1) % ltcMaxTransitions;
+    return set->transitionTimeUs[curr] - set->transitionTimeUs[prev];
+}
+
+
 #if 0
 
 uint8_t LTC::parity() {
