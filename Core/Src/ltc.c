@@ -66,6 +66,10 @@ uint32_t LtcTimeCodeDisp(LtcTimeCode* set) {
 
 int LtcTimeCodeIsValid(LtcTimeCode* set) { return set->valid; }
 
+void ltcClear(Ltc* ltc){
+  ltc->valid=0;
+}
+
 uint8_t ltcParity(Ltc* ltc) {
   uint8_t ret = 0;
 
@@ -252,46 +256,3 @@ void ltcGet(Ltc* ltc, LtcTimeCode* time) {
 
   time->valid = 1;
 }
-
-#if 0
-#include <iostream>
-
-int main(int argc, char* argv[]) {
-  std::cout << "LTC Test" << std::endl;
-
-  TimeCode t1(11 * 60 + 22, 500000l);
-  std::cout << "t1=" << t1.disp() << " " << t1.microSeconds() << std::endl;
-  assert(t1.seconds() == 682);
-  assert(t1.microSeconds() == 500000l);
-
-  LTC ltc1(t1);
-
-  TransitionSet tSet;
-  ltc1.encode(tSet);
-  ltc1.encode(tSet);
-  ltc1.encode(tSet);
-  std::cout << "done encode" << std::endl;
-
-  if (0 ) {
-    std::cout << "tSet size=" << (int)tSet.size() << std::endl;
-    for( int i=1; i < tSet.size(); i++ ){
-      std::cout << "delta[" << i << "]=" << LtcTransitionSetDeltaUs( tSet, i) << std::endl;
-    }
-  }
-
-  std::cout << "start decode" << std::endl;
-
-  LTC ltc2;
-  ltc2.decode(tSet);
-
-  std::cout << "done decode" << std::endl;
-
-  TimeCode t2;
-  ltc2.get(t2);
-
-  std::cout << "t2=" << t2.disp() << std::endl;
-
-  return 0;
-}
-
-#endif

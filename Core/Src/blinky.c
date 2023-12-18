@@ -149,6 +149,8 @@ uint32_t gpsTimeTick;
 
 LtcTransitionSet ltcSendTransitions;
 LtcTransitionSet ltcRecvTransitions;
+uint32_t blinkLocalSeconds;
+
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
   if (huart == &hUartGps) {
@@ -410,6 +412,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       if (dataMonCaptureTick + 100 /*ms */ > tick) {
         dataMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_MON);
         dataMonCaptureTick = tick;
+
+        blinkLocalSeconds++; // increments the local time
       }
     }
 
@@ -549,23 +553,11 @@ void blinkInit() {
   gpsTimeTick = 0;
   memset(gpsTime, 0, sizeof(gpsTime));
 
+  blinkLocalSeconds = 0;
+  
   detectInit(adcBufferLen);
 
   LtcTransitionSetClear(&ltcSendTransitions);
-
-  LtcTransitionSetAdd(&ltcSendTransitions,
-                      1000000l / 2400l);  // send 1 at 2400 baud
-  LtcTransitionSetAdd(&ltcSendTransitions,
-                      1000000l / 2400l);  // send 1 at 2400 baud
-  LtcTransitionSetAdd(&ltcSendTransitions,
-                      1000000l / 2400l);  // send 1 at 2400 baud
-  LtcTransitionSetAdd(&ltcSendTransitions,
-                      1000000l / 2400l);  // send 1 at 2400 baud
-
-  LtcTransitionSetAdd(&ltcSendTransitions,
-                      1000000l / 2400l);  // send 0 at 1200 baud
-  LtcTransitionSetAdd(&ltcSendTransitions,
-                      1000000l / 2400l);  // send 0 at 1200 baud
 
   LtcTransitionSetClear(&ltcRecvTransitions);
 }
@@ -840,6 +832,7 @@ void blinkRun() {
   static char button3WasPressed = 0;
 
   static uint32_t dataSyncCaptureTickPrev = 0;
+  static uint32_t dataMonCaptureTickPrev = 0;
   static uint32_t dataLtcCaptureTickPrev = 0;
   static uint32_t dataExtClkCountTickPrev = 0;
   static uint32_t dataGpsPpsCaptureTickPrev = 0;
@@ -848,6 +841,8 @@ void blinkRun() {
   static uint32_t dataExtClkCountMonPrev = 0;
 
   char buffer[100];
+
+  uint32_t tick = HAL_GetTick();
 
   if (loopCount % 100 == 0) {
     snprintf(buffer, sizeof(buffer), "\r\nLoop %d \r\n", loopCount);
@@ -999,7 +994,7 @@ void blinkRun() {
       detectGetMlpTime(&mltTime, &mlpVal);
 
       if (mlpVal > 5000.0) {
-        const int audioPulseLenMs = 100;  // TODO
+        const int audioPulseLenMs = blinkAudioPulseWidthMs;  // TODO
         blinkAudioDelayMs =
             captureDeltaUs(mltTime, dataMonCapture) / 1000 - audioPulseLenMs;
         if (blinkAudioDelayMs < 0) {
@@ -1037,8 +1032,26 @@ void blinkRun() {
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
 
+  if (dataMonCaptureTick != dataMonCaptureTickPrev) {
+    // TODO delay 100 ms 
+    snprintf(buffer, sizeof(buffer), "   mon local seconds: %lu s\r\n",
+             blinkLocalSeconds );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    dataMonCaptureTickPrev = dataMonCaptureTick;
+
+    // TODO gen new LTC code
+    static Ltc ltc;
+    ltcClear( &ltc );
+    static LtcTimeCode timeCode;
+    LtcTimeCodeClear( &timeCode );
+    LtcTimeCodeSet(  &timeCode, blinkLocalSeconds , 0 /* us */ );
+    ltcSet( &ltc,  &timeCode );
+    ltcEncode( &ltc, &ltcSendTransitions , 30 /*fps*/ );
+    
+  }
+
+   
 #if 1
-  uint32_t tick = HAL_GetTick();
   if (dataLtcCaptureTick + 100 /*ms*/ <
       tick) {  // been 100 ms since lask Ltc transition
     if (dataLtcCaptureTick != dataLtcCaptureTickPrev) {
@@ -1059,10 +1072,20 @@ void blinkRun() {
       }
       dataLtcCaptureTickPrev = dataLtcCaptureTick;
 
-      // TODO - process LTC transition data
+      // process LTC transition data
+      static LtcTimeCode timeCode;
+      LtcTimeCodeClear( &timeCode );
+      static Ltc ltc;
+      ltcClear( &ltc );
+      ltcDecode( &ltc, &ltcRecvTransitions, 30 /*fps */ );
+      ltcGet(  &ltc , &timeCode );
+      uint32_t ltcSeconds = LtcTimeCodeSeconds(&timeCode);
 
-      ltcRecvTransitions.numTransitions =
-          0;  // reset ltc capture for next cycle
+      snprintf(buffer, sizeof(buffer), "   LTC decode seconds: %lu\r\n",
+              ltcSeconds );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+          
+      LtcTransitionSetClear( &ltcRecvTransitions); // reset ltc capture for next cycle
     }
   }
 #endif
