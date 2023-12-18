@@ -1,12 +1,14 @@
+// Copyright (c) 2023 Cullen Jennings
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef struct {
   uint8_t hour;
   uint8_t min;
   uint8_t sec;
   uint8_t frame;
-  uint8_t valid;
+  bool valid;
 } LtcTimeCode;
 void LtcTimeCodeClear(LtcTimeCode*);
 void LtcTimeCodeSet(LtcTimeCode*, uint32_t s, uint32_t us);
@@ -32,7 +34,7 @@ uint32_t LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i);
 
 typedef struct {
   uint8_t bits[10];  // 80 bits total
-  uint8_t valid;
+  bool valid;
 } Ltc;
 
 void ltcClear(Ltc* ltc);

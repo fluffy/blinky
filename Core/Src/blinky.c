@@ -18,16 +18,16 @@ extern I2C_HandleTypeDef hi2c1;
 
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim2;
-extern TIM_HandleTypeDef htim3;
+//extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
-extern TIM_HandleTypeDef htim6;
+//extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim8;
 
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart3;
 
-#define hADC hadc1
+//#define hADC hadc1
 
 #define hDAC hdac
 #define DAC_CH_OSC_ADJ DAC_CHANNEL_1
@@ -413,9 +413,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
   if (n == 1) {
     if (!blinkMute) {
       // start audio output
-      HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
-                        dacBufferLen,  //  dacBufferlen is in 32 bit words
-                        DAC_ALIGN_12B_R);
+      audioStart();
     }
   }
 #endif
@@ -445,8 +443,8 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
     n = 0;
     dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
 
-    // stop audio n
-    HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
+    // stop audio 
+    audioStop();
   }
 
   if (n < ltcSendTransitions.numTransitions) {
@@ -478,7 +476,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
           LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
 
       // stop audio output
-      HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
+      audioStop();
     } else {  // val == dataCurrentPhaseSyncOut
       // start of output pulse just started, set up for the end of pulse
       val = dataCurrentPhaseSyncOut + blinkAudioPulseWidthMs * 50;
@@ -492,9 +490,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
 
       if (!blinkMute) {
         // start audio output
-        HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
-                          dacBufferLen,  //  dacBufferlen is in 32 bit words
-                          DAC_ALIGN_12B_R);
+        audioStart();
       }
     }
   }

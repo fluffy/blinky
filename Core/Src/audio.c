@@ -4,6 +4,7 @@
 #include <stm32f4xx_ll_tim.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "main.h"
 #include "detect.h"
