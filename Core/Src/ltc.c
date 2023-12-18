@@ -64,16 +64,12 @@ uint32_t LtcTimeCodeDisp(LtcTimeCode* set) {
          set->hour * 1000000l;
 }
 
-int LtcTimeCodeIsValid(LtcTimeCode* set) {
-  return set->valid;
-}
-
-
+int LtcTimeCodeIsValid(LtcTimeCode* set) { return set->valid; }
 
 uint8_t ltcParity(Ltc* ltc) {
-uint8_t ret = 0;
+  uint8_t ret = 0;
 
-for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 10; i++) {
     uint8_t data = ltc->bits[i];
     for (int bit = 0; bit <= 8; bit++) {
       if (data & 0x1) {
@@ -86,9 +82,8 @@ for (int i = 0; i < 10; i++) {
   return ret % 2;
 }
 
-
 void ltcEncode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
-  LtcTransitionSetClear( tSet );
+  LtcTransitionSetClear(tSet);
 
   uint32_t time = 0;
   // baud rate is 30 fps, 80 bits per frame , two transitions per bit for 1's =
@@ -97,7 +92,7 @@ void ltcEncode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   uint32_t zeroInc = 1000000 / baud;  // one time in micro seconds
   uint32_t oneInc = zeroInc / 2;
 
-LtcTransitionSetAdd( tSet, time);
+  LtcTransitionSetAdd(tSet, time);
 
   for (int i = 0; i < 10; i++) {
     uint16_t data = ltc->bits[i];
@@ -107,15 +102,15 @@ LtcTransitionSetAdd( tSet, time);
       if ((data >> bit) & 0x1) {
         // encode a one
         time += oneInc;
-        LtcTransitionSetAdd( tSet, time);
+        LtcTransitionSetAdd(tSet, time);
         time += oneInc;
-        LtcTransitionSetAdd( tSet, time);
+        LtcTransitionSetAdd(tSet, time);
 
         // std::cout << "1";
       } else {
         // encode a zero
         time += zeroInc;
-        LtcTransitionSetAdd( tSet, time);
+        LtcTransitionSetAdd(tSet, time);
 
         // std::cout << "0";
       }
@@ -125,7 +120,6 @@ LtcTransitionSetAdd( tSet, time);
 
   // std::cout << " totalTime=" << time / 1000 << "ms" << std::endl;
 }
-
 
 void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   uint32_t baud = fps * 80 /* bits per frame */;
@@ -141,7 +135,7 @@ void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   // decode in reverse direction
   uint8_t bitCount = 7;
   uint8_t byteCount = 9;
-  uint16_t setIndex = LtcTransitionSetSize(tSet)- 1;
+  uint16_t setIndex = LtcTransitionSetSize(tSet) - 1;
 
   uint8_t done = 0;
   while (!done) {
@@ -150,7 +144,7 @@ void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
       return;
     }
 
-uint32_t delta = LtcTransitionSetDeltaUs( tSet, setIndex);
+    uint32_t delta = LtcTransitionSetDeltaUs(tSet, setIndex);
 
     if ((delta > zeroInc - 50) && (delta < zeroInc + 50)) {
       // found a zero
@@ -162,7 +156,7 @@ uint32_t delta = LtcTransitionSetDeltaUs( tSet, setIndex);
         // std::cout << "mnot enough transitions 2nd half of one" << std::endl;
         return;
       }
-uint32_t delta2 = LtcTransitionSetDeltaUs( tSet, setIndex - 1);
+      uint32_t delta2 = LtcTransitionSetDeltaUs(tSet, setIndex - 1);
       if ((delta2 > oneInc - 50) && (delta2 < oneInc + 50)) {
         // found a 1
         // std::cout << "1";
@@ -192,27 +186,26 @@ uint32_t delta2 = LtcTransitionSetDeltaUs( tSet, setIndex - 1);
     }
 
     if ((byteCount == 7) && (bitCount == 7)) {
-      if ( ltc->bits[8] != 0xFC) {
+      if (ltc->bits[8] != 0xFC) {
         // std::cout << " bad sync1" << std::endl;
         return;
       }
     }
 
     if ((byteCount == 8) && (bitCount == 7)) {
-      if ( ltc->bits[9] != 0xBF) {
+      if (ltc->bits[9] != 0xBF) {
         // std::cout << " bad sync2" << std::endl;
         return;
       }
     }
   }
 
-  if ( ltcParity(ltc) != 0) {
+  if (ltcParity(ltc) != 0) {
     // std::cout << " bad parity" << std::endl;
     return;
   }
   ltc->valid = 1;
 }
-
 
 void ltcSet(Ltc* ltc, LtcTimeCode* time) {
   ltc->bits[0] = time->frame % 10;
@@ -226,14 +219,13 @@ void ltcSet(Ltc* ltc, LtcTimeCode* time) {
   ltc->bits[8] = 0xFC;  // sync1
   ltc->bits[9] = 0xBF;  // sync2
 
-  if ( ltcParity(ltc) != 0) {
+  if (ltcParity(ltc) != 0) {
     // set polarity correction bit
     ltc->bits[3] |= 0x08;
   }
 
   ltc->valid = 1;
 }
-
 
 void ltcGet(Ltc* ltc, LtcTimeCode* time) {
   time->valid = 0;
@@ -260,8 +252,6 @@ void ltcGet(Ltc* ltc, LtcTimeCode* time) {
 
   time->valid = 1;
 }
-
-
 
 #if 0
 #include <iostream>
