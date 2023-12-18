@@ -39,6 +39,7 @@ C_SOURCES =  \
 Core/Src/main.c \
 Core/Src/blinky.c \
 Core/Src/ltc.c \
+Core/Src/audio.c \
 Core/Src/detect.c \
 Core/Src/stm32f4xx_it.c \
 Core/Src/stm32f4xx_hal_msp.c \

@@ -8,6 +8,7 @@
 #include "detect.h"
 #include "ltc.h"
 #include "main.h"
+#include "audio.h"
 
 extern ADC_HandleTypeDef hadc1;
 
@@ -99,11 +100,6 @@ inline uint32_t capture2uS(const uint32_t c) {
   return (c * capture2uSRatioM) / capture2uSRatioN;
 }
 
-volatile uint32_t debugAdcCpltCount = 0;
-volatile uint32_t debugDacCpltCount = 0;
-volatile uint32_t debugDacTimerCnt = 0;
-volatile uint32_t debugAdcTimerCnt = 0;
-
 uint8_t blinkMute = 1;       // mutes audio outout
 uint8_t blinkBlank = 1;      // causes LED to be off
 uint8_t blinkDispAudio = 0;  // caused audio latency to be displayed on LED
@@ -132,13 +128,11 @@ uint16_t dataCurrentPhaseSyncOut;  // TODO change PhaseSyncOut to SyncOutPhase
 int32_t blinkAudioDelayMs;
 const uint32_t blinkAudioPulseWidthMs = 100;
 
-// dacBuffer has 20 point sin wave center on 1000 with amplitude 500
-const int dacBufferLen = 20;
-uint32_t dacBuffer[] = {1000, 1155, 1294, 1405, 1476, 1500, 1476,
-                        1405, 1294, 1155, 1000, 845,  706,  595,
-                        524,  500,  524,  595,  706,  845};
-const int adcBufferLen = 20;
-uint32_t adcBuffer[20];
+extern const int dacBufferLen; 
+extern uint32_t dacBuffer[];
+extern const int adcBufferLen; 
+extern uint32_t adcBuffer[];
+
 
 const int gpsBufferLen = 20;
 uint8_t gpsBuffer[20];
@@ -213,38 +207,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
   }
 }
 
-void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
-  detectUpdate(&(adcBuffer[0]), adcBufferLen / 2, false);
-}
-
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
-  detectUpdate(&(adcBuffer[adcBufferLen / 2]), adcBufferLen / 2, true);
-
-  debugAdcCpltCount++;
-}
-
-void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
-
-void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
-  debugDacCpltCount++;
-}
-
-void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac) {
-  char buffer[100];
-  snprintf(buffer, sizeof(buffer), "ERROR hand DAC CH1\r\n");
-  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
-  Error_Handler();
-}
-
-void HAL_DAC_ErrorCallbackCh2(DAC_HandleTypeDef *hdac) {
-  char buffer[100];
-  snprintf(buffer, sizeof(buffer), "ERROR hand DAC CH2\r\n");
-  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
-  Error_Handler();
-}
-
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 #if 1
   uint32_t tick = HAL_GetTick();
@@ -255,15 +217,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   }
 #endif
 
-#if 1
+#if 0
   if (htim == &hTimeDAC) {
-    debugDacTimerCnt++;
   }
 #endif
 
-#if 1
+#if 0
   if (htim == &hTimeADC) {
-    debugAdcTimerCnt++;
   }
 #endif
 
@@ -562,7 +522,6 @@ void blinkInit() {
   detectInit(adcBufferLen);
 
   LtcTransitionSetClear(&ltcSendTransitions);
-
   LtcTransitionSetClear(&ltcRecvTransitions);
 }
 
@@ -624,14 +583,17 @@ void setClk(uint8_t extOscTypeType, uint16_t vcoValue, int16_t oscAdj) {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
+  
   // vcoValue = 497; // -8 to 10 ns , delta = 30/-100 = -0.30  , serial# 6 Nov
   // 26, 2023
+
+  HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
+  HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, vcoValue);
 
   snprintf(buffer, sizeof(buffer), "  VCO: %u\r\n", vcoValue);
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-  HAL_DAC_Start(&hDAC, DAC_CH_OSC_ADJ);
-  HAL_DAC_SetValue(&hDAC, DAC_CHANNEL_1, DAC_ALIGN_12B_R, vcoValue);
+ 
 }
 
 void blinkSetup() {
@@ -796,28 +758,7 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-#if 1
-  // DMA for Audio Out DAC
-  HAL_StatusTypeDef err;
-  err = HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
-                          dacBufferLen,  //  dacBufferlen is in 32 bit words
-                          DAC_ALIGN_12B_R);
-  if (err != HAL_OK) {
-    char buffer[100];
-    snprintf(buffer, sizeof(buffer), "HAL DAC error %d r\n", err);
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    Error_Handler();
-  }
-
-  HAL_TIM_Base_Start_IT(&hTimeDAC);
-#endif
-
-#if 1
-  // DMA for ADC
-  HAL_ADC_Start_DMA(&hADC, adcBuffer, adcBufferLen);
-
-  HAL_TIM_Base_Start_IT(&hTimeADC);
-#endif
+  audioSetup();
 
 #if 1
   // start receving for GPS serial
