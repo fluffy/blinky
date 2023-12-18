@@ -1,7 +1,7 @@
 
 #include <stdint.h>
 
-typedef struct  {
+typedef struct {
   uint8_t hour;
   uint8_t min;
   uint8_t sec;
@@ -10,23 +10,25 @@ typedef struct  {
 } LtcTimeCode;
 void LtcTimeCodeClear(LtcTimeCode*);
 void LtcTimeCodeSet(LtcTimeCode*, uint32_t s, uint32_t us);
-void LtcTimeCodeSetHMSF(LtcTimeCode*, uint8_t h, uint8_t m, uint8_t s, uint8_t f);
+void LtcTimeCodeSetHMSF(LtcTimeCode*, uint8_t h, uint8_t m, uint8_t s,
+                        uint8_t f);
 uint32_t LtcTimeCodeSeconds(LtcTimeCode*);
 uint32_t LtcTimeCodeMicroSeconds(LtcTimeCode*);
 uint32_t LtcTimeCodeDisp(LtcTimeCode*);
 int LtcTimeCodeIsValid(LtcTimeCode*);
 
-
-enum {  ltcMaxTransitions = 80 * 2 + 1 }; // use enum to get const integer for array size 
+enum {
+  ltcMaxTransitions = 80 * 2 + 1
+};  // use enum to get const integer for array size
 typedef struct {
   uint32_t transitionTimeUs[ltcMaxTransitions];
   uint16_t numTransitions;
   uint16_t nextTransition;
 } LtcTransitionSet;
-void LtcTransitionSetClear( LtcTransitionSet* set );
-void LtcTransitionSetAdd(LtcTransitionSet* set,uint32_t timeUs);
+void LtcTransitionSetClear(LtcTransitionSet* set);
+void LtcTransitionSetAdd(LtcTransitionSet* set, uint32_t timeUs);
 uint16_t LtcTransitionSetSize(LtcTransitionSet* set);
-uint32_t  LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i);
+uint32_t LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i);
 
 #if 0
 class LTC {
@@ -52,7 +54,7 @@ class LTC {
 #endif
 
 typedef struct {
-  uint8_t bits[10]; // 80 bits total 
+  uint8_t bits[10];  // 80 bits total
   uint8_t valid;
 } Ltc;
 

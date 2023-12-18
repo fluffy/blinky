@@ -1,39 +1,34 @@
 // Compile with: gcc -o ltc ltc.cc -lstdc++
-//  Descrption of LTC can be found at https://en.wikipedia.org/wiki/Linear_timecode
+//  Descrption of LTC can be found at
+//  https://en.wikipedia.org/wiki/Linear_timecode
 // Official specification in SMPTE 12M TODO
-
 
 #include "ltc.h"
 
-
-void LtcTransitionSetClear( LtcTransitionSet* set ) {
+void LtcTransitionSetClear(LtcTransitionSet* set) {
   set->numTransitions = 0;
   set->nextTransition = 0;
 }
 
-void LtcTransitionSetAdd(LtcTransitionSet* set,uint32_t timeUs){
-  set->transitionTimeUs[ (set->numTransitions) % ltcMaxTransitions ] = timeUs;
+void LtcTransitionSetAdd(LtcTransitionSet* set, uint32_t timeUs) {
+  set->transitionTimeUs[(set->numTransitions) % ltcMaxTransitions] = timeUs;
   set->numTransitions++;
 }
 
-uint16_t LtcTransitionSetSize(LtcTransitionSet* set){
+uint16_t LtcTransitionSetSize(LtcTransitionSet* set) {
   return set->numTransitions;
 }
 
-uint32_t  LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i){
-    if ((i < 1) || (i >= set->numTransitions)) return 0;
-    uint32_t curr = i % ltcMaxTransitions;
-    uint32_t prev = (i - 1) % ltcMaxTransitions;
-    return set->transitionTimeUs[curr] - set->transitionTimeUs[prev];
+uint32_t LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i) {
+  if ((i < 1) || (i >= set->numTransitions)) return 0;
+  uint32_t curr = i % ltcMaxTransitions;
+  uint32_t prev = (i - 1) % ltcMaxTransitions;
+  return set->transitionTimeUs[curr] - set->transitionTimeUs[prev];
 }
 
+void LtcTimeCodeClear(LtcTimeCode* set) { set->valid = 0; }
 
-
-void LtcTimeCodeClear(LtcTimeCode* set){
-  set->valid = 0; 
-}
-
-void LtcTimeCodeSet(LtcTimeCode* set, uint32_t s, uint32_t us){
+void LtcTimeCodeSet(LtcTimeCode* set, uint32_t s, uint32_t us) {
   set->frame = (us * 30l / 1000000l) % 30;
   set->sec = s % 60;
   set->min = (s / 60) % 60;
@@ -41,44 +36,35 @@ void LtcTimeCodeSet(LtcTimeCode* set, uint32_t s, uint32_t us){
   set->valid = 1;
 }
 
-void LtcTimeCodeSetHMSF(LtcTimeCode* set, uint8_t h, uint8_t m, uint8_t s, uint8_t f){
-  set->frame =f % 30;
+void LtcTimeCodeSetHMSF(LtcTimeCode* set, uint8_t h, uint8_t m, uint8_t s,
+                        uint8_t f) {
+  set->frame = f % 30;
   set->sec = s % 60;
   set->min = m % 60;
   set->hour = h % 24;
   set->valid = 1;
 }
 
-uint32_t  LtcTimeCodeSeconds(LtcTimeCode* set){
-   if (!set->valid) return 0;
-   return (uint32_t)(set->sec) + (uint32_t)(set->min) * 60l + (uint32_t)(set->hour) * 3600l;
+uint32_t LtcTimeCodeSeconds(LtcTimeCode* set) {
+  if (!set->valid) return 0;
+  return (uint32_t)(set->sec) + (uint32_t)(set->min) * 60l +
+         (uint32_t)(set->hour) * 3600l;
 }
 
-uint32_t  LtcTimeCodeMicroSeconds(LtcTimeCode* set){
-    if (!set->valid) return 0;
-    return (uint32_t)(set->frame) * 1000000l / 30l;
+uint32_t LtcTimeCodeMicroSeconds(LtcTimeCode* set) {
+  if (!set->valid) return 0;
+  return (uint32_t)(set->frame) * 1000000l / 30l;
 }
 
-uint32_t  LtcTimeCodeDisp(LtcTimeCode* set){
-   if (! set->valid) {
-      return 0;
-    };
-    return set->frame + set->sec * 100l + set->min * 10000l + set->hour * 1000000l;
+uint32_t LtcTimeCodeDisp(LtcTimeCode* set) {
+  if (!set->valid) {
+    return 0;
+  };
+  return set->frame + set->sec * 100l + set->min * 10000l +
+         set->hour * 1000000l;
 }
 
-int LtcTimeCodeIsValid(LtcTimeCode* set){
-  return set->valid;
-}
-
-  
-
-
-
-
-
-
-
-
+int LtcTimeCodeIsValid(LtcTimeCode* set) { return set->valid; }
 
 #if 0
 
@@ -267,8 +253,7 @@ void LTC::get(TimeCode& time) {
   time.valid = 1;
 }
 
-#endif 
-
+#endif
 
 #if 0
 #include <iostream>
