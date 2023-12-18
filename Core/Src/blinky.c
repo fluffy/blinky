@@ -26,7 +26,7 @@ extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim8;
 
 extern UART_HandleTypeDef huart1;
-extern UART_HandleTypeDef huart3;
+//extern UART_HandleTypeDef huart3;
 
 //#define hADC hadc1
 
@@ -36,7 +36,7 @@ extern UART_HandleTypeDef huart3;
 
 #define hI2c hi2c1
 #define hUartDebug huart1
-#define hUartGps huart3
+//#define hUartGps huart3
 
 #define hTimePps htim1
 #define TimePps_CH_SYNC_OUT TIM_CHANNEL_1
@@ -50,7 +50,7 @@ extern UART_HandleTypeDef huart3;
 #define TimeSync_CH_SYNC_MON TIM_CHANNEL_4
 #define TimeSync_HAL_CH_SYNC_MON HAL_TIM_ACTIVE_CHANNEL_4
 
-#define hTimeADC htim3
+//#define hTimeADC htim3
 
 #define hTimeBlink htim4
 
@@ -61,7 +61,7 @@ extern UART_HandleTypeDef huart3;
 #define TimeAux_CH_SYNC_MON TIM_CHANNEL_3
 #define TimeAux_HAL_CH_SYNC_MON HAL_TIM_ACTIVE_CHANNEL_3
 
-#define hTimeDAC htim6
+//#define hTimeDAC htim6
 
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
@@ -151,9 +151,10 @@ uint32_t blinkLocalSeconds;
 
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-#if 1
+
   uint32_t tick = HAL_GetTick();
 
+#if 1
   if (htim == &hTimeAux) {
     dataExtClkCount++;
     dataExtClkCountTick = tick;
