@@ -449,6 +449,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
 #if 1  // DO LTC
   uint16_t n = ltcSendTransitions.nextTransition++;
 
+#if 0 // TODO 
   if (n == 1) {
     if (!blinkMute) {
       // start audio output
@@ -457,7 +458,9 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
                         DAC_ALIGN_12B_R);
     }
   }
+#endif
 
+#if 0 // TODO 
   if (n == ltcSendTransitions.numTransitions) {
     // add in a compare at pulse with time with no outptu state change
     uint32_t v =
@@ -472,12 +475,13 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
     LL_TIM_OC_SetMode(
         TIM1, TimePps_LL_CH_SYNC_OUT,
         ((n - 1) % 2)
-            ? LL_TIM_OCMODE_INACTIVE
-            : LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
+            ? LL_TIM_OCMODE_ACTIVE
+            : LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
   }
-
+#endif
+  
   if (n > ltcSendTransitions.numTransitions) {
-    ltcSendTransitions.nextTransition = 1;  // restart
+    ltcSendTransitions.nextTransition = 0;  // restart
     n = 0;
     dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
 
@@ -497,8 +501,8 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
     LL_TIM_OC_SetMode(
         TIM1, TimePps_LL_CH_SYNC_OUT,
         (n % 2)
-            ? LL_TIM_OCMODE_INACTIVE
-            : LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
+            ? LL_TIM_OCMODE_ACTIVE
+            : LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
   }
 
 #else  // OLD non LTC
@@ -1042,7 +1046,7 @@ void blinkRun() {
     if ( dataMonCaptureTick+200 < tick ) {
       
       // TODO FIX
-      blinkLocalSeconds++ ; // TODO - this shoudl heppen elsewhere
+      blinkLocalSeconds = 1 ; // TODO - this shoudl heppen elsewhere
       
       snprintf(buffer, sizeof(buffer), "   mon local seconds: %lu s %lu %lu \r\n",
                blinkLocalSeconds ,dataMonCaptureTick , tick );
@@ -1055,22 +1059,33 @@ void blinkRun() {
       static LtcTimeCode timeCode;
       LtcTimeCodeClear( &timeCode );
       LtcTimeCodeSet(  &timeCode, blinkLocalSeconds , 0 /* us */ );
+
+      LtcTimeCodeSetHMSF(  &timeCode, 1,1,1,4 ); // TODO remove 
+        
       ltcSet( &ltc,  &timeCode );
       ltcEncode( &ltc, &ltcSendTransitions , 30 /*fps*/ );
 
 #if 0
-      int stop = ltcSendTransitions.numTransitions;
-      if (stop > 25) {
-        int start = stop - 25;
-        for (int i = start; i < stop - 1; i++) {
-          snprintf(buffer, sizeof(buffer), "   LTC send delta: %d %lu\r\n",
-                   i, ltcSendTransitions.transitionTimeUs[i + 1] -
-                       ltcSendTransitions.transitionTimeUs[i]);
-          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer),
-                            1000);
-        }
-      }
+      LtcTransitionSetClear( &ltcSendTransitions );
+      LtcTransitionSetAdd(  &ltcSendTransitions, 0 );
+      LtcTransitionSetAdd(  &ltcSendTransitions, 100 ); // 100
+      LtcTransitionSetAdd(  &ltcSendTransitions, 300 ); // 200 
+      LtcTransitionSetAdd(  &ltcSendTransitions, 600 ); // 300 
+      LtcTransitionSetAdd(  &ltcSendTransitions, 1000 ); // 400
+      LtcTransitionSetAdd(  &ltcSendTransitions, 1500 ); // 400
+   
 #endif
+      
+#if 1
+      // for (int i = 1; i < LtcTransitionSetSize( &ltcSendTransitions ); i++) {
+      for (int i = 1; i <10; i++) {
+        snprintf(buffer, sizeof(buffer), "   LTC send delta: %d %lu\r\n",
+                 i, LtcTransitionSetDeltaUs( &ltcSendTransitions  , i )/100 );
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer),
+                            1000);
+      }   
+#endif
+
     }
   }
 
@@ -1083,17 +1098,19 @@ void blinkRun() {
                ltcRecvTransitions.numTransitions);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      int stop = ltcRecvTransitions.numTransitions;
-      if (stop > 50) {
-        int start = stop - 50;
-        for (int i = start; i < stop - 1; i++) {
-          snprintf(buffer, sizeof(buffer), "   LTC recv delta: %d %lu\r\n",
-                   i,  ltcRecvTransitions.transitionTimeUs[i + 1] -
-                       ltcRecvTransitions.transitionTimeUs[i]);
-          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer),
-                            1000);
-        }
+      if (1) { // TODO REMOVE
+        //for (int i = 1; i < LtcTransitionSetSize( &ltcRecvTransitions ); i++) {
+        for (int i = 1; i < 10; i++) {
+           snprintf(buffer, sizeof(buffer), "   LTC recv delta: %d %lu\r\n",
+                    i, LtcTransitionSetDeltaUs( &ltcRecvTransitions  , i )/100 );
+           HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer),
+                             1000);
       }
+        snprintf(buffer, sizeof(buffer), "\r\n");
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer),
+                          1000);
+    }
+      
       dataLtcCaptureTickPrev = dataLtcCaptureTick;
 
       // process LTC transition data

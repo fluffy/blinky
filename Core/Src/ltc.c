@@ -11,7 +11,10 @@ void LtcTransitionSetClear(LtcTransitionSet* set) {
 }
 
 void LtcTransitionSetAdd(LtcTransitionSet* set, uint32_t timeUs) {
-  set->transitionTimeUs[(set->numTransitions) % ltcMaxTransitions] = timeUs;
+  if ( set->numTransitions >= ltcMaxTransitions ) {
+    return;
+  }
+  set->transitionTimeUs[ set->numTransitions ] = timeUs;
   set->numTransitions++;
 }
 
@@ -20,13 +23,15 @@ uint16_t LtcTransitionSetSize(LtcTransitionSet* set) {
 }
 
 uint32_t LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i) {
-  if ((i < 1) || (i >= set->numTransitions)) return 0;
-  uint32_t curr = i % ltcMaxTransitions;
-  uint32_t prev = (i - 1) % ltcMaxTransitions;
-  return set->transitionTimeUs[curr] - set->transitionTimeUs[prev];
+  if ((i < 1) || (i >= set->numTransitions)) {
+    return 0;
+  }
+  return set->transitionTimeUs[i] - set->transitionTimeUs[i-1];
 }
 
-void LtcTimeCodeClear(LtcTimeCode* set) { set->valid = 0; }
+void LtcTimeCodeClear(LtcTimeCode* set) {
+  set->valid = 0;
+}
 
 void LtcTimeCodeSet(LtcTimeCode* set, uint32_t s, uint32_t us) {
   set->frame = (us * 30l / 1000000l) % 30;
@@ -130,7 +135,7 @@ void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   uint32_t zeroInc = 1000000 / baud;  // zero time in micro seconds
   uint32_t oneInc = zeroInc / 2;
 
-  // clear out the data before debcoding
+  // clear out the data before decoding
   ltc->valid = 0;
   for (int i = 0; i < 10; i++) {
     ltc->bits[i] = 0;
@@ -144,8 +149,19 @@ void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   uint8_t done = 0;
   while (!done) {
     if (setIndex == 0) {
-      // std::cout << "mnot enough transitions" << std::endl;
-      return;
+      
+      // soft fill last bit if missing
+      if ( ( byteCount == 0 )  && ( bitCount == 0 ) ) {
+        if (ltcParity(ltc) != 0) {
+          ltc->bits[byteCount] |= (1 << bitCount);
+        }
+        
+        done =1;
+      }
+      else {
+        // std::cout << "not enough transitions" << std::endl;
+        return;
+      }
     }
 
     uint32_t delta = LtcTransitionSetDeltaUs(tSet, setIndex);
@@ -157,7 +173,7 @@ void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
     } else if ((delta > oneInc - 50) && (delta < oneInc + 50)) {
       // found a start of 1
       if (setIndex < 1) {
-        // std::cout << "mnot enough transitions 2nd half of one" << std::endl;
+        // std::cout << "not enough transitions 2nd half of one" << std::endl;
         return;
       }
       uint32_t delta2 = LtcTransitionSetDeltaUs(tSet, setIndex - 1);
