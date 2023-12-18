@@ -698,7 +698,7 @@ static void MX_TIM8_Init(void)
 
   /* USER CODE END TIM8_Init 1 */
   htim8.Instance = TIM8;
-  htim8.Init.Prescaler = 8400-1;
+  htim8.Init.Prescaler = 16800-1;
   htim8.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim8.Init.Period = 15000-1;
   htim8.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
