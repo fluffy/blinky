@@ -52,6 +52,21 @@ class TimeCode {
 };
 #endif
 
+typedef struct  {
+  uint8_t hour;
+  uint8_t min;
+  uint8_t sec;
+  uint8_t frame;
+  uint8_t valid;
+} LtcTimeCode;
+void LtcTimeCodeClear(LtcTimeCode*);
+void LtcTimeCodeSet(LtcTimeCode*, uint32_t s, uint32_t us);
+void LtcTimeCodeSetHMSF(LtcTimeCode*, uint8_t h, uint8_t m, uint8_t s, uint8_t f);
+uint32_t LtcTimeCodeSeconds(LtcTimeCode*);
+uint32_t LtcTimeCodeMicroSeconds(LtcTimeCode*);
+uint32_t LtcTimeCodeDisp(LtcTimeCode*);
+int LtcTimeCodeIsValid(LtcTimeCode*);
+
 
 enum {  ltcMaxTransitions = 80 * 2 + 1 }; // use enum to get const integer for array size 
 

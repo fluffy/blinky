@@ -28,6 +28,58 @@ uint32_t  LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i){
 }
 
 
+
+void LtcTimeCodeClear(LtcTimeCode* set){
+  set->valid = 0; 
+}
+
+void LtcTimeCodeSet(LtcTimeCode* set, uint32_t s, uint32_t us){
+  set->frame = (us * 30l / 1000000l) % 30;
+  set->sec = s % 60;
+  set->min = (s / 60) % 60;
+  set->hour = (s / 3600) % 24;
+  set->valid = 1;
+}
+
+void LtcTimeCodeSetHMSF(LtcTimeCode* set, uint8_t h, uint8_t m, uint8_t s, uint8_t f){
+  set->frame =f % 30;
+  set->sec = s % 60;
+  set->min = m % 60;
+  set->hour = h % 24;
+  set->valid = 1;
+}
+
+uint32_t  LtcTimeCodeSeconds(LtcTimeCode* set){
+   if (!set->valid) return 0;
+   return (uint32_t)(set->sec) + (uint32_t)(set->min) * 60l + (uint32_t)(set->hour) * 3600l;
+}
+
+uint32_t  LtcTimeCodeMicroSeconds(LtcTimeCode* set){
+    if (!set->valid) return 0;
+    return (uint32_t)(set->frame) * 1000000l / 30l;
+}
+
+uint32_t  LtcTimeCodeDisp(LtcTimeCode* set){
+   if (! set->valid) {
+      return 0;
+    };
+    return set->frame + set->sec * 100l + set->min * 10000l + set->hour * 1000000l;
+}
+
+int LtcTimeCodeIsValid(LtcTimeCode* set){
+  return set->valid;
+}
+
+  
+
+
+
+
+
+
+
+
+
 #if 0
 
 uint8_t LTC::parity() {
