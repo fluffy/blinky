@@ -1060,7 +1060,7 @@ void blinkRun() {
       LtcTimeCodeClear( &timeCode );
       LtcTimeCodeSet(  &timeCode, blinkLocalSeconds , 0 /* us */ );
 
-      LtcTimeCodeSetHMSF(  &timeCode, 1,1,1,4 ); // TODO remove 
+      //LtcTimeCodeSetHMSF(  &timeCode, 1,1,1,4 ); // TODO remove 
         
       ltcSet( &ltc,  &timeCode );
       ltcEncode( &ltc, &ltcSendTransitions , 30 /*fps*/ );
@@ -1076,7 +1076,7 @@ void blinkRun() {
    
 #endif
       
-#if 1
+#if 0
       // for (int i = 1; i < LtcTransitionSetSize( &ltcSendTransitions ); i++) {
       for (int i = 1; i <10; i++) {
         snprintf(buffer, sizeof(buffer), "   LTC send delta: %d %lu\r\n",
@@ -1098,11 +1098,11 @@ void blinkRun() {
                ltcRecvTransitions.numTransitions);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      if (1) { // TODO REMOVE
-        //for (int i = 1; i < LtcTransitionSetSize( &ltcRecvTransitions ); i++) {
-        for (int i = 1; i < 10; i++) {
+      if (0) { // TODO REMOVE
+        for (int i = 1; i < LtcTransitionSetSize( &ltcRecvTransitions ); i++) {
+        //for (int i = 1; i < 10; i++) {
            snprintf(buffer, sizeof(buffer), "   LTC recv delta: %d %lu\r\n",
-                    i, LtcTransitionSetDeltaUs( &ltcRecvTransitions  , i )/100 );
+                    i, LtcTransitionSetDeltaUs( &ltcRecvTransitions  , i )  );
            HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer),
                              1000);
       }
@@ -1118,7 +1118,13 @@ void blinkRun() {
       LtcTimeCodeClear( &timeCode );
       static Ltc ltc;
       ltcClear( &ltc );
-      ltcDecode( &ltc, &ltcRecvTransitions, 30 /*fps */ );
+      int err = ltcDecode( &ltc, &ltcRecvTransitions, 30 /*fps */ );
+      if ( err != 0 ) {
+        snprintf(buffer, sizeof(buffer), "   LTC decode ERROR: %d\r\n",
+                 err );
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      }
+      
       ltcGet(  &ltc , &timeCode );
       uint32_t ltcSeconds = LtcTimeCodeSeconds(&timeCode);
 

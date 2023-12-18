@@ -5,6 +5,16 @@
 
 #include "ltc.h"
 
+#if 0 // TODO
+#include <stdio.h>
+#include <stm32f4xx_ll_tim.h>
+#include <string.h>
+extern UART_HandleTypeDef huart1;
+#define hUartDebug huart1
+#endif
+
+
+
 void LtcTransitionSetClear(LtcTransitionSet* set) {
   set->numTransitions = 0;
   set->nextTransition = 0;
@@ -130,7 +140,7 @@ void ltcEncode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   // std::cout << " totalTime=" << time / 1000 << "ms" << std::endl;
 }
 
-void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
+int ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   uint32_t baud = fps * 80 /* bits per frame */;
   uint32_t zeroInc = 1000000 / baud;  // zero time in micro seconds
   uint32_t oneInc = zeroInc / 2;
@@ -148,19 +158,26 @@ void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
 
   uint8_t done = 0;
   while (!done) {
-    if (setIndex == 0) {
+    if (setIndex == 1) {
       
       // soft fill last bit if missing
-      if ( ( byteCount == 0 )  && ( bitCount == 0 ) ) {
+      if ( ( byteCount == 0 )  && ( bitCount <= 1 ) ) {
         if (ltcParity(ltc) != 0) {
-          ltc->bits[byteCount] |= (1 << bitCount);
+          ltc->bits[0] |= (1 << 0);
         }
         
         done =1;
       }
       else {
         // std::cout << "not enough transitions" << std::endl;
-        return;
+#if 0
+        char buffer[100];
+        snprintf(buffer, sizeof(buffer), "BAD LTC not enough transitions at %d %d\r\n",
+                 byteCount, bitCount  );
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+        
+        return -1;
       }
     }
 
@@ -174,7 +191,7 @@ void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
       // found a start of 1
       if (setIndex < 1) {
         // std::cout << "not enough transitions 2nd half of one" << std::endl;
-        return;
+        return -2;
       }
       uint32_t delta2 = LtcTransitionSetDeltaUs(tSet, setIndex - 1);
       if ((delta2 > oneInc - 50) && (delta2 < oneInc + 50)) {
@@ -184,13 +201,20 @@ void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
         ltc->bits[byteCount] |= (1 << bitCount);
       } else {
         // std::cout << "  2nd half 1 missing" << std::endl;
-        return;
+        return -3;
       }
       setIndex -= 2;
     } else {
       // std::cout << "  bad delta=" << delta << " at setIndex=" <<
       // (int)setIndex << std::endl;
-      return;
+#if 0
+      char buffer[100];
+      snprintf(buffer, sizeof(buffer), "BAD LTC DELTA %lu at index %d\r\n",
+               delta, setIndex  );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+      
+      return -4;
     }
 
     if (bitCount == 0) {
@@ -208,23 +232,25 @@ void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
     if ((byteCount == 7) && (bitCount == 7)) {
       if (ltc->bits[8] != 0xFC) {
         // std::cout << " bad sync1" << std::endl;
-        return;
+        return -5;
       }
     }
 
     if ((byteCount == 8) && (bitCount == 7)) {
       if (ltc->bits[9] != 0xBF) {
         // std::cout << " bad sync2" << std::endl;
-        return;
+        return -6;
       }
     }
   }
 
   if (ltcParity(ltc) != 0) {
     // std::cout << " bad parity" << std::endl;
-    return;
+    return -7;
   }
   ltc->valid = 1;
+
+  return 0;
 }
 
 void ltcSet(Ltc* ltc, LtcTimeCode* time) {

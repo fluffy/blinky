@@ -40,4 +40,4 @@ void ltcSet(Ltc* ltc, LtcTimeCode* time);
 void ltcGet(Ltc* ltc, LtcTimeCode* time);
 uint8_t ltcParity(Ltc* ltc);
 void ltcEncode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps);
-void ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps);
+int ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps);
