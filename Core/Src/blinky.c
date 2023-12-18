@@ -9,6 +9,7 @@
 #include "ltc.h"
 #include "main.h"
 #include "audio.h"
+#include "gps.h"
 
 extern ADC_HandleTypeDef hadc1;
 
@@ -135,78 +136,19 @@ extern const int adcBufferLen;
 extern uint32_t adcBuffer[];
 #endif
 
+#if 0
 const int gpsBufferLen = 20;
 uint8_t gpsBuffer[20];
 uint8_t gpsBufLen = 0;
 char gpsTime[7];  // This will have ASCII chars 123456 to indicate time is
                   // 12:34:56 UTC
 uint32_t gpsTimeTick;
+#endif
 
 LtcTransitionSet ltcSendTransitions;
 LtcTransitionSet ltcRecvTransitions;
 uint32_t blinkLocalSeconds;
 
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-  if (huart == &hUartGps) {
-    if (gpsBufLen == 1) {
-      if (gpsBuffer[0] != '$') {
-        gpsBufLen = 0;  // keep looking for start of line
-      }
-    }
-    if (gpsBufLen > 1) {
-      // found a line
-      gpsBuffer[gpsBufLen] = 0;
-
-#if 0
-      if (1) {
-      char buffer[100];
-      snprintf(buffer, sizeof(buffer), "     GPS: %s \r\n", gpsBuffer );
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      }
-#endif
-      const char *find = "GPRMC";
-      if (memcmp((char *)gpsBuffer + 1, find, strlen(find)) == 0) {
-        // found "$GPRMC
-        if (gpsBuffer[14] == 'A') {
-          // GPS daa is valid
-          strncpy(gpsTime, (char *)gpsBuffer + 7, sizeof(gpsTime) - 1);
-          gpsTime[sizeof(gpsTime) - 1] = 0;  // terminate time string
-
-          uint32_t tick = HAL_GetTick();
-          gpsTimeTick = tick;
-
-#if 0
-          if (1) { char buffer[100];
-          snprintf(buffer, sizeof(buffer), "   gps time UTC: %s \r\n", gpsTime );
-          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-          }
-#endif
-        }
-      }
-
-      gpsBufLen = 0;
-    }
-
-    if (gpsBufLen == 0) {
-      // look for $ start of line
-      gpsBufLen = 1;
-      HAL_StatusTypeDef stat =
-          HAL_UART_Receive_IT(&hUartGps, gpsBuffer, 1 /* size */);
-      if (stat != HAL_UART_ERROR_NONE) {
-        Error_Handler();
-      }
-    } else {
-      gpsBufLen =
-          16;  // Long enough to get the part of NMEA $GPRMC line with timestamp
-      HAL_StatusTypeDef stat = HAL_UART_Receive_IT(&hUartGps, gpsBuffer + 1,
-                                                   gpsBufLen - 1 /* size */);
-      if (stat != HAL_UART_ERROR_NONE) {
-        Error_Handler();
-      }
-    }
-  }
-}
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 #if 1
@@ -511,9 +453,13 @@ void blinkInit() {
   dataCurrentPhaseSyncOut = dataNextSyncOutPhase;
   // subFrameCount = 0;
   // subFrameCountOffset = 120;
+
+#if 0
   gpsTimeTick = 0;
   memset(gpsTime, 0, sizeof(gpsTime));
-
+#endif
+  gpsInit();
+  
   blinkLocalSeconds = 0;
   
   audioInit();
@@ -757,7 +703,8 @@ void blinkSetup() {
 
   audioSetup();
 
-#if 1
+  gpsSetup();
+#if 0
   // start receving for GPS serial
   HAL_StatusTypeDef stat =
       HAL_UART_Receive_IT(&hUartGps, gpsBuffer, 1 /* size */);
@@ -795,17 +742,7 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
 
-#if 0  // TODO remove 
-    while (1) {
-      char buf[9];
-      HAL_UART_Receive (&huart3, (uint8_t*)buf, sizeof(buf)-1, 500 /*timeout ms*/);
-      buf[sizeof(buf)-1]=0;
 
-      snprintf(buffer, sizeof(buffer), "GPS: %s \r\n",
-               buf );
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    }
-#endif
   }
 
 #if 1
