@@ -1032,22 +1032,42 @@ void blinkRun() {
     dataSyncCaptureTickPrev = dataSyncCaptureTick;
   }
 
-  if (dataMonCaptureTick != dataMonCaptureTickPrev) {
-    // TODO delay 100 ms 
-    snprintf(buffer, sizeof(buffer), "   mon local seconds: %lu s\r\n",
-             blinkLocalSeconds );
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    dataMonCaptureTickPrev = dataMonCaptureTick;
+  if ( dataMonCaptureTick + 2000 < tick  ) {
+    // kick start if no mon singlay
+    dataMonCaptureTick = tick;
+  }
+  
+  if ( dataMonCaptureTick != dataMonCaptureTickPrev ) {
+    // TODO delay 100 ms
+    if ( dataMonCaptureTick+200 < tick ) {
+      snprintf(buffer, sizeof(buffer), "   mon local seconds: %lu s %lu %lu \r\n",
+               blinkLocalSeconds ,dataMonCaptureTick , tick );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      dataMonCaptureTickPrev = dataMonCaptureTick;
+      
+      // TODO gen new LTC code
+      static Ltc ltc;
+      ltcClear( &ltc );
+      static LtcTimeCode timeCode;
+      LtcTimeCodeClear( &timeCode );
+      LtcTimeCodeSet(  &timeCode, blinkLocalSeconds , 0 /* us */ );
+      ltcSet( &ltc,  &timeCode );
+      ltcEncode( &ltc, &ltcSendTransitions , 10 /*fps*/ );
 
-    // TODO gen new LTC code
-    static Ltc ltc;
-    ltcClear( &ltc );
-    static LtcTimeCode timeCode;
-    LtcTimeCodeClear( &timeCode );
-    LtcTimeCodeSet(  &timeCode, blinkLocalSeconds , 0 /* us */ );
-    ltcSet( &ltc,  &timeCode );
-    ltcEncode( &ltc, &ltcSendTransitions , 30 /*fps*/ );
-    
+#if 1
+      int stop = ltcSendTransitions.numTransitions;
+      if (stop > 25) {
+        int start = stop - 25;
+        for (int i = start; i < stop - 1; i++) {
+          snprintf(buffer, sizeof(buffer), "   LTC send delta: %d %lu\r\n",
+                   i, ltcSendTransitions.transitionTimeUs[i + 1] -
+                       ltcSendTransitions.transitionTimeUs[i]);
+          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer),
+                            1000);
+        }
+      }
+#endif
+    }
   }
 
    
@@ -1060,11 +1080,11 @@ void blinkRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       int stop = ltcRecvTransitions.numTransitions;
-      if (stop > 5) {
-        int start = stop - 5;
+      if (stop > 25) {
+        int start = stop - 25;
         for (int i = start; i < stop - 1; i++) {
-          snprintf(buffer, sizeof(buffer), "   LTC delta: %lu\r\n",
-                   ltcRecvTransitions.transitionTimeUs[i + 1] -
+          snprintf(buffer, sizeof(buffer), "   LTC recv delta: %d %lu\r\n",
+                   i,  ltcRecvTransitions.transitionTimeUs[i + 1] -
                        ltcRecvTransitions.transitionTimeUs[i]);
           HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer),
                             1000);
@@ -1077,7 +1097,7 @@ void blinkRun() {
       LtcTimeCodeClear( &timeCode );
       static Ltc ltc;
       ltcClear( &ltc );
-      ltcDecode( &ltc, &ltcRecvTransitions, 30 /*fps */ );
+      ltcDecode( &ltc, &ltcRecvTransitions, 10 /*fps */ );
       ltcGet(  &ltc , &timeCode );
       uint32_t ltcSeconds = LtcTimeCodeSeconds(&timeCode);
 
