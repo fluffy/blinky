@@ -120,9 +120,9 @@ be coorelated with the other main clock.
 
 * has SYCN_IN2 on CH1 on PC6 
 * reset on main 
-* 10 KHz rate 
+* 50 KHz rate 
 
-1.5 seconds , count up on main at 10 KHz
+1.1 seconds , count up on main at 50 KHz
 
 ## Serial 
 

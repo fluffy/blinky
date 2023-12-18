@@ -384,7 +384,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       uint32_t val;
       val = HAL_TIM_ReadCapturedValue(htim, TimeLtc_CH_SYNC_IN2);
       ltcRecvTransitions.transitionTimeUs[ltcRecvTransitions.numTransitions++] =
-          val * 100l;  // convert to uSec
+          val * 20l;  // convert to uSec, this timer counts at 50 KHz 
 
       dataLtcCapture = val;
       dataLtcCaptureTick = tick;
@@ -1052,9 +1052,9 @@ void blinkRun() {
       LtcTimeCodeClear( &timeCode );
       LtcTimeCodeSet(  &timeCode, blinkLocalSeconds , 0 /* us */ );
       ltcSet( &ltc,  &timeCode );
-      ltcEncode( &ltc, &ltcSendTransitions , 10 /*fps*/ );
+      ltcEncode( &ltc, &ltcSendTransitions , 30 /*fps*/ );
 
-#if 1
+#if 0
       int stop = ltcSendTransitions.numTransitions;
       if (stop > 25) {
         int start = stop - 25;
@@ -1080,8 +1080,8 @@ void blinkRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       int stop = ltcRecvTransitions.numTransitions;
-      if (stop > 25) {
-        int start = stop - 25;
+      if (stop > 50) {
+        int start = stop - 50;
         for (int i = start; i < stop - 1; i++) {
           snprintf(buffer, sizeof(buffer), "   LTC recv delta: %d %lu\r\n",
                    i,  ltcRecvTransitions.transitionTimeUs[i + 1] -
@@ -1097,7 +1097,7 @@ void blinkRun() {
       LtcTimeCodeClear( &timeCode );
       static Ltc ltc;
       ltcClear( &ltc );
-      ltcDecode( &ltc, &ltcRecvTransitions, 10 /*fps */ );
+      ltcDecode( &ltc, &ltcRecvTransitions, 30 /*fps */ );
       ltcGet(  &ltc , &timeCode );
       uint32_t ltcSeconds = LtcTimeCodeSeconds(&timeCode);
 
