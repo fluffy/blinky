@@ -7,7 +7,7 @@
 
 #include "ltc.h"
 
-#if 0 // TODO
+#if 1 // TODO
 #include <stdio.h>
 #include <stm32f4xx_ll_tim.h>
 #include <string.h>
@@ -113,8 +113,8 @@ void ltcEncode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   uint32_t zeroInc = 1000000 / baud;  // one time in micro seconds
   uint32_t oneInc = zeroInc / 2;
 
-  LtcTransitionSetAdd(tSet, time);
-
+  LtcTransitionSetAdd(tSet, time); // first transition at time 0 
+  
   for (int i = 0; i < 10; i++) {
     uint16_t data = ltc->bits[i];
     for (uint16_t bit = 0; bit < 8; bit++) {
@@ -164,7 +164,7 @@ int ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
       
       // soft fill last bit if missing
       if ( ( byteCount == 0 )  && ( bitCount <= 1 ) ) {
-        if (ltcParity(ltc) != 0) {
+        if (ltcParity(ltc) == 1) { // TODO is this correct 
           ltc->bits[0] |= (1 << 0);
         }
         
@@ -209,7 +209,7 @@ int ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
     } else {
       // std::cout << "  bad delta=" << delta << " at setIndex=" <<
       // (int)setIndex << std::endl;
-#if 0
+#if 1 // TODO remove 
       char buffer[100];
       snprintf(buffer, sizeof(buffer), "BAD LTC DELTA %lu at index %d\r\n",
                delta, setIndex  );
@@ -267,7 +267,7 @@ void ltcSet(Ltc* ltc, LtcTimeCode* time) {
   ltc->bits[8] = 0xFC;  // sync1
   ltc->bits[9] = 0xBF;  // sync2
 
-  if (ltcParity(ltc) != 0) {
+  if (ltcParity(ltc) == 0) { // is this correct ??
     // set polarity correction bit
     ltc->bits[3] |= 0x08;
   }
