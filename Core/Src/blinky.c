@@ -586,10 +586,10 @@ void blinkSetup() {
     if (writeConfigEEProm) {
       // write config to EEProm
       config.version = 1;
-      config.product = 1;  // 1=blink, 2=clock
+      config.product = 2;  // 1=blink, 2=clock
       config.revMajor = 0;
       config.revMinor = 9;
-      config.serialNum = 7;
+      config.serialNum = 8;
 
       config.extOscType = 0;
       config.oscAdj = -658;
