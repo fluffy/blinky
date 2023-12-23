@@ -629,10 +629,20 @@ void blinkSetup() {
     }
 
     if ((config.revMajor == 0) && (config.revMinor == 9)) {
-      snprintf(buffer, sizeof(buffer), "  Hardware version: EV8 \r\n");
+      snprintf(buffer, sizeof(buffer), "  Hardware version: EV9 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       setClk(config.extOscType, config.vcoValue, config.oscAdj);
+
+      if ( config.product == 1 ) {
+        // reconfigure ext_clk to be input buton 2
+        GPIO_InitTypeDef GPIO_InitStruct = {0};
+        GPIO_InitStruct.Pin = AUX_CLK_Pin ;
+        GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+        GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+        HAL_GPIO_Init( AUX_CLK_GPIO_Port, &GPIO_InitStruct);
+      }
+      
     } else {
       snprintf(buffer, sizeof(buffer), "Unknown hardware version %d.%d\r\n",
                config.revMajor, config.revMinor);
@@ -738,18 +748,20 @@ void blinkRun() {
   }
 
 #if 1
-  if (!HAL_GPIO_ReadPin(DB3_GPIO_Port, DB3_Pin)) {
-    if (!button2WasPressed) {
-      blinkMute = (blinkMute) ? 0 : 1;
-
-      snprintf(buffer, sizeof(buffer), "Button 2 press. Mute=%d \r\n",
+    if ( config.product == 1 ) {
+      if (!HAL_GPIO_ReadPin( AUX_CLK_GPIO_Port, AUX_CLK_Pin)) {
+        if (!button2WasPressed) {
+          blinkMute = (blinkMute) ? 0 : 1;
+          
+          snprintf(buffer, sizeof(buffer), "Button 2 press. Mute=%d \r\n",
                (int)blinkMute);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+        }
+        button2WasPressed = 1;
+      } else {
+        button2WasPressed = 0;
+      }
     }
-    button2WasPressed = 1;
-  } else {
-    button2WasPressed = 0;
-  }
 #endif
 
 #if 1
