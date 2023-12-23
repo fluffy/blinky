@@ -105,6 +105,9 @@ uint8_t blinkMute = 1;       // mutes audio outout
 uint8_t blinkBlank = 1;      // causes LED to be off
 uint8_t blinkDispAudio = 0;  // caused audio latency to be displayed on LED
 
+uint8_t blinkHaveDisplay =1;
+
+
 uint32_t dataSyncCapture;
 uint32_t dataSyncCaptureTick;
 uint32_t dataLtcCapture;
@@ -212,7 +215,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
       col = 255;
     }
 
-    if (1) {
+    if (blinkHaveDisplay) {
       HAL_GPIO_WritePin(NCOL1_GPIO_Port, NCOL1_Pin,
                         (col == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(NCOL2_GPIO_Port, NCOL2_Pin,
@@ -246,7 +249,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                         (row == 5) ? GPIO_PIN_RESET : GPIO_PIN_SET);
     }
 
-    if (1) {
+    if (blinkHaveDisplay) {
       // Low 4 bits of display
       HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
                         (binCount & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
@@ -635,12 +638,30 @@ void blinkSetup() {
       setClk(config.extOscType, config.vcoValue, config.oscAdj);
 
       if ( config.product == 1 ) {
+        // This is blink board
+        
         // reconfigure ext_clk to be input buton 2
         GPIO_InitTypeDef GPIO_InitStruct = {0};
         GPIO_InitStruct.Pin = AUX_CLK_Pin ;
         GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
         GPIO_InitStruct.Pull = GPIO_PULLDOWN;
         HAL_GPIO_Init( AUX_CLK_GPIO_Port, &GPIO_InitStruct);
+      }
+
+      if ( config.product == 2 ) {
+        // This is clock board
+
+        // turn off options
+        blinkHaveDisplay =0;
+        
+        // turn off audio and display
+         blinkMute = 1;
+         blinkBlank = 1;
+
+         // enable 5V power supply on LED1
+         // TODO - make this based on if USB has enough power 
+         HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
+                            GPIO_PIN_SET );
       }
       
     } else {
