@@ -476,12 +476,12 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     /**TIM8 GPIO Configuration
     PC6     ------> TIM8_CH1
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_6;
+    GPIO_InitStruct.Pin = AUX_SYNC_IN_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF3_TIM8;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+    HAL_GPIO_Init(AUX_SYNC_IN_GPIO_Port, &GPIO_InitStruct);
 
     /* TIM8 interrupt Init */
     HAL_NVIC_SetPriority(TIM8_TRG_COM_TIM14_IRQn, 15, 0);
@@ -648,7 +648,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     /**TIM8 GPIO Configuration
     PC6     ------> TIM8_CH1
     */
-    HAL_GPIO_DeInit(GPIOC, GPIO_PIN_6);
+    HAL_GPIO_DeInit(AUX_SYNC_IN_GPIO_Port, AUX_SYNC_IN_Pin);
 
     /* TIM8 interrupt DeInit */
     HAL_NVIC_DisableIRQ(TIM8_TRG_COM_TIM14_IRQn);
@@ -677,17 +677,17 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     /* Peripheral clock enable */
     __HAL_RCC_USART1_CLK_ENABLE();
 
-    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
     /**USART1 GPIO Configuration
-    PB6     ------> USART1_TX
-    PB7     ------> USART1_RX
+    PA9     ------> USART1_TX
+    PA10     ------> USART1_RX
     */
     GPIO_InitStruct.Pin = USB_RX_Pin|USB_TX_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* USER CODE BEGIN USART1_MspInit 1 */
 
@@ -709,7 +709,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     GPIO_InitStruct.Pin = GPS_RX1_Pin|GPS_TX1_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
@@ -740,10 +740,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
     __HAL_RCC_USART1_CLK_DISABLE();
 
     /**USART1 GPIO Configuration
-    PB6     ------> USART1_TX
-    PB7     ------> USART1_RX
+    PA9     ------> USART1_TX
+    PA10     ------> USART1_RX
     */
-    HAL_GPIO_DeInit(GPIOB, USB_RX_Pin|USB_TX_Pin);
+    HAL_GPIO_DeInit(GPIOA, USB_RX_Pin|USB_TX_Pin);
 
   /* USER CODE BEGIN USART1_MspDeInit 1 */
 

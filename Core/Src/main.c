@@ -847,8 +847,7 @@ static void MX_GPIO_Init(void)
                           |NCOL2_Pin|NCOL9_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED4_Pin|LED1_Pin|LED2_Pin|NCOL1_Pin
-                          |LEDMR_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED4_Pin|LED1_Pin|LED2_Pin|LEDMR_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin, GPIO_PIN_SET);
@@ -858,10 +857,10 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, NCOL8_Pin|NCOL7_Pin|NCOL6_Pin|NCOL5_Pin
-                          |LED3_Pin|NROW5_Pin, GPIO_PIN_RESET);
+                          |LED3_Pin|NROW5_Pin|NCOL1_Pin|LEDMY_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LEDMY_Pin|LEDMG_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DB3_GPIO_Port, DB3_Pin, GPIO_PIN_RESET);
@@ -883,19 +882,21 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED4_Pin LED1_Pin LED2_Pin NCOL1_Pin
-                           LEDMY_Pin LEDMG_Pin LEDMR_Pin */
-  GPIO_InitStruct.Pin = LED4_Pin|LED1_Pin|LED2_Pin|NCOL1_Pin
-                          |LEDMY_Pin|LEDMG_Pin|LEDMR_Pin;
+  /*Configure GPIO pins : LED4_Pin LED1_Pin LED2_Pin LEDMG_Pin
+                           LEDMR_Pin */
+  GPIO_InitStruct.Pin = LED4_Pin|LED1_Pin|LED2_Pin|LEDMG_Pin
+                          |LEDMR_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED9_Pin LED10_Pin NCOL8_Pin NCOL7_Pin
-                           NCOL6_Pin NCOL5_Pin LED3_Pin NROW5_Pin */
+                           NCOL6_Pin NCOL5_Pin LED3_Pin NROW5_Pin
+                           NCOL1_Pin LEDMY_Pin */
   GPIO_InitStruct.Pin = LED9_Pin|LED10_Pin|NCOL8_Pin|NCOL7_Pin
-                          |NCOL6_Pin|NCOL5_Pin|LED3_Pin|NROW5_Pin;
+                          |NCOL6_Pin|NCOL5_Pin|LED3_Pin|NROW5_Pin
+                          |NCOL1_Pin|LEDMY_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
