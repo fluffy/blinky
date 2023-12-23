@@ -713,15 +713,9 @@ void blinkSetup() {
 
   // set LED to on but not sync ( yellow, not green )
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
-                    GPIO_PIN_SET);  // turn on yellow assert LED
+                    GPIO_PIN_SET);  // turn on blue assert LED
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
                     GPIO_PIN_RESET);  // turn off green ok LED
-
-  if (1) {
-    char buffer[100];
-    snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  }
 
   audioSetup();
 
@@ -734,6 +728,13 @@ void blinkSetup() {
     Error_Handler();
   }
 #endif
+
+  if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
 }
 
 void blinkRun() {
