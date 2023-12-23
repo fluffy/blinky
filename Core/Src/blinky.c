@@ -70,7 +70,7 @@ extern UART_HandleTypeDef huart1;
 // Uses Semantic versioning https://semver.org/
 // major.minor.patch,
 // patch=year/month/day
-const char *version = "0.80.231220";
+const char *version = "0.90.231223";
 
 // This structure is saved in EEPROM
 // keep size padded to 32 bits
