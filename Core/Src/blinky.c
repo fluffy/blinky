@@ -586,10 +586,10 @@ void blinkSetup() {
     if (writeConfigEEProm) {
       // write config to EEProm
       config.version = 1;
-      config.product = 2;
+      config.product = 1;  // 1=blink, 2=clock
       config.revMajor = 0;
-      config.revMinor = 8;
-      config.serialNum = 5;
+      config.revMinor = 9;
+      config.serialNum = 7;
 
       config.extOscType = 0;
       config.oscAdj = -658;
@@ -628,7 +628,7 @@ void blinkSetup() {
       Error_Handler();
     }
 
-    if ((config.revMajor == 0) && (config.revMinor == 8)) {
+    if ((config.revMajor == 0) && (config.revMinor == 9)) {
       snprintf(buffer, sizeof(buffer), "  Hardware version: EV8 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
