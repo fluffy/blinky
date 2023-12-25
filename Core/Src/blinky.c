@@ -574,6 +574,7 @@ void blinkSetup() {
     uint32_t timeout = 256;
     uint8_t tempAddr = 0x0;
     uint16_t temp=0;
+    float tempC; 
     uint8_t configAddr = 0x1;
     uint16_t config=0;
     HAL_StatusTypeDef status;
@@ -595,12 +596,12 @@ void blinkSetup() {
     }
     else {
       snprintf(buffer, sizeof(buffer),
-               "Temperature config :  0x%04x \r\n", config);
+               "Temperature config :  0x%04x (expected  0xA060)\r\n", config);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
     
     config = 0xA060; // power up default
-    config |= 0x1000; // turn of extended mode
+    config &= ~0x1000; // turn off extended mode
     uint16_t convRate =1; // 0=0.25Hz, 1=1Hz, 2=4Hz, 3=8Hz
     config |= (config&0x3FFF) | ( convRate << 6 ); // set coversion rate 
     
@@ -627,6 +628,20 @@ void blinkSetup() {
     } else {
        snprintf(buffer, sizeof(buffer),
                "Temperature:  raw 0x%04x \r\n", temp);
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
+      if ( temp & 0x800 ) {
+        // negative temp
+         float count = temp & 0x7FF; // bottom 12 bits
+         tempC = -0.0625  * count ;
+      } else {
+        // positive temp
+        float count = temp & 0x7FF; // bottom 12 bits
+        tempC = 0.0625 * count;
+      }
+      
+      snprintf(buffer, sizeof(buffer),
+               "Temperature: %f C \r\n", tempC);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
     
