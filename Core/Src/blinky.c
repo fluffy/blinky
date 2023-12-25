@@ -575,7 +575,7 @@ void blinkSetup() {
     uint32_t timeout = 256;
     uint8_t tempAddr = 0x0;
     uint16_t temp=0;
-    float tempC; 
+    
     uint8_t configAddr = 0x1;
     uint16_t config=0;
     HAL_StatusTypeDef status;
@@ -615,7 +615,9 @@ void blinkSetup() {
       
       temp = ((temp & 0x00FF) << 8) | ((temp & 0xFF00) >> 8); // swap bytes 
       temp = temp >> 4; // shift to be 12 bits
-      
+
+       float tempC;
+       
       if ( temp & 0x800 ) {
         // negative temp
         float count = temp & 0x7FF; // bottom 11 bits
@@ -626,9 +628,9 @@ void blinkSetup() {
         tempC = 0.0625 * count;
       }
       
-      int t = round(tempC * 10.0); 
+      int tempDeciC = round(tempC * 10.0); 
       snprintf(buffer, sizeof(buffer),
-               "Temperature: %d.%d C \r\n", t/10, t%10);
+               "Temperature: %d.%d C \r\n", tempDeciC/10, tempDeciC%10);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
   }
