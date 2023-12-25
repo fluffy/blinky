@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stm32f4xx_ll_tim.h>
 #include <string.h>
+#include <math.h> // for round
 
 #include "blink.h"
 #include "detect.h"
@@ -584,27 +585,12 @@ void blinkSetup() {
       snprintf(buffer, sizeof(buffer), "Error: Temperature sensor not found \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
-
-    status = HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1, configAddr,
-                               sizeof(configAddr), (uint8_t *)&config,
-                               (uint16_t)sizeof(config), timeout);
-    if (status != HAL_OK) {
-      // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
-      snprintf(buffer, sizeof(buffer),
-               "Temperature Read config Error:  data hal error %d \r\n", status);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    }
-    else {
-      snprintf(buffer, sizeof(buffer),
-               "Temperature config :  0x%04x (expected  0xA060)\r\n", config);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    }
     
     config = 0xA060; // power up default
-    config &= ~0x1000; // turn off extended mode
-    uint16_t convRate =1; // 0=0.25Hz, 1=1Hz, 2=4Hz, 3=8Hz
+    config &= ~0x1000; // turn off extended mode (  only needed for temps above 128 C )
+    uint16_t convRate = 1; // 0=0.25Hz, 1=1Hz, 2=4Hz, 3=8Hz
     config |= (config&0x3FFF) | ( convRate << 6 ); // set coversion rate 
-    
+
     status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, configAddr,
                                sizeof(configAddr), (uint8_t *)&config,
                                (uint16_t)sizeof(config), timeout);
@@ -614,7 +600,7 @@ void blinkSetup() {
                "Temperature Write Error:  data hal error %d \r\n", status);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
-    
+
     HAL_Delay( 1100 /*ms */); // TODO remove 
     
     status = HAL_I2C_Mem_Read(&hI2c, i2cAddr << 1, tempAddr,
@@ -626,25 +612,25 @@ void blinkSetup() {
                "Temperature Read Error:  data hal error %d \r\n", status);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     } else {
-       snprintf(buffer, sizeof(buffer),
-               "Temperature:  raw 0x%04x \r\n", temp);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
+      
+      temp = ((temp & 0x00FF) << 8) | ((temp & 0xFF00) >> 8); // swap bytes 
+      temp = temp >> 4; // shift to be 12 bits
+      
       if ( temp & 0x800 ) {
         // negative temp
-         float count = temp & 0x7FF; // bottom 12 bits
-         tempC = -0.0625  * count ;
+        float count = temp & 0x7FF; // bottom 11 bits
+        tempC = -0.0625  * count ;
       } else {
         // positive temp
-        float count = temp & 0x7FF; // bottom 12 bits
+        float count = temp & 0x7FF; // bottom 11 bits
         tempC = 0.0625 * count;
       }
       
+      int t = round(tempC * 10.0); 
       snprintf(buffer, sizeof(buffer),
-               "Temperature: %f C \r\n", tempC);
+               "Temperature: %d.%d C \r\n", t/10, t%10);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
-    
   }
   
   // access EEProm
