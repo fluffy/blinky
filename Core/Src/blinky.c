@@ -805,36 +805,37 @@ void blinkSetup() {
 #endif
 
 #if 1
-    HAL_ADC_Start(&hadc1);
-    HAL_ADC_PollForConversion(&hadc1, 1000 /*timeout ms*/);
-    uint16_t val = HAL_ADC_GetValue(&hadc1);
-    int power=0; // in mA
-    if ( ( val > 250) & ( val <= 750 ) ) {
-      power = 500;
-    }
-    if ( ( val > 750) & ( val <= 1500 ) ) {
-      power = 1500;
-    }
-     if ( ( val > 1500) & ( val <= 2500 ) ) {
-      power = 3000;
-    }
-    if (1) {
-      char buffer[100];
-      snprintf(buffer, sizeof(buffer), "  Power Supply: %d.%d A  (value=%u) \r\n", power/1000, ( power/100) % 10 ,  val );
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    }
-    // seeing value of 0 if fliped wrong way
-    // value of 543 = on usb hub = 0.4375 V 
-    // value of 1138 , 1157 on mac front port = 0.916 V
-    // value of 501 = on  usb expander bar
-
-    // the far end has 10k, 22K, 56K resisotr to 5V for 3, 1.5, 0.5 A respectively
-    // this end has 5.1K resitor to ground
-    // range of ADC is 4096 for 3.3 V
-    // < 250 , wrong CC
-    // <  750 , have 0.5 A
-    // < 1500 , have 1.5 A
-    // < 2500 , have 3 A 
+  // TODO need to check both channel 7 and 10 for two different sides of connector 
+  HAL_ADC_Start(&hadc1);
+  HAL_ADC_PollForConversion(&hadc1, 1000 /*timeout ms*/);
+  uint16_t val = HAL_ADC_GetValue(&hadc1);
+  int power=0; // in mA
+  if ( ( val > 250) & ( val <= 750 ) ) {
+    power = 500;
+  }
+  if ( ( val > 750) & ( val <= 1500 ) ) {
+    power = 1500;
+  }
+  if ( ( val > 1500) & ( val <= 2500 ) ) {
+    power = 3000;
+  }
+  if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Power Supply: %d.%d A  (value=%u) \r\n", power/1000, ( power/100) % 10 ,  val );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+  // seeing value of 0 if fliped wrong way
+  // value of 543 = on usb hub = 0.4375 V 
+  // value of 1138 , 1157 on mac front port = 0.916 V
+  // value of 501 = on  usb expander bar
+  
+  // the far end has 10k, 22K, 56K resisotr to 5V for 3, 1.5, 0.5 A respectively
+  // this end has 5.1K resitor to ground
+  // range of ADC is 4096 for 3.3 V
+  // < 250 , wrong side CC
+  // <  750 , have 0.5 A
+  // < 1500 , have 1.5 A
+  // < 2500 , have 3 A 
 #endif
   
   if (1) {

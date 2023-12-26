@@ -1,5 +1,5 @@
 #MicroXplorer Configuration settings - do not modify
-ADC1.Channel-2\#ChannelRegularConversion=ADC_CHANNEL_10
+ADC1.Channel-2\#ChannelRegularConversion=ADC_CHANNEL_7
 ADC1.ContinuousConvMode=DISABLE
 ADC1.DMAContinuousRequests=ENABLE
 ADC1.ExternalTrigConv=ADC_SOFTWARE_START
