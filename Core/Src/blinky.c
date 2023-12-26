@@ -29,7 +29,7 @@ extern TIM_HandleTypeDef htim8;
 extern UART_HandleTypeDef huart1;
 //extern UART_HandleTypeDef huart3;
 
-//#define hADC hadc1
+#define hADC hadc1
 
 #define hDAC hdac
 #define DAC_CH_OSC_ADJ DAC_CHANNEL_1
@@ -251,6 +251,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     }
 
     if (blinkHaveDisplay) {
+#if 0 // TODO enable ( led2 was used for ADC ) 
       // Low 4 bits of display
       HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
                         (binCount & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
@@ -260,7 +261,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                         (binCount & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin,
                         (binCount & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-
+#endif
+      
       // High 4 bits of display
 #if 0  // TODO
       // problems LED 5,6 input only
@@ -546,7 +548,10 @@ void blinkSetup() {
                     GPIO_PIN_SET);  // turn on green ok LED
 
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+  
+#if 0  // TODO
   HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+#endif
   HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET);
 
@@ -630,7 +635,7 @@ void blinkSetup() {
       
       int tempDeciC = round(tempC * 10.0); 
       snprintf(buffer, sizeof(buffer),
-               "Temperature: %d.%d C \r\n", tempDeciC/10, tempDeciC%10);
+               "  Temperature: %d.%d C \r\n", tempDeciC/10, tempDeciC%10);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
   }
@@ -799,6 +804,36 @@ void blinkSetup() {
   }
 #endif
 
+#if 1
+    HAL_ADC_Start(&hadc1);
+    HAL_ADC_PollForConversion(&hadc1, 1000 /*timeout ms*/);
+    uint16_t val = HAL_ADC_GetValue(&hadc1);
+    int power=500; // in mA
+    if ( ( val > 750) & ( val <= 1500 ) ) {
+      power = 1500;
+    }
+     if ( ( val > 1500) & ( val <= 2500 ) ) {
+      power = 3000;
+    }
+    if (1) {
+      char buffer[100];
+      snprintf(buffer, sizeof(buffer), "  Power Supply: %d.%d A  (value=%u) \r\n", power/1000, ( power/100) % 10 ,  val );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+    // seeing value of 0 if fliped wrong way
+    // value of 543 = on usb hub = 0.4375 V 
+    // value of 1138 , 1157 on mac front port = 0.916 V
+    // value of 501 = on  usb expander bar
+
+    // the far end has 10k, 22K, 56K resisotr to 5V for 3, 1.5, 0.5 A respectively
+    // this end has 5.1K resitor to ground
+    // range of ADC is 4096 for 3.3 V
+    // < 250 , wrong CC
+    // <  750 , have 0.5 A
+    // < 1500 , have 1.5 A
+    // < 2500 , have 3 A 
+#endif
+  
   if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
