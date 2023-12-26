@@ -808,7 +808,10 @@ void blinkSetup() {
     HAL_ADC_Start(&hadc1);
     HAL_ADC_PollForConversion(&hadc1, 1000 /*timeout ms*/);
     uint16_t val = HAL_ADC_GetValue(&hadc1);
-    int power=500; // in mA
+    int power=0; // in mA
+    if ( ( val > 250) & ( val <= 750 ) ) {
+      power = 500;
+    }
     if ( ( val > 750) & ( val <= 1500 ) ) {
       power = 1500;
     }
