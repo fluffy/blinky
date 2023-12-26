@@ -18,7 +18,7 @@ Mon refers to monitor of PPS
 - GpsIn 1 pps input - PB10 and aux PA1 
  
  On blink board:
- - AUX_CLK, AUX_GPS_PPS , GPS_RX, GPX_TX not used 
+ - AUX\_CLK, AUX\_GPS_PPS , GPS\_RX, GPX\_TX not used 
  - CLK on PA15 is 2.048 Mhz signal 
  
  ## Timers 
@@ -44,7 +44,7 @@ Display TImer drives LED and sync to main or aux rollover
 
 * Use timer 1
 This timer running at 168 Mhz input clock
-* CH1 - PA8 - TimePps_CH_SYNC_OUT 
+* CH1 - PA8 - TimePps\_CH\_SYNC\_OUT 
 increments at 50 KHz 
 does 20 ms wide output pulse every 1 second 
 Resets based on ITR1 from Tim2 Update Event (main) 
@@ -64,9 +64,9 @@ loop ever 1.1 seconds
 
 * ETR: PA15 
 * CH1: PA0 - NA with ETR 
-* CH2: PA3  - sync_in   TimeSync_CH_SYNC_IN 
-* CH3: PB10  - gps   TimeSync_CH_GPS_PPS  
-* CH4: PB11  - sync_mon   TimeSync_CH_SYNC_MON 
+* CH2: PA3  - sync\_in   TimeSync\_CH\_SYNC\_IN 
+* CH3: PB10  - gps   TimeSync\_CH\_GPS\_PPS
+* CH4: PB11  - sync\_mon   TimeSync\_CH\_SYNC\_MON 
 
 CH1 is disabled if ETR is in use 
 
@@ -96,7 +96,7 @@ Assumes that that Aux signal is getting a 10Mhz signal.
 * Use 32 bit timer 5
 * max 42 Mhz
 * ETR:
-* CH1: PA0 - AUX_CLK
+* CH1: PA0 - AUX\_CLK
 * CH2:  PA1 - GPS 
 * CH3: PA2 - AUX_MON
 * Ch4: PA4  - no 

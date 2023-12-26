@@ -77,9 +77,7 @@ void HAL_DAC_ErrorCallbackCh2(DAC_HandleTypeDef *hdac) {
 
 
 void audioSetup(){
- 
-
-  #if 1
+#if 1
   // DMA for Audio Out DAC
   HAL_StatusTypeDef err;
   err = HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
@@ -113,8 +111,7 @@ void audioStop(){
     HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
 }
 
- void audioInit(){
+void audioInit(){
   detectInit(adcBufferLen);
-
 }
  
