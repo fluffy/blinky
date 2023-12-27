@@ -71,7 +71,7 @@ extern UART_HandleTypeDef huart1;
 // Uses Semantic versioning https://semver.org/
 // major.minor.patch,
 // patch=year/month/day
-const char *version = "0.90.231223";
+const char *version = "0.90.231227";
 
 // This structure is saved in EEPROM
 // keep size padded to 32 bits
@@ -325,7 +325,10 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
                                      // on inverted output
 
       // supress for 100 ms after seeing first edge
-      if (dataMonCaptureTick + 100 /*ms */ > tick) {
+       if (   (dataMonCaptureTick < tick)  && (tick < dataMonCaptureTick + 100 /*ms */ )  ) {
+        // supress this tick 
+      }
+      else {
         dataMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_MON);
         dataMonCaptureTick = tick;
       }
@@ -344,6 +347,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     if (htim->Channel ==
         TimeAux_HAL_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
                                     // on inverted output
+
+      // TODO - supress ticks for 100 ms 
       dataAuxMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeAux_CH_SYNC_MON);
       dataAuxMonCaptureTick = tick;
     }
@@ -362,7 +367,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
    uint32_t tick = HAL_GetTick();
    
-#if 1  // DO LTC
+#if 0  // DO LTC
  if (htim == &hTimePps) {
    
    if (ltcSendTransitions.nextTransition == 1) {
@@ -379,7 +384,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
      
    if ( ltcSendTransitions.nextTransition < ltcSendTransitions.numTransitions ) {
      uint32_t v = ltcSendTransitions.transitionTimeUs[ltcSendTransitions.nextTransition ] / 20l +
-       dataCurrentSyncOutPhase * 5 ;  // convert to 50 KHz timer counts
+       dataCurrentSyncOutPhase *5 ; // TODO , why 5 ;  // convert to 50 KHz timer counts
      if (v >= 50000) {
        v -= 50000;
      }
@@ -403,12 +408,13 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
  }  
 #else  // PPS instead of LTC
  if (htim == &hTimePps) {
+   static int alternate=0; // TODO 
     uint16_t val = __HAL_TIM_GET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT);
-    if (val != dataCurrentSyncOutPhase*5 ) {
+    if ( (alternate++) %2 ) { // TODO if (val != dataCurrentSyncOutPhase ) {
       // end of output pulse just happened, set up for next output pulse
       dataCurrentSyncOutPhase = dataNextSyncOutPhase;
       __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT,
-                            dataCurrentSyncOutPhase*5);
+                            dataCurrentSyncOutPhase);
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
@@ -417,11 +423,11 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       audioStop();
     } else {  // val == dataCurrentSyncOutPhase
       // start of output pulse just started, set up for the end of pulse
-      val = dataCurrentSyncOutPhase*5 + blinkAudioPulseWidthMs * 50;
-      if (val >= 50000) {
-        val -= 50000;
+       uint16_t v = dataCurrentSyncOutPhase + 500l; // TODOP blinkAudioPulseWidthMs * 50l;
+      if (v >= 50000) {
+        v -= 50000;
       }
-      __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, val);
+      __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, v);
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
@@ -436,14 +442,14 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
 }
 
 void blinkInit() {
-  dataMonCapture = 0xFFFFffff;
+  dataMonCapture = 0;
   dataMonCaptureTick = 0;
-  dataSyncCapture = 0xFFFFffff;
+  dataSyncCapture = 0;
   dataSyncCaptureTick = 0;
-  dataGpsPpsCapture = 0xFFFFffff;
+  dataGpsPpsCapture = 0;
   dataGpsPpsCaptureTick = 0;
   dataExtClkCount = 0;
-  dataExtClkCountTickOffset = -1000;
+  dataExtClkCountTickOffset = -1000; // TODO 
   dataNextSyncOutPhase = 5000;
   dataCurrentSyncOutPhase = dataNextSyncOutPhase;
   // subFrameCount = 0;
@@ -791,14 +797,6 @@ void blinkSetup() {
 
   gpsSetup();
   
-#if 0
-  // start receving for GPS serial
-  HAL_StatusTypeDef stat =
-      HAL_UART_Receive_IT(&hUartGps, gpsBuffer, 1 /* size */);
-  if (stat != HAL_UART_ERROR_NONE) {
-    Error_Handler();
-  }
-#endif
 
 #if 0
   // TODO 
@@ -930,25 +928,34 @@ void blinkRun() {
 
       if ((tick > 2000) && (dataSyncCaptureTick + 2000 > tick)) {
         //  had sync in last 2 seconds
-        int32_t deltaPhaseUs =
-            capture2uS(dataSyncCapture) - capture2uS(dataMonCapture);
-        int32_t deltaPhase =
-            deltaPhaseUs /
-            100l;  // div 100 for 1MHz to 10KHz counter conversion
-        if (deltaPhase < 0) deltaPhase += 10000;
-
-        deltaPhase += 0;  // offset
-
-        uint32_t phase = dataNextSyncOutPhase + deltaPhase;
-        if (phase >= 10000) {
-          phase -= 10000;
+        int32_t deltaPhaseUs = capture2uS(dataSyncCapture) - capture2uS(dataMonCapture);
+        int32_t deltaPhase = deltaPhaseUs / 20l;  // Convert uS to 50KHz counter conversion
+        if (deltaPhase < 0) {
+          deltaPhase += 50000;
         }
-
+        
+        deltaPhase += 0;  // offset TODO 
+        
+        uint16_t prePhase = dataNextSyncOutPhase; // TODO REMOVE 
+        uint32_t phase = ( uint32_t )dataNextSyncOutPhase + deltaPhase;
+        if (phase >= 50000) {
+          phase -= 50000;
+        }
+        
         dataNextSyncOutPhase = phase;
-
-        snprintf(buffer, sizeof(buffer), "  SYCN IN: new phase: %ld\r\n",
-                 phase);
+        
+        snprintf(buffer, sizeof(buffer), "  SYNC dbg sync=%lX mon=%lX \r\n",
+                 dataSyncCapture, dataMonCapture);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+        
+        snprintf(buffer, sizeof(buffer), "  SYNC dbg prePhase=%u postPhase=%u deltaPhrase=%lu \r\n",
+                 prePhase, dataNextSyncOutPhase, deltaPhase );
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);      
+        
+        snprintf(buffer, sizeof(buffer), "  SYNC IN: Sync=%lu uS, Mon=%lu uS ,  new phase: %ld\r\n",
+                 capture2uS(dataSyncCapture), capture2uS(dataMonCapture) , phase);
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+        
       } else if ((tick > 2000) && (dataGpsPpsCaptureTick + 2000 > tick)) {
         //  had GPS sync in last 2 seconds
         int32_t deltaPhaseUs =
