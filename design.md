@@ -216,12 +216,102 @@ Buttons controll the varios modes.
 Sync button causes it to sync to an input. If it has GPS then use
 that, otherwise if have sync in, use that. 
 
-Display button moves between: blink fast, blink slow, audio latency,
-off 
-
-TODO - how to display what mode it is in ????
+Display button moves between: blink,  audio latency, and off 
 
 Mute button moves between: rx only, rx & tx 
+
+Status LED is:
+RED: Error 
+Purple: Bad power
+Blue: Running but not synced 
+Green: Synced and running 
+
+Will auto sync on first sync if sync buton has never been hit 
+
+## Configureation
+
+EEProm stores, serial number and device type, calibration info, config
+if LTC or PPS output 
+
+## Serial Ouput 
+
+Sends @ mark for timing host software 
+
+Sends current time HH::MM:SS
+
+All metrics reset to zero on first mon pulse after press of sync button
+
+On clock board, mark pulse is GPS, on blink it is Sync 
+
+Measurements:
+
+Current SyncIn Offset in uS 
+Current GPS Offset in uS 
+Current Mon Offset in uS
+
+
+Current Mon ExtOffset in uS
+Current SyncIn in ExtOffset in uS
+current GPS ExtOffset in uS 
+
+Tick time of last mon pulse 
+TimeTick of last sync pulse 
+Tick time  of last gps pulse 
+
+GPS seconds of last gps pulse 
+Local seconds of last mon pulse 
+
+The current values are coppied to prev once a seconds in the mon pulse
+interupt then used to compute the rest of the metrics
+
+Prev SyncIn Offset in uS 
+Prev GPS Offset in uS 
+Prev Mon Offset in uS
+
+Prev Mon ExtOffset in uS
+Prev SyncIn in ExtOffset in uS
+Prev GPS ExtOffset in uS 
+
+Tick time of prev mon pulse 
+Tick time of prev sync pulse 
+Tick time of prev gps pulse 
+
+GPS seconds of prev gps pulse 
+Local seconds of prev mon pulse 
+
+Metrics:
+
+Missing GPS pulses
+Missing Ext pulses
+Missing Sync pulses 
+
+have GPS
+have Ext
+have Sync 
+
+At last Mon pulse, total count of internal cycles
+At last Mon pulse, total count of external cycles 
+
+At last Sync pulse, total count of internal cycles
+At last Sync pulse, total count of external cycles 
+
+At last GPS pulse, total count of internal cycles 
+At last GPS pulse, total count of external cycles 
+
+How much local time is off of GPS time (uS) 
+How much sync time is off of GPS time (uS) 
+How much ext time is off of GPS time (uS) 
+
+How much local time is off of ext time (uS) 
+How much sync if off of local time (uS)
+
+rate of local drift from gps in ppb over last 1,10,100 s 
+rate of ext drift from gps in ppb over last  1,10,100 s
+rate of sync drift from gps in ppb over last  1,10,100 s
+
+rate of local drift from ext in ppb over last  1,10,100 s
+
+
 
 # TODO
 
