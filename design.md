@@ -51,6 +51,7 @@ Resets based on ITR1 from Tim2 Update Event (main)
 * 16 bits 
 * sync off of timer 2
 loop ever 1.1 seconds 
+Input APB2 @ 168 MHz
 
 
 ### Main Timer #2 - hTimeSync (aka SyncIn/main)
@@ -74,11 +75,15 @@ CH1 is disabled if ETR is in use
 * Capture PPS In
 * Capture GPS PPS
 
+Input APB1 at 84 MHz 
+
+
 ### ADC Timer - Timer 3 
 
 * count at 1MHz
 * 114 count - about 440*20 Hz
 * not sync, trigger out to ADC1
+Input APB1 at 84 MHz 
 
 ### Blink Timer - TImer 4
 
@@ -87,6 +92,7 @@ CH1 is disabled if ETR is in use
 * Reset on ITR1 from Tim2 
 * period 1 ms 
 * interrupt ( 1 KHz) to drive LEDs
+Input APB1 at 84 MHz 
 
 
 ### Aux Timer - Timer 5 
@@ -108,6 +114,7 @@ be coorelated with the other main clock.
 * capture SyncMon
 * capture GPS PPS
 * capture SyncIn
+Input APB1 at 84 MHz 
 
 ### DAC Timer - Timer 6 
 
@@ -115,6 +122,7 @@ be coorelated with the other main clock.
 * 1 Mhz count rate 
 * 8 KHz period ( 1000 count ) 
 * trigger out to DAC2
+Input APB1 at 84 MHz 
 
 ### TImer 8 - used to time LTC 
 
@@ -123,6 +131,8 @@ be coorelated with the other main clock.
 * 50 KHz rate 
 
 1.1 seconds , count up on main at 50 KHz
+Input APB2 @ 168 MHz
+
 
 ## Serial 
 
