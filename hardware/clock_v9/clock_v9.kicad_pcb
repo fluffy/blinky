@@ -13677,7 +13677,7 @@
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp 8aa9d187-0635-4a26-b810-4c667cc9e989))
   (gr_line (start 95 38) (end 95 130)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp f710403a-f799-429d-9e51-1ed631a07644))
-  (gr_text "Cullen Jennings Clock Rev 9.3\n" (at 162.4 128.7) (layer "F.SilkS") (tstamp 0442abe3-b6f1-4db1-b42d-556674de7dba)
+  (gr_text "Cullen Fluffy Jennings VE6FLF - Clock Rev 9.3\n" (at 154.787152 128.510051) (layer "F.SilkS") (tstamp 0442abe3-b6f1-4db1-b42d-556674de7dba)
     (effects (font (size 1.6 1) (thickness 0.15)) (justify left bottom))
   )
   (gr_text "CLK" (at 147.1 128.5) (layer "F.SilkS") (tstamp 2008a58f-559c-4089-8508-13cd221e2c3f)
