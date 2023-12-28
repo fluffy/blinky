@@ -9,6 +9,7 @@
 #include "blink.h"
 #include "detect.h"
 #include "gps.h"
+#include "pps.h"
 #include "ltc.h"
 #include "main.h"
 
@@ -302,82 +303,6 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
   }
 }
 
-void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
-  uint32_t tick = HAL_GetTick();
-
-#if 1  // DO LTC
- if (htim == &hTimePps) {
-   
-   if (ltcSendTransitions.nextTransition == 1) {
-     if (!blinkMute) {
-       // start audio output
-       audioStart();
-     }
-   }
-   
-   if (ltcSendTransitions.nextTransition == ltcSendTransitions.numTransitions-1 ) {
-     // stop audio output
-     audioStop();
-   }
-     
-   if ( ltcSendTransitions.nextTransition < ltcSendTransitions.numTransitions ) {
-     uint32_t v = (ltcSendTransitions.transitionTimeUs[ltcSendTransitions.nextTransition ] + dataCurrentSyncOutPhaseUS ) / 20l  ; // convert to 50 KHz timer counts
-     if (v >= 50000) {
-       v -= 50000;
-     }
-     
-     __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, v);
-     LL_TIM_OC_SetMode(TIM1, TimePps_LL_CH_SYNC_OUT,
-                       (ltcSendTransitions.nextTransition  % 2 ==0) ? LL_TIM_OCMODE_INACTIVE : LL_TIM_OCMODE_ACTIVE
-                       // inverted due to inverting output buffer
-                       );
-      
-     ltcSendTransitions.nextTransition++;
-     
-     if ( ltcSendTransitions.nextTransition >= ltcSendTransitions.numTransitions) {
-       // will restart when new code generatd ltcSendTransitions.nextTransition = 0;  // restart
-       dataCurrentSyncOutPhaseUS = dataNextSyncOutPhaseUS;
-       dataLtcGenTick = tick;
-     }
-     
-   }
- }
-#else  // PPS instead of LTC
-  if (htim == &hTimePps) {
-    static int alternate = 0;  // TODO
-    uint16_t val = __HAL_TIM_GET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT);
-    if ((alternate++) % 2) {  // TODO if (val != dataCurrentSyncOutPhase ) {
-      // end of output pulse just happened, set up for next output pulse
-      dataCurrentSyncOutPhase = dataNextSyncOutPhase;
-      __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT,
-                            dataCurrentSyncOutPhase);
-      LL_TIM_OC_SetMode(
-          TIM1, TimePps_LL_CH_SYNC_OUT,
-          LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
-
-      // stop audio output
-      audioStop();
-    } else {  // val == dataCurrentSyncOutPhase
-              // start of output pulse just started, set up for the end of pulse
-      uint16_t v = dataCurrentSyncOutPhase +
-                   500l;  // TODOP blinkAudioPulseWidthMs * 50l;
-      if (v >= 50000) {
-        v -= 50000;
-      }
-      __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, v);
-      LL_TIM_OC_SetMode(
-          TIM1, TimePps_LL_CH_SYNC_OUT,
-          LL_TIM_OCMODE_ACTIVE);  // inverted due to inverting output buffer
-
-      if (!blinkMute) {
-        // start audio output
-        audioStart();
-      }
-    }
-  }
-#endif
-}
-
 void blinkInit() {
   dataMonCapture = 0;
   dataMonCaptureTick = 0;
@@ -397,7 +322,8 @@ void blinkInit() {
   blinkLocalSeconds = 0;
 
   audioInit();
-
+  ppsInit();
+  
   LtcTransitionSetClear(&ltcSendTransitions);
   LtcTransitionSetClear(&ltcRecvTransitions);
 
@@ -680,12 +606,13 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
+  ppsSetup();
+  
   HAL_TIM_Base_Start_IT(&hTimeBlink);
 
   HAL_TIM_Base_Start_IT(&hTimeSync);
 
-  HAL_TIM_OC_Start_IT(&hTimePps, TimePps_CH_SYNC_OUT);  // start sync out
-
+ 
   HAL_TIM_Base_Start_IT(&hTimeSync);
 
   HAL_TIM_IC_Start_IT(&hTimeSync,
@@ -979,6 +906,7 @@ void blinkRun() {
   }
 
 #if 1
+  // TODO - call ppsStart ????
   if (dataLtcGenTick + 2000 < tick) {
     // kick start if get out of sync
     dataLtcGenTick = tick;
@@ -998,18 +926,8 @@ void blinkRun() {
     ltcSet(&ltc, &timeCode);
     ltcEncode(&ltc, &ltcSendTransitions, 30 /*fps*/);
 
-    // start the output timer pulse // TODO - some way to kick start if dies 
-    uint32_t v = (ltcSendTransitions.transitionTimeUs[0]  +dataCurrentSyncOutPhaseUS ) / 20l ;  // convert to 50 KHz timer counts
-    if (v >= 50000) {
-      v -= 50000;
-    }
-    __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT, v);
-    LL_TIM_OC_SetMode(
-        TIM1, TimePps_LL_CH_SYNC_OUT,
-        LL_TIM_OCMODE_INACTIVE  // inverted due to inverting output buffer
-    );
-
-    ltcSendTransitions.nextTransition = 1;
+    // TODO - some way to kick start if dies 
+    ppsStart();
     
     snprintf(buffer, sizeof(buffer), "   LTC gen %lus\r\n", LtcTimeCodeSeconds(&timeCode) );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
