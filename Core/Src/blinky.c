@@ -884,24 +884,7 @@ void blinkRun() {
   }
 
   if (!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) {
-    if (!button1WasPressed) {
-#if 0
-      // TODO remove - just for testing 
-         snprintf(buffer, sizeof(buffer), "Button 1 press - advance pahse \r\n");
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
-      // just advance phase by 100 ms 
-        uint32_t prePhaseUS = dataNextSyncOutPhaseUS;  // TODO REMOVE
-        uint32_t phaseUS = dataNextSyncOutPhaseUS + 100000l;
-        if ( phaseUS < 0) {
-          phaseUS += 1000000l;
-        }
-        if ( phaseUS >= 1000000l) {
-          phaseUS -= 1000000l;
-        }
-        dataNextSyncOutPhaseUS = phaseUS;
-#else
-        
+    if (!button1WasPressed) {  
       uint32_t tick = HAL_GetTick();
 
       snprintf(buffer, sizeof(buffer), "Button 1 press \r\n");
@@ -931,54 +914,48 @@ void blinkRun() {
           phaseUS -= 1000000l;
         }
         dataNextSyncOutPhaseUS = phaseUS;
-
-#if 0 // TODO
-        //snprintf(buffer, sizeof(buffer), "  SYNC dbg sync=%lX mon=%lX \r\n",
-        //         dataSyncCapture, dataMonCapture);
-        //HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
-        //snprintf(buffer, sizeof(buffer),
-        //         "  SYNC dbg prePhase=%u postPhase=%u deltaPhrase=%lu \r\n",
-        //         prePhase, dataNextSyncOutPhase, deltaPhase);
-        //HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-#endif
- 
+        
         snprintf(buffer, sizeof(buffer),
-                 "  SYNC IN: Sync=%lu mS, Mon=%lu mS,  oldPhase=%lu mS newPhase=%ld mS \r\n",
+                 "  SYNC IN: sync phase=%lu mS, mon phase=%lu mS, oldPhase=%lu mS, newPhase=%ld mS \r\n",
                  capture2uS(dataSyncCapture)/1000l, capture2uS(dataMonCapture)/1000l,
                  prePhaseUS/1000l, phaseUS/1000l  );
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
+        
       }
-#if 0 // TODO
-       else if ((tick > 2000) && (dataGpsPpsCaptureTick + 2000 > tick)) 
-        {   //  had GPS sync in last 2 seconds
-        int32_t deltaPhaseUs =
-            capture2uS(dataGpsPpsCapture) - capture2uS(dataMonCapture);
-        int32_t deltaPhase =
-            deltaPhaseUs /
-            100l;  // div 100 for 1MHz to 10KHz counter conversion
-        if (deltaPhase < 0) deltaPhase += 10000;
-
-        deltaPhase += 0;  // offset
-
-        uint32_t phase = dataNextSyncOutPhase + deltaPhase;
-        if (phase >= 10000) {
-          phase -= 10000;
+      else if ((tick > 2000) && (dataGpsPpsCaptureTick + 2000 > tick))  {
+        //  had GPS sync in last 2 seconds
+        int32_t deltaPhaseUS = capture2uS(dataGpsPpsCapture) - capture2uS(dataMonCapture);
+        if ( deltaPhaseUS < 0) {
+          deltaPhaseUS += 1000000l;
         }
-
-        dataNextSyncOutPhase = phase;
-
-        snprintf(buffer, sizeof(buffer), "  GPS: new phase: %ld\r\n", phase);
+        if (deltaPhaseUS >= 1000000l) {
+          deltaPhaseUS -= 1000000l;
+        }
+        
+        deltaPhaseUS += 0;  // offset TODO
+        
+        uint32_t prePhaseUS = dataNextSyncOutPhaseUS;  // TODO REMOVE
+        uint32_t phaseUS = dataNextSyncOutPhaseUS + deltaPhaseUS;
+        if ( phaseUS < 0) {
+          phaseUS += 1000000l;
+        }
+        if ( phaseUS >= 1000000l) {
+          phaseUS -= 1000000l;
+        }
+        dataNextSyncOutPhaseUS = phaseUS;
+        
+        snprintf(buffer, sizeof(buffer),
+                 "  SYNC FYPS: gps phase=%lu mS, mon phase=%lu mS, oldPhase=%lu mS, newPhase=%ld mS\r\n",
+                 capture2uS(dataGpsPpsCapture)/1000l, capture2uS(dataMonCapture)/1000l,
+                 prePhaseUS/1000l, phaseUS/1000l  );
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
-#endif
        else
         {
         snprintf(buffer, sizeof(buffer), "ERROR  No sync input\r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
-#endif   
+ 
     }
     button1WasPressed = 1;
   } else {
@@ -1048,10 +1025,12 @@ void blinkRun() {
   
 
   if (dataMonCaptureTick != dataMonCaptureTickPrev) {
+#if 0 // to much print out 
     snprintf(buffer, sizeof(buffer), "   mon phase %lu mS \r\n",
         capture2uS(dataMonCapture )/1000l);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
+#endif
+    
     dataMonCaptureTickPrev = dataMonCaptureTick;
   }
 
@@ -1063,10 +1042,6 @@ void blinkRun() {
 #endif
 
   if (dataLtcGenTick != dataLtcGenTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   LTC Gen Done\r\n");
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    dataLtcGenTickPrev = dataLtcGenTick;
-
     // gen new LTC code
     static Ltc ltc;
     ltcClear(&ltc);
@@ -1091,9 +1066,14 @@ void blinkRun() {
     );
 
     ltcSendTransitions.nextTransition = 1;
+    
+    //snprintf(buffer, sizeof(buffer), "   LTC Gen Done\r\n");
+    //HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
+    dataLtcGenTickPrev = dataLtcGenTick;
   }
 
-#if 1
+
   if (dataLtcCaptureTick + 100 /*ms*/ <
       tick) {  // been 100 ms since lask LTC transition
     if (dataLtcCaptureTick != dataLtcCaptureTickPrev) {
@@ -1121,9 +1101,7 @@ void blinkRun() {
           &ltcRecvTransitions);  // reset ltc capture for next cycle
     }
   }
-#endif
 
-#if 1
   if (dataGpsPpsCaptureTick != dataGpsPpsCaptureTickPrev) {
     snprintf(buffer, sizeof(buffer), "   gps  delta: %ld ms\r\n",
              captureDeltaUs(dataGpsPpsCapture, dataMonCapture) / 1000);
@@ -1136,9 +1114,8 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     gpsTimeTickPrev = gpsTimeTick;
   }
-#endif
 
-#if 0  // TODO 
+#if 1  // TODO 
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
     snprintf(buffer, sizeof(buffer), "   ext time: %ld s\r\n", dataExtClkCount);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
