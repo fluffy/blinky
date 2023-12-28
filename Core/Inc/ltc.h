@@ -1,4 +1,5 @@
 // Copyright (c) 2023 Cullen Jennings
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>

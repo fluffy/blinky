@@ -5,16 +5,11 @@
 //  https://en.wikipedia.org/wiki/Linear_timecode
 //  Official specification in SMPTE 12M TODO
 
-#include "ltc.h"
-
-#if 1 // TODO
 #include <stdio.h>
-#include <stm32f4xx_ll_tim.h>
 #include <string.h>
-extern UART_HandleTypeDef huart1;
-#define hUartDebug huart1
-#endif
 
+#include "ltc.h"
+#include "hardware.h"
 
 
 void LtcTransitionSetClear(LtcTransitionSet* set) {

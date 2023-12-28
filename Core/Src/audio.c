@@ -9,32 +9,8 @@
 #include "main.h"
 #include "detect.h"
 
-#if 1 // TODO
-extern UART_HandleTypeDef huart1;
-#define hUartDebug huart1
-#endif 
+#include "hardware.h"
 
-
-extern ADC_HandleTypeDef hadc1;
-extern DAC_HandleTypeDef hdac;
-
-extern TIM_HandleTypeDef htim3;
-extern TIM_HandleTypeDef htim6;
-
-
-#define hADC hadc1
-#define hTimeDAC htim6
-#define hTimeADC htim3
-
-
-#define hDAC hdac
-#define DAC_CH_OSC_ADJ DAC_CHANNEL_1
-#define DAC_CH_AUD_OUT DAC_CHANNEL_2
-
-
-#define hTimeADC htim3
-
-#define hTimeDAC htim6
 
 
 // dacBuffer has 20 point sin wave center on 1000 with amplitude 500

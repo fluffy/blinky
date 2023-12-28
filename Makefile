@@ -39,6 +39,7 @@ C_SOURCES =  \
 Core/Src/main.c \
 Core/Src/blinky.c \
 Core/Src/ltc.c \
+Core/Src/pps.c \
 Core/Src/gps.c \
 Core/Src/audio.c \
 Core/Src/detect.c \

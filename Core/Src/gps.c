@@ -8,15 +8,7 @@
 
 #include "main.h"
 #include "detect.h"
-
-#if 1 // TODO
-extern UART_HandleTypeDef huart1;
-#define hUartDebug huart1
-#endif 
-
-extern UART_HandleTypeDef huart3;
-#define hUartGps huart3
-
+#include "hardware.h"
 
 
 const int gpsBufferLen = 20;
