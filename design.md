@@ -258,38 +258,22 @@ Measurements:
 Current SyncIn Offset in uS 
 Current GPS Offset in uS 
 Current Mon Offset in uS
-
+Tick time of last mon pulse 
+Tick time of last sync pulse 
+Tick time of last gps pulse 
 
 Current Mon ExtOffset in uS
-Current SyncIn in ExtOffset in uS
 Current GPS ExtOffset in uS 
-
-Tick time of last mon pulse 
-TimeTick of last sync pulse 
-Tick time  of last gps pulse 
+Tick time of last ext mon pulse 
+Tick time of last ext gps pulse 
 
 GPS seconds of last gps pulse 
 Local seconds of last mon pulse 
+Ext seconds of last mon pulse
+LTC seconds of last sync pulse 
 
-The current values are coppied to prev once a seconds in the mon pulse
+The current values are copied to prev once a seconds in the mon pulse
 interupt then used to compute the rest of the metrics
-
-Prev SyncIn Offset in uS 
-Prev GPS Offset in uS 
-Prev Mon Offset in uS
-
-Prev Mon ExtOffset in uS
-Prev SyncIn in ExtOffset in uS
-Prev GPS ExtOffset in uS 
-
-Tick time of prev mon pulse 
-Tick time of prev sync pulse 
-Tick time of prev gps pulse 
-
-GPS seconds of prev gps pulse 
-Local seconds of prev mon pulse 
-Ext seconds of prev mon pulse
-LTC seconds of prev sync pulse 
 
 
 Metrics:
