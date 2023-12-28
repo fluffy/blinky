@@ -262,7 +262,7 @@ Current Mon Offset in uS
 
 Current Mon ExtOffset in uS
 Current SyncIn in ExtOffset in uS
-current GPS ExtOffset in uS 
+Current GPS ExtOffset in uS 
 
 Tick time of last mon pulse 
 TimeTick of last sync pulse 
@@ -288,6 +288,9 @@ Tick time of prev gps pulse
 
 GPS seconds of prev gps pulse 
 Local seconds of prev mon pulse 
+Ext seconds of prev mon pulse
+LTC seconds of prev sync pulse 
+
 
 Metrics:
 

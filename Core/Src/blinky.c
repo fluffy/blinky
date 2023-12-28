@@ -299,14 +299,11 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
         TimeSync_HAL_CH_SYNC_IN) {  // sync in falling edge. falling is rising
                                     // on inverted input
 
-#if 1 // TODO
       // supress for 100 ms after seeing first edge
       if ((dataSyncCaptureTick < tick) &&
           (tick < dataSyncCaptureTick + 100 /*ms*/)) {
         // supress this tick
-      } else
-#endif
-        {
+      } else {
         dataSyncCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_IN);
         dataSyncCaptureTick = tick;
        }
@@ -316,14 +313,11 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
         TimeSync_HAL_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
                                      // on inverted output
 
-#if 1 // TODO 
       // supress for 100 ms after seeing first edge
       if ((dataMonCaptureTick < tick) &&
           (tick < dataMonCaptureTick + 100 /*ms*/)) {
         // supress this tick
-      } else
-#endif
-        {
+      } else {
         dataMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_MON);
         dataMonCaptureTick = tick;
       }
@@ -342,9 +336,13 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
         TimeAux_HAL_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
                                     // on inverted output
 
-      // TODO - supress ticks for 100 ms
-      dataAuxMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeAux_CH_SYNC_MON);
-      dataAuxMonCaptureTick = tick;
+      if ((dataAuxMonCaptureTick < tick) &&
+          (tick < dataAuxMonCaptureTick + 100 /*ms*/)) {
+        // supress this tick
+      } else {
+        dataAuxMonCapture = HAL_TIM_ReadCapturedValue(htim, TimeAux_CH_SYNC_MON);
+        dataAuxMonCaptureTick = tick;
+      }
     }
 
     if (htim->Channel == TimeAux_HAL_CH_GPS_PPS) {  // sync in on falling edge.
@@ -907,8 +905,6 @@ void blinkRun() {
           deltaPhaseUS -= 1000000l;
         }
         
-        deltaPhaseUS += 0;  // offset TODO
-
         uint32_t prePhaseUS = dataNextSyncOutPhaseUS;  // TODO REMOVE
         uint32_t phaseUS = dataNextSyncOutPhaseUS + deltaPhaseUS;
         if ( phaseUS < 0) {
@@ -935,8 +931,6 @@ void blinkRun() {
         if (deltaPhaseUS >= 1000000l) {
           deltaPhaseUS -= 1000000l;
         }
-        
-        deltaPhaseUS += 0;  // offset TODO
         
         uint32_t prePhaseUS = dataNextSyncOutPhaseUS;  // TODO REMOVE
         uint32_t phaseUS = dataNextSyncOutPhaseUS + deltaPhaseUS;
