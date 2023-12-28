@@ -57,3 +57,5 @@ extern DAC_HandleTypeDef hdac;
 #define hTimeLtc htim8
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 #define TimeLtc_HAL_CH_SYNC_IN2 HAL_TIM_ACTIVE_CHANNEL_1
+
+void Error_Handler();
