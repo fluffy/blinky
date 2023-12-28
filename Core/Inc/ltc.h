@@ -10,7 +10,7 @@ typedef struct {
   uint8_t frame;
   bool valid;
 } LtcTimeCode;
-void LtcTimeCodeClear(LtcTimeCode*);
+void LtcTimeCodeClear(LtcTimeCode*); // TODO - fix case 
 void LtcTimeCodeSet(LtcTimeCode*, uint32_t s, uint32_t us);
 void LtcTimeCodeSetHMSF(LtcTimeCode*, uint8_t h, uint8_t m, uint8_t s,
                         uint8_t f);
