@@ -102,6 +102,10 @@ inline uint32_t capture2uS(const uint32_t c) {
   return (c * capture2uSRatioM) / capture2uSRatioN;
 }
 
+inline uint32_t extCapture2uS(const uint32_t c) {
+  return c / 10l;
+}
+
 uint8_t blinkMute = 1;       // mutes audio outout
 uint8_t blinkBlank = 1;      // causes LED to be off
 uint8_t blinkDispAudio = 0;  // caused audio latency to be displayed on LED
@@ -962,16 +966,16 @@ void blinkRun() {
     button1WasPressed = 0;
   }
 
-#if 1 // TODO prints too much stuff
+#if 0 // TODO prints too much stuff
   if (1) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
-    snprintf( buffer, sizeof(buffer), "Sync Time val %ldus\r\n",  capture2uS(val) );
+    snprintf( buffer, sizeof(buffer), "Sync time: %lu.%03lums\r\n",  capture2uS(val)/1000l , capture2uS(val)%1000l);
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
   if (1) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeAux);
-    snprintf( buffer, sizeof(buffer), "Aux Time val %ld\r\n",  val );
+    snprintf( buffer, sizeof(buffer), "Aux  time: %lu.%03lums\r\n",  extCapture2uS(val)/1000l , extCapture2uS(val)%1000l );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 #endif
@@ -1115,18 +1119,20 @@ void blinkRun() {
     gpsTimeTickPrev = gpsTimeTick;
   }
 
-#if 1  // TODO 
+#if 0
   if (dataExtClkCountTick != dataExtClkCountTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   ext time: %lds\r\n", dataExtClkCount);
+    snprintf(buffer, sizeof(buffer), "   ext time: %lus\r\n", dataExtClkCount);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataExtClkCountTickPrev = dataExtClkCountTick;
   }
+#endif
 
+#if 1
   if ((dataAuxMonCaptureTick != dataAuxMonCaptureTickPrev) &&
       (dataExtClkCount != dataExtClkCountMonPrev)) {
     snprintf(buffer, sizeof(buffer),
-             "   Aux Mon: external time %lus %lu.%luus\r\n", dataExtClkCount,
-             dataAuxMonCapture / 10, dataAuxMonCapture % 10);
+             "   Aux mon: external time %lu.%03lums\r\n", 
+             extCapture2uS(dataAuxMonCapture) / 1000l, extCapture2uS(dataAuxMonCapture) % 1000l);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     dataAuxMonCaptureTickPrev = dataAuxMonCaptureTick;
     dataExtClkCountMonPrev = dataExtClkCount;
