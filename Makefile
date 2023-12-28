@@ -40,6 +40,7 @@ Core/Src/main.c \
 Core/Src/blinky.c \
 Core/Src/config.c \
 Core/Src/ltc.c \
+Core/Src/thermo.c \
 Core/Src/pps.c \
 Core/Src/gps.c \
 Core/Src/audio.c \
