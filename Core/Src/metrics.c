@@ -8,6 +8,7 @@
 #include "hardware.h"
 #include "measurement.h"
 
+Metrics metrics;
 static Measurements dataPrev;
 
 void metricsInit() { memset(&metrics, 0, sizeof(metrics)); }
@@ -24,11 +25,11 @@ void metricsRun() {
   // the odds odd of something updating data during the copy
   memcpy(&dataPrev, &data, sizeof(dataPrev));
 
-  uint64_t localUS =
+  metrics.localTimeUS =
       (uint64_t)dataPrev.localSeconds * 1000000 + dataPrev.monCapture;
-  uint64_t extUS =
+  metrics.extTimeUS =
       (uint64_t)dataPrev.extSeconds * 1000000 + dataPrev.monAuxCapture;
-  uint64_t syncUS =
+  metrics.syncTimeUS =
       (uint64_t)dataPrev.ltcSeconds * 1000000 + dataPrev.syncCapture;
 
   if (dataPrev.localSeconds % 5 == 2) {
@@ -39,21 +40,22 @@ void metricsRun() {
 
     if (1) {
       snprintf(buffer, sizeof(buffer), "  LocalTime(s) %5lu.%03ld\r\n",
-               (uint32_t)(localUS / 1000000),
-               (uint32_t)(localUS % 1000000) / 1000);
+               (uint32_t)(metrics.localTimeUS / 1000000),
+               (uint32_t)(metrics.localTimeUS % 1000000) / 1000);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
     if (1) {
       snprintf(buffer, sizeof(buffer), "    ExtTime(s) %5lu.%03ld\r\n",
-               (uint32_t)(extUS / 1000000), (uint32_t)(extUS % 1000000) / 1000);
+               (uint32_t)(metrics.extTimeUS / 1000000),
+               (uint32_t)(metrics.extTimeUS % 1000000) / 1000);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
     if (1) {
       snprintf(buffer, sizeof(buffer), "   SyncTime(s) %5lu.%03ld\r\n",
-               (uint32_t)(syncUS / 1000000),
-               (uint32_t)(syncUS % 1000000) / 1000);
+               (uint32_t)(metrics.syncTimeUS / 1000000),
+               (uint32_t)(metrics.syncTimeUS % 1000000) / 1000);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
   }

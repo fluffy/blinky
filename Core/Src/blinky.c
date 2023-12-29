@@ -432,20 +432,22 @@ void blinkRun() {
   static char button2WasPressed = 0;
   static char button3WasPressed = 0;
 
-  static uint32_t syncCaptureTickPrev = 0;
-  static uint32_t monCaptureTickPrev = 0;
-  static uint32_t gpsCaptureTickPrev = 0;
 
-  static uint32_t monAuxCaptureTickPrev = 0;
-  static uint32_t gpsTimeTickPrev = 0;
+  static uint32_t __attribute__((__unused__)) syncCaptureTickPrev = 0;
+  static uint32_t __attribute__((__unused__)) monCaptureTickPrev = 0;
+  static uint32_t __attribute__((__unused__)) gpsCaptureTickPrev = 0;
 
-  static uint32_t ltcSecondsTickPrev = 0;
-  static uint32_t ltcGenTickPrev = 0;
+  static uint32_t __attribute__((__unused__)) monAuxCaptureTickPrev = 0;
+  static uint32_t __attribute__((__unused__)) gpsTimeTickPrev = 0;
 
-  static uint32_t localSecondsTickPrev = 0;
-  static uint32_t extSecondsTickPrev = 0;
-  static uint32_t extSecondsPrev = 0;
+  static uint32_t __attribute__((__unused__)) ltcSecondsTickPrev = 0;
+  static uint32_t __attribute__((__unused__)) ltcGenTickPrev = 0;
 
+  static uint32_t __attribute__((__unused__)) localSecondsTickPrev = 0;
+  static uint32_t __attribute__((__unused__)) extSecondsTickPrev = 0;
+  static uint32_t __attribute__((__unused__)) extSecondsPrev = 0;
+
+  
   char buffer[100];
 
   uint32_t tick = HAL_GetTick();
