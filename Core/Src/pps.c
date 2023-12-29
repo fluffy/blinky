@@ -4,8 +4,10 @@
 #include "ltc.h"
 #include "audio.h"
 #include "hardware.h"
+#include "measurement.h"
 
-extern uint32_t dataLtcGenTick;
+
+//extern uint32_t dataLtcGenTick;
 extern LtcTransitionSet ltcSendTransitions;
 extern uint8_t blinkMute;
 
@@ -77,7 +79,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
      if ( ltcSendTransitions.nextTransition >= ltcSendTransitions.numTransitions) {
        // will restart when new code generatd ltcSendTransitions.nextTransition = 0;  // restart
        dataCurrentSyncOutPhaseUS = dataNextSyncOutPhaseUS;
-       dataLtcGenTick = tick;
+       data.ltcGenTick = tick;
      }
      
    }

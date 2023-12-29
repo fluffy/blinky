@@ -267,10 +267,11 @@ Current GPS ExtOffset in uS
 Tick time of last ext mon pulse 
 Tick time of last ext gps pulse 
 
-GPS seconds of last gps pulse 
-Local seconds of last mon pulse 
-Ext seconds of last mon pulse
+GPS seconds of last gps pulse  
 LTC seconds of last sync pulse 
+ 
+Local counter rollover count  ( seconds )
+Ext counter rollover count ( seconds ) 
 
 The current values are copied to prev once a seconds in the mon pulse
 interupt then used to compute the rest of the metrics

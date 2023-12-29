@@ -15,6 +15,7 @@
 
 #include "hardware.h"
 #include "config.h"
+#include "measurement.h"
 
 
 // Uses Semantic versioning https://semver.org/
@@ -31,37 +32,14 @@ uint8_t blinkDispAudio = 0;  // caused audio latency to be displayed on LED
 
 uint8_t blinkHaveDisplay = 1;
 
-typedef struct {
-  
-  uint32_t gpsCapture;
-  uint32_t gpsCaptureTick;
-  uint32_t monCapture;
-  uint32_t monCaptureTick;
-  uint32_t syncCapture;
-  uint32_t syncCaptureTick;
 
-  uint32_t gpsAuxCapture;
-  uint32_t gpsAuxCaptureTick;
-  uint32_t monAuxCapture;
-  uint32_t monAuxCaptureTick;
-  // there is no sync captue for Aux
-
-} Measurements;
 
 Measurements data;
 
-uint32_t dataLtcCapture;
-uint32_t dataLtcCaptureTick;
-uint32_t dataLtcGenTick;
 
-//uint32_t dataAuxMonCapture;
-//uint32_t dataAuxMonCaptureTick;
-//uint32_t dataAuxGpsPpsCapture;
-//uint32_t dataAuxGpsPpsCaptureTick;
 
-uint32_t dataExtClkCount;  // counting seconds
-uint32_t dataExtClkCountTick;
-int32_t dataExtClkCountTickOffset;
+//int32_t dataExtClkCountTickOffset;
+
 
 uint32_t dataNextSyncOutPhaseUS;
 uint32_t dataCurrentSyncOutPhaseUS;
@@ -72,18 +50,18 @@ const uint32_t blinkAudioPulseWidthMs = 33;
 LtcTransitionSet ltcSendTransitions;
 LtcTransitionSet ltcRecvTransitions;
 
-uint32_t blinkLocalSeconds;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   uint32_t tick = HAL_GetTick();
 
   if (htim == &hTimeSync) {
-    blinkLocalSeconds++;
+    data.localSeconds++;
+    data.localSecondsTick = tick;
   }
 
   if (htim == &hTimeAux) {
-    dataExtClkCount++;
-    dataExtClkCountTick = tick;
+    data.extSeconds++;
+    data.extSecondsTick = tick;
   }
 
 #if 0
@@ -215,8 +193,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       ltcRecvTransitions.transitionTimeUs[ltcRecvTransitions.numTransitions++] =
           val * 20l;  // convert to uSec, this timer counts at 50 KHz
 
-      dataLtcCapture = val;
-      dataLtcCaptureTick = tick;
+      data.ltcSeconds = val;
+      data.ltcSecondsTick = tick;
 
       if (ltcRecvTransitions.numTransitions >= ltcMaxTransitions) {
         ltcRecvTransitions.numTransitions = 0;
@@ -296,8 +274,8 @@ void blinkInit() {
   data.syncCaptureTick = 0;
   data.gpsCapture = 0;
   data.gpsCaptureTick = 0;
-  dataExtClkCount = 0;
-  dataExtClkCountTickOffset = -1000;  // TODO
+  data.extSeconds = 0;
+  // dataExtClkCountTickOffset = -1000;  // TODO
   dataNextSyncOutPhaseUS = 10l * 1000l;
   dataCurrentSyncOutPhaseUS = dataNextSyncOutPhaseUS;
   // subFrameCount = 0;
@@ -307,7 +285,7 @@ void blinkInit() {
   
   gpsInit();
 
-  blinkLocalSeconds = 0;
+  data.localSeconds = 0;
 
   audioInit();
   ppsInit();
@@ -316,7 +294,7 @@ void blinkInit() {
   LtcTransitionSetClear(&ltcRecvTransitions);
 
   data.syncCaptureTick = 0;
-  dataLtcGenTick = 0;
+  data.ltcGenTick = 0;
 }
 
 int32_t captureDeltaUs(uint32_t pps, uint32_t mon) {
@@ -463,13 +441,16 @@ void blinkRun() {
   static uint32_t monCaptureTickPrev = 0;
   static uint32_t gpsCaptureTickPrev = 0;
 
-  
-  static uint32_t dataLtcCaptureTickPrev = 0;
-  static uint32_t dataLtcGenTickPrev = 0;
-  //static uint32_t dataExtClkCountTickPrev = 0;
   static uint32_t monAuxCaptureTickPrev = 0;
   static uint32_t gpsTimeTickPrev = 0;
-  static uint32_t dataExtClkCountMonPrev = 0;
+  
+  static uint32_t ltcSecondsTickPrev = 0;
+  static uint32_t ltcGenTickPrev = 0;
+
+  static uint32_t localSecondsTickPrev = 0;
+  static uint32_t extSecondsTickPrev = 0;
+  static uint32_t extSecondsPrev = 0;
+
 
   char buffer[100];
 
@@ -538,8 +519,8 @@ void blinkRun() {
       snprintf(buffer, sizeof(buffer), "Button 1 press\r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      dataExtClkCountTickOffset = dataExtClkCountTick;
-      dataExtClkCount = 0;
+      //dataExtClkCountTickOffset = data.extSecondsTick;
+      data.extSeconds = 0;
 
       if ((tick > 2000) && (data.syncCaptureTick + 2000 > tick)) {
         //  had sync in last 2 seconds
@@ -680,19 +661,19 @@ void blinkRun() {
 
 #if 1
   // TODO - call ppsStart ????
-  if (dataLtcGenTick + 2000 < tick) {
+  if (data.ltcGenTick + 2000 < tick) {
     // kick start if get out of sync
-    dataLtcGenTick = tick;
+    data.ltcGenTick = tick;
   }
 #endif
 
-  if (dataLtcGenTick != dataLtcGenTickPrev) {
+  if (data.ltcGenTick != ltcGenTickPrev) {
     // gen new LTC code
     static Ltc ltc;
     ltcClear(&ltc);
     static LtcTimeCode timeCode;
     LtcTimeCodeClear(&timeCode);
-    LtcTimeCodeSet(&timeCode, blinkLocalSeconds, 0 /* us */);
+    LtcTimeCodeSet(&timeCode, data.localSeconds, 0 /* us */);
 
     // LtcTimeCodeSetHMSF(  &timeCode, 1,1,1,1 );
 
@@ -705,14 +686,14 @@ void blinkRun() {
     snprintf(buffer, sizeof(buffer), "   LTC gen %lus\r\n", LtcTimeCodeSeconds(&timeCode) );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-    dataLtcGenTickPrev = dataLtcGenTick;
+    ltcGenTickPrev = data.ltcGenTick;
   }
 
 
-  if (dataLtcCaptureTick + 100 /*ms*/ <
+  if (data.ltcSecondsTick + 100 /*ms*/ <
       tick) {  // been 100 ms since lask LTC transition
-    if (dataLtcCaptureTick != dataLtcCaptureTickPrev) {
-      dataLtcCaptureTickPrev = dataLtcCaptureTick;
+    if (data.ltcSecondsTick != ltcSecondsTickPrev) {
+      ltcSecondsTickPrev = data.ltcSecondsTick;
 
       // process LTC transition data
       static LtcTimeCode timeCode;
@@ -750,24 +731,34 @@ void blinkRun() {
     gpsTimeTickPrev = gpsTimeTick;
   }
 
-#if 0
-  if (dataExtClkCountTick != dataExtClkCountTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   ext time: %lus\r\n", dataExtClkCount);
+#if 1 // TODO 
+  if (data.extSecondsTick != extSecondsTickPrev) {
+    snprintf(buffer, sizeof(buffer), "   ext time: %lus\r\n", data.extSeconds);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    dataExtClkCountTickPrev = dataExtClkCountTick;
+    extSecondsTickPrev = data.extSecondsTick;
   }
 #endif
 
+    
+#if 1 // TODO 
+  if (data.localSecondsTick != localSecondsTickPrev) {
+    snprintf(buffer, sizeof(buffer), "   local time: %lus\r\n", data.localSeconds);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    localSecondsTickPrev = data.localSecondsTick;
+  }
+#endif
+  
+
 #if 1
   if ((data.monAuxCaptureTick != monAuxCaptureTickPrev) &&
-      (dataExtClkCount != dataExtClkCountMonPrev)) {
+      (data.extSeconds != extSecondsPrev)) {
     snprintf(buffer, sizeof(buffer),
              "   Aux mon: external time %lu.%03lums\r\n", 
              extCapture2uS(data.monAuxCapture) / 1000l, extCapture2uS(data.monAuxCapture) % 1000l);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     monAuxCaptureTickPrev = data.monAuxCaptureTick;
     
-    dataExtClkCountMonPrev = dataExtClkCount;
+    extSecondsPrev = data.extSeconds;
   }
 #endif
   
