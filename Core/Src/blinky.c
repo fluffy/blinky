@@ -699,7 +699,7 @@ void blinkRun() {
     ltcClear(&ltc);
     static LtcTimeCode timeCode;
     LtcTimeCodeClear(&timeCode);
-    LtcTimeCodeSet(&timeCode, data.localSeconds, 0 /* us */);
+    LtcTimeCodeSet(&timeCode, data.localSeconds +1 , 0 /* us */);
 
     // LtcTimeCodeSetHMSF(  &timeCode, 1,1,1,1 );
 
@@ -708,7 +708,7 @@ void blinkRun() {
 
     // TODO - some way to kick start if dies
     ppsStart();
-#if 0
+#if 1
     snprintf(buffer, sizeof(buffer), "   LTC gen %lus\r\n", LtcTimeCodeSeconds(&timeCode) );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif

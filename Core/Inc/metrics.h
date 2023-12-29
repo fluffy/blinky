@@ -4,9 +4,9 @@
 #include <stdint.h>
 
 typedef struct {
-  uint64_t  localTimeUS;
-  uint64_t  extTimeUS;
-  uint64_t  syncTimeUS;
+  int64_t  localTimeUS;
+  int64_t  extTimeUS;
+  int64_t  syncTimeUS;
   
 } Metrics;
 
