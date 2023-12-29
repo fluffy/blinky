@@ -45,6 +45,13 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
+    if (0) {
+      snprintf(buffer, sizeof(buffer), "   SyncTime(s) %5lu.%03ld\r\n",
+               (uint32_t)(metrics.syncTimeUS / 1000000),
+               (uint32_t)(metrics.syncTimeUS % 1000000) / 1000);
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+
     if (1) {
       snprintf(buffer, sizeof(buffer), "    ExtTime(s) %5lu.%03ld\r\n",
                (uint32_t)(metrics.extTimeUS / 1000000),
@@ -53,10 +60,28 @@ void metricsRun() {
     }
 
     if (1) {
-      snprintf(buffer, sizeof(buffer), "   SyncTime(s) %5lu.%03ld\r\n",
-               (uint32_t)(metrics.syncTimeUS / 1000000),
-               (uint32_t)(metrics.syncTimeUS % 1000000) / 1000);
+      snprintf(buffer, sizeof(buffer), "\r\n" );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+        
+    if (0) {
+      int64_t diff =   metrics.syncTimeUS - metrics.localTimeUS;
+      
+      snprintf(buffer, sizeof(buffer), "    sync-local(ms) %4ld.%03ld\r\n",
+               (int32_t)(diff / 1000),
+               (uint32_t)( abs(diff) % 1000) );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+
+    if (1) {
+      int64_t diff =   metrics.extTimeUS - metrics.localTimeUS;
+      
+      snprintf(buffer, sizeof(buffer), "    ext-local(ms) %4ld.%03ld\r\n",
+               (int32_t)(diff / 1000),
+               (uint32_t)( abs(diff) % 1000) );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
   }
+
+  
 }

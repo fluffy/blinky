@@ -432,7 +432,6 @@ void blinkRun() {
   static char button2WasPressed = 0;
   static char button3WasPressed = 0;
 
-
   static uint32_t __attribute__((__unused__)) syncCaptureTickPrev = 0;
   static uint32_t __attribute__((__unused__)) monCaptureTickPrev = 0;
   static uint32_t __attribute__((__unused__)) gpsCaptureTickPrev = 0;
@@ -447,7 +446,6 @@ void blinkRun() {
   static uint32_t __attribute__((__unused__)) extSecondsTickPrev = 0;
   static uint32_t __attribute__((__unused__)) extSecondsPrev = 0;
 
-  
   char buffer[100];
 
   uint32_t tick = HAL_GetTick();
@@ -519,7 +517,7 @@ void blinkRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       // dataExtClkCountTickOffset = data.extSecondsTick;
-      data.extSeconds = 0;
+      // data.extSeconds = 0;
 
       if ((tick > 2000) && (data.syncCaptureTick + 2000 > tick)) {
         //  had sync in last 2 seconds
@@ -550,6 +548,9 @@ void blinkRun() {
                  phaseUS / 1000l);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
+        data.localSeconds = data.ltcSeconds-1; // TODO -1 is messed up in some case 
+        data.extSeconds = data.ltcSeconds-1;
+
       } else if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
         //  had GPS sync in last 2 seconds
         int32_t deltaPhaseUS =
@@ -571,6 +572,9 @@ void blinkRun() {
         }
         dataNextSyncOutPhaseUS = phaseUS;
 
+        //data.localSeconds = data.gpsSeconds;
+        //data.extSeconds = data.gpsSeconds;
+        
         snprintf(buffer, sizeof(buffer),
                  "  SYNC GPS: gpsPhase=%lums, moPhase=%lums, oldPhase=%lums, "
                  "newPhase=%ldms\r\n",
@@ -582,6 +586,9 @@ void blinkRun() {
         snprintf(buffer, sizeof(buffer),
                  "ERROR: No gps or sync input on button press\r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
+        data.localSeconds = 0;
+        data.extSeconds = 0;
       }
     }
     button1WasPressed = 1;
