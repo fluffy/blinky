@@ -1,8 +1,8 @@
 // Copyright (c) 2023 Cullen Jennings
 #pragma once
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 // This structure is saved in EEPROM
 // keep size padded to 32 bits
@@ -28,14 +28,12 @@ inline uint32_t capture2uS(const uint32_t c) {
   return (c * capture2uSRatioM) / capture2uSRatioN;
 }
 
-inline uint32_t extCapture2uS(const uint32_t c) {
-  return c / 10l;
-}
+inline uint32_t extCapture2uS(const uint32_t c) { return c / 10l; }
 
-extern uint8_t blinkMute;       // mutes audio outout
-extern uint8_t blinkBlank;      // causes LED to be off
-extern uint8_t blinkDispAudio;  // caused audio latency to be displayed on LED
-extern uint8_t blinkHaveDisplay; // TODO - make bool with stdbool
+extern uint8_t blinkMute;         // mutes audio outout
+extern uint8_t blinkBlank;        // causes LED to be off
+extern uint8_t blinkDispAudio;    // caused audio latency to be displayed on LED
+extern uint8_t blinkHaveDisplay;  // TODO - make bool with stdbool
 
 void configInit();
 void configSetup();

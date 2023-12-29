@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-
 void detectInit(int cycleLen);
 void detectUpdate(uint32_t* pData, int len, bool invert);
 

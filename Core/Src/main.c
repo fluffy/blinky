@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <stm32f4xx_ll_tim.h>
 #include <string.h>
+
 #include "blink.h"
 /* USER CODE END Includes */
 
@@ -134,13 +135,12 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   blinkSetup();
-  
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+  while (1) {
     blinkRun();
     /* USER CODE END WHILE */
 

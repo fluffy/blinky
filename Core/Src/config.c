@@ -1,23 +1,21 @@
 // Copyright (c) 2023 Cullen Jennings
 
+#include "config.h"
+
 #include <stdio.h>
 #include <string.h>
 
 #include "hardware.h"
-#include "config.h"
 #include "main.h"
 
 Config config;
 uint32_t capture2uSRatioM = 125;
 uint32_t capture2uSRatioN = 256;
 
+void configInit() {}
 
-void configInit(){
-}
-
-
-void configSetup(){
-    // access EEProm
+void configSetup() {
+  // access EEProm
   if (1) {
     char buffer[100];
     const uint16_t i2cAddr = 0x50;
@@ -124,9 +122,7 @@ void configSetup(){
     snprintf(buffer, sizeof(buffer), "  Serial: %d\r\n", config.serialNum);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
-
 }
-
 
 void setClk(uint8_t extOscTypeType, uint16_t vcoValue, int16_t oscAdj) {
   char buffer[100];

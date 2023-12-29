@@ -1,15 +1,14 @@
 // Copyright (c) 2023 Cullen Jennings
 
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stm32f4xx_ll_tim.h>
 #include <string.h>
-#include <stdbool.h>
-#include <stdint.h>
 
-#include "main.h"
 #include "detect.h"
 #include "hardware.h"
-
+#include "main.h"
 
 const int gpsBufferLen = 20;
 uint8_t gpsBuffer[20];
@@ -17,7 +16,6 @@ uint8_t gpsBufLen = 0;
 char gpsTime[7];  // This will have ASCII chars 123456 to indicate time is
                   // 12:34:56 UTC and be null terminated
 uint32_t gpsTimeTick;
-
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
   if (huart == &hUartGps) {
@@ -80,15 +78,13 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
   }
 }
 
-
-
-void gpsInit(){
-   gpsTimeTick = 0;
+void gpsInit() {
+  gpsTimeTick = 0;
   memset(gpsTime, 0, sizeof(gpsTime));
 }
 
-void gpsSetup(){
-  #if 1
+void gpsSetup() {
+#if 1
   // start receving for GPS serial
   HAL_StatusTypeDef stat =
       HAL_UART_Receive_IT(&hUartGps, gpsBuffer, 1 /* size */);
@@ -97,5 +93,3 @@ void gpsSetup(){
   }
 #endif
 }
-
-

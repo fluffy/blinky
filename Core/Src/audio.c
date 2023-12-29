@@ -1,17 +1,14 @@
 // Copyright (c) 2023 Cullen Jennings
 
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stm32f4xx_ll_tim.h>
 #include <string.h>
-#include <stdbool.h>
-#include <stdint.h>
 
-#include "main.h"
 #include "detect.h"
-
 #include "hardware.h"
-
-
+#include "main.h"
 
 // dacBuffer has 20 point sin wave center on 1000 with amplitude 500
 const int dacBufferLen = 20;
@@ -20,7 +17,6 @@ uint32_t dacBuffer[] = {1000, 1155, 1294, 1405, 1476, 1500, 1476,
                         524,  500,  524,  595,  706,  845};
 const int adcBufferLen = 20;
 uint32_t adcBuffer[20];
-
 
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
   detectUpdate(&(adcBuffer[0]), adcBufferLen / 2, false);
@@ -32,8 +28,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 
 void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
 
-void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {
-}
+void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac) {}
 
 void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac) {
   char buffer[100];
@@ -51,8 +46,7 @@ void HAL_DAC_ErrorCallbackCh2(DAC_HandleTypeDef *hdac) {
   Error_Handler();
 }
 
-
-void audioSetup(){
+void audioSetup() {
 #if 1
   // DMA for Audio Out DAC
   HAL_StatusTypeDef err;
@@ -77,17 +71,12 @@ void audioSetup(){
 #endif
 }
 
-void audioStart(){
-   HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
-                          dacBufferLen,  //  dacBufferlen is in 32 bit words
-                          DAC_ALIGN_12B_R);
+void audioStart() {
+  HAL_DAC_Start_DMA(&hDAC, DAC_CHANNEL_2, dacBuffer,
+                    dacBufferLen,  //  dacBufferlen is in 32 bit words
+                    DAC_ALIGN_12B_R);
 }
 
-void audioStop(){
-    HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2);
-}
+void audioStop() { HAL_DAC_Stop_DMA(&hDAC, DAC_CHANNEL_2); }
 
-void audioInit(){
-  detectInit(adcBufferLen);
-}
- 
+void audioInit() { detectInit(adcBufferLen); }

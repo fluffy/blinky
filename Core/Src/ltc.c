@@ -1,16 +1,15 @@
 // Copyright (c) 2023 Cullen Jennings
 
-
 //  Descrption of LTC can be found at
 //  https://en.wikipedia.org/wiki/Linear_timecode
 //  Official specification in SMPTE 12M TODO
 
+#include "ltc.h"
+
 #include <stdio.h>
 #include <string.h>
 
-#include "ltc.h"
 #include "hardware.h"
-
 
 void LtcTransitionSetClear(LtcTransitionSet* set) {
   set->numTransitions = 0;
@@ -18,10 +17,10 @@ void LtcTransitionSetClear(LtcTransitionSet* set) {
 }
 
 void LtcTransitionSetAdd(LtcTransitionSet* set, uint32_t timeUs) {
-  if ( set->numTransitions >= ltcMaxTransitions ) {
+  if (set->numTransitions >= ltcMaxTransitions) {
     return;
   }
-  set->transitionTimeUs[ set->numTransitions ] = timeUs;
+  set->transitionTimeUs[set->numTransitions] = timeUs;
   set->numTransitions++;
 }
 
@@ -33,12 +32,10 @@ uint32_t LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i) {
   if ((i < 1) || (i >= set->numTransitions)) {
     return 0;
   }
-  return set->transitionTimeUs[i] - set->transitionTimeUs[i-1];
+  return set->transitionTimeUs[i] - set->transitionTimeUs[i - 1];
 }
 
-void LtcTimeCodeClear(LtcTimeCode* set) {
-  set->valid = 0;
-}
+void LtcTimeCodeClear(LtcTimeCode* set) { set->valid = 0; }
 
 void LtcTimeCodeSet(LtcTimeCode* set, uint32_t s, uint32_t us) {
   set->frame = (us * 30l / 1000000l) % 30;
@@ -78,9 +75,7 @@ uint32_t LtcTimeCodeDisp(LtcTimeCode* set) {
 
 int LtcTimeCodeIsValid(LtcTimeCode* set) { return set->valid; }
 
-void ltcClear(Ltc* ltc){
-  ltc->valid=0;
-}
+void ltcClear(Ltc* ltc) { ltc->valid = 0; }
 
 uint8_t ltcParity(Ltc* ltc) {
   uint8_t ret = 0;
@@ -108,8 +103,8 @@ void ltcEncode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   uint32_t zeroInc = 1000000 / baud;  // one time in micro seconds
   uint32_t oneInc = zeroInc / 2;
 
-  LtcTransitionSetAdd(tSet, time); // first transition at time 0 
-  
+  LtcTransitionSetAdd(tSet, time);  // first transition at time 0
+
   for (int i = 0; i < 10; i++) {
     uint16_t data = ltc->bits[i];
     for (uint16_t bit = 0; bit < 8; bit++) {
@@ -156,16 +151,14 @@ int ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   uint8_t done = 0;
   while (!done) {
     if (setIndex == 1) {
-      
       // soft fill last bit if missing
-      if ( ( byteCount == 0 )  && ( bitCount <= 1 ) ) {
-        if (ltcParity(ltc) == 1) { // TODO is this correct 
+      if ((byteCount == 0) && (bitCount <= 1)) {
+        if (ltcParity(ltc) == 1) {  // TODO is this correct
           ltc->bits[0] |= (1 << 0);
         }
-        
-        done =1;
-      }
-      else {
+
+        done = 1;
+      } else {
         // std::cout << "not enough transitions" << std::endl;
 #if 0
         char buffer[100];
@@ -173,7 +166,7 @@ int ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
                  byteCount, bitCount  );
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
-        
+
         return -1;
       }
     }
@@ -204,13 +197,13 @@ int ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
     } else {
       // std::cout << "  bad delta=" << delta << " at setIndex=" <<
       // (int)setIndex << std::endl;
-#if 1 // TODO remove 
+#if 1  // TODO remove
       char buffer[100];
       snprintf(buffer, sizeof(buffer), "BAD LTC DELTA %lu at index %d\r\n",
-               delta, setIndex  );
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+               delta, setIndex);
+      HAL_UART_Transmit(&hUartDebug, (uint8_t*)buffer, strlen(buffer), 1000);
 #endif
-      
+
       return -4;
     }
 
@@ -262,7 +255,7 @@ void ltcSet(Ltc* ltc, LtcTimeCode* time) {
   ltc->bits[8] = 0xFC;  // sync1
   ltc->bits[9] = 0xBF;  // sync2
 
-  if (ltcParity(ltc) == 0) { // is this correct ??
+  if (ltcParity(ltc) == 0) {  // is this correct ??
     // set polarity correction bit
     ltc->bits[3] |= 0x08;
   }
