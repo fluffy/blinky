@@ -42,11 +42,18 @@ void metricsRun() {
   // the odds odd of something updating data during the copy
   memcpy(&dataPrev, &data, sizeof(dataPrev));
 
-  metrics.localTimeUS = 
+  int curr = metrics.nextIndex;
+
+  metrics.nextIndex++;
+  if (  metrics.nextIndex >= metricsHistorySize ) {
+    metrics.nextIndex=0;
+  }
+  
+  metrics.localTimeUS[curr] = 
     (int64_t)dataPrev.localAtMonSeconds * 1000000 + capture2uS(dataPrev.monCapture);
-  metrics.extTimeUS =
+  metrics.extTimeUS[curr] =
     (int64_t)dataPrev.extAtMonSeconds * 1000000 + extCapture2uS( dataPrev.monAuxCapture ) + dataPrev.extOffsetUS;
-  metrics.syncTimeUS =
+  metrics.syncTimeUS[curr] =
     (int64_t)dataPrev.ltcAtMonSeconds * 1000000 + capture2uS( dataPrev.syncCapture );
 
   if (dataPrev.localSeconds % 5 == 2) {
@@ -57,22 +64,22 @@ void metricsRun() {
 
     if (1) {
       snprintf(buffer, sizeof(buffer), "  LocalTime(s) %5lu.%03ld\r\n",
-               (uint32_t)(metrics.localTimeUS / 1000000),
-               (uint32_t)(metrics.localTimeUS % 1000000) / 1000);
+               (uint32_t)(metrics.localTimeUS[curr] / 1000000),
+               (uint32_t)(metrics.localTimeUS[curr] % 1000000) / 1000);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
     if (haveSync) {
       snprintf(buffer, sizeof(buffer), "   SyncTime(s) %5lu.%03ld\r\n",
-               (uint32_t)(metrics.syncTimeUS / 1000000),
-               (uint32_t)(metrics.syncTimeUS % 1000000) / 1000);
+               (uint32_t)(metrics.syncTimeUS[curr] / 1000000),
+               (uint32_t)(metrics.syncTimeUS[curr] % 1000000) / 1000);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
     if (haveExt) {
       snprintf(buffer, sizeof(buffer), "    ExtTime(s) %5lu.%03ld \r\n",
-               (uint32_t)(metrics.extTimeUS / 1000000),
-               (uint32_t)(metrics.extTimeUS % 1000000) / 1000);
+               (uint32_t)(metrics.extTimeUS[curr] / 1000000),
+               (uint32_t)(metrics.extTimeUS[curr] % 1000000) / 1000);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
@@ -82,7 +89,7 @@ void metricsRun() {
     }
         
     if (haveSync) {
-      int64_t diff =   metrics.syncTimeUS - metrics.localTimeUS;
+      int64_t diff =   metrics.syncTimeUS[curr] - metrics.localTimeUS[curr];
       
       snprintf(buffer, sizeof(buffer), "    sync-local(ms) %4ld.%03ld\r\n",
                (int32_t)(diff / 1000),
@@ -91,7 +98,7 @@ void metricsRun() {
     }
 
     if (haveExt) {
-      int64_t diff =   metrics.extTimeUS - metrics.localTimeUS;
+      int64_t diff =   metrics.extTimeUS[curr] - metrics.localTimeUS[curr];
       
       snprintf(buffer, sizeof(buffer), "    ext-lcl(ms) %4ld.%03ld\r\n",
                (int32_t)(diff / 1000),
@@ -104,7 +111,42 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-  }
+    int durationS = 10;
+    int prev = curr-durationS;
+    if ( prev < 0 ) {
+      prev += metricsHistorySize;
+    }
+    
+    int64_t localDelta =  metrics.localTimeUS[curr] -  metrics.localTimeUS[prev];
+    int64_t extDelta   =  metrics.extTimeUS[curr]   -  metrics.extTimeUS[prev];
+    int64_t syncDelta  =  metrics.syncTimeUS[curr]  -  metrics.syncTimeUS[prev];
 
+    int64_t ppbMult = 1000 / durationS;
+    int64_t extPpb = (extDelta-localDelta) * ppbMult;
+    int64_t syncPpb = (syncDelta-localDelta) * ppbMult;
+    int64_t syncExtPpb = (syncDelta-extDelta) * ppbMult;
+
+
+     if (haveExt) {
+      snprintf(buffer, sizeof(buffer), "    extDift(ppm) %ld.%03ld \r\n",
+               (int32_t)(extPpb / 1000),
+               (uint32_t)( abs(extPpb) % 1000) );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+
+     if (haveSync) {
+      snprintf(buffer, sizeof(buffer), "    syncDift(ppm) %ld.%03ld \r\n",
+               (int32_t)(syncPpb / 1000),
+               (uint32_t)( abs(syncPpb) % 1000) );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+
+     if (haveSync &&haveExt ) {
+       snprintf(buffer, sizeof(buffer), "    syncExtDift(ppm) %ld.%03ld \r\n",
+                (int32_t)(syncExtPpb / 1000),
+                (uint32_t)( abs(syncExtPpb) % 1000) );
+       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+     }
   
+  }
 }

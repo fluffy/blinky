@@ -708,7 +708,7 @@ void blinkRun() {
 
     // TODO - some way to kick start if dies
     ppsStart();
-#if 1
+#if 0
     snprintf(buffer, sizeof(buffer), "   LTC gen %lus\r\n", LtcTimeCodeSeconds(&timeCode) );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
