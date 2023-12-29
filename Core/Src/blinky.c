@@ -3,6 +3,7 @@
 // #include <math.h>  // for round
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h> // abs
 
 #include "audio.h"
 #include "blink.h"
@@ -222,6 +223,11 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       } else {
         data.monCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_MON);
         data.monCaptureTick = tick;
+
+        data.ltcAtMonSeconds = data.ltcSeconds;
+        data.gpsAtMonSeconds = data.gpsSeconds;
+        data.localAtMonSeconds = data.localSeconds;
+        data.extAtMonSeconds = data.extSeconds; 
       }
     }
 
@@ -450,7 +456,6 @@ void blinkRun() {
 
   uint32_t tick = HAL_GetTick();
 
-  metricsRun();
 
   if (loopCount % 100 == 0) {
 #if 0
@@ -548,9 +553,10 @@ void blinkRun() {
                  phaseUS / 1000l);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-        data.localSeconds = data.ltcSeconds-1; // TODO -1 is messed up in some case 
-        data.extSeconds = data.ltcSeconds-1;
-
+        data.localSeconds = data.ltcSeconds; // TODO - think about do we need a offset for local time from gps time
+        data.extSeconds = data.ltcSeconds; 
+        data.extOffsetUS = (int32_t)capture2uS(data.monCapture) - (int32_t)extCapture2uS(data.monAuxCapture); // TODO - thnk about
+       
       } else if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
         //  had GPS sync in last 2 seconds
         int32_t deltaPhaseUS =
@@ -572,8 +578,9 @@ void blinkRun() {
         }
         dataNextSyncOutPhaseUS = phaseUS;
 
-        //data.localSeconds = data.gpsSeconds;
-        //data.extSeconds = data.gpsSeconds;
+        data.localSeconds = data.gpsSeconds; // TODO - think about do we need a offset for local time from gps time
+        data.extSeconds = data.gpsSeconds; 
+        data.extOffsetUS = (int32_t)capture2uS(data.monCapture) - (int32_t)extCapture2uS(data.monAuxCapture); // TODO - thnk about
         
         snprintf(buffer, sizeof(buffer),
                  "  SYNC GPS: gpsPhase=%lums, moPhase=%lums, oldPhase=%lums, "
@@ -589,6 +596,13 @@ void blinkRun() {
 
         data.localSeconds = 0;
         data.extSeconds = 0;
+        data.extOffsetUS = (int32_t)capture2uS(data.monCapture) - extCapture2uS(data.monAuxCapture);
+            
+        snprintf(buffer, sizeof(buffer), "Offset(ms): mon=%lu ext=%lu offfset=%ld.%03lu\r\n",
+                 (int32_t)capture2uS(data.monCapture) / 1000 ,  extCapture2uS(data.monAuxCapture) / 1000, 
+                data.extOffsetUS / 1000l, abs(data.extOffsetUS) % 1000l);
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+        
       }
     }
     button1WasPressed = 1;
@@ -603,7 +617,7 @@ void blinkRun() {
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-  if (1) {
+  if (0) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeAux);
     snprintf( buffer, sizeof(buffer), "Aux  time: %lu.%03lums\r\n",  extCapture2uS(val)/1000l , extCapture2uS(val)%1000l );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -667,6 +681,8 @@ void blinkRun() {
 #endif
 
     monCaptureTickPrev = data.monCaptureTick;
+
+    metricsRun();
   }
 
 #if 1

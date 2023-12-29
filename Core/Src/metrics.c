@@ -4,9 +4,11 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h> // for abs
 
 #include "hardware.h"
 #include "measurement.h"
+#include "config.h"
 
 Metrics metrics;
 static Measurements dataPrev;
@@ -25,12 +27,12 @@ void metricsRun() {
   // the odds odd of something updating data during the copy
   memcpy(&dataPrev, &data, sizeof(dataPrev));
 
-  metrics.localTimeUS =
-      (uint64_t)dataPrev.localSeconds * 1000000 + dataPrev.monCapture;
+  metrics.localTimeUS = 
+    (int64_t)dataPrev.localAtMonSeconds * 1000000 + capture2uS(dataPrev.monCapture);
   metrics.extTimeUS =
-      (uint64_t)dataPrev.extSeconds * 1000000 + dataPrev.monAuxCapture;
+    (int64_t)dataPrev.extAtMonSeconds * 1000000 + extCapture2uS( dataPrev.monAuxCapture ) + dataPrev.extOffsetUS;
   metrics.syncTimeUS =
-      (uint64_t)dataPrev.ltcSeconds * 1000000 + dataPrev.syncCapture;
+    (int64_t)dataPrev.ltcAtMonSeconds * 1000000 + capture2uS( dataPrev.syncCapture );
 
   if (dataPrev.localSeconds % 5 == 2) {
     if (1) {
@@ -45,7 +47,7 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    if (0) {
+    if (1) {
       snprintf(buffer, sizeof(buffer), "   SyncTime(s) %5lu.%03ld\r\n",
                (uint32_t)(metrics.syncTimeUS / 1000000),
                (uint32_t)(metrics.syncTimeUS % 1000000) / 1000);
@@ -53,7 +55,7 @@ void metricsRun() {
     }
 
     if (1) {
-      snprintf(buffer, sizeof(buffer), "    ExtTime(s) %5lu.%03ld\r\n",
+      snprintf(buffer, sizeof(buffer), "    ExtTime(s) %5lu.%03ld \r\n",
                (uint32_t)(metrics.extTimeUS / 1000000),
                (uint32_t)(metrics.extTimeUS % 1000000) / 1000);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -64,7 +66,7 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
         
-    if (0) {
+    if (1) {
       int64_t diff =   metrics.syncTimeUS - metrics.localTimeUS;
       
       snprintf(buffer, sizeof(buffer), "    sync-local(ms) %4ld.%03ld\r\n",
@@ -76,11 +78,17 @@ void metricsRun() {
     if (1) {
       int64_t diff =   metrics.extTimeUS - metrics.localTimeUS;
       
-      snprintf(buffer, sizeof(buffer), "    ext-local(ms) %4ld.%03ld\r\n",
+      snprintf(buffer, sizeof(buffer), "    ext-lcl(ms) %4ld.%03ld\r\n",
                (int32_t)(diff / 1000),
                (uint32_t)( abs(diff) % 1000) );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
+
+    if (1) {
+      snprintf(buffer, sizeof(buffer), "\r\n");
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+
   }
 
   
