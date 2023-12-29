@@ -16,6 +16,7 @@
 #include "hardware.h"
 #include "config.h"
 #include "measurement.h"
+#include "metrics.h"
 
 
 // Uses Semantic versioning https://semver.org/
