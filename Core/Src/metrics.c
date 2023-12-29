@@ -1,11 +1,17 @@
 // Copyright (c) 2023 Cullen Jennings
 
-#include "metrics.h"
+#include <string.h>
 
+#include "metrics.h"
 #include "measurement.h"
 
-void metricsInit() {}
+void metricsInit() {
+    memset(&metrics, 0, sizeof(metrics));
+}
 
 void metricsSetup() {}
 
-void metricsRun() {}
+void metricsRun() {
+
+  
+}
