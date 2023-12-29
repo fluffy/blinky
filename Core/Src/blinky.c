@@ -453,8 +453,10 @@ void blinkRun() {
   metricsRun();
 
   if (loopCount % 100 == 0) {
+#if 0
     snprintf(buffer, sizeof(buffer), "Loop %d\r\n", loopCount);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
 
 #if 0
     int16_t tempDeciC = thermoGetTemperatureDeciC();
@@ -640,11 +642,12 @@ void blinkRun() {
 
   if (data.syncCaptureTick != syncCaptureTickPrev) {
     syncCaptureTickPrev = data.syncCaptureTick;
-
+#if 0 
     snprintf(buffer, sizeof(buffer), "   sync phase=%lums delta2mon=%ldms\r\n",
              capture2uS(data.syncCapture) / 1000l,
              captureDeltaUs(data.syncCapture, data.monCapture) / 1000l);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
   }
 
   if (data.monCaptureTick != monCaptureTickPrev) {
