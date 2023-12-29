@@ -267,7 +267,7 @@ Current GPS ExtOffset in uS
 Tick time of last ext mon pulse 
 Tick time of last ext gps pulse 
 
-GPS seconds of last gps pulse  
+GPS seconds of last gps pulse
 LTC seconds of last sync pulse 
  
 Local counter rollover count  ( seconds )
@@ -279,35 +279,11 @@ interupt then used to compute the rest of the metrics
 
 Metrics:
 
-Missing GPS pulses
-Missing Ext pulses
-Missing Sync pulses 
+Current time from varios soruces.
 
-have GPS
-have Ext
-have Sync 
+Time erorrs between sources 
 
-At last Mon pulse, total count of internal cycles
-At last Mon pulse, total count of external cycles 
-
-At last Sync pulse, total count of internal cycles
-At last Sync pulse, total count of external cycles 
-
-At last GPS pulse, total count of internal cycles 
-At last GPS pulse, total count of external cycles 
-
-How much local time is off of GPS time (uS) 
-How much sync time is off of GPS time (uS) 
-How much ext time is off of GPS time (uS) 
-
-How much local time is off of ext time (uS) 
-How much sync if off of local time (uS)
-
-rate of local drift from gps in ppb over last 1,10,100 s 
-rate of ext drift from gps in ppb over last  1,10,100 s
-rate of sync drift from gps in ppb over last  1,10,100 s
-
-rate of local drift from ext in ppb over last  1,10,100 s
+Rate of change between sources over 1,10,100 seconds 
 
 
 

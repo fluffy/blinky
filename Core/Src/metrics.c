@@ -23,6 +23,21 @@ void metricsRun() {
     return;
   }
 
+  bool haveSync=false;
+  bool haveExt=false;
+  bool haveGps=false;
+
+  if ( data.ltcAtMonSeconds != dataPrev.ltcAtMonSeconds ) {
+    haveSync=true;
+  }
+  if ( data.extAtMonSeconds != dataPrev.extAtMonSeconds ) {
+    haveExt=true;
+  }
+  if ( data.gpsAtMonSeconds != dataPrev.gpsAtMonSeconds ) {
+    haveGps=true;
+  }
+  
+     
   // TODO - move to doing this on high priority interupt to minimize
   // the odds odd of something updating data during the copy
   memcpy(&dataPrev, &data, sizeof(dataPrev));
@@ -47,14 +62,14 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    if (1) {
+    if (haveSync) {
       snprintf(buffer, sizeof(buffer), "   SyncTime(s) %5lu.%03ld\r\n",
                (uint32_t)(metrics.syncTimeUS / 1000000),
                (uint32_t)(metrics.syncTimeUS % 1000000) / 1000);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    if (1) {
+    if (haveExt) {
       snprintf(buffer, sizeof(buffer), "    ExtTime(s) %5lu.%03ld \r\n",
                (uint32_t)(metrics.extTimeUS / 1000000),
                (uint32_t)(metrics.extTimeUS % 1000000) / 1000);
@@ -66,7 +81,7 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
         
-    if (1) {
+    if (haveSync) {
       int64_t diff =   metrics.syncTimeUS - metrics.localTimeUS;
       
       snprintf(buffer, sizeof(buffer), "    sync-local(ms) %4ld.%03ld\r\n",
@@ -75,7 +90,7 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    if (1) {
+    if (haveExt) {
       int64_t diff =   metrics.extTimeUS - metrics.localTimeUS;
       
       snprintf(buffer, sizeof(buffer), "    ext-lcl(ms) %4ld.%03ld\r\n",
