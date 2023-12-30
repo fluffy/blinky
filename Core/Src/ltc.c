@@ -197,7 +197,7 @@ int ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
     } else {
       // std::cout << "  bad delta=" << delta << " at setIndex=" <<
       // (int)setIndex << std::endl;
-#if 1  // TODO remove
+#if 0  // TODO remove
       char buffer[100];
       snprintf(buffer, sizeof(buffer), "BAD LTC DELTA %lu at index %d\r\n",
                delta, setIndex);

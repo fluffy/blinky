@@ -474,6 +474,16 @@ void blinkRun() {
 
   uint32_t tick = HAL_GetTick();
 
+  if (loopCount % (500/3) == 0) {
+        snprintf(buffer, sizeof(buffer), "Phases(ms) mon=%lu.%03lu sync=%lu.%03lu gps=%lu.%03lu ext=%lu.%03lu \r\n",
+                 capture2uS(data.monCapture)/1000,  capture2uS(data.monCapture)%1000,
+                 capture2uS(data.syncCapture)/1000,capture2uS(data.syncCapture)%1000,
+                 capture2uS(data.gpsCapture)/1000,  capture2uS(data.gpsCapture)%1000,
+                 extCapture2uS(data.monAuxCapture)/1000,  extCapture2uS(data.monAuxCapture) %1000
+                 );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+   }
+   
 
   if (loopCount % 100 == 0) {
 #if 0
@@ -745,8 +755,10 @@ void blinkRun() {
       ltcClear(&ltc);
       int err = ltcDecode(&ltc, &ltcRecvTransitions, 30 /*fps */);
       if (err != 0) {
+#if 0 // TODO - have a PPS vs LTC mode 
         snprintf(buffer, sizeof(buffer), "   LTC decode ERROR: %d\r\n", err);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif 
       }
 
       ltcGet(&ltc, &timeCode);
