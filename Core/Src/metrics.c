@@ -126,6 +126,15 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
+    if (haveGps&&haveExt) {
+      int64_t diff =   metrics.gpsTimeUS[curr] - metrics.extTimeUS[curr];
+      
+      snprintf(buffer, sizeof(buffer), "    gps-ext(ms) %4ld.%03ld\r\n",
+               (int32_t)(diff / 1000),
+               (uint32_t)( abs(diff) % 1000) );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+
        
     if (1) {
       snprintf(buffer, sizeof(buffer), "\r\n");
@@ -148,6 +157,7 @@ void metricsRun() {
     int64_t extPpb = (extDelta-localDelta) * ppbMult;
     int64_t syncPpb = (syncDelta-localDelta) * ppbMult;
     int64_t syncExtPpb = (syncDelta-extDelta) * ppbMult;
+    int64_t extGpsPpb = (extDelta-gpsDelta) * ppbMult;
 
 
     if (haveGps) {
@@ -172,10 +182,17 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-     if (haveSync &&haveExt ) {
+     if (haveSync && haveExt ) {
        snprintf(buffer, sizeof(buffer), "    syncExtDift(ppm) %ld.%03ld \r\n",
                 (int32_t)(syncExtPpb / 1000),
                 (uint32_t)( abs(syncExtPpb) % 1000) );
+       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+     }
+
+     if (haveGps && haveExt ) {
+       snprintf(buffer, sizeof(buffer), "    extGpsDift(ppm) %ld.%03ld \r\n",
+                (int32_t)( extGpsPpb / 1000),
+                (uint32_t)( abs(extGpsPpb) % 1000) );
        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
      }
   
