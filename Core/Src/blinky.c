@@ -187,8 +187,9 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       ltcRecvTransitions.transitionTimeUs[ltcRecvTransitions.numTransitions++] =
           val * 20l;  // convert to uSec, this timer counts at 50 KHz
 
-      data.ltcSeconds = val;
-      data.ltcSecondsTick = tick;
+      // TODO - why were these here ... seem totally wrong but might may need somethng else 
+      //data.ltcSeconds = val;
+      //data.ltcSecondsTick = tick;
 
       if (ltcRecvTransitions.numTransitions >= ltcMaxTransitions) {
         ltcRecvTransitions.numTransitions = 0;
@@ -209,6 +210,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       } else {
         data.syncCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_IN);
         data.syncCaptureTick = tick;
+
+        data.ltcSeconds++; // TODO perhaps remove ????
       }
     }
 
@@ -236,6 +239,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
                                                      // on inverted input
       data.gpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_GPS_PPS);
       data.gpsCaptureTick = tick;
+      data.gpsSeconds++;  // TODO perhaps remove ???
     }
   }
 
@@ -429,7 +433,7 @@ void blinkSetup() {
 
 void blinkRun() {
   static int loopCount = 0;
-  static char button1WasPressed = 0;
+  static char button1WasPressed = 1;
   static char button2WasPressed = 0;
   static char button3WasPressed = 0;
 
@@ -462,7 +466,7 @@ void blinkRun() {
                  extCapture2uS(data.monAuxCapture)/1000,  extCapture2uS(data.monAuxCapture) %1000
                  );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-   }
+  }
    
 
   if (loopCount % 100 == 0) {
@@ -522,9 +526,9 @@ void blinkRun() {
     button3WasPressed = 0;
   }
 
-  if (!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) {
+  if ( (!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) ){
     if (!button1WasPressed) {
-      uint32_t tick = HAL_GetTick();
+      //uint32_t tick = HAL_GetTick();
 
       snprintf(buffer, sizeof(buffer), "Button 1 press\r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -562,8 +566,11 @@ void blinkRun() {
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
         data.localSeconds = data.ltcSeconds; // TODO - think about do we need a offset for local time from gps time
+        
         data.extSeconds = data.ltcSeconds; 
         data.extOffsetUS = (int32_t)capture2uS(data.monCapture) - (int32_t)extCapture2uS(data.monAuxCapture); // TODO - thnk about
+
+        data.gpsSeconds = data.ltcSeconds; // TODO - think about this 
        
       } else if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
         //  had GPS sync in last 2 seconds
@@ -591,8 +598,7 @@ void blinkRun() {
         data.extOffsetUS = (int32_t)capture2uS(data.monCapture) - (int32_t)extCapture2uS(data.monAuxCapture); // TODO - thnk about
         
         snprintf(buffer, sizeof(buffer),
-                 "  SYNC GPS: gpsPhase=%lums, moPhase=%lums, oldPhase=%lums, "
-                 "newPhase=%ldms\r\n",
+                 "  SYNC GPS: gpsPhase=%lums, moPhase=%lums, oldPhase=%lums, newPhase=%ldms\r\n",
                  capture2uS(data.gpsCapture) / 1000l,
                  capture2uS(data.monCapture) / 1000l, prePhaseUS / 1000l,
                  phaseUS / 1000l);
@@ -605,12 +611,12 @@ void blinkRun() {
         data.localSeconds = 0;
         data.extSeconds = 0;
         data.extOffsetUS = (int32_t)capture2uS(data.monCapture) - extCapture2uS(data.monAuxCapture);
-            
+#if 0
         snprintf(buffer, sizeof(buffer), "Offset(ms): mon=%lu ext=%lu offfset=%ld.%03lu\r\n",
                  (int32_t)capture2uS(data.monCapture) / 1000 ,  extCapture2uS(data.monAuxCapture) / 1000, 
                 data.extOffsetUS / 1000l, abs(data.extOffsetUS) % 1000l);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-        
+#endif
       }
     }
     button1WasPressed = 1;
@@ -725,7 +731,7 @@ void blinkRun() {
 
   if (data.ltcSecondsTick + 100 /*ms*/ <
       tick) {  // been 100 ms since lask LTC transition
-    if (data.ltcSecondsTick != ltcSecondsTickPrev) {
+    if (data.ltcSecondsTick != ltcSecondsTickPrev) { // this seems messed up - TODO - think about 
       ltcSecondsTickPrev = data.ltcSecondsTick;
 
       // process LTC transition data
@@ -740,16 +746,15 @@ void blinkRun() {
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif 
       }
-
-      ltcGet(&ltc, &timeCode);
-      data.ltcSeconds = LtcTimeCodeSeconds(&timeCode);
-#if 0
-      snprintf(buffer, sizeof(buffer), "   LTC decode: %lus\r\n",
-               data.ltcSeconds);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      else {
+        ltcGet(&ltc, &timeCode);
+        data.ltcSeconds = LtcTimeCodeSeconds(&timeCode);
+#if 1
+        snprintf(buffer, sizeof(buffer), "   LTC decode: %lus\r\n", data.ltcSeconds);
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
-      LtcTransitionSetClear(
-          &ltcRecvTransitions);  // reset ltc capture for next cycle
+      }
+      LtcTransitionSetClear( &ltcRecvTransitions);  // reset ltc capture for next cycle
     }
   }
 

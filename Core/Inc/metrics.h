@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 enum {
-  metricsHistorySize = 120
+  metricsHistorySize = 1024
 };  // use enum to get const integer for array size
 typedef struct {
   int nextIndex;
