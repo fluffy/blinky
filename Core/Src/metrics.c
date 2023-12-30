@@ -142,7 +142,7 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    int durationS = 10;
+    int durationS = 1000; // make sure metricsHistorySize is greater than this 
     int prev = curr - durationS;
     if (prev < 0) {
       prev += metricsHistorySize;
