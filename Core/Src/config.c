@@ -37,12 +37,12 @@ void configSetup() {
     if (writeConfigEEProm) {
       // write config to EEProm
       config.version = 1;
-      config.product = 1;  // 1=blink, 2=clock
+      config.product = 2;  // 1=blink, 2=clock
       config.revMajor = 0;
       config.revMinor = 9;
-      config.serialNum = 8;
+      config.serialNum = 9;
 
-      config.extOscType = 2;
+      config.extOscType = 10; // external osc type ( 2= 2.048 MHz, 10=10 MHz,
       config.oscAdj = -658;
       config.vcoValue = 2000;
 
