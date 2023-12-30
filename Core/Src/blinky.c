@@ -280,35 +280,20 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
 void blinkInit() {
   memset(&data, 0, sizeof(data));
-
-  data.monCapture = 0;
-  data.monCaptureTick = 0;
-  data.syncCapture = 0;
-  data.syncCaptureTick = 0;
-  data.gpsCapture = 0;
-  data.gpsCaptureTick = 0;
-  data.extSeconds = 0;
-  // dataExtClkCountTickOffset = -1000;  // TODO
+  data.gpsAtMonSeconds = 1;
+  data.gpsSeconds = 1;
+ 
   dataNextSyncOutPhaseUS = 10l * 1000l;
   dataCurrentSyncOutPhaseUS = dataNextSyncOutPhaseUS;
-  // subFrameCount = 0;
-  // subFrameCountOffset = 120;
 
   configInit();
-
   gpsInit();
-
-  data.localSeconds = 0;
-
   audioInit();
   ppsInit();
 
   LtcTransitionSetClear(&ltcSendTransitions);
   LtcTransitionSetClear(&ltcRecvTransitions);
-
-  data.syncCaptureTick = 0;
-  data.ltcGenTick = 0;
-
+ 
   metricsInit();
 }
 
@@ -359,42 +344,37 @@ void blinkSetup() {
   }
 
   configSetup();
-
   metricsSetup();
-
   thermoSetup();
-
   ppsSetup();
 
-  HAL_TIM_Base_Start_IT(&hTimeBlink);
-
-  HAL_TIM_Base_Start_IT(&hTimeSync);
-
-  HAL_TIM_Base_Start_IT(&hTimeSync);
-
-  HAL_TIM_IC_Start_IT(&hTimeSync,
-                      TimeSync_CH_SYNC_IN);  // start sync in capture
-
-  HAL_TIM_IC_Start_IT(&hTimeSync,
-                      TimeSync_CH_SYNC_MON);  // start sync mon capture
-
-  HAL_TIM_IC_Start_IT(&hTimeSync,
-                      TimeSync_CH_GPS_PPS);  // start gps pps capture
-
-  // start LTC timer
-  HAL_TIM_Base_Start_IT(&hTimeLtc);
-
-  HAL_TIM_IC_Start_IT(&hTimeLtc,
-                      TimeLtc_CH_SYNC_IN2);  // start sync in capture
-
+  // start aux timer 
   HAL_TIM_Base_Start_IT(&hTimeAux);
-
   HAL_TIM_IC_Start_IT(&hTimeAux,
                       TimeAux_CH_SYNC_MON);  // start sync mon capture on aux
-
   HAL_TIM_IC_Start_IT(&hTimeAux,
                       TimeAux_CH_GPS_PPS);  // start gps pps capture on aux
 
+  HAL_Delay(100); // get diff between main and aux when same clock // TODO remove 
+  
+  // start main timer 
+  HAL_TIM_Base_Start_IT(&hTimeSync);
+  HAL_TIM_IC_Start_IT(&hTimeSync,
+                      TimeSync_CH_SYNC_IN);  // start sync in capture
+  HAL_TIM_IC_Start_IT(&hTimeSync,
+                      TimeSync_CH_SYNC_MON);  // start sync mon capture
+  HAL_TIM_IC_Start_IT(&hTimeSync,
+                      TimeSync_CH_GPS_PPS);  // start gps pps capture
+
+ 
+  // start LTC timer
+  HAL_TIM_Base_Start_IT(&hTimeLtc);
+  HAL_TIM_IC_Start_IT(&hTimeLtc,
+                      TimeLtc_CH_SYNC_IN2);  // start sync in capture
+
+  // start display timer
+  HAL_TIM_Base_Start_IT(&hTimeBlink);
+  
   // set LED to on but not sync ( yellow, not green )
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
                     GPIO_PIN_SET);  // turn on blue assert LED
