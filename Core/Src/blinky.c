@@ -240,10 +240,10 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
   }
 
   if (htim == &hTimeAux) {
-    if (htim->Channel ==
-        TimeAux_HAL_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
+    if (htim->Channel == TimeAux_HAL_CH_SYNC_MON) {  // sync mon falling edge. falling is rising
                                     // on inverted output
 
+      // supress for 100 ms 
       if ((data.monAuxCaptureTick < tick) &&
           (tick < data.monAuxCaptureTick + 100 /*ms*/)) {
         // supress this tick
@@ -257,8 +257,23 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     if (htim->Channel == TimeAux_HAL_CH_GPS_PPS) {  // sync in on falling edge.
                                                     // falling is rising
                                                     // on inverted input
-      data.gpsAuxCapture = HAL_TIM_ReadCapturedValue(htim, TimeAux_CH_GPS_PPS);
-      data.gpsAuxCaptureTick = tick;
+
+        // supress for 100 ms - TODO - this should not be needed 
+      if ((data.gpsAuxCaptureTick < tick) &&
+          (tick < data.gpsAuxCaptureTick + 100 /*ms*/)) {
+        // supress this tick
+      } else {
+        data.gpsAuxCapture = HAL_TIM_ReadCapturedValue(htim, TimeAux_CH_GPS_PPS);
+        data.gpsAuxCaptureTick = tick;
+        
+#if 0
+        // TODO remove 
+        // fake GPS seconds
+        // TODO -somehting wrong with this - goes up too fast 
+        data.gpsSeconds++;
+        data.gpsSecondsTick = tick;
+#endif
+      }
     }
   }
 }
@@ -451,6 +466,9 @@ void blinkRun() {
   static uint32_t __attribute__((__unused__)) localSecondsTickPrev = 0;
   static uint32_t __attribute__((__unused__)) extSecondsTickPrev = 0;
   static uint32_t __attribute__((__unused__)) extSecondsPrev = 0;
+
+  static uint32_t __attribute__((__unused__)) gpsAuxCaptureTickPrev=0;
+  
 
   char buffer[100];
 
@@ -752,6 +770,15 @@ void blinkRun() {
   }
 #endif
 
+#if 0
+  if (data.gpsAuxCaptureTick != gpsAuxCaptureTickPrev) {
+    snprintf(buffer, sizeof(buffer), "   gpsAuxPhase(ms): %lu.%03lu \r\n",
+             capture2uS( data.gpsAuxCapture) / 1000, capture2uS( data.gpsAuxCapture) % 1000);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    gpsAuxCaptureTickPrev = data.gpsAuxCaptureTick;
+  }
+#endif
+  
 #if 0 
   if ( gpsSecondsTickPrev !=  data.gpsSecondsTick ) {
     snprintf(buffer, sizeof(buffer), "   gps time(s): %lu UTC\r\n", data.gpsSeconds);
