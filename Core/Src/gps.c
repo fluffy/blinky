@@ -15,9 +15,6 @@ const int gpsBufferLen = 20;
 uint8_t gpsBuffer[20];
 uint8_t gpsBufLen = 0;
 
-char gpsTime[7];  // This will have ASCII chars 123456 to indicate time is
-                  // 12:34:56 UTC and be null terminated
-uint32_t gpsTimeTick;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
   if (huart == &hUartGps) {
@@ -41,12 +38,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
       if (memcmp((char *)gpsBuffer + 1, find, strlen(find)) == 0) {
         // found "$GPRMC
         if (gpsBuffer[14] == 'A') {
+          char gpsTime[7];  // This will have ASCII chars 123456 to indicate time is
+                  // 12:34:56 UTC and be null terminated
+
           // GPS daa is valid
           strncpy(gpsTime, (char *)gpsBuffer + 7, sizeof(gpsTime) - 1);
           gpsTime[sizeof(gpsTime) - 1] = 0;  // terminate time string
 
-          uint32_t tick = HAL_GetTick();
-          gpsTimeTick = tick;
+
+          //gpsTimeTick = tick;
 
           int hrHigh = gpsTime[0]-'0';
           int hrLow = gpsTime[1]-'0';
@@ -58,7 +58,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
           int hr  =  hrHigh*10 +  hrLow;
           int min = minHigh*10 + minLow;
           int sec = secHigh*10 + secLow;   
-            
+
+          uint32_t tick = HAL_GetTick();
           data.gpsSeconds = hr*3600+min*60+sec;
           data.gpsSecondsTick = tick;
 #if 0
@@ -100,8 +101,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 }
 
 void gpsInit() {
-  gpsTimeTick = 0;
-  memset(gpsTime, 0, sizeof(gpsTime));
 }
 
 void gpsSetup() {
