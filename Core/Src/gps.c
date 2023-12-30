@@ -9,10 +9,12 @@
 #include "detect.h"
 #include "hardware.h"
 #include "main.h"
+#include "measurement.h"
 
 const int gpsBufferLen = 20;
 uint8_t gpsBuffer[20];
 uint8_t gpsBufLen = 0;
+
 char gpsTime[7];  // This will have ASCII chars 123456 to indicate time is
                   // 12:34:56 UTC and be null terminated
 uint32_t gpsTimeTick;
@@ -46,10 +48,29 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
           uint32_t tick = HAL_GetTick();
           gpsTimeTick = tick;
 
+          int hrHigh = gpsTime[0]-'0';
+          int hrLow = gpsTime[1]-'0';
+          int minHigh = gpsTime[2]-'0';
+          int minLow = gpsTime[3]-'0';
+          int secHigh = gpsTime[4]-'0';
+          int secLow = gpsTime[5]-'0';
+
+          int hr  =  hrHigh*10 +  hrLow;
+          int min = minHigh*10 + minLow;
+          int sec = secHigh*10 + secLow;   
+            
+          data.gpsSeconds = hr*3600+min*60+sec;
+          data.gpsSecondsTick = tick;
 #if 0
-          if (1) { char buffer[100];
-          snprintf(buffer, sizeof(buffer), "   gps time UTC: %s \r\n", gpsTime );
-          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+          if (1) {
+            char buffer[100];
+            //snprintf(buffer, sizeof(buffer), "DBG  hr=%d min=%d sec=%d \r\n", hr,min,sec );
+            //HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+            
+            //snprintf(buffer, sizeof(buffer), "DBG   gps time UTC: %s \r\n", gpsTime );
+            //HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+            snprintf(buffer, sizeof(buffer), "DBG2  gps(s): %lu UTC\r\n",  data.gpsSeconds );
+            HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
           }
 #endif
         }

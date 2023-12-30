@@ -11,6 +11,7 @@ typedef struct {
   int64_t  localTimeUS[metricsHistorySize];
   int64_t  extTimeUS[metricsHistorySize];
   int64_t  syncTimeUS[metricsHistorySize];
+  int64_t  gpsTimeUS[metricsHistorySize];
   
 } Metrics;
 

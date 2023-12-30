@@ -443,7 +443,7 @@ void blinkRun() {
   static uint32_t __attribute__((__unused__)) gpsCaptureTickPrev = 0;
 
   static uint32_t __attribute__((__unused__)) monAuxCaptureTickPrev = 0;
-  static uint32_t __attribute__((__unused__)) gpsTimeTickPrev = 0;
+  static uint32_t __attribute__((__unused__)) gpsSecondsTickPrev = 0;
 
   static uint32_t __attribute__((__unused__)) ltcSecondsTickPrev = 0;
   static uint32_t __attribute__((__unused__)) ltcGenTickPrev = 0;
@@ -743,19 +743,23 @@ void blinkRun() {
     }
   }
 
+#if 0
   if (data.gpsCaptureTick != gpsCaptureTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   gps delta: %ldms\r\n",
-             captureDeltaUs(data.gpsCapture, data.monCapture) / 1000);
+    snprintf(buffer, sizeof(buffer), "   gpsPhase(ms): %lu \r\n",
+             capture2uS( data.gpsCapture) / 1000);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     gpsCaptureTickPrev = data.gpsCaptureTick;
   }
+#endif
 
-  if (gpsTimeTick != gpsTimeTickPrev) {
-    snprintf(buffer, sizeof(buffer), "   gps time: %s UTC\r\n", gpsTime);
+#if 0 
+  if ( gpsSecondsTickPrev !=  data.gpsSecondsTick ) {
+    snprintf(buffer, sizeof(buffer), "   gps time(s): %lu UTC\r\n", data.gpsSeconds);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    gpsTimeTickPrev = gpsTimeTick;
+    gpsSecondsTickPrev = data.gpsSecondsTick;
   }
-
+#endif
+  
 #if 0  // TODO 
   if (data.extSecondsTick != extSecondsTickPrev) {
     snprintf(buffer, sizeof(buffer), "   ext time: %lus\r\n", data.extSeconds);

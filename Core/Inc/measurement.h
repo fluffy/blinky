@@ -22,7 +22,6 @@ typedef struct {
   uint32_t ltcAtMonSeconds;  // time of last LTC pulse when last Mon pulse happed
   uint32_t ltcGenTick;
 
-  // TODO - gpsSeconds is not set 
   uint32_t gpsSeconds; // time of last GPS pulse
   uint32_t gpsAtMonSeconds;  // time of last GPS pulse when last Mon pulse happed
   uint32_t gpsSecondsTick;
