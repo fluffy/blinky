@@ -21,7 +21,7 @@
 // Uses Semantic versioning https://semver.org/
 // major.minor.patch,
 // patch=year/month/day
-const char *version = "0.90.231230";
+const char *version = "0.090.240101";
 
 // The main timer counter max value (typically 10 MHz ) * M need this cacluation
 // to fit in 32 bits
