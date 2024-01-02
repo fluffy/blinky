@@ -65,8 +65,9 @@ On the V7 hardware 0.3 software have:
 * nice box
 * battery with 2h life and USB charger
 * AC wall adapter power
-* RTC clock and battery 
 * do SMPT LTC time codes on sync in / out 
 
-* could we add flash video and flash detect 
+* could we add flash video and flash detector for auto detect video
+  latency
+  
 

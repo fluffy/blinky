@@ -13,9 +13,54 @@
 Metrics metrics;
 static Measurements dataPrev;
 
+extern uint32_t dataNextSyncOutPhaseUS;
+
 void metricsInit() { memset(&metrics, 0, sizeof(metrics)); }
 
 void metricsSetup() {}
+
+void metricsSync( uint32_t newPhaseUS,  uint32_t  newSeconds  ) {
+
+#if 0
+  if ( 1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer),
+             "  SYNC:  newSeconds(s)=%ld  \r\n",
+             newSeconds );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+#endif
+
+
+  // TODO - but where if somtimes gps is right ahead of mon, and somtimes right behind, calc is wrong
+  
+  int32_t phaseDeltaUS = newPhaseUS - dataNextSyncOutPhaseUS; // change from old phase
+  
+  int32_t newMainPhase = (int32_t)capture2uS(data.monCapture) + phaseDeltaUS;
+  if ( newMainPhase > 1000000 ) { newMainPhase -= 1000000; } if (  newMainPhase < 0 ) { newMainPhase += 1000000; } 
+  dataNextSyncOutPhaseUS = newMainPhase;
+  data.localOffsetUS = newMainPhase;
+  data.localSeconds = newSeconds +0 ; // TODO - think about offset here 
+  
+  int32_t newExtPhase = (int32_t)extCapture2uS(data.monAuxCapture) + phaseDeltaUS;
+  if ( newExtPhase > 1000000 ) { newExtPhase -= 1000000; } if (  newExtPhase < 0 ) { newExtPhase += 1000000; }
+  data.extOffsetUS = newExtPhase;
+  data.extSeconds = newSeconds +0;  // TODO - think about offset here 
+  
+  data.gpsSeconds = newSeconds; // TODO - think about this
+  data.ltcSeconds = newSeconds; // TODO - think about this
+
+#if 1
+  if ( 1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer),
+             "  SYNC:  oldMonPhase(ms)=%lu, newMonPhase(ms)=%ld oldAuxMonPhase(ms)=%lu, newAuxMonPhase(ms)=%ld  \r\n",
+             capture2uS(data.monCapture) / 1000l, newMainPhase/1000l, 
+             extCapture2uS(data.monAuxCapture) / 1000l,  newExtPhase / 1000l);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+  }
+}
 
 void metricsRun() {
   char buffer[100];
@@ -51,17 +96,32 @@ void metricsRun() {
   }
 
   metrics.localTimeUS[curr] = (int64_t)dataPrev.localAtMonSeconds * 1000000 +
-                              capture2uS(dataPrev.monCapture);
+    capture2uS(dataPrev.monCapture) -
+    dataPrev.localOffsetUS;
+  
   metrics.extTimeUS[curr] = (int64_t)dataPrev.extAtMonSeconds * 1000000 +
-                            extCapture2uS(dataPrev.monAuxCapture) +
-                            dataPrev.extOffsetUS;
-  metrics.syncTimeUS[curr] = (int64_t)dataPrev.ltcAtMonSeconds * 1000000 +
-                             capture2uS(dataPrev.syncCapture);
+    extCapture2uS(dataPrev.monAuxCapture) -
+    dataPrev.extOffsetUS;
+  
+  int64_t deltaSync =  (int64_t)capture2uS(dataPrev.syncCapture) -  capture2uS(dataPrev.monCapture);
+  if ( deltaSync < 0 ) {
+    deltaSync += 1000000;
+  }
+  metrics.syncTimeUS[curr] = (int64_t)dataPrev.ltcAtMonSeconds * 1000000 + deltaSync;
 
-  metrics.gpsTimeUS[curr] =
-      (int64_t)dataPrev.gpsAtMonSeconds * 1000000 +
-      capture2uS(dataPrev.gpsCapture) -  capture2uS(dataPrev.monCapture); ;  // TODO - wrong fix
-
+  int64_t deltaGps =  (int64_t)capture2uS(dataPrev.gpsCapture) -  capture2uS(dataPrev.monCapture);
+  if ( deltaGps < 0 ) {
+    deltaGps += 1000000;
+  }
+  metrics.gpsTimeUS[curr] = (int64_t)dataPrev.gpsAtMonSeconds * 1000000 + deltaGps ;
+#if 0
+  if (1) {
+    snprintf(buffer, sizeof(buffer), "DBG gpsSeconds=%lu gpsAtMonSeconds=%lu deltaGps=%ld \r\n",
+             dataPrev.gpsSeconds, dataPrev.gpsAtMonSeconds ,  (int32_t) deltaGps );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+#endif
+  
   if (dataPrev.localSeconds % 5 == 2) {
     if (1) {
       snprintf(buffer, sizeof(buffer), "\r\nMetrics\r\n");

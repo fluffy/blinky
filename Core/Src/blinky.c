@@ -36,7 +36,7 @@ Measurements data;
 
 // int32_t dataExtClkCountTickOffset;
 
-uint32_t dataNextSyncOutPhaseUS;
+uint32_t dataNextSyncOutPhaseUS; // TODO put in setting struct 
 uint32_t dataCurrentSyncOutPhaseUS;
 
 int32_t blinkAudioDelayMs;  // this is the detected value from detect
@@ -270,13 +270,6 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
         data.gpsAuxCapture = HAL_TIM_ReadCapturedValue(htim, TimeAux_CH_GPS_PPS);
         data.gpsAuxCaptureTick = tick;
         
-#if 0
-        // TODO remove 
-        // fake GPS seconds
-        // TODO -somehting wrong with this - goes up too fast 
-        data.gpsSeconds++;
-        data.gpsSecondsTick = tick;
-#endif
       }
     }
   }
@@ -538,85 +531,20 @@ void blinkRun() {
 
       if ((tick > 2000) && (data.syncCaptureTick + 2000 > tick)) {
         //  had sync in last 2 seconds
-        int32_t deltaPhaseUS =
-            capture2uS(data.syncCapture) - capture2uS(data.monCapture);
-        if (deltaPhaseUS < 0) {
-          deltaPhaseUS += 1000000l;
-        }
-        if (deltaPhaseUS >= 1000000l) {
-          deltaPhaseUS -= 1000000l;
-        }
+        metricsSync(  capture2uS(data.syncCapture) , data.ltcAtMonSeconds );
 
-        uint32_t prePhaseUS = dataNextSyncOutPhaseUS;  // TODO REMOVE
-        uint32_t phaseUS = dataNextSyncOutPhaseUS + deltaPhaseUS;
-        if (phaseUS < 0) {
-          phaseUS += 1000000l;
-        }
-        if (phaseUS >= 1000000l) {
-          phaseUS -= 1000000l;
-        }
-        dataNextSyncOutPhaseUS = phaseUS;
-
-        snprintf(buffer, sizeof(buffer),
-                 "  SYNC IN: sync phase=%lums, mon phase=%lums, "
-                 "oldPhase=%lums, newPhase=%ldms\r\n",
-                 capture2uS(data.syncCapture) / 1000l,
-                 capture2uS(data.monCapture) / 1000l, prePhaseUS / 1000l,
-                 phaseUS / 1000l);
-        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
-        data.localSeconds = data.ltcSeconds; // TODO - think about do we need a offset for local time from gps time
-        
-        data.extSeconds = data.ltcSeconds; 
-        data.extOffsetUS = (int32_t)capture2uS(data.monCapture) - (int32_t)extCapture2uS(data.monAuxCapture); // TODO - thnk about
-
-        data.gpsSeconds = data.ltcSeconds; // TODO - think about this 
-       
       } else if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
         //  had GPS sync in last 2 seconds
-        int32_t deltaPhaseUS =
-            capture2uS(data.gpsCapture) - capture2uS(data.monCapture);
-        if (deltaPhaseUS < 0) {
-          deltaPhaseUS += 1000000l;
-        }
-        if (deltaPhaseUS >= 1000000l) {
-          deltaPhaseUS -= 1000000l;
-        }
+        metricsSync(  capture2uS(data.gpsCapture), data.gpsAtMonSeconds );
 
-        uint32_t prePhaseUS = dataNextSyncOutPhaseUS;  // TODO REMOVE
-        uint32_t phaseUS = dataNextSyncOutPhaseUS + deltaPhaseUS;
-        if (phaseUS < 0) {
-          phaseUS += 1000000l;
-        }
-        if (phaseUS >= 1000000l) {
-          phaseUS -= 1000000l;
-        }
-        dataNextSyncOutPhaseUS = phaseUS;
-
-        data.localSeconds = data.gpsSeconds; // TODO - think about do we need a offset for local time from gps time
-        data.extSeconds = data.gpsSeconds; 
-        data.extOffsetUS = (int32_t)capture2uS(data.monCapture) - (int32_t)extCapture2uS(data.monAuxCapture); // TODO - thnk about
-        
-        snprintf(buffer, sizeof(buffer),
-                 "  SYNC GPS: gpsPhase=%lums, moPhase=%lums, oldPhase=%lums, newPhase=%ldms\r\n",
-                 capture2uS(data.gpsCapture) / 1000l,
-                 capture2uS(data.monCapture) / 1000l, prePhaseUS / 1000l,
-                 phaseUS / 1000l);
-        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       } else {
+#if 0
         snprintf(buffer, sizeof(buffer),
                  "ERROR: No gps or sync input on button press\r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
-        data.localSeconds = 0;
-        data.extSeconds = 0;
-        data.extOffsetUS = (int32_t)capture2uS(data.monCapture) - extCapture2uS(data.monAuxCapture);
-#if 0
-        snprintf(buffer, sizeof(buffer), "Offset(ms): mon=%lu ext=%lu offfset=%ld.%03lu\r\n",
-                 (int32_t)capture2uS(data.monCapture) / 1000 ,  extCapture2uS(data.monAuxCapture) / 1000, 
-                data.extOffsetUS / 1000l, abs(data.extOffsetUS) % 1000l);
-        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
+
+        metricsSync(  250000l /*phaseUS*/ , 0l /*seconds */ );
       }
     }
     button1WasPressed = 1;
@@ -687,6 +615,7 @@ void blinkRun() {
 #endif
   }
 
+  if ( tick > data.monCaptureTick + 100) {
   if (data.monCaptureTick != monCaptureTickPrev) {
 #if 0  // to much print out 
     snprintf(buffer, sizeof(buffer), "   mon phase: %lums\r\n",
@@ -697,6 +626,7 @@ void blinkRun() {
     monCaptureTickPrev = data.monCaptureTick;
 
     metricsRun();
+  }
   }
 
 #if 1

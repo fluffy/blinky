@@ -20,3 +20,8 @@ extern Metrics metrics;
 void metricsInit();
 void metricsSetup();
 void metricsRun();
+
+void metricsSync( uint32_t newPhaseUS,  uint32_t  newSeconds );
+
+
+  
