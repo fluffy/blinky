@@ -40,9 +40,9 @@ void configSetup() {
       config.product = 2;  // 1=blink, 2=clock
       config.revMajor = 0;
       config.revMinor = 9;
-      config.serialNum = 9;
+      config.serialNum = 10;
 
-      config.extOscType = 10; // external osc type ( 2= 2.048 MHz, 10=10 MHz,
+      config.extOscType = 0; // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz) 
       config.oscAdj = -658;
       config.vcoValue = 2000;
 

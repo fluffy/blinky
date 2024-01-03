@@ -54,7 +54,7 @@ void metricsSync( uint32_t newPhaseUS,  uint32_t  newSeconds  ) {
   if ( 1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer),
-             "  SYNC:  oldMonPhase(ms)=%lu, newMonPhase(ms)=%ld oldAuxMonPhase(ms)=%lu, newAuxMonPhase(ms)=%ld  \r\n",
+             "  SYNC: oldMon(ms)=%lu, newMon(ms)=%ld, oldAuxMon(ms)=%lu, newAuxMon(ms)=%ld\r\n",
              capture2uS(data.monCapture) / 1000l, newMainPhase/1000l, 
              extCapture2uS(data.monAuxCapture) / 1000l,  newExtPhase / 1000l);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -202,7 +202,7 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    int durationS = 1000; // make sure metricsHistorySize is greater than this 
+    int durationS = 10; // TODO // make sure metricsHistorySize is greater than this 
     int prev = curr - durationS;
     if (prev < 0) {
       prev += metricsHistorySize;
