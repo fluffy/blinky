@@ -9,7 +9,8 @@ make
 
 st-flash --reset --format ihex write build/blinky.hex
 or
-stm32flash -w build/blinky.bin -v -b 115200 -i "-rts,-dtr,dtr:rts,-dtr,dtr"  /dev/cu.usbserial-31120
+stm32flash -w build/blinky.bin -v -b 115200 -i "-dtr:-rts&dtr"/dev/cu.usbserial-31120
+
 
 screen /dev/cu.usbserial-21110 115200
 exit screen with ^A^\
