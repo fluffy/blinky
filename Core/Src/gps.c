@@ -62,7 +62,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
           uint32_t tick = HAL_GetTick();
           data.gpsSeconds = hr*3600+min*60+sec;
           data.gpsSecondsTick = tick;
-#if 0
+#if 1
           if (1) {
             char buffer[100];
             //snprintf(buffer, sizeof(buffer), "DBG  hr=%d min=%d sec=%d \r\n", hr,min,sec );
