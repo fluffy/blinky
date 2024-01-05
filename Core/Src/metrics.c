@@ -19,7 +19,25 @@ void metricsInit() { memset(&metrics, 0, sizeof(metrics)); }
 
 void metricsSetup() {}
 
-void metricsSync( uint32_t newPhaseUS,  uint32_t  newSeconds  ) {
+void metricsSync(  MetricSyncSource syncTo  ) {
+
+  // metricsSync(  250000l /*phaseUS*/ , 0l /*seconds */ );
+  //metricsSync(  capture2uS(data.syncCapture) , data.ltcAtMonSeconds );
+  //metricsSync(  capture2uS(data.gpsCapture), data.gpsAtMonSeconds );
+  
+  uint32_t newPhaseUS= 250000l;
+  //uint32_t  newSeconds =0;
+
+  if ( syncTo == gps ) {
+    newPhaseUS =   capture2uS(data.gpsCapture) ;
+    //newSeconds =  data.gpsAtMonSeconds;
+  }
+
+  if ( syncTo == sync ) {
+    newPhaseUS =  capture2uS(data.syncCapture) ;
+    //newSeconds =  data.ltcAtMonSeconds ;
+  }
+ 
 
 #if 0
   if ( 1) {
@@ -45,7 +63,7 @@ void metricsSync( uint32_t newPhaseUS,  uint32_t  newSeconds  ) {
   data.extOffsetUS = newExtPhase;
 
   
-#if 1
+#if 0
   if ( 1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer),
@@ -60,12 +78,27 @@ void metricsSync( uint32_t newPhaseUS,  uint32_t  newSeconds  ) {
   metricsAdjust();
   int curr = metrics.nextIndex;
 
-  int64_t gpsDelta = (  metrics.gpsTimeUS[curr] -  metrics.localTimeUS[curr] ) / 1000000ll ;
-  data.localSeconds += gpsDelta;
+  if ( syncTo == gps ) {
+    int64_t delta = (  metrics.gpsTimeUS[curr] -  metrics.localTimeUS[curr] ) / 1000000ll ;
+    data.localSeconds += delta;
+  }
 
+   if ( syncTo == sync ) {
+    int64_t delta = (  metrics.syncTimeUS[curr] -  metrics.localTimeUS[curr] ) / 1000000ll ;
+    data.localSeconds += delta;
+  }
+
+   if ( syncTo == external ) {
+    int64_t delta = (  metrics.extTimeUS[curr] -  metrics.localTimeUS[curr] ) / 1000000ll ;
+    data.localSeconds += delta;
+  }
+
+   if ( syncTo == none ) {
+    data.localSeconds = 0 ;
+    data.extSeconds = 0; 
+  }
   
-  
-#if 1
+#if 0
   if ( 1) {
     char buffer[100];
     int64_t gpsSec =   metrics.gpsTimeUS[curr]/1000000l ;
@@ -136,15 +169,9 @@ void metricsAdjust(){
     dataPrev.extOffsetUS;
   
   int64_t deltaSync =  (int64_t)capture2uS(dataPrev.syncCapture) -  capture2uS(dataPrev.monCapture);
-  if ( deltaSync < 0 ) {
-    //deltaSync += 1000000;
-  }
   metrics.syncTimeUS[curr] = (int64_t)dataPrev.ltcAtMonSeconds * 1000000 + deltaSync;
 
   int64_t deltaGps =  (int64_t)capture2uS(dataPrev.gpsCapture) -  capture2uS(dataPrev.monCapture);
-  if ( deltaGps < 0 ) {
-    //deltaGps += 1000000;
-  }
   metrics.gpsTimeUS[curr] = (int64_t)dataPrev.gpsAtMonSeconds * 1000000 + deltaGps ;
 }
 

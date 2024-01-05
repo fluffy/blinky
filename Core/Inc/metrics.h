@@ -27,7 +27,13 @@ void metricsSetup();
 void metricsRun();
 void metricsAdjust();
 
-void metricsSync( uint32_t newPhaseUS,  uint32_t  newSeconds );
+typedef enum {
+  none,
+  gps,
+  sync,
+  external
+} MetricSyncSource; 
+void metricsSync( MetricSyncSource syncTo );
 
 
   

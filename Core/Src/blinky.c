@@ -537,11 +537,14 @@ void blinkRun() {
 
       if ((tick > 2000) && (data.syncCaptureTick + 2000 > tick)) {
         //  had sync in last 2 seconds
-        metricsSync(  capture2uS(data.syncCapture) , data.ltcAtMonSeconds );
+        metricsSync( sync );
+        
+        //metricsSync(  capture2uS(data.syncCapture) , data.ltcAtMonSeconds );
 
       } else if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
         //  had GPS sync in last 2 seconds
-        metricsSync(  capture2uS(data.gpsCapture), data.gpsAtMonSeconds );
+        metricsSync(  gps );
+        //metricsSync(  capture2uS(data.gpsCapture), data.gpsAtMonSeconds );
 
       } else {
 #if 0
@@ -550,7 +553,8 @@ void blinkRun() {
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
 
-        metricsSync(  250000l /*phaseUS*/ , 0l /*seconds */ );
+         metricsSync(  external );
+         // metricsSync(  250000l /*phaseUS*/ , 0l /*seconds */ );
       }
     }
     button1WasPressed = 1;
