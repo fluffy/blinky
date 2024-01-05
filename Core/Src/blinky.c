@@ -17,6 +17,7 @@
 #include "metrics.h"
 #include "pps.h"
 #include "thermo.h"
+#include "status.h"
 
 // Uses Semantic versioning. See https://semver.org/
 // major.minor.patch,
@@ -310,12 +311,12 @@ int32_t captureDeltaUs(uint32_t pps, uint32_t mon) {
 }
 
 void blinkSetup() {
-  // HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
-  //                   GPIO_PIN_RESET);  // turn on red error LED
+  HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
+                    GPIO_PIN_SET);  // turn on red error LED
   HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
-                    GPIO_PIN_SET);  // turn on yellow  LED
+                    GPIO_PIN_RESET);  // turn off yellow  LED
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
-                    GPIO_PIN_SET);  // turn on green ok LED
+                    GPIO_PIN_RESET);  // turn off green ok LED
 
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
@@ -373,12 +374,6 @@ void blinkSetup() {
   // start display timer
   HAL_TIM_Base_Start_IT(&hTimeBlink);
 
-  // set LED to on but not sync ( yellow, not green )
-  HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
-                    GPIO_PIN_SET);  // turn on blue assert LED
-  HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
-                    GPIO_PIN_RESET);  // turn off green ok LED
-
   audioSetup();
 
   gpsSetup();
@@ -423,6 +418,9 @@ void blinkSetup() {
     snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
+
+  // set LED to on but not sync ( yellow, not green )
+  updateStatus( StatusRunning);
 }
 
 void blinkRun() {
@@ -452,6 +450,7 @@ void blinkRun() {
   uint32_t tick = HAL_GetTick();
 
   if (loopCount % 3000 == 0) {
+    
     snprintf(
         buffer, sizeof(buffer),
         "Phases(ms) mon=%lu.%03lu sync=%lu.%03lu gps=%lu.%03lu ext=%lu.%03lu "
@@ -529,15 +528,19 @@ void blinkRun() {
 
       if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
         //  had GPS sync in last 2 seconds
-        metricsSync(gps);
+        metricsSync( SourceGPS);
+        updateStatus( StatusSync);
       } else if ((tick > 2000) && (data.syncCaptureTick + 2000 > tick)) {
         //  had sync in last 2 seconds
-        metricsSync(sync);
+        metricsSync( SourceSync );
+        updateStatus(StatusSync);
       } else if ((tick > 2000) && (data.extSecondsTick + 2000 > tick)) {
         //  had ext in last 2 seconds
-        metricsSync(external);
+        metricsSync(SourceExternal);
+        updateStatus(StatusLostSync);
       } else {
-        metricsSync(none);
+        metricsSync(SourceNone);
+        updateStatus(StatusLostSync);
 #if 0
         snprintf(buffer, sizeof(buffer),
                  "ERROR: No gps or sync input on button press\r\n");

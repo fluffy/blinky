@@ -29,5 +29,5 @@ void metricsSetup();
 void metricsRun();
 void metricsAdjust();
 
-typedef enum { none, gps, sync, external } MetricSyncSource;
+typedef enum { SourceNone, SourceGPS, SourceSync, SourceExternal } MetricSyncSource;
 void metricsSync(MetricSyncSource syncTo);

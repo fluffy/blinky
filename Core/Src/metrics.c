@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "config.h"
+#include "status.h"
 #include "hardware.h"
 #include "measurement.h"
 
@@ -27,12 +28,12 @@ void metricsSync(MetricSyncSource syncTo) {
   uint32_t newPhaseUS = 250000l;
   // uint32_t  newSeconds =0;
 
-  if (syncTo == gps) {
+  if (syncTo == SourceGPS) {
     newPhaseUS = capture2uS(data.gpsCapture);
     // newSeconds =  data.gpsAtMonSeconds;
   }
 
-  if (syncTo == sync) {
+  if (syncTo == SourceSync) {
     newPhaseUS = capture2uS(data.syncCapture);
     // newSeconds =  data.ltcAtMonSeconds ;
   }
@@ -87,33 +88,33 @@ void metricsSync(MetricSyncSource syncTo) {
   metricsAdjust();
   int curr = metrics.nextIndex;
 
-  if (syncTo == gps) {
+  if (syncTo == SourceGPS) {
     int64_t delta =
         (metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr]) / 1000000ll;
     data.localSeconds += delta;
     data.extSeconds = data.localSeconds;
   }
 
-  if (syncTo == sync) {
+  if (syncTo == SourceSync) {
     int64_t delta =
         (metrics.syncTimeUS[curr] - metrics.localTimeUS[curr]) / 1000000ll;
     data.localSeconds += delta;
     data.extSeconds = data.localSeconds;
   }
 
-  if (syncTo == external) {
+  if (syncTo == SourceExternal) {
     int64_t delta =
         (metrics.extTimeUS[curr] - metrics.localTimeUS[curr]) / 1000000ll;
     data.localSeconds += delta;
   }
 
-  if (syncTo == none) {
+  if (syncTo == SourceNone) {
     data.localSeconds = 0;
     data.extSeconds = 0;
   }
 
-  metrics.lastSyncSeconds =  data.localSeconds ;
-  
+  metrics.lastSyncSeconds = data.localSeconds;
+
 #if 0
   if ( 1) {
     char buffer[100];
@@ -244,6 +245,7 @@ void metricsRun() {
     }
 
     if (metrics.haveGps) {
+       updateStatus( StatusCouldSync );
       snprintf(buffer, sizeof(buffer), "    GpsTime(s) %7lu.%03ld,%03ld \r\n",
                (int32_t)(metrics.gpsTimeUS[curr] / 1000000),
                (int32_t)(metrics.gpsTimeUS[curr] % 1000000) / 1000,
@@ -252,6 +254,7 @@ void metricsRun() {
     }
 
     if (metrics.haveSync) {
+       updateStatus( StatusCouldSync );
       snprintf(buffer, sizeof(buffer), "    SyncTime(s) %6lu.%03ld,%03ld \r\n",
                (int32_t)(metrics.syncTimeUS[curr] / 1000000),
                (int32_t)(metrics.syncTimeUS[curr] % 1000000) / 1000,
@@ -267,12 +270,27 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
+
+    int64_t secondsSinceSync = metrics.localTimeUS[curr] / 1000000l -  metrics.lastSyncSeconds;
+
     if (1) {
       snprintf(buffer, sizeof(buffer), "\r\n    lastSync(s) %4lu\r\n",
-                (uint32_t)(metrics.extTimeUS[curr] / 1000000) - metrics.lastSyncSeconds  );
+               (uint32_t)secondsSinceSync);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
+    // TODO - set up the valid time before sync lost - current values are WAG 
+    uint32_t syncValidTimeSeconds=60; 
+    switch (  config.extOscType ) {
+    case 0: syncValidTimeSeconds=200; break; // 20 ppm 
+    case 2: syncValidTimeSeconds=2000; break; // 2 ppm 
+    case 10: syncValidTimeSeconds=40000; break; // 0.100 ppm 
+    }
+    
+    if (   secondsSinceSync > syncValidTimeSeconds ) {
+      updateStatus( StatusLostSync );
+    }
+    
     if (metrics.haveSync) {
       int64_t diff = metrics.syncTimeUS[curr] - metrics.localTimeUS[curr];
 
@@ -311,7 +329,7 @@ void metricsRun() {
     }
 
     // make sure metricsHistorySize is greater than this
-    int durationS = 100;  // TODO 
+    int durationS = 100;  // TODO
     int prev = curr - durationS;
     if (prev < 0) {
       prev += metricsHistorySize;

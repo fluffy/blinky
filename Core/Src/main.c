@@ -854,6 +854,10 @@ void Error_Handler(void) {
   __disable_irq();
   HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
                     GPIO_PIN_SET);  // turn on error LED
+  HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMG_Pin,
+                    GPIO_PIN_RESET);  // turn on error LED
+  HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMY_Pin,
+                    GPIO_PIN_RESET);  // turn on error LED
   while (1) {
   }
   /* USER CODE END Error_Handler_Debug */
