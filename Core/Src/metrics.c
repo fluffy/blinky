@@ -49,7 +49,7 @@ void metricsSync(  MetricSyncSource syncTo  ) {
   }
 #endif
 
-  // TODO - but where if somtimes gps is right ahead of mon, and somtimes right behind, calc is wrong
+  // TODO - sometimes gps is right ahead of mon, and somtimes right behind, calc might be wrong
   
   int32_t phaseDeltaUS = newPhaseUS - dataNextSyncOutPhaseUS; // change from old phase
   

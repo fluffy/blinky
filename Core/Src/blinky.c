@@ -187,10 +187,6 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       ltcRecvTransitions.transitionTimeUs[ltcRecvTransitions.numTransitions++] =
           val * 20l;  // convert to uSec, this timer counts at 50 KHz
 
-      // TODO - why were these here ... seem totally wrong but might may need somethng else 
-      //data.ltcSeconds = val;
-      //data.ltcSecondsTick = tick;
-
       if (ltcRecvTransitions.numTransitions >= ltcMaxTransitions) {
         ltcRecvTransitions.numTransitions = 0;
       }
@@ -266,7 +262,6 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
                                                     // falling is rising
                                                     // on inverted input
 
-        // supress for 100 ms - TODO - this should not be needed 
       if ((data.gpsAuxCaptureTick < tick) &&
           (tick < data.gpsAuxCaptureTick + 100 /*ms*/)) {
         // supress this tick
@@ -356,7 +351,9 @@ void blinkSetup() {
   HAL_TIM_IC_Start_IT(&hTimeAux,
                       TimeAux_CH_GPS_PPS);  // start gps pps capture on aux
 
-  HAL_Delay(100); // get diff between main and aux when same clock // TODO remove 
+#if 0
+  HAL_Delay(100); // get diff between main and aux when same clock for testing
+#endif
   
   // start main timer 
   HAL_TIM_Base_Start_IT(&hTimeSync);
@@ -684,7 +681,7 @@ void blinkRun() {
       else { 
         int err = ltcDecode(&ltc, &ltcRecvTransitions, 30 /*fps */);
         if (err != 0) {
-#if 1 // TODO - have a PPS vs LTC mode 
+#if 1 
           snprintf(buffer, sizeof(buffer), "   LTC decode ERROR: %d\r\n", err);
           HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif 
@@ -731,7 +728,7 @@ void blinkRun() {
   }
 #endif
   
-#if 1  // TODO 
+#if 0
   if (data.extSecondsTick != extSecondsTickPrev) {
     snprintf(buffer, sizeof(buffer), "   ext time: %lus\r\n", data.extSeconds);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);

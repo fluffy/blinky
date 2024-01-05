@@ -11,7 +11,7 @@ typedef struct {
   uint8_t frame;
   bool valid;
 } LtcTimeCode;
-void ltcTimeCodeClear(LtcTimeCode*);  // TODO - fix case
+void ltcTimeCodeClear(LtcTimeCode*);  
 void ltcTimeCodeSet(LtcTimeCode*, uint32_t s, uint32_t us);
 void ltcTimeCodeSetHMSF(LtcTimeCode*, uint8_t h, uint8_t m, uint8_t s,
                         uint8_t f);

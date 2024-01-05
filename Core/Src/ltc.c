@@ -153,7 +153,7 @@ int ltcDecode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
     if (setIndex == 1) {
       // soft fill last bit if missing
       if ((byteCount == 0) && (bitCount <= 1)) {
-        if (ltcParity(ltc) == 1) {  // TODO is this correct
+        if (ltcParity(ltc) == 1) {  // TODO is this correct ???
           ltc->bits[0] |= (1 << 0);
         }
 
