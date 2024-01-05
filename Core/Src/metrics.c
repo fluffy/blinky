@@ -224,6 +224,15 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
+
+    if (metrics.haveGps) {
+      snprintf(buffer, sizeof(buffer), "    GpsTime(s) %7lu.%03ld,%03ld \r\n",
+               (int32_t)(metrics.gpsTimeUS[curr] / 1000000),
+               (int32_t)(metrics.gpsTimeUS[curr] % 1000000) / 1000,
+               (int32_t)(metrics.gpsTimeUS[curr] % 1000) );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+    }
+
     if (metrics.haveSync) {
       snprintf(buffer, sizeof(buffer), "    SyncTime(s) %6lu.%03ld,%03ld \r\n",
                (int32_t)(metrics.syncTimeUS[curr] / 1000000),
@@ -237,14 +246,6 @@ void metricsRun() {
                (int32_t)(metrics.extTimeUS[curr] / 1000000),
                (int32_t)(metrics.extTimeUS[curr] % 1000000) / 1000,
                 (int32_t)(metrics.extTimeUS[curr] % 1000) );
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    }
-
-    if (metrics.haveGps) {
-      snprintf(buffer, sizeof(buffer), "    GpsTime(s) %7lu.%03ld,%03ld \r\n",
-               (int32_t)(metrics.gpsTimeUS[curr] / 1000000),
-               (int32_t)(metrics.gpsTimeUS[curr] % 1000000) / 1000,
-               (int32_t)(metrics.gpsTimeUS[curr] % 1000) );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 

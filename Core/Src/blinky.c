@@ -210,8 +210,6 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
       } else {
         data.syncCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_SYNC_IN);
         data.syncCaptureTick = tick;
-
-        data.ltcSeconds++; // TODO perhaps remove ????
       }
     }
 
@@ -457,7 +455,7 @@ void blinkRun() {
 
   uint32_t tick = HAL_GetTick();
 
-  if (loopCount % (500/3) == 0) {
+  if (loopCount % 3000 == 0) {
         snprintf(buffer, sizeof(buffer), "Phases(ms) mon=%lu.%03lu sync=%lu.%03lu gps=%lu.%03lu ext=%lu.%03lu \r\n",
                  capture2uS(data.monCapture)/1000,  capture2uS(data.monCapture)%1000,
                  capture2uS(data.syncCapture)/1000,capture2uS(data.syncCapture)%1000,
@@ -527,34 +525,25 @@ void blinkRun() {
 
   if ( (!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) ){
     if (!button1WasPressed) {
-      //uint32_t tick = HAL_GetTick();
-
       snprintf(buffer, sizeof(buffer), "Button 1 press\r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      // dataExtClkCountTickOffset = data.extSecondsTick;
-      // data.extSeconds = 0;
-
-      if ((tick > 2000) && (data.syncCaptureTick + 2000 > tick)) {
-        //  had sync in last 2 seconds
-        metricsSync( sync );
-        
-        //metricsSync(  capture2uS(data.syncCapture) , data.ltcAtMonSeconds );
-
-      } else if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
+     if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
         //  had GPS sync in last 2 seconds
         metricsSync(  gps );
-        //metricsSync(  capture2uS(data.gpsCapture), data.gpsAtMonSeconds );
-
-      } else {
+      } else if ((tick > 2000) && (data.syncCaptureTick + 2000 > tick)) {
+        //  had sync in last 2 seconds
+        metricsSync( sync );
+      } else if ((tick > 2000) && (data.extSecondsTick + 2000 > tick)) {
+        //  had ext in last 2 seconds
+        metricsSync( external );
+      } else  {
+         metricsSync( none );
 #if 0
         snprintf(buffer, sizeof(buffer),
                  "ERROR: No gps or sync input on button press\r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
-
-         metricsSync(  external );
-         // metricsSync(  250000l /*phaseUS*/ , 0l /*seconds */ );
       }
     }
     button1WasPressed = 1;
@@ -625,6 +614,13 @@ void blinkRun() {
 #endif
   }
 
+  if (( tick >= data.monCaptureTick ) && ( tick <= data.monCaptureTick+2 ))  {
+#if 1
+    snprintf(buffer, sizeof(buffer), "@ %lu\r\n", data.localSeconds);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+  }
+   
   if ( tick > data.monCaptureTick + 100) {
   if (data.monCaptureTick != monCaptureTickPrev) {
 #if 0  // to much print out 
@@ -653,7 +649,7 @@ void blinkRun() {
     ltcClear(&ltc);
     static LtcTimeCode timeCode;
     LtcTimeCodeClear(&timeCode);
-    LtcTimeCodeSet(&timeCode, data.localSeconds +1 , 0 /* us */);
+    LtcTimeCodeSet(&timeCode, data.localSeconds+1 , 0 /* us */);
 
     // LtcTimeCodeSetHMSF(  &timeCode, 1,1,1,1 );
 
@@ -662,17 +658,17 @@ void blinkRun() {
 
     // TODO - some way to kick start if dies
     ppsStart();
-#if 0
-    snprintf(buffer, sizeof(buffer), "   LTC gen %lus\r\n", LtcTimeCodeSeconds(&timeCode) );
+#if 1 // TODO
+    snprintf(buffer, sizeof(buffer), "   LTC Enc: %lu\r\n", LtcTimeCodeSeconds(&timeCode) );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
     ltcGenTickPrev = data.ltcGenTick;
   }
 
-  if (data.ltcSecondsTick + 100 /*ms*/ <
-      tick) {  // been 100 ms since lask LTC transition
-    if (data.ltcSecondsTick != ltcSecondsTickPrev) { // this seems messed up - TODO - think about 
-      ltcSecondsTickPrev = data.ltcSecondsTick;
+  if (data.syncCaptureTick + 100 /*ms*/ <
+      tick) {  // been 100 ms since start of last LTC transition (which flags a sync)
+    if (data.syncCaptureTick != ltcSecondsTickPrev) { // this seems messed up - TODO - think about 
+      ltcSecondsTickPrev = data.syncCaptureTick;
 
       // process LTC transition data
       static LtcTimeCode timeCode;
@@ -681,7 +677,7 @@ void blinkRun() {
       ltcClear(&ltc);
       int err = ltcDecode(&ltc, &ltcRecvTransitions, 30 /*fps */);
       if (err != 0) {
-#if 0 // TODO - have a PPS vs LTC mode 
+#if 1 // TODO - have a PPS vs LTC mode 
         snprintf(buffer, sizeof(buffer), "   LTC decode ERROR: %d\r\n", err);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif 
@@ -690,7 +686,7 @@ void blinkRun() {
         ltcGet(&ltc, &timeCode);
         data.ltcSeconds = LtcTimeCodeSeconds(&timeCode);
 #if 1
-        snprintf(buffer, sizeof(buffer), "   LTC decode: %lus\r\n", data.ltcSeconds);
+        snprintf(buffer, sizeof(buffer), "   LTC Dec: %lu\r\n", data.ltcSeconds);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
       }
@@ -716,15 +712,15 @@ void blinkRun() {
   }
 #endif
   
-#if 0 
+#if 1
   if ( gpsSecondsTickPrev !=  data.gpsSecondsTick ) {
-    snprintf(buffer, sizeof(buffer), "   gps time(s): %lu UTC\r\n", data.gpsSeconds);
+    snprintf(buffer, sizeof(buffer), "   GPS Dec: %lu UTC\r\n", data.gpsSeconds);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     gpsSecondsTickPrev = data.gpsSecondsTick;
   }
 #endif
   
-#if 0  // TODO 
+#if 1  // TODO 
   if (data.extSecondsTick != extSecondsTickPrev) {
     snprintf(buffer, sizeof(buffer), "   ext time: %lus\r\n", data.extSeconds);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -732,7 +728,7 @@ void blinkRun() {
   }
 #endif
 
-#if 0  // TODO 
+#if 0  
   if (data.localSecondsTick != localSecondsTickPrev) {
     snprintf(buffer, sizeof(buffer), "   local time: %lus\r\n", data.localSeconds);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -754,7 +750,7 @@ void blinkRun() {
     extSecondsPrev = data.extSeconds;
   }
 
-  HAL_Delay(10);
+  HAL_Delay(1);
 
   loopCount++;
 }
