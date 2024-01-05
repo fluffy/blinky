@@ -658,7 +658,7 @@ void blinkRun() {
 
     // TODO - some way to kick start if dies
     ppsStart();
-#if 1 // TODO
+#if 0 // TODO
     snprintf(buffer, sizeof(buffer), "   LTC Enc: %lu\r\n", LtcTimeCodeSeconds(&timeCode) );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
@@ -675,20 +675,31 @@ void blinkRun() {
       LtcTimeCodeClear(&timeCode);
       static Ltc ltc;
       ltcClear(&ltc);
-      int err = ltcDecode(&ltc, &ltcRecvTransitions, 30 /*fps */);
-      if (err != 0) {
-#if 1 // TODO - have a PPS vs LTC mode 
-        snprintf(buffer, sizeof(buffer), "   LTC decode ERROR: %d\r\n", err);
-        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-#endif 
+
+      if ( ltcRecvTransitions.numTransitions <= 3 ) {
+        // assume in PPS mode not LTC
+        data.ltcSeconds++;
+        data.ltcSecondsTick = tick; 
       }
-      else {
-        ltcGet(&ltc, &timeCode);
-        data.ltcSeconds = LtcTimeCodeSeconds(&timeCode);
-#if 1
-        snprintf(buffer, sizeof(buffer), "   LTC Dec: %lu\r\n", data.ltcSeconds);
-        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      else { 
+        int err = ltcDecode(&ltc, &ltcRecvTransitions, 30 /*fps */);
+        if (err != 0) {
+#if 1 // TODO - have a PPS vs LTC mode 
+          snprintf(buffer, sizeof(buffer), "   LTC decode ERROR: %d\r\n", err);
+          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif 
+          data.ltcSeconds++;
+          data.ltcSecondsTick = tick; 
+        }
+        else {
+          ltcGet(&ltc, &timeCode);
+          data.ltcSeconds = LtcTimeCodeSeconds(&timeCode);
+          data.ltcSecondsTick = tick; 
+#if 0
+          snprintf(buffer, sizeof(buffer), "   LTC Dec: %lu\r\n", data.ltcSeconds);
+          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
+        }
       }
       LtcTransitionSetClear( &ltcRecvTransitions);  // reset ltc capture for next cycle
     }
@@ -712,7 +723,7 @@ void blinkRun() {
   }
 #endif
   
-#if 1
+#if 0
   if ( gpsSecondsTickPrev !=  data.gpsSecondsTick ) {
     snprintf(buffer, sizeof(buffer), "   GPS Dec: %lu UTC\r\n", data.gpsSeconds);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
