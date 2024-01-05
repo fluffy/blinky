@@ -35,9 +35,9 @@ uint32_t LtcTransitionSetDeltaUs(LtcTransitionSet* set, uint16_t i) {
   return set->transitionTimeUs[i] - set->transitionTimeUs[i - 1];
 }
 
-void LtcTimeCodeClear(LtcTimeCode* set) { set->valid = 0; }
+void ltcTimeCodeClear(LtcTimeCode* set) { set->valid = 0; }
 
-void LtcTimeCodeSet(LtcTimeCode* set, uint32_t s, uint32_t us) {
+void ltcTimeCodeSet(LtcTimeCode* set, uint32_t s, uint32_t us) {
   set->frame = (us * 30l / 1000000l) % 30;
   set->sec = s % 60;
   set->min = (s / 60) % 60;
@@ -45,7 +45,7 @@ void LtcTimeCodeSet(LtcTimeCode* set, uint32_t s, uint32_t us) {
   set->valid = 1;
 }
 
-void LtcTimeCodeSetHMSF(LtcTimeCode* set, uint8_t h, uint8_t m, uint8_t s,
+void ltcTimeCodeSetHMSF(LtcTimeCode* set, uint8_t h, uint8_t m, uint8_t s,
                         uint8_t f) {
   set->frame = f % 30;
   set->sec = s % 60;
@@ -54,18 +54,18 @@ void LtcTimeCodeSetHMSF(LtcTimeCode* set, uint8_t h, uint8_t m, uint8_t s,
   set->valid = 1;
 }
 
-uint32_t LtcTimeCodeSeconds(LtcTimeCode* set) {
+uint32_t ltcTimeCodeSeconds(LtcTimeCode* set) {
   if (!set->valid) return 0;
   return (uint32_t)(set->sec) + (uint32_t)(set->min) * 60l +
          (uint32_t)(set->hour) * 3600l;
 }
 
-uint32_t LtcTimeCodeMicroSeconds(LtcTimeCode* set) {
+uint32_t ltcTimeCodeMicroSeconds(LtcTimeCode* set) {
   if (!set->valid) return 0;
   return (uint32_t)(set->frame) * 1000000l / 30l;
 }
 
-uint32_t LtcTimeCodeDisp(LtcTimeCode* set) {
+uint32_t ltcTimeCodeDisp(LtcTimeCode* set) {
   if (!set->valid) {
     return 0;
   };
@@ -73,7 +73,7 @@ uint32_t LtcTimeCodeDisp(LtcTimeCode* set) {
          set->hour * 1000000l;
 }
 
-int LtcTimeCodeIsValid(LtcTimeCode* set) { return set->valid; }
+int ltcTimeCodeIsValid(LtcTimeCode* set) { return set->valid; }
 
 void ltcClear(Ltc* ltc) { ltc->valid = 0; }
 

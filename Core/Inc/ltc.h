@@ -11,14 +11,14 @@ typedef struct {
   uint8_t frame;
   bool valid;
 } LtcTimeCode;
-void LtcTimeCodeClear(LtcTimeCode*);  // TODO - fix case
-void LtcTimeCodeSet(LtcTimeCode*, uint32_t s, uint32_t us);
-void LtcTimeCodeSetHMSF(LtcTimeCode*, uint8_t h, uint8_t m, uint8_t s,
+void ltcTimeCodeClear(LtcTimeCode*);  // TODO - fix case
+void ltcTimeCodeSet(LtcTimeCode*, uint32_t s, uint32_t us);
+void ltcTimeCodeSetHMSF(LtcTimeCode*, uint8_t h, uint8_t m, uint8_t s,
                         uint8_t f);
-uint32_t LtcTimeCodeSeconds(LtcTimeCode*);
-uint32_t LtcTimeCodeMicroSeconds(LtcTimeCode*);
-uint32_t LtcTimeCodeDisp(LtcTimeCode*);
-int LtcTimeCodeIsValid(LtcTimeCode*);
+uint32_t ltcTimeCodeSeconds(LtcTimeCode*);
+uint32_t ltcTimeCodeMicroSeconds(LtcTimeCode*);
+uint32_t ltcTimeCodeDisp(LtcTimeCode*);
+int ltcTimeCodeIsValid(LtcTimeCode*);
 
 enum {
   ltcMaxTransitions = 80 * 2 + 1

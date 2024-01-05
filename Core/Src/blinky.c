@@ -648,10 +648,10 @@ void blinkRun() {
     static Ltc ltc;
     ltcClear(&ltc);
     static LtcTimeCode timeCode;
-    LtcTimeCodeClear(&timeCode);
-    LtcTimeCodeSet(&timeCode, data.localSeconds+1 , 0 /* us */);
+    ltcTimeCodeClear(&timeCode);
+    ltcTimeCodeSet(&timeCode, data.localSeconds+1 , 0 /* us */);
 
-    // LtcTimeCodeSetHMSF(  &timeCode, 1,1,1,1 );
+    // ltcTimeCodeSetHMSF(  &timeCode, 1,1,1,1 );
 
     ltcSet(&ltc, &timeCode);
     ltcEncode(&ltc, &ltcSendTransitions, 30 /*fps*/);
@@ -659,7 +659,7 @@ void blinkRun() {
     // TODO - some way to kick start if dies
     ppsStart();
 #if 0 // TODO
-    snprintf(buffer, sizeof(buffer), "   LTC Enc: %lu\r\n", LtcTimeCodeSeconds(&timeCode) );
+    snprintf(buffer, sizeof(buffer), "   LTC Enc: %lu\r\n", ltcTimeCodeSeconds(&timeCode) );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
     ltcGenTickPrev = data.ltcGenTick;
@@ -672,7 +672,7 @@ void blinkRun() {
 
       // process LTC transition data
       static LtcTimeCode timeCode;
-      LtcTimeCodeClear(&timeCode);
+      ltcTimeCodeClear(&timeCode);
       static Ltc ltc;
       ltcClear(&ltc);
 
@@ -693,7 +693,7 @@ void blinkRun() {
         }
         else {
           ltcGet(&ltc, &timeCode);
-          data.ltcSeconds = LtcTimeCodeSeconds(&timeCode);
+          data.ltcSeconds = ltcTimeCodeSeconds(&timeCode);
           data.ltcSecondsTick = tick; 
 #if 0
           snprintf(buffer, sizeof(buffer), "   LTC Dec: %lu\r\n", data.ltcSeconds);
