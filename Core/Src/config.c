@@ -42,7 +42,8 @@ void configSetup() {
       config.revMinor = 9;
       config.serialNum = 10;
 
-      config.extOscType = 0; // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz) 
+      config.extOscType =
+          0;  // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
       config.oscAdj = -658;
       config.vcoValue = 2000;
 

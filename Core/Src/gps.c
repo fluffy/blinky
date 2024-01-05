@@ -15,7 +15,6 @@ const int gpsBufferLen = 20;
 uint8_t gpsBuffer[20];
 uint8_t gpsBufLen = 0;
 
-
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
   if (huart == &hUartGps) {
     if (gpsBufLen == 1) {
@@ -38,29 +37,29 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
       if (memcmp((char *)gpsBuffer + 1, find, strlen(find)) == 0) {
         // found "$GPRMC
         if (gpsBuffer[14] == 'A') {
-          char gpsTime[7];  // This will have ASCII chars 123456 to indicate time is
-                  // 12:34:56 UTC and be null terminated
+          char gpsTime[7];  // This will have ASCII chars 123456 to indicate
+                            // time is 12:34:56 UTC and be null terminated
 
           // GPS daa is valid
           strncpy(gpsTime, (char *)gpsBuffer + 7, sizeof(gpsTime) - 1);
           gpsTime[sizeof(gpsTime) - 1] = 0;  // terminate time string
 
-          int hrHigh = gpsTime[0]-'0';
-          int hrLow = gpsTime[1]-'0';
-          int minHigh = gpsTime[2]-'0';
-          int minLow = gpsTime[3]-'0';
-          int secHigh = gpsTime[4]-'0';
-          int secLow = gpsTime[5]-'0';
+          int hrHigh = gpsTime[0] - '0';
+          int hrLow = gpsTime[1] - '0';
+          int minHigh = gpsTime[2] - '0';
+          int minLow = gpsTime[3] - '0';
+          int secHigh = gpsTime[4] - '0';
+          int secLow = gpsTime[5] - '0';
 
-          int hr  =  hrHigh*10 +  hrLow;
-          int min = minHigh*10 + minLow;
-          int sec = secHigh*10 + secLow;   
+          int hr = hrHigh * 10 + hrLow;
+          int min = minHigh * 10 + minLow;
+          int sec = secHigh * 10 + secLow;
 
-          if ( 1 ) {
+          if (1) {
             uint32_t tick = HAL_GetTick();
-            data.gpsSeconds = hr*3600+min*60+sec;
+            data.gpsSeconds = hr * 3600 + min * 60 + sec;
             data.gpsSecondsTick = tick;
-          
+
 #if 0
           if (1) {
             char buffer[100];
@@ -74,7 +73,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
           }
 #endif
           }
-          
         }
       }
 
@@ -101,8 +99,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
   }
 }
 
-void gpsInit() {
-}
+void gpsInit() {}
 
 void gpsSetup() {
 #if 1
