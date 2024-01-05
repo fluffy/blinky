@@ -18,10 +18,10 @@
 #include "pps.h"
 #include "thermo.h"
 
-// Uses Semantic versioning https://semver.org/
+// Uses Semantic versioning. See https://semver.org/
 // major.minor.patch,
 // patch=year/month/day
-const char *version = "0.090.240102";
+const char *version = "0.090.240105";
 
 // The main timer counter max value (typically 10 MHz ) * M need this cacluation
 // to fit in 32 bits
@@ -228,9 +228,16 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
         data.monCaptureTick = tick;
 
         data.ltcAtMonSeconds = data.ltcSeconds;
+        data.ltcAtMonSecondsTick = data.ltcSecondsTick;
+        
         data.gpsAtMonSeconds = data.gpsSeconds;
+        data.gpsAtMonSecondsTick = data.gpsSecondsTick;
+        
         data.localAtMonSeconds = data.localSeconds;
+        data.localAtMonSecondsTick = data.localSecondsTick;
+        
         data.extAtMonSeconds = data.extSeconds; 
+        data.extAtMonSecondsTick = data.extSecondsTick; 
       }
     }
 
@@ -239,7 +246,6 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
                                                      // on inverted input
       data.gpsCapture = HAL_TIM_ReadCapturedValue(htim, TimeSync_CH_GPS_PPS);
       data.gpsCaptureTick = tick;
-      data.gpsSeconds++;  // TODO perhaps remove ???
     }
   }
 

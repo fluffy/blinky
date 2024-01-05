@@ -2,6 +2,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 
 enum {
   metricsHistorySize = 1024
@@ -12,7 +13,11 @@ typedef struct {
   int64_t  extTimeUS[metricsHistorySize];
   int64_t  syncTimeUS[metricsHistorySize];
   int64_t  gpsTimeUS[metricsHistorySize];
-  
+
+  bool haveSync;
+  bool haveExt;
+  bool haveGps;
+
 } Metrics;
 
 extern Metrics metrics;
@@ -20,6 +25,7 @@ extern Metrics metrics;
 void metricsInit();
 void metricsSetup();
 void metricsRun();
+void metricsAdjust();
 
 void metricsSync( uint32_t newPhaseUS,  uint32_t  newSeconds );
 

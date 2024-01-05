@@ -45,9 +45,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
           strncpy(gpsTime, (char *)gpsBuffer + 7, sizeof(gpsTime) - 1);
           gpsTime[sizeof(gpsTime) - 1] = 0;  // terminate time string
 
-
-          //gpsTimeTick = tick;
-
           int hrHigh = gpsTime[0]-'0';
           int hrLow = gpsTime[1]-'0';
           int minHigh = gpsTime[2]-'0';
@@ -59,10 +56,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
           int min = minHigh*10 + minLow;
           int sec = secHigh*10 + secLow;   
 
-          uint32_t tick = HAL_GetTick();
-          data.gpsSeconds = hr*3600+min*60+sec;
-          data.gpsSecondsTick = tick;
-#if 1
+          if ( 1 ) {
+            uint32_t tick = HAL_GetTick();
+            data.gpsSeconds = hr*3600+min*60+sec;
+            data.gpsSecondsTick = tick;
+          
+#if 0
           if (1) {
             char buffer[100];
             //snprintf(buffer, sizeof(buffer), "DBG  hr=%d min=%d sec=%d \r\n", hr,min,sec );
@@ -74,6 +73,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
             HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
           }
 #endif
+          }
+          
         }
       }
 
