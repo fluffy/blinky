@@ -280,7 +280,7 @@ void metricsRun() {
     }
 
     // TODO - set up the valid time before sync lost - current values are WAG 
-    uint32_t syncValidTimeSeconds=60; 
+    uint32_t syncValidTimeSeconds=20; 
     switch (  config.extOscType ) {
     case 0: syncValidTimeSeconds=200; break; // 20 ppm 
     case 2: syncValidTimeSeconds=2000; break; // 2 ppm 
@@ -294,6 +294,10 @@ void metricsRun() {
     if (metrics.haveSync) {
       int64_t diff = metrics.syncTimeUS[curr] - metrics.localTimeUS[curr];
 
+      if ( abs(diff) > 1000 ) {
+          updateStatus( StatusLostSync );
+      }
+      
       snprintf(buffer, sizeof(buffer), "    syn-lcl(ms) %6ld.%03ld\r\n",
                (int32_t)(diff / 1000), (uint32_t)(abs(diff) % 1000));
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -310,6 +314,10 @@ void metricsRun() {
     if (metrics.haveGps) {
       int64_t diff = metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr];
 
+      if ( abs(diff) > 1000 ) {
+          updateStatus( StatusLostSync );
+      }
+         
       snprintf(buffer, sizeof(buffer), "    gps-lcl(ms) %6ld.%03ld\r\n",
                (int32_t)(diff / 1000), (uint32_t)(abs(diff) % 1000));
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);

@@ -33,11 +33,18 @@ void updateStatus( Status newStatus ){
      if ( newStatus == StatusCouldSync ) {
        break;
      }
+     if ( newStatus == StatusLostSync ) {
+       status = StatusRunning;
+       break;
+     }
      // fall through to default 
   }
 
   case StatusCouldSync: {
     if ( newStatus == StatusRunning ) {
+      break;
+    }
+    if ( newStatus == StatusLostSync ) {
       break;
     }
      // fall through to default 
