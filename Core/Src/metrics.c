@@ -112,6 +112,8 @@ void metricsSync(MetricSyncSource syncTo) {
     data.extSeconds = 0;
   }
 
+  metrics.lastSyncSeconds =  data.localSeconds ;
+  
 #if 0
   if ( 1) {
     char buffer[100];
@@ -266,7 +268,8 @@ void metricsRun() {
     }
 
     if (1) {
-      snprintf(buffer, sizeof(buffer), "\r\n");
+      snprintf(buffer, sizeof(buffer), "\r\n    lastSync(s) %4lu\r\n",
+                (uint32_t)(metrics.extTimeUS[curr] / 1000000) - metrics.lastSyncSeconds  );
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
@@ -307,8 +310,8 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    int durationS =
-        10;  // TODO // make sure metricsHistorySize is greater than this
+    // make sure metricsHistorySize is greater than this
+    int durationS = 100;  // TODO 
     int prev = curr - durationS;
     if (prev < 0) {
       prev += metricsHistorySize;

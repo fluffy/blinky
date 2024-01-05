@@ -14,6 +14,8 @@ typedef struct {
   int64_t syncTimeUS[metricsHistorySize];
   int64_t gpsTimeUS[metricsHistorySize];
 
+  int32_t lastSyncSeconds; // rought time of when sync button was last hit 
+  
   bool haveSync;
   bool haveExt;
   bool haveGps;
