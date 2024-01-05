@@ -7,9 +7,9 @@
 #include <string.h>
 
 #include "config.h"
-#include "status.h"
 #include "hardware.h"
 #include "measurement.h"
+#include "status.h"
 
 Metrics metrics;
 static Measurements dataPrev;
@@ -140,13 +140,13 @@ void metricsAdjust() {
   metrics.haveGps = false;
 
   uint32_t tick = HAL_GetTick();
-  if ((tick > 2000) && (dataPrev.syncCaptureTick + 1500 > tick)) {
+  if ((tick > 1500) && (dataPrev.syncCaptureTick + 1500 > tick)) {
     metrics.haveSync = true;
   }
-  if ((tick > 2000) && (dataPrev.gpsCaptureTick + 1500 > tick)) {
+  if ((tick > 1500) && (dataPrev.gpsCaptureTick + 1500 > tick)) {
     metrics.haveGps = true;
   }
-  if ((tick > 2000) && (dataPrev.extSecondsTick + 1500 > tick)) {
+  if ((tick > 1500) && (dataPrev.extSecondsTick + 1500 > tick)) {
     metrics.haveExt = true;
   }
 
@@ -195,6 +195,43 @@ void metricsAdjust() {
                      capture2uS(dataPrev.monCapture);
   metrics.gpsTimeUS[curr] =
       (int64_t)dataPrev.gpsAtMonSeconds * 1000000 + deltaGps;
+
+  int64_t secondsSinceSync =
+      metrics.localTimeUS[curr] / 1000000l - metrics.lastSyncSeconds;
+
+  // TODO - set up the valid time before sync lost - current values are WAG
+  uint32_t syncValidTimeSeconds = 20;
+  switch (config.extOscType) {
+    case 0:
+      syncValidTimeSeconds = 200;
+      break;  // 20 ppm
+    case 2:
+      syncValidTimeSeconds = 2000;
+      break;  // 2 ppm
+    case 10:
+      syncValidTimeSeconds = 40000;
+      break;  // 0.100 ppm
+  }
+
+  if (secondsSinceSync > syncValidTimeSeconds) {
+    updateStatus(StatusLostSync);
+  }
+
+  if (metrics.haveSync) {
+    int64_t diff = metrics.syncTimeUS[curr] - metrics.localTimeUS[curr];
+
+    if (abs(diff) > 1000) {
+      updateStatus(StatusLostSync);
+    }
+  }
+
+  if (metrics.haveGps) {
+    int64_t diff = metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr];
+
+    if (abs(diff) > 1000) {
+      updateStatus(StatusLostSync);
+    }
+  }
 }
 
 void metricsRun() {
@@ -245,7 +282,7 @@ void metricsRun() {
     }
 
     if (metrics.haveGps) {
-       updateStatus( StatusCouldSync );
+      updateStatus(StatusCouldSync);
       snprintf(buffer, sizeof(buffer), "    GpsTime(s) %7lu.%03ld,%03ld \r\n",
                (int32_t)(metrics.gpsTimeUS[curr] / 1000000),
                (int32_t)(metrics.gpsTimeUS[curr] % 1000000) / 1000,
@@ -254,7 +291,7 @@ void metricsRun() {
     }
 
     if (metrics.haveSync) {
-       updateStatus( StatusCouldSync );
+      updateStatus(StatusCouldSync);
       snprintf(buffer, sizeof(buffer), "    SyncTime(s) %6lu.%03ld,%03ld \r\n",
                (int32_t)(metrics.syncTimeUS[curr] / 1000000),
                (int32_t)(metrics.syncTimeUS[curr] % 1000000) / 1000,
@@ -270,8 +307,8 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-
-    int64_t secondsSinceSync = metrics.localTimeUS[curr] / 1000000l -  metrics.lastSyncSeconds;
+    int64_t secondsSinceSync =
+        metrics.localTimeUS[curr] / 1000000l - metrics.lastSyncSeconds;
 
     if (1) {
       snprintf(buffer, sizeof(buffer), "\r\n    lastSync(s) %4lu\r\n",
@@ -279,25 +316,9 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    // TODO - set up the valid time before sync lost - current values are WAG 
-    uint32_t syncValidTimeSeconds=20; 
-    switch (  config.extOscType ) {
-    case 0: syncValidTimeSeconds=200; break; // 20 ppm 
-    case 2: syncValidTimeSeconds=2000; break; // 2 ppm 
-    case 10: syncValidTimeSeconds=40000; break; // 0.100 ppm 
-    }
-    
-    if (   secondsSinceSync > syncValidTimeSeconds ) {
-      updateStatus( StatusLostSync );
-    }
-    
     if (metrics.haveSync) {
       int64_t diff = metrics.syncTimeUS[curr] - metrics.localTimeUS[curr];
 
-      if ( abs(diff) > 1000 ) {
-          updateStatus( StatusLostSync );
-      }
-      
       snprintf(buffer, sizeof(buffer), "    syn-lcl(ms) %6ld.%03ld\r\n",
                (int32_t)(diff / 1000), (uint32_t)(abs(diff) % 1000));
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -314,10 +335,6 @@ void metricsRun() {
     if (metrics.haveGps) {
       int64_t diff = metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr];
 
-      if ( abs(diff) > 1000 ) {
-          updateStatus( StatusLostSync );
-      }
-         
       snprintf(buffer, sizeof(buffer), "    gps-lcl(ms) %6ld.%03ld\r\n",
                (int32_t)(diff / 1000), (uint32_t)(abs(diff) % 1000));
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
