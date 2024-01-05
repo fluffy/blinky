@@ -91,12 +91,14 @@ void metricsSync(MetricSyncSource syncTo) {
     int64_t delta =
         (metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr]) / 1000000ll;
     data.localSeconds += delta;
+    data.extSeconds = data.localSeconds;
   }
 
   if (syncTo == sync) {
     int64_t delta =
         (metrics.syncTimeUS[curr] - metrics.localTimeUS[curr]) / 1000000ll;
     data.localSeconds += delta;
+    data.extSeconds = data.localSeconds;
   }
 
   if (syncTo == external) {
