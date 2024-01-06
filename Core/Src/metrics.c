@@ -3,7 +3,7 @@
 #include "metrics.h"
 
 #include <stdio.h>
-#include <stdlib.h>  // for abs
+//#include <stdlib.h>  // for abs
 #include <string.h>
 
 #include "config.h"
@@ -92,6 +92,7 @@ void metricsSync(MetricSyncSource syncTo) {
     int64_t delta =
         (metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr]) / 1000000ll;
     data.localSeconds += delta;
+    //data.localSeconds -= 1; // TODO NO IDEA why this became needed
     data.extSeconds = data.localSeconds;
   }
 
@@ -131,6 +132,12 @@ void metricsSync(MetricSyncSource syncTo) {
 }
 
 void metricsAdjust() {
+   char buffer[100];
+
+    if (data.localSeconds == dataPrev.localSeconds) {
+    return;
+  }
+
   // TODO - move to doing this on high priority interupt to minimize
   // the odds odd of something updating data during the copy
   memcpy(&dataPrev, &data, sizeof(dataPrev));
@@ -150,6 +157,13 @@ void metricsAdjust() {
     metrics.haveExt = true;
   }
 
+#if 0
+  snprintf(buffer, sizeof(buffer), " \r\nDBG gpsCaptureTick=%lu gpsAtMonSecondsTick=%lu diff=%lu \r\n",
+           dataPrev.gpsCaptureTick , dataPrev.gpsAtMonSecondsTick  ,  dataPrev.gpsCaptureTick - dataPrev.gpsAtMonSecondsTick  
+           );
+  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+  
   if (dataPrev.gpsAtMonSecondsTick < dataPrev.gpsCaptureTick) {
     // this GPS capture was from the second before the current pulse, correct
     // for this
@@ -196,6 +210,40 @@ void metricsAdjust() {
   metrics.gpsTimeUS[curr] =
       (int64_t)dataPrev.gpsAtMonSeconds * 1000000 + deltaGps;
 
+  int64_t syncDiffUS = metrics.syncTimeUS[curr] - metrics.localTimeUS[curr];
+  if (metrics.haveSync) {
+    if ( (syncDiffUS > 2500 ) || (syncDiffUS < -2500 ) ) {
+      updateStatus(StatusLostSync);
+    }
+  }
+  
+  int64_t gpsDiffUS = metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr];
+  if (metrics.haveGps) {
+    if ( (gpsDiffUS > 2500 ) || (gpsDiffUS < -2500 ) ) {
+      updateStatus(StatusLostSync);
+    }
+  }
+
+#if 0
+  snprintf(buffer, sizeof(buffer), " \r\nDBG gpsDiff(us)=%ld gpsTime(us)=%lu localTime(us)=%l \r\n",
+           (int32_t)gpsDiffUS,  (uint32_t)(metrics.gpsTimeUS[curr]) ,  (uint32_t)(metrics.localTimeUS[curr])
+           );
+  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  
+  int32_t tickDelta = (int32_t) dataPrev.gpsAtMonSecondsTick -  dataPrev.gpsCaptureTick ;
+  snprintf(buffer, sizeof(buffer), "DBG tickDelta(s)=%ld gpsAtMonSecondsTick=%lu gpsCaptureTick=%lu \r\n",
+           tickDelta ,
+           dataPrev.gpsAtMonSecondsTick, dataPrev.gpsCaptureTick
+           );
+  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  
+  snprintf(buffer, sizeof(buffer), "DBG gpsSeconds=%lu gpsAtMonSeconds=%lu \r\n",
+           dataPrev.gpsSeconds, dataPrev.gpsAtMonSeconds  );
+  HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  
+#endif
+
+  
   int64_t secondsSinceSync =
       metrics.localTimeUS[curr] / 1000000l - metrics.lastSyncSeconds;
 
@@ -216,30 +264,12 @@ void metricsAdjust() {
   if (secondsSinceSync > syncValidTimeSeconds) {
     updateStatus(StatusLostSync);
   }
-
-  if (metrics.haveSync) {
-    int64_t diff = metrics.syncTimeUS[curr] - metrics.localTimeUS[curr];
-
-    if (abs(diff) > 1000) {
-      updateStatus(StatusLostSync);
-    }
-  }
-
-  if (metrics.haveGps) {
-    int64_t diff = metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr];
-
-    if (abs(diff) > 1000) {
-      updateStatus(StatusLostSync);
-    }
-  }
 }
 
 void metricsRun() {
   char buffer[100];
-  if (data.localSeconds == dataPrev.localSeconds) {
-    return;
-  }
-
+ 
+       
   metricsAdjust();
 
   int curr = metrics.nextIndex;
@@ -248,26 +278,12 @@ void metricsRun() {
     metrics.nextIndex = 0;
   }
 
-#if 0
-  if (1) {
-  int32_t tickDelta = (int32_t) dataPrev.gpsAtMonSecondsTick -  dataPrev.gpsCaptureTick ;
-  snprintf(buffer, sizeof(buffer), " \r\nDBG tickDelta(s)=%ld gpsAtMonSecondsTick=%lu gpsCaptureTick=%lu \r\n",
-             tickDelta ,
-             dataPrev.gpsAtMonSecondsTick, dataPrev.gpsCaptureTick
-             );
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  }
-#endif
 
-#if 0
-  if (1) {
-    snprintf(buffer, sizeof(buffer), "DBG gpsSeconds=%lu gpsAtMonSeconds=%lu \r\n",
-             dataPrev.gpsSeconds, dataPrev.gpsAtMonSeconds  );
-    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-  }
-#endif
+  
+    if (dataPrev.localSeconds % 5 == 2) {
+ 
 
-  if (dataPrev.localSeconds % 5 == 2) {
+
     if (1) {
       snprintf(buffer, sizeof(buffer), "\r\nMetrics\r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
