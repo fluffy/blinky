@@ -93,6 +93,16 @@ uint8_t ltcParity(Ltc* ltc) {
   return ret % 2;
 }
 
+
+void ppsEncode(Ltc* ltc, LtcTransitionSet* tSet ) {
+  LtcTransitionSetClear(tSet);
+
+  uint32_t time = 0;  
+  LtcTransitionSetAdd(tSet, time);  
+  time += 5*1000; // 5 ms // TODO - values abovre 5000 do not work 
+  LtcTransitionSetAdd(tSet, time); 
+}
+
 void ltcEncode(Ltc* ltc, LtcTransitionSet* tSet, uint8_t fps) {
   LtcTransitionSetClear(tSet);
 

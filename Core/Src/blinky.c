@@ -32,6 +32,9 @@ uint8_t blinkDispAudio = 0;  // caused audio latency to be displayed on LED
 
 uint8_t blinkHaveDisplay = 1;
 
+uint8_t blinkPPS =0; // do PPS instead of LTC out output
+
+
 Measurements data;
 
 // int32_t dataExtClkCountTickOffset;
@@ -412,6 +415,13 @@ void blinkSetup() {
   // < 2500 , have 3 A
 #endif
 
+  if ( HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin) ) {
+    blinkPPS = 1;
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "Sync button pressed during boot. Set PPS mode\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+  
   if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
@@ -658,8 +668,12 @@ void blinkRun() {
 #endif
      
     ltcSet(&ltc, &timeCode);
-    ltcEncode(&ltc, &ltcSendTransitions, 30 /*fps*/);
-
+    if (blinkPPS) { 
+      ppsEncode(&ltc, &ltcSendTransitions); 
+    } else {
+      ltcEncode(&ltc, &ltcSendTransitions, 30 /*fps*/);
+    }
+    
     // TODO - some way to kick start if dies
     ppsStart();
 #if 0  // TODO
