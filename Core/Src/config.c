@@ -29,23 +29,35 @@ void configSetup() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-#ifdef FORMAT_EEPROM  // TODO move to seperate program
+#ifdef FORMAT_EEPROM  
     const int writeConfigEEProm = 1;
 #else
+    // TODO move to seperate program
     const int writeConfigEEProm = 0;
 #endif
     if (writeConfigEEProm) {
+        snprintf(buffer, sizeof(buffer),
+                 "\r\n\r\nPROGRAMMING EEProm CONFIG ONLY \r\n", status);
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+        
       // write config to EEProm
-      config.version = 1;
-      config.product = 2;  // 1=blink, 2=clock
+      config.version = 2;
+      config.product = 1;  // 1=blink, 2=clock
       config.revMajor = 0;
       config.revMinor = 9;
-      config.serialNum = 10;
+      config.serialNum = 13; // next serial is 13
 
-      config.extOscType =
-          0;  // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
-      config.oscAdj = -658;
-      config.vcoValue = 2000;
+      config.usePPS = 0;
+      config.future13 = 0;
+      config.future14 = 0;
+      config.future15 = 0;
+
+      // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
+      config.extOscType = 0;  
+      config.oscAdj = -535; // TODO - this value seems very high , is this a bug with the 10.5 vs 10 
+      
+      config.vcoValue = 2750;
+      // For 10Mhz osc, slope is period goes down 1 ns per about 100 VCO goes up
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
                                  sizeof(eepromMemAddr), (uint8_t *)&config,
@@ -80,6 +92,14 @@ void configSetup() {
       Error_Handler();
     }
 
+    if ( config.version == 1 ) {
+      // if it is an old config data, fill in the missin data 
+      config.usePPS=0;
+      config.future13=0;
+      config.future14=0;
+      config.future15=0;
+    }
+    
     if ((config.revMajor == 0) && (config.revMinor == 9)) {
       snprintf(buffer, sizeof(buffer), "  Hardware version: EV9 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -122,6 +142,12 @@ void configSetup() {
 
     snprintf(buffer, sizeof(buffer), "  Serial: %d\r\n", config.serialNum);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
+#if 0
+    snprintf(buffer, sizeof(buffer), "  Calibration: %u %d\r\n",
+             config.vcoValue, config.oscAdj );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
   }
 }
 
@@ -164,7 +190,7 @@ void setClk(uint8_t extOscTypeType, uint16_t vcoValue, int16_t oscAdj) {
       Error_Handler();
     }
 
-    snprintf(buffer, sizeof(buffer), "  Internal clock set to 10.5MHz \r\n");
+    snprintf(buffer, sizeof(buffer), "  Internal clock set to 10.5MHz + %d Hz \r\n", oscAdj);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 

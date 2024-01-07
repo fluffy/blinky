@@ -7,10 +7,10 @@
 // This structure is saved in EEPROM
 // keep size padded to 32 bits
 typedef struct {
-  uint8_t version;   // 1
+  uint8_t version;   // 2 - version of config format 
   uint8_t product;   // 1=blink, 2=clock
-  uint8_t revMajor;  // 0x1 is Rev A
-  uint8_t revMinor;  // start at 0
+  uint8_t revMajor;  // 0x1 is Rev A - board major version 
+  uint8_t revMinor;  // start at 0 - board minor version
 
   uint16_t serialNum;  // 0 is not valid
 
@@ -18,6 +18,10 @@ typedef struct {
   uint16_t vcoValue;   // value loaded in DAC for VCO
   uint8_t extOscType;  // external osc type ( 2= 2.048 MHz, 10=10 MHz,
                        // 0=Internal ) )
+  uint8_t usePPS; // 0
+  uint8_t future13; // 0
+  uint8_t future14; // 0
+  uint8_t future15; // 0
 } Config;
 extern Config config;
 
