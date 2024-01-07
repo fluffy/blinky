@@ -66,6 +66,7 @@ On the V9 hardware 0.09 software have:
 * battery with 2h life and USB charger
 * AC wall adapter power
 * usb  upgrade of firmware 
+* usb power GPS board 
 
 * could we add flash video and flash detector for auto detect video
   latency
