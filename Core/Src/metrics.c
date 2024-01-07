@@ -3,7 +3,6 @@
 #include "metrics.h"
 
 #include <stdio.h>
-//#include <stdlib.h>  // for abs
 #include <string.h>
 
 #include "config.h"
@@ -134,7 +133,7 @@ void metricsSync(MetricSyncSource syncTo) {
 }
 
 void metricsAdjust() {
-   char buffer[100];
+   char __attribute__((__unused__)) buffer[100];
 
     if (data.localSeconds == dataPrev.localSeconds) {
     return;

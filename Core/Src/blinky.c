@@ -2,7 +2,6 @@
 
 // #include <math.h>  // for round
 #include <stdio.h>
-#include <stdlib.h>  // abs
 #include <string.h>
 
 #include "audio.h"
