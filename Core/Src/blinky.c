@@ -645,7 +645,7 @@ void blinkRun() {
   }
 #endif
 
-  if (data.ltcGenTick != ltcGenTickPrev) {
+  if ( (data.ltcGenTick != ltcGenTickPrev) && ( tick > data.ltcGenTick+5 ) ) {
     // gen new LTC code
     static Ltc ltc;
     ltcClear(&ltc);
@@ -653,8 +653,11 @@ void blinkRun() {
     ltcTimeCodeClear(&timeCode);
     ltcTimeCodeSet(&timeCode, data.localSeconds + 1, 0 /* us */);
 
-    // ltcTimeCodeSetHMSF(  &timeCode, 1,1,1,1 );
-
+#if 0 // TODO
+    //ltcTimeCodeSetHMSF(  &timeCode, 15/*hr*/,31/*min*/,31/*sec*/,15/*frame*/ );
+    ltcTimeCodeSetHMSF(  &timeCode, 0/*hr*/, 0/*min*/, 0/*sec*/, 0/*frame*/ );
+#endif
+     
     ltcSet(&ltc, &timeCode);
     ltcEncode(&ltc, &ltcSendTransitions, 30 /*fps*/);
 
