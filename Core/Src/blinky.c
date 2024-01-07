@@ -488,7 +488,7 @@ void blinkRun() {
       if (!button2WasPressed) {
         blinkMute = (blinkMute) ? 0 : 1;
 
-        snprintf(buffer, sizeof(buffer), "Button 2 press. Mute=%d\r\n",
+        snprintf(buffer, sizeof(buffer), "Mute button pressed. Mute=%d \r\n",
                  (int)blinkMute);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
@@ -512,7 +512,7 @@ void blinkRun() {
       }
 
       snprintf(buffer, sizeof(buffer),
-               "Button 3 press. Blank=%d dispAudio=%d\r\n", (int)blinkBlank,
+               "Display button pressed. Blank=%d dispAudio=%d \r\n", (int)blinkBlank,
                (int)blinkDispAudio);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
@@ -523,7 +523,7 @@ void blinkRun() {
 
   if ((!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin))) {
     if (!button1WasPressed) {
-      snprintf(buffer, sizeof(buffer), "Button 1 press\r\n");
+      snprintf(buffer, sizeof(buffer), "Sync button pressed\r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
