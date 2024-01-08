@@ -1,0 +1,29 @@
+# See http://editorconfig.org
+
+root = true
+
+# unix style 
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+
+# makefiles need tabs
+[Makefile]
+indent_style = tab
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[CMakeLists.*]
+indent_size = 4
+
+[*.{c,h,cpp,hpp,cxx,hxx}]
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{md,csv}]
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
