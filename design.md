@@ -196,11 +196,19 @@ Periodically on main thread
 
 * adjust period of main to match GPS, Aux, Sync in that priority order 
 
-# Charging
+# Charging & Power
 
 Max charges rate is 500 mA up to 4.1 V then drops off with m charges up
 to 4.2 V. This charge rate selected to not go over USB limit.  Using 820
 mAH battery. Current consumption of about 170 mA when *not* on battery.
+
+The blink board uses about 150 mA when running ( bouncing around 145 to
+165 based on how many leds ).
+
+On the ev9 board blink board, the 3.3v regulator, in 25C room, runs
+about 40 C at 5V input and 50C at 7V input. Indicating about 33 C/watt
+thermal resitance which pretty much matched specs for AMS117.
+
 
 # Calibrating and Adjusting
 
