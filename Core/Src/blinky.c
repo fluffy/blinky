@@ -17,6 +17,7 @@
 #include "pps.h"
 #include "thermo.h"
 #include "status.h"
+#include <assert.h>
 
 // Uses Semantic versioning. See https://semver.org/
 // major.minor.patch,
@@ -427,6 +428,9 @@ void blinkSetup() {
     snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
+
+ //    assert_param(0 );
+ //  assert(0);
 
   // set LED to on but not sync ( yellow, not green )
   updateStatus( StatusRunning);

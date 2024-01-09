@@ -1,4 +1,4 @@
-/* USER CODE BEGIN Header */
+﻿/* USER CODE BEGIN Header */
 /**
  ******************************************************************************
  * @file           : main.c
@@ -957,11 +957,20 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* User can add his own implementation to report the file name and line
      number, ex: printf("Wrong parameters value: file %s on line %d\r\n", file,
      line) */
-  __disable_irq();
-  HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
+
+    __disable_irq();
+
+    HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
                     GPIO_PIN_SET);  // turn on error LED
 
-  while (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "Assert Fail %lu of %s\r\n", line, file);
+    HAL_UART_Transmit(&huart1, (uint8_t *)buffer, strlen(buffer), 1000);
+
+    HAL_Delay(1000);
+
+
+    while (1) {
   }
   /* USER CODE END 6 */
 }
