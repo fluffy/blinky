@@ -29,7 +29,7 @@ void configSetup() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-#ifdef FORMAT_EEPROM  
+#ifdef FORMAT_EEPROM
     const int writeConfigEEProm = 1;
 #else
     // TODO move to seperate program
@@ -37,9 +37,9 @@ void configSetup() {
 #endif
     if (writeConfigEEProm) {
         snprintf(buffer, sizeof(buffer),
-                 "\r\n\r\nPROGRAMMING EEProm CONFIG ONLY \r\n", status);
+                 "\r\n\r\nPROGRAMMING EEProm CONFIG ONLY \r\n" );
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-        
+
       // write config to EEProm
       config.version = 2;
       config.product = 1;  // 1=blink, 2=clock
@@ -53,9 +53,9 @@ void configSetup() {
       config.future15 = 0;
 
       // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
-      config.extOscType = 0;  
-      config.oscAdj = -535; // TODO - this value seems very high , is this a bug with the 10.5 vs 10 
-      
+      config.extOscType = 0;
+      config.oscAdj = -535; // TODO - this value seems very high , is this a bug with the 10.5 vs 10
+
       config.vcoValue = 2750;
       // For 10Mhz osc, slope is period goes down 1 ns per about 100 VCO goes up
 
@@ -93,13 +93,13 @@ void configSetup() {
     }
 
     if ( config.version == 1 ) {
-      // if it is an old config data, fill in the missin data 
+      // if it is an old config data, fill in the missin data
       config.usePPS=0;
       config.future13=0;
       config.future14=0;
       config.future15=0;
     }
-    
+
     if ((config.revMajor == 0) && (config.revMinor == 9)) {
       snprintf(buffer, sizeof(buffer), "  Hardware version: EV9 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);

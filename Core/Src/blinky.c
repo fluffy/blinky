@@ -21,7 +21,7 @@
 // Uses Semantic versioning. See https://semver.org/
 // major.minor.patch,
 // patch=year/month/day
-const char *version = "0.090.240106";
+const char *version = "0.090.240107";
 
 // The main timer counter max value (typically 10 MHz ) * M need this cacluation
 // to fit in 32 bits
@@ -381,8 +381,8 @@ void blinkSetup() {
   gpsSetup();
 
 #if 0
-  // TODO 
-  // TODO need to check both channel 7 and 10 for two different sides of connector 
+  // TODO
+  // TODO need to check both channel 7 and 10 for two different sides of connector
   HAL_ADC_Start(&hadc1);
   HAL_ADC_PollForConversion(&hadc1, 1000 /*timeout ms*/);
   uint16_t val = HAL_ADC_GetValue(&hadc1);
@@ -402,10 +402,10 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
   // seeing value of 0 if USB connector is fliped wrong way
-  // value of 543 = on usb hub = 0.4375 V 
+  // value of 543 = on usb hub = 0.4375 V
   // value of 1138 , 1157 on mac front port = 0.916 V
   // value of 501 = on  usb expander bar
-  
+
   // the far end has 10k, 22K, 56K resisotr to 5V for 3, 1.5, 0.5 A respectively
   // this end has 5.1K resitor to ground
   // range of ADC is 4096 for 3.3 V
@@ -421,7 +421,7 @@ void blinkSetup() {
     snprintf(buffer, sizeof(buffer), "Sync button pressed during boot. Set PPS mode\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
-  
+
   if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "Setup Done\r\n");
@@ -459,7 +459,7 @@ void blinkRun() {
   uint32_t tick = HAL_GetTick();
 
   if (loopCount % 3000 == 0) {
-    
+
     snprintf(
         buffer, sizeof(buffer),
         "Phases(ms) mon=%lu.%03lu sync=%lu.%03lu gps=%lu.%03lu ext=%lu.%03lu "
@@ -617,7 +617,7 @@ void blinkRun() {
 
   if (data.syncCaptureTick != syncCaptureTickPrev) {
     syncCaptureTickPrev = data.syncCaptureTick;
-#if 0 
+#if 0
     snprintf(buffer, sizeof(buffer), "   sync phase=%lums delta2mon=%ldms\r\n",
              capture2uS(data.syncCapture) / 1000l,
              captureDeltaUs(data.syncCapture, data.monCapture) / 1000l);
@@ -634,7 +634,7 @@ void blinkRun() {
 
   if (tick > data.monCaptureTick + 100) {
     if (data.monCaptureTick != monCaptureTickPrev) {
-#if 0  // to much print out 
+#if 0  // to much print out
     snprintf(buffer, sizeof(buffer), "   mon phase: %lums\r\n",
         capture2uS(data.monCapture )/1000l);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -666,14 +666,14 @@ void blinkRun() {
     //ltcTimeCodeSetHMSF(  &timeCode, 15/*hr*/,31/*min*/,31/*sec*/,15/*frame*/ );
     ltcTimeCodeSetHMSF(  &timeCode, 0/*hr*/, 0/*min*/, 0/*sec*/, 0/*frame*/ );
 #endif
-     
+
     ltcSet(&ltc, &timeCode);
-    if (blinkPPS) { 
-      ppsEncode(&ltc, &ltcSendTransitions); 
+    if (blinkPPS) {
+      ppsEncode(&ltc, &ltcSendTransitions);
     } else {
       ltcEncode(&ltc, &ltcSendTransitions, 30 /*fps*/);
     }
-    
+
     // TODO - some way to kick start if dies
     ppsStart();
 #if 0  // TODO
@@ -759,7 +759,7 @@ void blinkRun() {
   }
 #endif
 
-#if 0  
+#if 0
   if (data.localSecondsTick != localSecondsTickPrev) {
     snprintf(buffer, sizeof(buffer), "   local time: %lus\r\n", data.localSeconds);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -771,7 +771,7 @@ void blinkRun() {
       (data.extSeconds != extSecondsPrev)) {
 #if 0
     snprintf(buffer, sizeof(buffer),
-             "   Aux mon: external time %lu.%03lums\r\n", 
+             "   Aux mon: external time %lu.%03lums\r\n",
              extCapture2uS(data.monAuxCapture) / 1000l, extCapture2uS(data.monAuxCapture) % 1000l);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif

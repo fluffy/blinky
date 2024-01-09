@@ -1,6 +1,6 @@
 Configuration	blinky
-STM32CubeMX 	6.9.2
-Date	12/23/2023
+STM32CubeMX 	6.10.0
+Date	01/08/2024
 MCU	STM32F405RGTx
 
 
@@ -189,7 +189,7 @@ SOFTWARE PROJECT
 Project Settings : 
 Project Name : blinky
 Project Folder : /Users/fluffy/src/blinky
-Toolchain / IDE : Makefile
+Toolchain / IDE : STM32CubeIDE
 Firmware Package Name and Version : STM32Cube FW_F4 V1.27.1
 
 
