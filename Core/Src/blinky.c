@@ -437,12 +437,12 @@ void blinkSetup() {
 }
 
 void blinkRun() {
-  static int loopCount = 0;
-  static char button1WasPressed = 1;
-  static char button2WasPressed = 0;
-  static char button3WasPressed = 0;
+    static int loopCount = 0;
+    static char button1WasPressed = 0;
+    static char button2WasPressed = 0;
+    static char button3WasPressed = 0;
 
-  static uint32_t __attribute__((__unused__)) syncCaptureTickPrev = 0;
+    static uint32_t __attribute__((__unused__)) syncCaptureTickPrev = 0;
   static uint32_t __attribute__((__unused__)) monCaptureTickPrev = 0;
   static uint32_t __attribute__((__unused__)) gpsCaptureTickPrev = 0;
 
@@ -538,6 +538,7 @@ void blinkRun() {
     if (!button1WasPressed) {
       snprintf(buffer, sizeof(buffer), "Sync button pressed\r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+
 
       if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
         //  had GPS sync in last 2 seconds

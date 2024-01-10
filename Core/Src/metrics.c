@@ -211,17 +211,43 @@ void metricsAdjust() {
   metrics.gpsTimeUS[curr] =
       (int64_t)dataPrev.gpsAtMonSeconds * 1000000 + deltaGps;
 
+#if 0
+      snprintf(buffer, sizeof(buffer), "SYNC : syncTime=%lu \r\n",
+               capture2uS(dataPrev.syncCapture));
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *) buffer, strlen(buffer), 1000);
+#endif
+
   int64_t syncDiffUS = metrics.syncTimeUS[curr] - metrics.localTimeUS[curr];
   if (metrics.haveSync) {
     if ( (syncDiffUS > 2500 ) || (syncDiffUS < -2500 ) ) {
-      updateStatus(StatusLostSync);
+
+        // wait for metrics to stabilize on new sync
+        if (metrics.lastSyncSeconds + 1 < data.localSeconds) {
+            // ignore if we have old data ( happens on sync and on unplug of sync )
+            if (syncDiffUS > -990000) {
+
+#if 0
+                snprintf(buffer, sizeof(buffer), "SYNC LOSS: syncTime=%lu syncDiff=%ld \r\n",
+                         capture2uS(dataPrev.syncCapture) , (int32_t) syncDiffUS);
+                HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+
+                updateStatus(StatusLostSync);
+            }
+        }
     }
   }
 
   int64_t gpsDiffUS = metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr];
   if (metrics.haveGps) {
     if ( (gpsDiffUS > 2500 ) || (gpsDiffUS < -2500 ) ) {
-      updateStatus(StatusLostSync);
+        // wait for metrics to stabilize on new sync
+        if (metrics.lastSyncSeconds + 1 < data.localSeconds) {
+            // ignore if we have old data ( happens on sync and on unplug of sync )
+            if (syncDiffUS > -990000) {
+                updateStatus(StatusLostSync);
+            }
+        }
     }
   }
 
@@ -362,7 +388,7 @@ void metricsRun() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 #endif
-    
+
 #if 0
     if ( 1 ) {
 
