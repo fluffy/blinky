@@ -316,7 +316,7 @@ int32_t captureDeltaUs(uint32_t pps, uint32_t mon) {
 void blinkSetup() {
   HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin,
                     GPIO_PIN_SET);  // turn on red error LED
-  HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
+  HAL_GPIO_WritePin(LEDMB_GPIO_Port, LEDMB_Pin,
                     GPIO_PIN_RESET);  // turn off yellow  LED
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
                     GPIO_PIN_RESET);  // turn off green ok LED

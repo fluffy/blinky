@@ -63,7 +63,7 @@ void updateStatus(Status newStatus) {
                       GPIO_PIN_RESET);  // turn off red error LED
     HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
                       GPIO_PIN_RESET);  // turn off green ok LED
-    HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin,
+    HAL_GPIO_WritePin(LEDMB_GPIO_Port, LEDMB_Pin,
                       GPIO_PIN_RESET);  // turn off yellow  LED
 
     switch (status) {
@@ -72,17 +72,17 @@ void updateStatus(Status newStatus) {
         break;
       case StatusBadPower:
         HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMR_Pin, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LEDMB_GPIO_Port, LEDMB_Pin, GPIO_PIN_SET);
         break;
       case StatusSync:
         HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin, GPIO_PIN_SET);
         break;
       case StatusCouldSync:
-        HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LEDMB_GPIO_Port, LEDMB_Pin, GPIO_PIN_SET);
         HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin, GPIO_PIN_SET);
         break;
       default:
-        HAL_GPIO_WritePin(LEDMY_GPIO_Port, LEDMY_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LEDMB_GPIO_Port, LEDMB_Pin, GPIO_PIN_SET);
         break;
     }
 
