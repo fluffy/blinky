@@ -155,8 +155,8 @@ void Error_Handler(void);
 #define NROW5_GPIO_Port GPIOB
 #define NCOL1_Pin GPIO_PIN_6
 #define NCOL1_GPIO_Port GPIOB
-#define LEDMY_Pin GPIO_PIN_7
-#define LEDMY_GPIO_Port GPIOB
+#define LEDMB_Pin GPIO_PIN_7
+#define LEDMB_GPIO_Port GPIOB
 #define SCL_Pin GPIO_PIN_8
 #define SCL_GPIO_Port GPIOB
 #define SDA_Pin GPIO_PIN_9

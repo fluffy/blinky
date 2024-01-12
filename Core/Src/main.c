@@ -857,7 +857,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, NCOL8_Pin|NCOL7_Pin|NCOL6_Pin|NCOL5_Pin
-                          |LED3_Pin|NROW5_Pin|NCOL1_Pin|LEDMY_Pin, GPIO_PIN_RESET);
+                          |LED3_Pin|NROW5_Pin|NCOL1_Pin|LEDMB_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin, GPIO_PIN_SET);
@@ -893,10 +893,10 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : LED9_Pin LED10_Pin NCOL8_Pin NCOL7_Pin
                            NCOL6_Pin NCOL5_Pin LED3_Pin NROW5_Pin
-                           NCOL1_Pin LEDMY_Pin */
+                           NCOL1_Pin LEDMB_Pin */
   GPIO_InitStruct.Pin = LED9_Pin|LED10_Pin|NCOL8_Pin|NCOL7_Pin
                           |NCOL6_Pin|NCOL5_Pin|LED3_Pin|NROW5_Pin
-                          |NCOL1_Pin|LEDMY_Pin;
+                          |NCOL1_Pin|LEDMB_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -936,7 +936,7 @@ void Error_Handler(void)
                     GPIO_PIN_SET);  // turn on error LED
   HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMG_Pin,
                     GPIO_PIN_RESET);  // turn on error LED
-  HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMY_Pin,
+  HAL_GPIO_WritePin(LEDMR_GPIO_Port, LEDMB_Pin,
                     GPIO_PIN_RESET);  // turn on error LED
   while (1) {
   }
