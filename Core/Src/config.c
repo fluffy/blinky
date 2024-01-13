@@ -53,10 +53,10 @@ void configSetup() {
       config.future15 = 0;
 
       // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
-      config.extOscType = 0;
+      config.extOscType = 2;
       config.oscAdj = -535; // TODO - this value seems very high , is this a bug with the 10.5 vs 10
 
-      config.vcoValue = 2750;
+      config.vcoValue = 625;
       // For 10Mhz osc, slope is period goes down 1 ns per about 100 VCO goes up
 
       status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, eepromMemAddr,
@@ -93,7 +93,7 @@ void configSetup() {
     }
 
     if ( config.version == 1 ) {
-      // if it is an old config data, fill in the missin data
+      // if it is an old config data, fill in the missing data
       config.usePPS=0;
       config.future13=0;
       config.future14=0;
