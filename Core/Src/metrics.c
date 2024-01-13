@@ -278,14 +278,14 @@ void metricsAdjust() {
   uint32_t syncValidTimeSeconds = 20;
   switch (config.extOscType) {
     case 0:
-      syncValidTimeSeconds = 200;
-      break;  // 20 ppm
+      syncValidTimeSeconds = 500;
+      break;  // 1 ms @ 2 ppm
     case 2:
-      syncValidTimeSeconds = 2000;
-      break;  // 2 ppm
-    case 10:
       syncValidTimeSeconds = 40000;
-      break;  // 0.100 ppm
+      break;  // 1 ms @ 25 ppb
+    case 10:
+      syncValidTimeSeconds = 100000;
+      break;  // 1 ms @ 10 ppb
   }
 
   if (secondsSinceSync > syncValidTimeSeconds) {
