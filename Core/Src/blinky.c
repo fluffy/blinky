@@ -3,6 +3,7 @@
 // #include <math.h>  // for round
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 #include "audio.h"
 #include "blink.h"
@@ -17,23 +18,18 @@
 #include "pps.h"
 #include "thermo.h"
 #include "status.h"
-#include <assert.h>
+#include "disp.h"
+#include "setting.h"
+
 
 // Uses Semantic versioning. See https://semver.org/
 // major.minor.patch,
 // patch=year/month/day
-const char *version = "0.090.240112";
+const char *version = "0.090.240115";
 
 // The main timer counter max value (typically 10 MHz ) * M need this cacluation
 // to fit in 32 bits
 
-uint8_t blinkMute = 1;       // mutes audio outout
-uint8_t blinkBlank = 1;      // causes LED to be off
-uint8_t blinkDispAudio = 0;  // caused audio latency to be displayed on LED
-
-uint8_t blinkHaveDisplay = 1;
-
-uint8_t blinkPPS =0; // do PPS instead of LTC out output
 
 
 Measurements data;
@@ -43,7 +39,6 @@ Measurements data;
 uint32_t dataNextSyncOutPhaseUS;  // TODO put in setting struct
 uint32_t dataCurrentSyncOutPhaseUS;
 
-int32_t blinkAudioDelayMs;  // this is the detected value from detect
 const uint32_t blinkAudioPulseWidthMs = 33;
 
 LtcTransitionSet ltcSendTransitions;
@@ -85,89 +80,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (ledUs >= 1000000l) {
       ledUs -= 1000000l;
     }
-    int32_t ledMs = ledUs / 1000l;
-
-    if (blinkDispAudio) {
-      ledMs = blinkAudioDelayMs;
-    }
-
-    if (ledMs >= 1000) {
-      ledMs -= 1000;
-    }
-    int16_t binCount = (ledMs / 100) % 10;  // 2.5 ms
-
-    int row = 5 - (ledMs / 2) % 5;     // 2 ms across
-    int col = 10 - (ledMs / 10) % 10;  // 10 ms down
-
-    if (blinkBlank) {
-      binCount = 0x1000;
-      row = 255;
-      col = 255;
-    }
-
-    if (blinkHaveDisplay) {
-      HAL_GPIO_WritePin(NCOL1_GPIO_Port, NCOL1_Pin,
-                        (col == 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(NCOL2_GPIO_Port, NCOL2_Pin,
-                        (col == 2) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(NCOL3_GPIO_Port, NCOL3_Pin,
-                        (col == 3) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(NCOL4_GPIO_Port, NCOL4_Pin,
-                        (col == 4) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(NCOL5_GPIO_Port, NCOL5_Pin,
-                        (col == 5) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(NCOL6_GPIO_Port, NCOL6_Pin,
-                        (col == 6) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(NCOL7_GPIO_Port, NCOL7_Pin,
-                        (col == 7) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(NCOL8_GPIO_Port, NCOL8_Pin,
-                        (col == 8) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(NCOL9_GPIO_Port, NCOL9_Pin,
-                        (col == 9) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(NCOL10_GPIO_Port, NCOL10_Pin,
-                        (col == 10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-
-      HAL_GPIO_WritePin(NROW1_GPIO_Port, NROW1_Pin,
-                        (row == 1) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-      HAL_GPIO_WritePin(NROW2_GPIO_Port, NROW2_Pin,
-                        (row == 2) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-      HAL_GPIO_WritePin(NROW3_GPIO_Port, NROW3_Pin,
-                        (row == 3) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-      HAL_GPIO_WritePin(NROW4_GPIO_Port, NROW4_Pin,
-                        (row == 4) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-      HAL_GPIO_WritePin(NROW5_GPIO_Port, NROW5_Pin,
-                        (row == 5) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-    }
-
-    if (blinkHaveDisplay) {
-      // Low 4 bits of display
-      HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin,
-                        (binCount & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin,
-                        (binCount & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin,
-                        (binCount & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin,
-                        (binCount & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-
-      // High 4 bits of display
-#if 0  // TODO
-      // problems LED 5,6 input only
-      HAL_GPIO_WritePin(LED5_GPIO_Port, LED5_Pin,
-                        (binCount & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(LED6_GPIO_Port, LED6_Pin,
-                        (binCount & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-#endif
-      HAL_GPIO_WritePin(LED7_GPIO_Port, LED7_Pin,
-                        (binCount & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin,
-                        (binCount & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-
-      HAL_GPIO_WritePin(LED9_GPIO_Port, LED9_Pin,
-                        (binCount & 0x100) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-      HAL_GPIO_WritePin(LED10_GPIO_Port, LED10_Pin,
-                        (binCount & 0x200) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-    }
+    dispUpdate( ledUs , 0 /* TODO seconds */ );
   }
 }
 
@@ -287,10 +200,13 @@ void blinkInit() {
   dataNextSyncOutPhaseUS = 10l * 1000l;
   dataCurrentSyncOutPhaseUS = dataNextSyncOutPhaseUS;
 
+  settingInit();
+
   configInit();
   gpsInit();
   audioInit();
   ppsInit();
+  dispInit();
 
   LtcTransitionSetClear(&ltcSendTransitions);
   LtcTransitionSetClear(&ltcRecvTransitions);
@@ -321,21 +237,6 @@ void blinkSetup() {
   HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
                     GPIO_PIN_RESET);  // turn off green ok LED
 
-  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET);
-
-#if 0  // TODO
-  HAL_GPIO_WritePin(LED5_GPIO_Port, LED5_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED6_GPIO_Port, LED6_Pin, GPIO_PIN_RESET);
-#endif
-  HAL_GPIO_WritePin(LED7_GPIO_Port, LED7_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin, GPIO_PIN_RESET);
-
-  HAL_GPIO_WritePin(LED9_GPIO_Port, LED9_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED10_GPIO_Port, LED10_Pin, GPIO_PIN_RESET);
-
   if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "\r\nStarting...\r\n");
@@ -344,6 +245,9 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
+  settingSetup();
+
+  dispSetup();
   configSetup();
   metricsSetup();
   thermoSetup();
@@ -417,7 +321,7 @@ void blinkSetup() {
 #endif
 
   if ( HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin) ) {
-    blinkPPS = 1;
+    setting.blinkPPS = 1;
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "Sync button pressed during boot. Set PPS mode\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -590,6 +494,8 @@ void blinkRun() {
       uint32_t mltTime;
       detectGetMlpTime(&mltTime, &mlpVal);
 
+      int32_t blinkAudioDelayMs;  // this is the detected value from detect
+
       if (mlpVal > 5000.0) {
         blinkAudioDelayMs = captureDeltaUs(mltTime, data.monCapture) / 1000l -
                             blinkAudioPulseWidthMs;
@@ -604,6 +510,7 @@ void blinkRun() {
         blinkAudioDelayMs = 0;
       }
 
+      data.blinkAudioDelayMs = blinkAudioDelayMs;
 #if 0
       float min, max, avg, last;
       detectGetDebug( &min, &max, &avg, &last);
@@ -673,7 +580,7 @@ void blinkRun() {
 #endif
 
     ltcSet(&ltc, &timeCode);
-    if (blinkPPS) {
+    if (setting.blinkPPS) {
       ppsEncode(&ltc, &ltcSendTransitions);
     } else {
       ltcEncode(&ltc, &ltcSendTransitions, 30 /*fps*/);

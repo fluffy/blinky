@@ -48,6 +48,8 @@ typedef struct {
   uint32_t extAtMonSecondsTick;  // extSeconds at last Mon pulse
   int32_t extOffsetUS;           // starting phase of extTime after last sync
 
+  int32_t blinkAudioDelayMs;
+
 } Measurements;
 
 extern Measurements data;
