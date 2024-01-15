@@ -7,13 +7,13 @@
 
 
 typedef struct {
-  uint8_t blinkMute;       // mutes audio outout
-  uint8_t blinkBlank;      // causes LED to be off
-  uint8_t blinkDispAudio;  // caused audio latency to be displayed on LED
+  bool  blinkMute;       // mutes audio outout
+  bool blinkBlank;      // causes LED to be off
+  bool blinkDispAudio;  // caused audio latency to be displayed on LED
   
-  uint8_t blinkHaveDisplay;
+  bool blinkHaveDisplay;
   
-  uint8_t blinkPPS; // do PPS instead of LTC out output
+  bool blinkPPS; // do PPS instead of LTC out output
   
 } Setting;
 

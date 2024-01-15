@@ -34,8 +34,6 @@ const char *version = "0.090.240115";
 
 Measurements data;
 
-// int32_t dataExtClkCountTickOffset;
-
 uint32_t dataNextSyncOutPhaseUS;  // TODO put in setting struct
 uint32_t dataCurrentSyncOutPhaseUS;
 
@@ -403,10 +401,10 @@ void blinkRun() {
   if (config.product == 1) {
     if (!HAL_GPIO_ReadPin(AUX_CLK_GPIO_Port, AUX_CLK_Pin)) {
       if (!button2WasPressed) {
-        blinkMute = (blinkMute) ? 0 : 1;
+        setting.blinkMute = (setting.blinkMute) ? 0 : 1; // TODO move to setting.c
 
         snprintf(buffer, sizeof(buffer), "Mute button pressed. Mute=%d \r\n",
-                 (int)blinkMute);
+                 (int)setting.blinkMute);
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
       }
       button2WasPressed = 1;
@@ -415,22 +413,22 @@ void blinkRun() {
     }
   }
 
-  if (HAL_GPIO_ReadPin(BOOT1_GPIO_Port, BOOT1_Pin)) {
+  if (HAL_GPIO_ReadPin(BOOT1_GPIO_Port, BOOT1_Pin)) { // TODO move to setting.c
     if (!button3WasPressed) {
-      if (blinkBlank) {
-        blinkDispAudio = 1;
-        blinkBlank = 0;
-      } else if (blinkDispAudio) {
-        blinkDispAudio = 0;
-        blinkBlank = 0;
+      if (setting.blinkBlank) {
+        setting.blinkDispAudio = 1;
+        setting.blinkBlank = 0;
+      } else if (setting.blinkDispAudio) {
+        setting.blinkDispAudio = 0;
+        setting.blinkBlank = 0;
       } else {
-        blinkDispAudio = 0;
-        blinkBlank = 1;
+        setting.blinkDispAudio = 0;
+        setting.blinkBlank = 1;
       }
 
       snprintf(buffer, sizeof(buffer),
-               "Display button pressed. Blank=%d dispAudio=%d \r\n", (int)blinkBlank,
-               (int)blinkDispAudio);
+               "Display button pressed. Blank=%d dispAudio=%d \r\n", (int)setting.blinkBlank,
+               (int)setting.blinkDispAudio);
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
     button3WasPressed = 1;

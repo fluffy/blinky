@@ -7,6 +7,7 @@
 
 #include "hardware.h"
 #include "main.h"
+#include "setting.h"
 
 Config config;
 uint32_t capture2uSRatioM = 125;
@@ -117,15 +118,15 @@ void configSetup() {
         HAL_GPIO_Init(AUX_CLK_GPIO_Port, &GPIO_InitStruct);
       }
 
-      if (config.product == 2) {
+      if (config.product == 2) { // TODO -move this code to ssetting.c
         // This is clock board
 
         // turn off options
-        blinkHaveDisplay = 0;
+        setting.blinkHaveDisplay = 0;
 
         // turn off audio and display
-        blinkMute = 1;
-        blinkBlank = 1;
+        setting.blinkMute = 1;
+        setting.blinkBlank = 1;
 
         // enable 5V power supply on LED1
         // TODO - make this based on if USB has enough power

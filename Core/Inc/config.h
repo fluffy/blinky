@@ -7,9 +7,9 @@
 // This structure is saved in EEPROM
 // keep size padded to 32 bits
 typedef struct {
-  uint8_t version;   // 2 - version of config format 
+  uint8_t version;   // 2 - version of config format
   uint8_t product;   // 1=blink, 2=clock
-  uint8_t revMajor;  // 0x1 is Rev A - board major version 
+  uint8_t revMajor;  // 0x1 is Rev A - board major version
   uint8_t revMinor;  // start at 0 - board minor version
 
   uint16_t serialNum;  // 0 is not valid
@@ -33,11 +33,6 @@ inline uint32_t capture2uS(const uint32_t c) {
 }
 
 inline uint32_t extCapture2uS(const uint32_t c) { return c / 10l; }
-
-extern uint8_t blinkMute;         // mutes audio outout
-extern uint8_t blinkBlank;        // causes LED to be off
-extern uint8_t blinkDispAudio;    // caused audio latency to be displayed on LED
-extern uint8_t blinkHaveDisplay;  // TODO - make bool with stdbool
 
 void configInit();
 void configSetup();
