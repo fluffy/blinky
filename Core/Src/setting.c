@@ -1,6 +1,7 @@
 
 #include "setting.h"
 
+Setting setting;
 
 void settingInit(){
   setting.blinkMute = 1;       // mutes audio outout
