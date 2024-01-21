@@ -4,22 +4,46 @@ Blinking lights to tell time
 
 # Build and flash
 
+Build with:
 ```
 mkdir build ; cd build ; cmake .. ; make
-
-st-flash --reset --format ihex write cmake-build-debug/blinky.hex
-or
-stm32flash -w build/blinky.bin -v -b 115200 -i "-dtr:-rts&dtr"/dev/cu.usbserial-31120
-
-screen /dev/cu.usbserial-21110 115200
-exit screen with ^A^\
 ```
+
+Program flash using stlink with:
+```
+st-flash --reset --format ihex write build/blinky.hex
+```
+
+Can program using Stm32CubeProgrammer with RTS=1, DTR=0, baud at 115200, 
+Parity Even, data bits 8, stop bits 1, flow control off.
+
+Program flash using USB serial with:
+```
+stm32flash -w build/blinky.hex -v -b 115200 -m 8e1 -i "-dtr," /dev/cu.usbserial-31110
+```
+
+Monitor output connect with Serial program like "SerialTools" on
+OSX. Use 115200 baud with bits, parity, stop bit set to 8n1. Set the RTS and DTR both low. Screen
+fails to do this. It sets RTS and DTR both high so will not work.
+
+To use python miniterm:
+```
+python3 -m serial.tools.miniterm -e --parity N --rts 0 --dtr 0 /dev/tty.usbserial-31110 115200 
+```
+Can exit the miniterm with CTRL+] 
+
+# Tools and Dependencies 
+
+Set up a mac to be able to build by installing:
+
+* TODO 
+*  pip3 install pyserial
 
 # Features
 
-On the V9 hardware 0.09 software have:
+## Timing Board
 
-# Timing Board
+On the V9 hardware 0.09 software have:
 
 * Timing board with TXCO, LTC Sync in, LTC Sync out, LED grid,
   battery power, USB debug, audio in/out
@@ -42,7 +66,9 @@ On the V9 hardware 0.09 software have:
 * sounds output that works over opus codec
 * audio in to detect beep
 
-# GPS Board
+## GPS Board
+
+On the V9 hardware 0.09 software have:
 
 * GPS board with GPS, OCXO, wall power, 3 x 10Mhz out, LTC sync out, LTC
   sync in, USB serial debug out, Ext 10 Mhz in
@@ -56,7 +82,7 @@ On the V9 hardware 0.09 software have:
 * Aux input of 10 MHz signal to compare
 * PPS jitter of about +/- 20 ns and error less than 10 ns
 
-# Wishlist
+## Wishlist
 
 * time into browser measure computer time offset
 * set input time delay from length of GPS cable
@@ -68,5 +94,3 @@ On the V9 hardware 0.09 software have:
 
 * could we add flash video and flash detector for auto detect video
   latency
-
-
