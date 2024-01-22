@@ -14,12 +14,17 @@ Program flash using stlink with:
 st-flash --reset --format ihex write build/blinky.hex
 ```
 
-Can program using Stm32CubeProgrammer with RTS=1, DTR=0, baud at 115200, 
+Can program using Stm32CubeProgrammer with RTS=1, DTR=0, baud at 115200,
 Parity Even, data bits 8, stop bits 1, flow control off.
 
 Program flash using USB serial with:
 ```
 stm32flash -w build/blinky.hex -v -b 115200 -m 8e1 -i "-dtr," /dev/cu.usbserial-31110
+```
+
+Can reset the board with:
+```
+stty -f /dev/cu.usbserial-31110 hup
 ```
 
 Monitor output connect with Serial program like "SerialTools" on
@@ -28,15 +33,15 @@ fails to do this. It sets RTS and DTR both high so will not work.
 
 To use python miniterm:
 ```
-python3 -m serial.tools.miniterm -e --parity N --rts 0 --dtr 0 /dev/tty.usbserial-31110 115200 
+pyserial-miniterm -e --parity N --rts 0 --dtr 0 /dev/tty.usbserial-31110 115200
 ```
-Can exit the miniterm with CTRL+] 
+Can exit the miniterm with CTRL+]. This will cause board reset when it starts.
 
-# Tools and Dependencies 
+# Tools and Dependencies
 
 Set up a mac to be able to build by installing:
 
-* TODO 
+* TODO
 *  pip3 install pyserial
 
 # Features
