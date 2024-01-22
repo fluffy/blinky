@@ -25,10 +25,12 @@ typedef struct {
 } Config;
 extern Config config;
 
-extern uint32_t capture2uSRatioM;
+extern uint32_t capture2uSRatioM; // TODO - move to settings
 extern uint32_t capture2uSRatioN;
 
 inline uint32_t capture2uS(const uint32_t c) {
+  // The main timer counter max value (typically 10 MHz ) * M need this cacluation
+  // to fit in 32 bits
   return (c * capture2uSRatioM) / capture2uSRatioN;
 }
 

@@ -27,10 +27,6 @@
 // patch=year/month/day
 const char *version = "0.090.240122";
 
-// The main timer counter max value (typically 10 MHz ) * M need this cacluation
-// to fit in 32 bits
-
-
 
 Measurements data;
 
