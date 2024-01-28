@@ -6,7 +6,7 @@
 
   (title_block
     (title "Clock")
-    (date "2024-01-09")
+    (date "2024-01-27")
     (rev "V10.0")
     (company "Cullen Jennings")
   )
@@ -18138,7 +18138,7 @@
     (property "Datasheet" "http://www.ti.com/lit/ds/symlink/sn74lvc1g14.pdf" (at 392.43 266.7 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "JLCPCB Rotation Offset" "0" (at 392.43 266.7 0)
+    (property "JLCPCB Rotation Offset" "180" (at 392.43 266.7 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLCPCB Part #" "C133145" (at 392.43 266.7 0)
@@ -18174,6 +18174,9 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLCPCB Part #" "C273424" (at 48.26 181.61 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLCPCB Position Offset" "-1.35,-6.38" (at 48.26 181.61 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 531f4ce6-d62c-4ec4-9e24-93ce09fda264))
