@@ -10179,7 +10179,7 @@
     (property "JLCPCB Rotation Offset" "180" (at 160.02 194.31 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "JLCPCB Position Offset" "0,0.5" (at 160.02 194.31 0)
+    (property "JLCPCB Position Offset" "0,0" (at 160.02 194.31 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid b0641042-74bc-4f79-a3cb-d5b36f4d98cc))
