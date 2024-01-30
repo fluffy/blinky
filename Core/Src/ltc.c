@@ -1,4 +1,6 @@
-// Copyright (c) 2023 Cullen Jennings
+// SPDX-FileCopyrightText: Copyright (c) 2023 Cullen Jennings
+// SPDX-License-Identifier: BSD-2-Clause
+
 
 //  Descrption of LTC can be found at
 //  https://en.wikipedia.org/wiki/Linear_timecode
