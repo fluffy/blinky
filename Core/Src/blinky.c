@@ -333,6 +333,8 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
+  // TODO - if power, set status LED and error
+  // TODO - if power good, enable 5V output
   }
 
 #endif
