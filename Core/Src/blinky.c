@@ -21,6 +21,7 @@
 #include "status.h"
 #include "disp.h"
 #include "setting.h"
+#include "buttons.h"
 
 
 // Uses Semantic versioning. See https://semver.org/
@@ -361,9 +362,7 @@ void blinkSetup() {
 
 void blinkRun() {
     static int loopCount = 0;
-    static char button1WasPressed = 0;
-    static char button2WasPressed = 0;
-    static char button3WasPressed = 0;
+
 
     static uint32_t __attribute__((__unused__)) syncCaptureTickPrev = 0;
   static uint32_t __attribute__((__unused__)) monCaptureTickPrev = 0;
@@ -419,76 +418,7 @@ void blinkRun() {
 #endif
   }
 
-  if (config.product == 1) {
-    if (!HAL_GPIO_ReadPin(AUX_CLK_GPIO_Port, GPS_PPS_Pin)) {
-      if (!button2WasPressed) {
-        setting.blinkMute = (setting.blinkMute) ? 0 : 1; // TODO move to setting.c
-
-        snprintf(buffer, sizeof(buffer), "Mute button pressed. Mute=%d \r\n",
-                 (int)setting.blinkMute);
-        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-      }
-      button2WasPressed = 1;
-    } else {
-      button2WasPressed = 0;
-    }
-  }
-
-  if (HAL_GPIO_ReadPin(BOOT1_GPIO_Port, BOOT1_Pin)) { // TODO move to setting.c
-    if (!button3WasPressed) {
-      if (setting.blinkBlank) {
-        setting.blinkDispAudio = 1;
-        setting.blinkBlank = 0;
-      } else if (setting.blinkDispAudio) {
-        setting.blinkDispAudio = 0;
-        setting.blinkBlank = 0;
-      } else {
-        setting.blinkDispAudio = 0;
-        setting.blinkBlank = 1;
-      }
-
-      snprintf(buffer, sizeof(buffer),
-               "Display button pressed. Blank=%d dispAudio=%d \r\n", (int)setting.blinkBlank,
-               (int)setting.blinkDispAudio);
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-    }
-    button3WasPressed = 1;
-  } else {
-    button3WasPressed = 0;
-  }
-
-  if ((!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin))) {
-    if (!button1WasPressed) {
-      snprintf(buffer, sizeof(buffer), "Sync button pressed\r\n");
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
-
-      if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
-        //  had GPS sync in last 2 seconds
-        metricsSync( SourceGPS);
-        updateStatus( StatusSync);
-      } else if ((tick > 2000) && (data.syncCaptureTick + 2000 > tick)) {
-        //  had sync in last 2 seconds
-        metricsSync( SourceSync );
-        updateStatus(StatusSync);
-      } else if ((tick > 2000) && (data.extSecondsTick + 2000 > tick)) {
-        //  had ext in last 2 seconds
-        metricsSync(SourceExternal);
-        updateStatus(StatusLostSync);
-      } else {
-        metricsSync(SourceNone);
-        updateStatus(StatusLostSync);
-#if 0
-        snprintf(buffer, sizeof(buffer),
-                 "ERROR: No gps or sync input on button press\r\n");
-        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-#endif
-      }
-    }
-    button1WasPressed = 1;
-  } else {
-    button1WasPressed = 0;
-  }
+  checkButtons();
 
 #if 0  // TODO prints too much stuff
   if (1) {
