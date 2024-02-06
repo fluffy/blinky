@@ -7302,7 +7302,7 @@
     (uuid c332efb9-4963-4ed8-b939-894f733cc03d)
   )
 
-  (text_box "LED1 is 5V power enable\nLED2 is USB pwoer sense\nAUD_IN is USB pwoer sense \nLED3 PPS/LTC Jumper "
+  (text_box "LED1 is 5V power enable\nLED2 is USB power sense\nAUD_IN is USB power sense \nLED3 PPS/LTC Jumper "
     (at 36.83 116.84 0) (size 25.4 10.16)
     (stroke (width 0) (type default))
     (fill (type none))
