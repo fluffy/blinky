@@ -420,7 +420,7 @@ void blinkRun() {
   }
 
   if (config.product == 1) {
-    if (!HAL_GPIO_ReadPin(AUX_CLK_GPIO_Port, AUX_CLK_Pin)) {
+    if (!HAL_GPIO_ReadPin(AUX_CLK_GPIO_Port, GPS_PPS_Pin)) {
       if (!button2WasPressed) {
         setting.blinkMute = (setting.blinkMute) ? 0 : 1; // TODO move to setting.c
 

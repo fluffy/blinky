@@ -30,7 +30,7 @@ void dispSetup(){
   HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET);
-#if 0  // TODO
+#if 0  // TODO - still no use onv v10hw
   HAL_GPIO_WritePin(LED5_GPIO_Port, LED5_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED6_GPIO_Port, LED6_Pin, GPIO_PIN_RESET);
 #endif
@@ -114,13 +114,14 @@ void dispUpdate( int32_t dispUs, int32_t dispS ){
                         (binCount & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
       // High 4 bits of display
-#if 0  // TODO
+#if 0  // TODO - still not use on V10 hw
       // problems LED 5,6 input only
       HAL_GPIO_WritePin(LED5_GPIO_Port, LED5_Pin,
                         (binCount & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED6_GPIO_Port, LED6_Pin,
                         (binCount & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 #endif
+
       HAL_GPIO_WritePin(LED7_GPIO_Port, LED7_Pin,
                         (binCount & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET);
       HAL_GPIO_WritePin(LED8_GPIO_Port, LED8_Pin,
