@@ -19,6 +19,7 @@ extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart3;
 
 extern ADC_HandleTypeDef hadc1;
+extern ADC_HandleTypeDef hadc2;
 extern DAC_HandleTypeDef hdac;
 
 #define hADC hadc1
