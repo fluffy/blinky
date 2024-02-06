@@ -13,6 +13,7 @@
 #include "disp.h"
 #include "setting.h"
 #include "measurement.h"
+#include "config.h"
 
 
 void dispInit(){
@@ -20,6 +21,10 @@ void dispInit(){
 }
 
 void dispSetup(){
+
+  if ( config.product != 1 ) {
+    return;
+  }
 
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
@@ -37,6 +42,11 @@ void dispSetup(){
 }
 
 void dispUpdate( int32_t dispUs, int32_t dispS ){
+
+  if ( config.product != 1 ) {
+    return;
+  }
+
    // called in an interupt - keep this fast
       int32_t ledMs = dispUs / 1000l;
 
