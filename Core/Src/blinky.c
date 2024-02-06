@@ -280,8 +280,8 @@ void blinkSetup() {
 
   gpsSetup();
 
-#if 0
-  // TODO
+#if 1 // TODO
+  if ( config.product == 2) {
   // TODO need to check both channel 7 and 10 for two different sides of connector
   HAL_ADC_Start(&hadc1);
   HAL_ADC_PollForConversion(&hadc1, 1000 /*timeout ms*/);
@@ -298,7 +298,7 @@ void blinkSetup() {
   }
   if (1) {
     char buffer[100];
-    snprintf(buffer, sizeof(buffer), "  Power supply: %d.%dA (value=%u)\r\n", power/1000, ( power/100) % 10 ,  val );
+    snprintf(buffer, sizeof(buffer), "  Power supply2: %d.%dA (value=%u)\r\n", power/1000, ( power/100) % 10 ,  val );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
   // seeing value of 0 if USB connector is fliped wrong way
@@ -313,6 +313,28 @@ void blinkSetup() {
   // <  750 , have 0.5 A
   // < 1500 , have 1.5 A
   // < 2500 , have 3 A
+
+   HAL_ADC_Start(&hadc2);
+  HAL_ADC_PollForConversion(&hadc2, 1000 /*timeout ms*/);
+  val = HAL_ADC_GetValue(&hadc2);
+  power=0; // in mA
+  if ( ( val > 250) & ( val <= 750 ) ) {
+    power = 500;
+  }
+  if ( ( val > 750) & ( val <= 1500 ) ) {
+    power = 1500;
+  }
+  if ( ( val > 1500) & ( val <= 2500 ) ) {
+    power = 3000;
+  }
+  if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Power supply2: %d.%dA (value=%u)\r\n", power/1000, ( power/100) % 10 ,  val );
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
+  }
+
 #endif
 
   if ( HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin) ) {
