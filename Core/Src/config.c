@@ -106,7 +106,7 @@ void configSetup() {
       snprintf(buffer, sizeof(buffer), "  Hardware version: EV9 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      setClk(config.extOscType, config.vcoValue, config.oscAdj);
+      setClk(config.extOscType, config.vcoValue, config.oscAdj); // TODO - setup power first
 
       if (config.product == 1) {
         // This is blink board
