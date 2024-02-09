@@ -11,10 +11,11 @@
 #include "setting.h"
 
 Config config;
-uint32_t capture2uSRatioM = 125;
-uint32_t capture2uSRatioN = 256;
 
-void configInit() {}
+void configInit() {
+  setting.capture2uSRatioM = 125;
+  setting.capture2uSRatioN = 256;
+}
 
 void configSetup() {
   // access EEProm
@@ -159,16 +160,16 @@ void setClk(uint8_t extOscTypeType, uint16_t vcoValue, int16_t oscAdj) {
   if (extOscTypeType == 2) {
     // External CLK is 2.048 Mhz
     __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 2048ul * 1000ul - 1ul);
-    capture2uSRatioM = 125;
-    capture2uSRatioN = 256;
+    setting.capture2uSRatioM = 125;
+    setting.capture2uSRatioN = 256;
 
     snprintf(buffer, sizeof(buffer), "  External clock set to 2.048MHz \r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   } else if (extOscTypeType == 10) {
     // External CLK is 10 Mhz
     __HAL_TIM_SET_AUTORELOAD(&hTimeSync, 10ul * 1000ul * 1000ul - 1ul);
-    capture2uSRatioM = 1;
-    capture2uSRatioN = 10;
+    setting.capture2uSRatioM = 1;
+    setting.capture2uSRatioN = 10;
 
     snprintf(buffer, sizeof(buffer), "  External clock set to 10MHz \r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -182,8 +183,8 @@ void setClk(uint8_t extOscTypeType, uint16_t vcoValue, int16_t oscAdj) {
     htim2.Init.Prescaler = 8 - 1;
     htim2.Init.Period = 10500ul * 1000ul - 1ul + oscAdj;
     sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-    capture2uSRatioM = 2;
-    capture2uSRatioN = 21;
+    setting.capture2uSRatioM = 2;
+    setting.capture2uSRatioN = 21;
 
     if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK) {
       Error_Handler();

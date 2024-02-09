@@ -6,6 +6,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "setting.h"
+
 // This structure is saved in EEPROM
 // keep size padded to 32 bits
 typedef struct {
@@ -27,13 +29,10 @@ typedef struct {
 } Config;
 extern Config config;
 
-extern uint32_t capture2uSRatioM; // TODO - move to settings
-extern uint32_t capture2uSRatioN;
-
 inline uint32_t capture2uS(const uint32_t c) {
   // The main timer counter max value (typically 10 MHz ) * M need this cacluation
   // to fit in 32 bits
-  return (c * capture2uSRatioM) / capture2uSRatioN;
+  return (c * setting.capture2uSRatioM) / setting.capture2uSRatioN;
 }
 
 inline uint32_t extCapture2uS(const uint32_t c) { return c / 10l; }

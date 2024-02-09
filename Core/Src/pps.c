@@ -9,12 +9,7 @@
 #include "measurement.h"
 #include "setting.h"
 
-// extern uint32_t dataLtcGenTick;
 extern LtcTransitionSet ltcSendTransitions; // TODO move
-//extern uint8_t blinkMute;
-
-//extern uint32_t dataNextSyncOutPhaseUS;
-//extern uint32_t dataCurrentSyncOutPhaseUS;
 
 void ppsInit() {}
 
@@ -106,7 +101,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
       // val == dataCurrentSyncOutPhase
       // start of output pulse just started, set up for the end of pulse
       uint16_t v = setting.dataCurrentSyncOutPhase +
-                   500l;  // TODOP blinkAudioPulseWidthMs * 50l;
+                   500l;  // TODO blinkAudioPulseWidthMs * 50l;
       if (v >= 50000) {
         v -= 50000;
       }
