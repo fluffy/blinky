@@ -3,7 +3,6 @@
 
 #pragma once
 
-
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -17,8 +16,12 @@ typedef struct {
 
   bool blinkPPS; // do PPS instead of LTC out output
 
-  uint32_t dataNextSyncOutPhaseUS;  // TODO put in setting struct
+  uint32_t dataNextSyncOutPhaseUS;
   uint32_t dataCurrentSyncOutPhaseUS;
+
+  uint32_t capture2uSRatioM;
+  uint32_t capture2uSRatioN;
+
 } Setting;
 
 extern Setting setting;
