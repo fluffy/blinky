@@ -36,7 +36,7 @@ void powerSetup(){
   }
   if (1) {
     char buffer[100];
-    snprintf(buffer, sizeof(buffer), "  Power supply2: %d.%dA (value=%u)\r\n", power/1000, ( power/100) % 10 ,  val );
+    snprintf(buffer, sizeof(buffer), "  Power supply1: %d.%dA (value=%u)\r\n", power/1000, ( power/100) % 10 ,  val );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
   // seeing value of 0 if USB connector is fliped wrong way
