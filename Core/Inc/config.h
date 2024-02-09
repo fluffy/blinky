@@ -27,6 +27,7 @@ typedef struct {
   uint8_t future14; // 0
   uint8_t future15; // 0
 } Config;
+
 extern Config config;
 
 inline uint32_t capture2uS(const uint32_t c) {
