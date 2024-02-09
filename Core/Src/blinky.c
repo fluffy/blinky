@@ -33,10 +33,7 @@ const char *version = "0.101.240207";
 
 Measurements data;
 
-uint32_t dataNextSyncOutPhaseUS;  // TODO put in setting struct
-uint32_t dataCurrentSyncOutPhaseUS;
-
-const uint32_t blinkAudioPulseWidthMs = 33;
+const uint32_t blinkAudioPulseWidthMs = 33; // TODO move to config or something
 
 LtcTransitionSet ltcSendTransitions;
 LtcTransitionSet ltcRecvTransitions;
@@ -194,8 +191,8 @@ void blinkInit() {
   data.gpsAtMonSeconds = 1;
   data.gpsSeconds = 1;
 
-  dataNextSyncOutPhaseUS = 10l * 1000l;
-  dataCurrentSyncOutPhaseUS = dataNextSyncOutPhaseUS;
+  setting.dataNextSyncOutPhaseUS = 10l * 1000l;
+  setting.dataCurrentSyncOutPhaseUS = setting.dataNextSyncOutPhaseUS;
 
   settingInit();
 

@@ -10,11 +10,11 @@
 #include "setting.h"
 
 // extern uint32_t dataLtcGenTick;
-extern LtcTransitionSet ltcSendTransitions;
+extern LtcTransitionSet ltcSendTransitions; // TODO move
 //extern uint8_t blinkMute;
 
-extern uint32_t dataNextSyncOutPhaseUS;
-extern uint32_t dataCurrentSyncOutPhaseUS;
+//extern uint32_t dataNextSyncOutPhaseUS;
+//extern uint32_t dataCurrentSyncOutPhaseUS;
 
 void ppsInit() {}
 
@@ -25,7 +25,7 @@ void ppsSetup() {
 void ppsStart() {
   // start the output timer pulse
   uint32_t v =
-      (ltcSendTransitions.transitionTimeUs[0] + dataCurrentSyncOutPhaseUS) /
+      (ltcSendTransitions.transitionTimeUs[0] + setting.dataCurrentSyncOutPhaseUS) /
       20l;  // convert to 50 KHz timer counts
   if (v >= 50000) {
     v -= 50000;
@@ -62,7 +62,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
     if (ltcSendTransitions.nextTransition < ltcSendTransitions.numTransitions) {
       uint32_t v = (ltcSendTransitions
                         .transitionTimeUs[ltcSendTransitions.nextTransition] +
-                    dataCurrentSyncOutPhaseUS) /
+                    setting.dataCurrentSyncOutPhaseUS) /
                    20l;  // convert to 50 KHz timer counts
       if (v >= 50000) {
         v -= 50000;
@@ -82,7 +82,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
           ltcSendTransitions.numTransitions) {
         // will restart when new code generated ltcSendTransitions.nextTransition
         // = 0;  // restart
-        dataCurrentSyncOutPhaseUS = dataNextSyncOutPhaseUS;
+        setting.dataCurrentSyncOutPhaseUS = setting.dataNextSyncOutPhaseUS;
         data.ltcGenTick = tick;
       }
     }
@@ -93,18 +93,19 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
     uint16_t val = __HAL_TIM_GET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT);
     if ((alternate++) % 2) {  // TODO if (val != dataCurrentSyncOutPhase ) {
       // end of output pulse just happened, set up for next output pulse
-      dataCurrentSyncOutPhase = dataNextSyncOutPhase;
+      setting.dataCurrentSyncOutPhase = setting.dataNextSyncOutPhase;
       __HAL_TIM_SET_COMPARE(&hTimePps, TimePps_CH_SYNC_OUT,
-                            dataCurrentSyncOutPhase);
+                            setting.dataCurrentSyncOutPhase);
       LL_TIM_OC_SetMode(
           TIM1, TimePps_LL_CH_SYNC_OUT,
           LL_TIM_OCMODE_INACTIVE);  // inverted due to inverting output buffer
 
       // stop audio output
       audioStop();
-    } else {  // val == dataCurrentSyncOutPhase
-              // start of output pulse just started, set up for the end of pulse
-      uint16_t v = dataCurrentSyncOutPhase +
+    } else {
+      // val == dataCurrentSyncOutPhase
+      // start of output pulse just started, set up for the end of pulse
+      uint16_t v = setting.dataCurrentSyncOutPhase +
                    500l;  // TODOP blinkAudioPulseWidthMs * 50l;
       if (v >= 50000) {
         v -= 50000;

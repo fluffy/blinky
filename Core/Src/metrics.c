@@ -11,11 +11,12 @@
 #include "hardware.h"
 #include "measurement.h"
 #include "status.h"
+#include "setting.h"
 
 Metrics metrics;
 static Measurements dataPrev;
 
-extern uint32_t dataNextSyncOutPhaseUS;
+//extern uint32_t dataNextSyncOutPhaseUS;
 
 inline uint32_t us2ms(  int64_t v ) {   uint64_t ms=v/1000l; uint64_t u=ms; uint32_t s=u; return s; };
 
@@ -55,7 +56,7 @@ void metricsSync(MetricSyncSource syncTo) {
   // might be wrong
 
   int32_t phaseDeltaUS =
-      newPhaseUS - dataNextSyncOutPhaseUS;  // change from old phase
+      newPhaseUS - setting.dataNextSyncOutPhaseUS;  // change from old phase
 
   int32_t newMainPhase = (int32_t)capture2uS(data.monCapture) + phaseDeltaUS;
   if (newMainPhase > 1000000) {
@@ -64,7 +65,7 @@ void metricsSync(MetricSyncSource syncTo) {
   if (newMainPhase < 0) {
     newMainPhase += 1000000;
   }
-  dataNextSyncOutPhaseUS = newMainPhase;
+  setting.dataNextSyncOutPhaseUS = newMainPhase;
   data.localOffsetUS = newMainPhase;
 
   int32_t newExtPhase =
