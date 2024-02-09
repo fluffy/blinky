@@ -308,10 +308,9 @@ void blinkSetup() {
 }
 
 void blinkRun() {
-    static int loopCount = 0;
+  static int loopCount = 0;
 
-
-    static uint32_t __attribute__((__unused__)) syncCaptureTickPrev = 0;
+  static uint32_t __attribute__((__unused__)) syncCaptureTickPrev = 0;
   static uint32_t __attribute__((__unused__)) monCaptureTickPrev = 0;
   static uint32_t __attribute__((__unused__)) gpsCaptureTickPrev = 0;
 
