@@ -39,16 +39,16 @@ void configSetup() {
     const int writeConfigEEProm = 0;
 #endif
     if (writeConfigEEProm) {
-        snprintf(buffer, sizeof(buffer),
-                 "\r\n\r\nPROGRAMMING EEProm CONFIG ONLY \r\n" );
-        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+      snprintf(buffer, sizeof(buffer),
+               "\r\n\r\nPROGRAMMING EEProm CONFIG ONLY \r\n" );
+      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       // write config to EEProm
-      config.version = 2;
-      config.product = 1;  // 1=blink, 2=clock
+      config.version = 2; // config file version
+      config.product = 2;  // 1=blink, 2=clock
       config.revMajor = 0;
-      config.revMinor = 9;
-      config.serialNum = 13; // next serial is 13
+      config.revMinor = 10;
+      config.serialNum = 14; // next serial is 14
 
       config.usePPS = 0;
       config.future13 = 0;
@@ -56,7 +56,7 @@ void configSetup() {
       config.future15 = 0;
 
       // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
-      config.extOscType = 2;
+      config.extOscType = 0;
       config.oscAdj = -535; // TODO - this value seems very high , is this a bug with the 10.5 vs 10
 
       config.vcoValue = 625;
@@ -103,8 +103,8 @@ void configSetup() {
       config.future15=0;
     }
 
-    if ((config.revMajor == 0) && (config.revMinor == 9)) {
-      snprintf(buffer, sizeof(buffer), "  Hardware version: EV9 \r\n");
+    if ((config.revMajor == 0) && (config.revMinor == 10 )) {
+      snprintf(buffer, sizeof(buffer), "  Hardware version: EV10 \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       setClk(config.extOscType, config.vcoValue, config.oscAdj); // TODO - setup power first
@@ -120,7 +120,7 @@ void configSetup() {
         HAL_GPIO_Init(AUX_CLK_GPIO_Port, &GPIO_InitStruct);
       }
 
-      if (config.product == 2) { // TODO -move this code to ssetting.c
+      if (config.product == 2) { // TODO - move this code to setting.c
         // This is clock board
 
         // turn off options
