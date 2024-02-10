@@ -245,7 +245,7 @@ void blinkSetup() {
   configSetup();
   metricsSetup();
 
-  powerSetup(); // TODO do before clock setup???
+  powerSetup(); // do before clock setup
 
   dispSetup();
 
@@ -287,7 +287,7 @@ void blinkSetup() {
   if ( HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin) ) {
     setting.blinkPPS = 1;
     char buffer[100];
-    snprintf(buffer, sizeof(buffer), "Sync button pressed during boot. Set to PPS mode\r\n");
+    snprintf(buffer, sizeof(buffer), "Sync button pressed during boot. Set PPS mode\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 

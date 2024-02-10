@@ -129,6 +129,10 @@ void configSetup() {
         // turn off audio and display
         setting.blinkMute = 1;
         setting.blinkBlank = 1;
+
+        // enable 5V power supply on LED1
+        // TODO - make this based on if USB has enough power
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
       }
 
     } else {
