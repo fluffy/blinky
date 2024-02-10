@@ -31,6 +31,7 @@ extern DAC_HandleTypeDef hdac;
 #define hI2c hi2c1
 #define hUartDebug huart1
 #define hUartGps huart3
+#define USART_GPS USART3
 
 #define hTimePps htim1
 #define TimePps_CH_SYNC_OUT TIM_CHANNEL_1
