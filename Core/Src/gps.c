@@ -107,18 +107,29 @@ void gpsInit() {
 }
 
 void gpsSetup() {
+  HAL_StatusTypeDef stat;
 
-   if ( config.product != 2 ) {
+  if ( config.product != 2 ) {
     return;
   }
 
+  hUartGps.Instance = USART3;
+  hUartGps.Init.BaudRate = 4800;
+  hUartGps.Init.WordLength = UART_WORDLENGTH_8B;
+  hUartGps.Init.StopBits = UART_STOPBITS_1;
+  hUartGps.Init.Parity = UART_PARITY_NONE;
+  hUartGps.Init.Mode = UART_MODE_TX_RX;
+  hUartGps.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  hUartGps.Init.OverSampling = UART_OVERSAMPLING_16;
 
-#if 1
+  stat = HAL_UART_Init(&hUartGps);
+  if ( stat  != HAL_OK) {
+    Error_Handler();
+  }
+
   // start receving for GPS serial
-  HAL_StatusTypeDef stat =
-      HAL_UART_Receive_IT(&hUartGps, gpsBuffer, 1 /* size */);
+  stat =  HAL_UART_Receive_IT(&hUartGps, gpsBuffer, 1 /* size */);
   if (stat != HAL_UART_ERROR_NONE) {
     Error_Handler();
   }
-#endif
 }
