@@ -203,6 +203,8 @@ void blinkInit() {
   audioInit();
   ppsInit();
   dispInit();
+  buttonsInit();
+
 
   LtcTransitionSetClear(&ltcSendTransitions);
   LtcTransitionSetClear(&ltcRecvTransitions);
@@ -241,16 +243,79 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
+
   settingSetup();
   configSetup();
+
+  if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Step: 1\r\n", version);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
   metricsSetup();
 
-  powerSetup(); // do before clock setup
+    if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Step: 2\r\n", version);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
+  powerSetup(); // TODO do before clock setup
+
+    if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Step: 3\r\n", version);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
 
   dispSetup();
 
+    if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Step: 4\r\n", version);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
+  buttonsSetup();
+
+    if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Step: 5\r\n", version);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
   thermoSetup();
+
+   if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Step: 6\r\n", version);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
   ppsSetup();
+
+   if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Step: 7\r\n", version);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
+  audioSetup();
+
+   if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Step: 8\r\n", version);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
+
+  gpsSetup();
+
+  if (1) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "  Step: 9\r\n", version);
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+  }
 
   // start aux timer
   HAL_TIM_Base_Start_IT(&hTimeAux);
@@ -279,10 +344,6 @@ void blinkSetup() {
 
   // start display timer
   HAL_TIM_Base_Start_IT(&hTimeBlink);
-
-  audioSetup();
-
-  gpsSetup();
 
   if ( HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin) ) {
     setting.blinkPPS = 1;
@@ -361,7 +422,7 @@ void blinkRun() {
 #endif
   }
 
-  checkButtons();
+  buttonsRun();
 
 #if 0  // TODO prints too much stuff
   if (1) {

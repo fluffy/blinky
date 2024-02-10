@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include <stm32f4xx_ll_tim.h>
 
 #include "config.h"
 #include "hardware.h"
@@ -13,7 +14,30 @@
 #include "setting.h"
 #include "status.h"
 
-void checkButtons() {
+void buttonsInit(){
+  // nothing needed
+}
+
+void buttonsSetup() {
+
+  if ( config.product != 1 ) {
+    return;
+  }
+
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  GPIO_InitStruct.Pin = BTN3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init( BTN3_GPIO_Port, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = BTN2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init( BTN2_GPIO_Port, &GPIO_InitStruct);
+}
+
+void buttonsRun() {
   static char button1WasPressed = 0;
   static char button2WasPressed = 0;
   static char button3WasPressed = 0;

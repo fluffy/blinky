@@ -21,6 +21,7 @@ Program flash using USB serial with:
 ```
 stm32flash -w build/blinky.hex -v -b 115200 -m 8e1 -i "-dtr," /dev/cu.usbserial-31110
 ```
+If this fails, try the following reset then try to flash again.
 
 Can reset the board with:
 ```
