@@ -45,10 +45,10 @@ void configSetup() {
 
       // write config to EEProm
       config.version = 2; // config file version
-      config.product = 1;  // 1=blink, 2=clock
+      config.product = 2;  // 1=blink, 2=clock
       config.revMajor = 0;
       config.revMinor = 10;
-      config.serialNum = 15; // next serial is 15
+      config.serialNum = 16; // next serial is 16
 
       config.usePPS = 0;
       config.future13 = 0;
