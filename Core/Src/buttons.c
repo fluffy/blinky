@@ -24,16 +24,23 @@ void buttonsSetup() {
     return;
   }
 
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+
+  HAL_GPIO_DeInit(BTN3_GPIO_Port, BTN3_Pin );
 
   GPIO_InitStruct.Pin = BTN3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+
   HAL_GPIO_Init( BTN3_GPIO_Port, &GPIO_InitStruct);
+
+
+  HAL_GPIO_DeInit(BTN2_GPIO_Port, BTN2_Pin );
 
   GPIO_InitStruct.Pin = BTN2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init( BTN2_GPIO_Port, &GPIO_InitStruct);
 }
 
