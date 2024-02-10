@@ -28,12 +28,28 @@ void dispSetup(){
 
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
+  HAL_GPIO_DeInit(LED2_GPIO_Port, LED2_Pin );
+  GPIO_InitStruct.Pin = LED2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LED2_GPIO_Port, &GPIO_InitStruct);
+
+  HAL_GPIO_DeInit(LED3_GPIO_Port, LED3_Pin );
+  GPIO_InitStruct.Pin = LED3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LED3_GPIO_Port, &GPIO_InitStruct);
+
+  HAL_GPIO_DeInit(LED5_GPIO_Port, LED5_Pin );
   GPIO_InitStruct.Pin = LED5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED5_GPIO_Port, &GPIO_InitStruct);
 
+  HAL_GPIO_DeInit(LED6_GPIO_Port, LED6_Pin );
   GPIO_InitStruct.Pin = LED6_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -71,10 +87,19 @@ void dispUpdate( int32_t dispUs, int32_t dispS ){
     if (ledMs >= 1000) {
       ledMs -= 1000;
     }
-    int16_t binCount = (ledMs / 100) % 10;  // 2.5 ms
 
+#if 0
+    // this shows 1 ms times to 1 second
+    int16_t binCount =  1  << (9 - (ledMs / 100)%10) ;  // 100 ms
     int row = 5 - (ledMs / 2) % 5;     // 2 ms across
     int col = 10 - (ledMs / 10) % 10;  // 10 ms down
+#else
+    // this shows 30 * 4 fps frame times
+    int blinks = ( ledMs * 3 );  // 3000 blinks per second
+    int16_t binCount =  1  << (9 - (blinks / 1000)%10) ;  // 3 fps
+    int row = 5 - (blinks / 25) % 4;     // 120 fps across 4 leds
+    int col = 10 - (blinks / 100) % 10;  // 30 fps
+#endif
 
     if (setting.blinkBlank) {
       binCount = 0x1000;
@@ -128,7 +153,7 @@ void dispUpdate( int32_t dispUs, int32_t dispS ){
                         (binCount & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
       // High 4 bits of display
-#if 0  // TODO - still not use on V10 hw
+#if 1  // TODO - still not use on V10 hw
       // problems LED 5,6 input only
       HAL_GPIO_WritePin(LED5_GPIO_Port, LED5_Pin,
                         (binCount & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
