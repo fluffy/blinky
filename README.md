@@ -49,13 +49,12 @@ Set up a mac to be able to build by installing:
 
 ## Timing Board
 
-On the V9 hardware 0.09 software have:
+On the V10 hardware 0.102 software have:
 
 * Timing board with TXCO, LTC Sync in, LTC Sync out, LED grid,
   battery power, USB debug, audio in/out
 
-* Display 2ms ticks on 10x5 LED grid
-* TODO - update Display 30 fps frame count in binary on 8 LEDs
+* Display 2ms ticks on 10x5 LED grid or 120 fps tick on 10x4 grid
 * 3.3V LTC Sync Out
 * PPS out is hold sync button while booting
 * Jitter of less than 1 ms
@@ -66,6 +65,7 @@ On the V9 hardware 0.09 software have:
 * read  calibration from EEPROM
 * audio out of beep
 * headset monitor of audio out
+* usb upgrade of firmware
 
 * Status LEDs: error(red), external synced (green),  not sync (
   blue ), have sync (teal)
@@ -74,7 +74,7 @@ On the V9 hardware 0.09 software have:
 
 ## GPS Board
 
-On the V9 hardware 0.09 software have:
+On the V10 hardware 0.102 software have:
 
 * GPS board with GPS, OCXO, wall power, 3 x 10Mhz out, LTC sync out, LTC
   sync in, USB serial debug out, Ext 10 Mhz in
@@ -87,14 +87,15 @@ On the V9 hardware 0.09 software have:
 * USB serial display of: Time, GPS Error, SyncIn Error
 * Aux input of 10 MHz signal to compare
 * PPS jitter of about +/- 20 ns and error less than 10 ns
+* usb upgrade of firmware
 
 ## Wishlist
 
 * time into browser measure computer time offset
 * nice box
+
 * battery with 2h life and USB charger
 * AC wall adapter power
-* usb upgrade of firmware
 * usb power for gps board
 
 * could we add flash video and flash detector for auto detect video
