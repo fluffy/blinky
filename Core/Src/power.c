@@ -6,12 +6,10 @@
 #include <assert.h>
 
 #include "hardware.h"
-#include "main.h"
 #include "ltc.h"
 #include "hardware.h"
 #include "power.h"
 #include "config.h"
-#include "status.h"
 
 
 void powerInit(){
@@ -20,8 +18,6 @@ void powerInit(){
 
 void powerSetup(){
   // TODO
-
-  assert( config.version > 0 );
 
   if ( config.product == 2) {
     // only do for clock
@@ -74,16 +70,8 @@ void powerSetup(){
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-  if ( power < 1500 ) {
-    // TODO - if power too low, set status LED and error
-    updateStatus( StatusBadPower );
-  } else {
-    //  if power is good, enable 5V output
-
-    // enable 5V power supply on LED1
-    // TODO - make this based on if USB has enough power
-    HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
-  }
+  // TODO - if power, set status LED and error
+  // TODO - if power good, enable 5V output
   }
 
 }
