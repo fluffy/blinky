@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include "detect.h"
+#include "config.h"
 #include "hardware.h"
 #include "main.h"
 #include "measurement.h"
@@ -67,7 +68,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
             char buffer[100];
             //snprintf(buffer, sizeof(buffer), "DBG  hr=%d min=%d sec=%d \r\n", hr,min,sec );
             //HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-            
+
             //snprintf(buffer, sizeof(buffer), "DBG   gps time UTC: %s \r\n", gpsTime );
             //HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
             snprintf(buffer, sizeof(buffer), "DBG2  gps(s): %lu UTC\r\n",  data.gpsSeconds );
@@ -101,9 +102,17 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
   }
 }
 
-void gpsInit() {}
+void gpsInit() {
+  // nothing needed
+}
 
 void gpsSetup() {
+
+   if ( config.product != 2 ) {
+    return;
+  }
+
+
 #if 1
   // start receving for GPS serial
   HAL_StatusTypeDef stat =

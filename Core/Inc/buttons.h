@@ -3,4 +3,6 @@
 
 #pragma once
 
-void checkButtons();
+void buttonsInit();
+void buttonsSetup();
+void buttonsRun();
