@@ -60,12 +60,7 @@
           "width": 0.25
         }
       ],
-      "drc_exclusions": [
-        "hole_near_hole|172573016|96570679|2d128b9f-f249-4343-a7d8-73bec3d5ae05|a627071f-d4b8-4689-b403-515a1b321aa4",
-        "hole_near_hole|172573016|97570679|19c3af6c-ae4a-48b1-a686-a8bdc2b60232|a627071f-d4b8-4689-b403-515a1b321aa4",
-        "hole_near_hole|173073016|97070679|a627071f-d4b8-4689-b403-515a1b321aa4|647002be-9f31-425c-81cc-8bea1addeadb",
-        "hole_near_hole|173073016|97070679|a627071f-d4b8-4689-b403-515a1b321aa4|bd04aec9-ce1c-4fe9-abd0-724ef49e3234"
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },

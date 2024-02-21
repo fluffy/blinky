@@ -12949,7 +12949,7 @@
     (property "Value" "TPS63060" (at 355.6 62.23 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Package_SON:Texas_S-PWSON-N10_ThermalVias" (at 355.6 93.98 0)
+    (property "Footprint" "blinky_footprints:Texas_S-PWSON-N10_ThermalVias-CJ" (at 355.6 93.98 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.ti.com/lit/ds/symlink/tps63060.pdf" (at 355.6 96.52 0)
