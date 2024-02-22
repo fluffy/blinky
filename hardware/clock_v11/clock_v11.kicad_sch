@@ -7174,8 +7174,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid a9923a5c-4810-4f53-a7f2-2d09d908d879)
   )
-  (text "TODO - set reg voltage\nFB will 0.5V \nCurrently set about 6.0 V "
-    (at 203.2 398.78 0)
+  (text "FB will 0.5V \nCurrently set about 6.0 V " (at 203.2 398.78 0)
     (effects (font (size 2 2)) (justify left bottom))
     (uuid ad0ba3f2-e390-4a30-84d1-957434f58454)
   )
