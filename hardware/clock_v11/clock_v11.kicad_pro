@@ -510,7 +510,7 @@
     },
     "net_colors": null,
     "netclass_assignments": {
-      "/10Mhz2.5V": "Analog"
+      "/10MHz2.5V": "Analog"
     },
     "netclass_patterns": [
       {
