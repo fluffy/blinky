@@ -15443,7 +15443,7 @@
   )
 
   (symbol (lib_id "BlinkyShared:OSC_Multi") (at 260.35 176.53 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
+    (in_bom no) (on_board yes) (dnp yes)
     (uuid 9fc4172f-46cc-4b89-949b-d2aad9123125)
     (property "Reference" "Y1" (at 260.35 152.4 0)
       (effects (font (size 1.27 1.27)))
@@ -15459,6 +15459,9 @@
     )
     (property "MAXIMUM_PACKAGE_HEIGHT" "13.76 mm" (at 256.54 167.64 0)
       (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Sim.Enable" "0" (at 260.35 176.53 0)
+      (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid ac8077a9-eaeb-422c-a1ac-924fe7c597d7))
     (pin "2" (uuid ef7bca7e-14ea-4583-bb1f-10531993e41b))
