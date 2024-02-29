@@ -45,10 +45,10 @@ void configSetup() {
 
       // write config to EEProm
       config.version = 2; // config file version
-      config.product = 2;  // 1=blink, 2=clock
+      config.product = 1;  // 1=blink, 2=clock
       config.revMajor = 0;
-      config.revMinor = 10;
-      config.serialNum = 15; // next serial is 16
+      config.revMinor = 11;
+      config.serialNum = 16; // next serial is 17
 
       config.usePPS = 0;
       config.future13 = 0;
@@ -56,7 +56,7 @@ void configSetup() {
       config.future15 = 0;
 
       // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
-      config.extOscType = 10;
+      config.extOscType = 0;
       config.oscAdj = -535; // TODO - this value seems very high , is this a bug with the 10.5 vs 10
 
       config.vcoValue = 625;
@@ -103,8 +103,8 @@ void configSetup() {
       config.future15=0;
     }
 
-    if ((config.revMajor == 0) && (config.revMinor == 10 )) {
-      snprintf(buffer, sizeof(buffer), "  Hardware version: EV10 \r\n");
+    snprintf(buffer, sizeof(buffer), "  Hardware version: EV%d\r\n", config.revMinor );
+    if ((config.revMajor == 0) && (config.revMinor >= 10 ) && (config.revMinor <= 11 ) ) {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       setClk(config.extOscType, config.vcoValue, config.oscAdj); // TODO - setup power first
