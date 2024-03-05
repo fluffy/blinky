@@ -22,17 +22,17 @@ typedef struct {
   uint16_t vcoValue;   // value loaded in DAC for VCO
   uint8_t extOscType;  // external osc type ( 2= 2.048 MHz, 10=10 MHz,
                        // 0=Internal ) )
-  uint8_t usePPS; // 0
-  uint8_t future13; // 0
-  uint8_t future14; // 0
-  uint8_t future15; // 0
+  uint8_t usePPS;      // 0
+  uint8_t future13;    // 0
+  uint8_t future14;    // 0
+  uint8_t future15;    // 0
 } Config;
 
 extern Config config;
 
 inline uint32_t capture2uS(const uint32_t c) {
-  // The main timer counter max value (typically 10 MHz ) * M need this cacluation
-  // to fit in 32 bits
+  // The main timer counter max value (typically 10 MHz ) * M need this
+  // cacluation to fit in 32 bits
   return (c * setting.capture2uSRatioM) / setting.capture2uSRatioN;
 }
 

@@ -62,13 +62,13 @@ extern DAC_HandleTypeDef hdac;
 #define TimeLtc_CH_SYNC_IN2 TIM_CHANNEL_1
 #define TimeLtc_HAL_CH_SYNC_IN2 HAL_TIM_ACTIVE_CHANNEL_1
 
-#define LED6_Pin       GPS_RX1_Pin
+#define LED6_Pin GPS_RX1_Pin
 #define LED6_GPIO_Port GPS_RX1_GPIO_Port
-#define LED5_Pin       GPS_TX1_Pin
+#define LED5_Pin GPS_TX1_Pin
 #define LED5_GPIO_Port GPS_TX1_GPIO_Port
-#define BTN2_Pin       GPS_PPS_Pin
+#define BTN2_Pin GPS_PPS_Pin
 #define BTN2_GPIO_Port GPS_PPS_GPIO_Port
-#define BTN3_Pin       BOOT1_Pin
+#define BTN3_Pin BOOT1_Pin
 #define BTN3_GPIO_Port BOOT1_GPIO_Port
 
 void Error_Handler();

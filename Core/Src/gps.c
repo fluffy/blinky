@@ -1,15 +1,14 @@
 // SPDX-FileCopyrightText: Copyright (c) 2023 Cullen Jennings
 // SPDX-License-Identifier: BSD-2-Clause
 
-
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stm32f4xx_ll_tim.h>
 #include <string.h>
 
-#include "detect.h"
 #include "config.h"
+#include "detect.h"
 #include "hardware.h"
 #include "main.h"
 #include "measurement.h"
@@ -109,7 +108,7 @@ void gpsInit() {
 void gpsSetup() {
   HAL_StatusTypeDef stat;
 
-  if ( config.product == 1 ) {
+  if (config.product == 1) {
     return;
   }
 
@@ -123,12 +122,12 @@ void gpsSetup() {
   hUartGps.Init.OverSampling = UART_OVERSAMPLING_16;
 
   stat = HAL_UART_Init(&hUartGps);
-  if ( stat  != HAL_OK) {
+  if (stat != HAL_OK) {
     Error_Handler();
   }
 
   // start receving for GPS serial
-  stat =  HAL_UART_Receive_IT(&hUartGps, gpsBuffer, 1 /* size */);
+  stat = HAL_UART_Receive_IT(&hUartGps, gpsBuffer, 1 /* size */);
   if (stat != HAL_UART_ERROR_NONE) {
     Error_Handler();
   }

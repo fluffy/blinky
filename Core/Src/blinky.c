@@ -2,38 +2,36 @@
 // SPDX-License-Identifier: BSD-2-Clause
 
 // #include <math.h>  // for round
+#include <assert.h>
 #include <stdio.h>
 #include <string.h>
-#include <assert.h>
 
 #include "audio.h"
 #include "blink.h"
+#include "buttons.h"
 #include "config.h"
 #include "detect.h"
+#include "disp.h"
 #include "gps.h"
 #include "hardware.h"
 #include "ltc.h"
 #include "main.h"
 #include "measurement.h"
 #include "metrics.h"
-#include "pps.h"
-#include "thermo.h"
-#include "status.h"
-#include "disp.h"
-#include "setting.h"
-#include "buttons.h"
 #include "power.h"
-
+#include "pps.h"
+#include "setting.h"
+#include "status.h"
+#include "thermo.h"
 
 // Uses Semantic versioning. See https://semver.org/
 // major.minor.patch,
 // patch=year/month/day
 const char *version = "0.110.240305";
 
-
 Measurements data;
 
-const uint32_t blinkAudioPulseWidthMs = 33; // TODO move to config or something
+const uint32_t blinkAudioPulseWidthMs = 33;  // TODO move to config or something
 
 LtcTransitionSet ltcSendTransitions;
 LtcTransitionSet ltcRecvTransitions;
@@ -74,7 +72,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (ledUs >= 1000000l) {
       ledUs -= 1000000l;
     }
-    dispUpdate( ledUs , 0 /* TODO seconds */ );
+    dispUpdate(ledUs, 0 /* TODO seconds */);
   }
 }
 
@@ -205,7 +203,6 @@ void blinkInit() {
   dispInit();
   buttonsInit();
 
-
   LtcTransitionSetClear(&ltcSendTransitions);
   LtcTransitionSetClear(&ltcRecvTransitions);
 
@@ -243,7 +240,6 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-
   settingSetup();
   configSetup();
 
@@ -255,15 +251,15 @@ void blinkSetup() {
 
   metricsSetup();
 
-    if (1) {
+  if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "  Step: 2\r\n", version);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
-  powerSetup(); // TODO do before clock setup
+  powerSetup();  // TODO do before clock setup
 
-    if (1) {
+  if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "  Step: 3\r\n", version);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -271,7 +267,7 @@ void blinkSetup() {
 
   dispSetup();
 
-    if (1) {
+  if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "  Step: 4\r\n", version);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -279,7 +275,7 @@ void blinkSetup() {
 
   buttonsSetup();
 
-    if (1) {
+  if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "  Step: 5\r\n", version);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -287,7 +283,7 @@ void blinkSetup() {
 
   thermoSetup();
 
-   if (1) {
+  if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "  Step: 6\r\n", version);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -295,7 +291,7 @@ void blinkSetup() {
 
   ppsSetup();
 
-   if (1) {
+  if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "  Step: 7\r\n", version);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -303,7 +299,7 @@ void blinkSetup() {
 
   audioSetup();
 
-   if (1) {
+  if (1) {
     char buffer[100];
     snprintf(buffer, sizeof(buffer), "  Step: 8\r\n", version);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
@@ -345,10 +341,11 @@ void blinkSetup() {
   // start display timer
   HAL_TIM_Base_Start_IT(&hTimeBlink);
 
-  if ( HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin) ) {
+  if (HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin)) {
     setting.blinkPPS = 1;
     char buffer[100];
-    snprintf(buffer, sizeof(buffer), "Sync button pressed during boot. Set PPS mode\r\n");
+    snprintf(buffer, sizeof(buffer),
+             "Sync button pressed during boot. Set PPS mode\r\n");
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
@@ -358,11 +355,11 @@ void blinkSetup() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
- //    assert_param(0 );
- //  assert(0);
+  //    assert_param(0 );
+  //  assert(0);
 
   // set LED to on but not sync ( yellow, not green )
-  updateStatus( StatusRunning);
+  updateStatus(StatusRunning);
 }
 
 void blinkRun() {
@@ -389,7 +386,6 @@ void blinkRun() {
   uint32_t tick = HAL_GetTick();
 
   if (loopCount % 3000 == 0) {
-
     snprintf(
         buffer, sizeof(buffer),
         "Phases(ms) mon=%lu.%03lu sync=%lu.%03lu gps=%lu.%03lu ext=%lu.%03lu "
@@ -404,7 +400,7 @@ void blinkRun() {
   }
 
   if (loopCount % 5000 == 0) {
-    if ( config.product == 3 ) { // GPS board
+    if (config.product == 3) {  // GPS board
       if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
         //  had GPS sync in last 2 seconds
 
@@ -413,11 +409,9 @@ void blinkRun() {
         updateStatus(StatusSync);
 
 #if 1
-        snprintf(buffer, sizeof(buffer),
-                 "Did auto sync to GPS \r\n");
+        snprintf(buffer, sizeof(buffer), "Did auto sync to GPS \r\n");
         HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
-
       }
     }
   }
@@ -538,7 +532,7 @@ void blinkRun() {
   }
 #endif
 
-  if ( (data.ltcGenTick != ltcGenTickPrev) && ( tick > data.ltcGenTick+5 ) ) {
+  if ((data.ltcGenTick != ltcGenTickPrev) && (tick > data.ltcGenTick + 5)) {
     // gen new LTC code
     static Ltc ltc;
     ltcClear(&ltc);
@@ -546,7 +540,7 @@ void blinkRun() {
     ltcTimeCodeClear(&timeCode);
     ltcTimeCodeSet(&timeCode, data.localSeconds + 1, 0 /* us */);
 
-#if 0 // TODO
+#if 0  // TODO
     //ltcTimeCodeSetHMSF(  &timeCode, 15/*hr*/,31/*min*/,31/*sec*/,15/*frame*/ );
     ltcTimeCodeSetHMSF(  &timeCode, 0/*hr*/, 0/*min*/, 0/*sec*/, 0/*frame*/ );
 #endif

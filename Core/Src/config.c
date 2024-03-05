@@ -1,10 +1,11 @@
 // SPDX-FileCopyrightText: Copyright (c) 2023 Cullen Jennings
 // SPDX-License-Identifier: BSD-2-Clause
 
+#include "config.h"
+
 #include <stdio.h>
 #include <string.h>
 
-#include "config.h"
 #include "hardware.h"
 #include "main.h"
 #include "setting.h"
@@ -39,15 +40,15 @@ void configSetup() {
 #endif
     if (writeConfigEEProm) {
       snprintf(buffer, sizeof(buffer),
-               "\r\n\r\nPROGRAMMING EEProm CONFIG ONLY \r\n" );
+               "\r\n\r\nPROGRAMMING EEProm CONFIG ONLY \r\n");
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       // write config to EEProm
-      config.version = 2; // config file version
+      config.version = 2;  // config file version
       config.product = 3;  // 1=blink, 2=clock, 3=gps
       config.revMajor = 0;
       config.revMinor = 11;
-      config.serialNum = 20; // next serial is 21
+      config.serialNum = 20;  // next serial is 21
 
       config.usePPS = 0;
       config.future13 = 0;
@@ -56,7 +57,8 @@ void configSetup() {
 
       // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
       config.extOscType = 0;
-      config.oscAdj = -535; // TODO - this value seems very high , is this a bug with the 10.5 vs 10
+      config.oscAdj = -535;  // TODO - this value seems very high , is this a
+                             // bug with the 10.5 vs 10
 
       config.vcoValue = 625;
       // For 10Mhz osc, slope is period goes down 1 ns per about 100 VCO goes up
@@ -94,19 +96,22 @@ void configSetup() {
       Error_Handler();
     }
 
-    if ( config.version == 1 ) {
+    if (config.version == 1) {
       // if it is an old config data, fill in the missing data
-      config.usePPS=0;
-      config.future13=0;
-      config.future14=0;
-      config.future15=0;
+      config.usePPS = 0;
+      config.future13 = 0;
+      config.future14 = 0;
+      config.future15 = 0;
     }
 
-    snprintf(buffer, sizeof(buffer), "  Hardware version: EV%d\r\n", config.revMinor );
-    if ((config.revMajor == 0) && (config.revMinor >= 10 ) && (config.revMinor <= 11 ) ) {
+    snprintf(buffer, sizeof(buffer), "  Hardware version: EV%d\r\n",
+             config.revMinor);
+    if ((config.revMajor == 0) && (config.revMinor >= 10) &&
+        (config.revMinor <= 11)) {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
-      setClk(config.extOscType, config.vcoValue, config.oscAdj); // TODO - setup power first
+      setClk(config.extOscType, config.vcoValue,
+             config.oscAdj);  // TODO - setup power first
 
       if (config.product == 1) {
         // This is blink board
@@ -119,7 +124,7 @@ void configSetup() {
         HAL_GPIO_Init(AUX_CLK_GPIO_Port, &GPIO_InitStruct);
       }
 
-      if (config.product == 2) { // TODO - move this code to setting.c
+      if (config.product == 2) {  // TODO - move this code to setting.c
         // This is clock board
 
         // turn off options
@@ -203,7 +208,8 @@ void setClk(uint8_t extOscTypeType, uint16_t vcoValue, int16_t oscAdj) {
       Error_Handler();
     }
 
-    snprintf(buffer, sizeof(buffer), "  Internal clock set to 10.5MHz + %d Hz \r\n", oscAdj);
+    snprintf(buffer, sizeof(buffer),
+             "  Internal clock set to 10.5MHz + %d Hz \r\n", oscAdj);
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 

@@ -1,15 +1,14 @@
 // SPDX-FileCopyrightText: Copyright (c) 2023 Cullen Jennings
 // SPDX-License-Identifier: BSD-2-Clause
 
-
 #include "thermo.h"
 
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
 
-#include "hardware.h"
 #include "config.h"
+#include "hardware.h"
 
 void thermoInit() {}
 
@@ -21,7 +20,7 @@ void thermoSetup() {
   uint16_t reg = 0;
   HAL_StatusTypeDef status;
 
-  if ( config.product == 3 ) {
+  if (config.product == 3) {
     return;
   }
 
@@ -34,13 +33,12 @@ void thermoSetup() {
 
   reg = 0xA060;    // power up default
   reg &= ~0x1000;  // turn off extended mode (  only needed for temps above
-                      // 128 C )
-  uint16_t convRate = 1;  // 0=0.25Hz, 1=1Hz, 2=4Hz, 3=8Hz
+                   // 128 C )
+  uint16_t convRate = 1;                    // 0=0.25Hz, 1=1Hz, 2=4Hz, 3=8Hz
   reg |= (reg & 0x3FFF) | (convRate << 6);  // set coversion rate
 
-  status =
-      HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, regAddr, sizeof(regAddr),
-                        (uint8_t *)&reg, (uint16_t)sizeof(reg), timeout);
+  status = HAL_I2C_Mem_Write(&hI2c, i2cAddr << 1, regAddr, sizeof(regAddr),
+                             (uint8_t *)&reg, (uint16_t)sizeof(reg), timeout);
   if (status != HAL_OK) {
     // stat: 0=0k, 1 is HAL_ERROR, 2=busy , 3 = timeout
     snprintf(buffer, sizeof(buffer),
@@ -59,7 +57,7 @@ int16_t thermoGetTemperatureDeciC() {
   uint16_t temp = 0;
   HAL_StatusTypeDef status;
 
-   if ( config.product == 3 ) {
+  if (config.product == 3) {
     return 0;
   }
 

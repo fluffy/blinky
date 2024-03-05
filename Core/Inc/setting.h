@@ -6,7 +6,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-
 typedef struct {
   bool blinkMute;       // mutes audio outout
   bool blinkBlank;      // causes LED to be off
@@ -14,7 +13,7 @@ typedef struct {
 
   bool blinkHaveDisplay;
 
-  bool blinkPPS; // do PPS instead of LTC out output
+  bool blinkPPS;  // do PPS instead of LTC out output
 
   uint32_t dataNextSyncOutPhaseUS;
   uint32_t dataCurrentSyncOutPhaseUS;
@@ -25,7 +24,6 @@ typedef struct {
 } Setting;
 
 extern Setting setting;
-
 
 void settingInit();
 void settingSetup();

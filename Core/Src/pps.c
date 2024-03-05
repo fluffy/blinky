@@ -9,7 +9,7 @@
 #include "measurement.h"
 #include "setting.h"
 
-extern LtcTransitionSet ltcSendTransitions; // TODO move
+extern LtcTransitionSet ltcSendTransitions;  // TODO move
 
 void ppsInit() {}
 
@@ -19,9 +19,9 @@ void ppsSetup() {
 
 void ppsStart() {
   // start the output timer pulse
-  uint32_t v =
-      (ltcSendTransitions.transitionTimeUs[0] + setting.dataCurrentSyncOutPhaseUS) /
-      20l;  // convert to 50 KHz timer counts
+  uint32_t v = (ltcSendTransitions.transitionTimeUs[0] +
+                setting.dataCurrentSyncOutPhaseUS) /
+               20l;  // convert to 50 KHz timer counts
   if (v >= 50000) {
     v -= 50000;
   }
@@ -75,8 +75,8 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
 
       if (ltcSendTransitions.nextTransition >=
           ltcSendTransitions.numTransitions) {
-        // will restart when new code generated ltcSendTransitions.nextTransition
-        // = 0;  // restart
+        // will restart when new code generated
+        // ltcSendTransitions.nextTransition = 0;  // restart
         setting.dataCurrentSyncOutPhaseUS = setting.dataNextSyncOutPhaseUS;
         data.ltcGenTick = tick;
       }

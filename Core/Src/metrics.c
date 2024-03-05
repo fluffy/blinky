@@ -1,7 +1,6 @@
 // SPDX-FileCopyrightText: Copyright (c) 2023 Cullen Jennings
 // SPDX-License-Identifier: BSD-2-Clause
 
-
 #include "metrics.h"
 
 #include <stdio.h>
@@ -10,15 +9,20 @@
 #include "config.h"
 #include "hardware.h"
 #include "measurement.h"
-#include "status.h"
 #include "setting.h"
+#include "status.h"
 
 Metrics metrics;
 static Measurements dataPrev;
 
-//extern uint32_t dataNextSyncOutPhaseUS;
+// extern uint32_t dataNextSyncOutPhaseUS;
 
-inline uint32_t us2ms(  int64_t v ) {   uint64_t ms=v/1000l; uint64_t u=ms; uint32_t s=u; return s; };
+inline uint32_t us2ms(int64_t v) {
+  uint64_t ms = v / 1000l;
+  uint64_t u = ms;
+  uint32_t s = u;
+  return s;
+};
 
 void metricsInit() { memset(&metrics, 0, sizeof(metrics)); }
 
@@ -96,7 +100,7 @@ void metricsSync(MetricSyncSource syncTo) {
     int64_t delta =
         (metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr]) / 1000000ll;
     data.localSeconds += delta;
-    //data.localSeconds -= 1; // TODO NO IDEA why this became needed
+    // data.localSeconds -= 1; // TODO NO IDEA why this became needed
     data.extSeconds = data.localSeconds;
   }
 
@@ -136,9 +140,9 @@ void metricsSync(MetricSyncSource syncTo) {
 }
 
 void metricsAdjust() {
-   char __attribute__((__unused__)) buffer[100];
+  char __attribute__((__unused__)) buffer[100];
 
-    if (data.localSeconds == dataPrev.localSeconds) {
+  if (data.localSeconds == dataPrev.localSeconds) {
     return;
   }
 
@@ -222,35 +226,33 @@ void metricsAdjust() {
 
   int64_t syncDiffUS = metrics.syncTimeUS[curr] - metrics.localTimeUS[curr];
   if (metrics.haveSync) {
-    if ( (syncDiffUS > 2500 ) || (syncDiffUS < -2500 ) ) {
-
-        // wait for metrics to stabilize on new sync
-        if (metrics.lastSyncSeconds + 1 < data.localSeconds) {
-            // ignore if we have old data ( happens on sync and on unplug of sync )
-            if (syncDiffUS > -990000) {
-
+    if ((syncDiffUS > 2500) || (syncDiffUS < -2500)) {
+      // wait for metrics to stabilize on new sync
+      if (metrics.lastSyncSeconds + 1 < data.localSeconds) {
+        // ignore if we have old data ( happens on sync and on unplug of sync )
+        if (syncDiffUS > -990000) {
 #if 0
                 snprintf(buffer, sizeof(buffer), "SYNC LOSS: syncTime=%lu syncDiff=%ld \r\n",
                          capture2uS(dataPrev.syncCapture) , (int32_t) syncDiffUS);
                 HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
 
-                updateStatus(StatusLostSync);
-            }
+          updateStatus(StatusLostSync);
         }
+      }
     }
   }
 
   int64_t gpsDiffUS = metrics.gpsTimeUS[curr] - metrics.localTimeUS[curr];
   if (metrics.haveGps) {
-    if ( (gpsDiffUS > 2500 ) || (gpsDiffUS < -2500 ) ) {
-        // wait for metrics to stabilize on new sync
-        if (metrics.lastSyncSeconds + 1 < data.localSeconds) {
-            // ignore if we have old data ( happens on sync and on unplug of sync )
-            if (syncDiffUS > -990000) {
-                updateStatus(StatusLostSync);
-            }
+    if ((gpsDiffUS > 2500) || (gpsDiffUS < -2500)) {
+      // wait for metrics to stabilize on new sync
+      if (metrics.lastSyncSeconds + 1 < data.localSeconds) {
+        // ignore if we have old data ( happens on sync and on unplug of sync )
+        if (syncDiffUS > -990000) {
+          updateStatus(StatusLostSync);
         }
+      }
     }
   }
 
@@ -272,7 +274,6 @@ void metricsAdjust() {
   HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
 #endif
-
 
   int64_t secondsSinceSync =
       metrics.localTimeUS[curr] / 1000000l - metrics.lastSyncSeconds;
@@ -299,7 +300,6 @@ void metricsAdjust() {
 void metricsRun() {
   char buffer[100];
 
-
   metricsAdjust();
 
   int curr = metrics.nextIndex;
@@ -308,40 +308,34 @@ void metricsRun() {
     metrics.nextIndex = 0;
   }
 
-
-
-    if (dataPrev.localSeconds % 5 == 2) {
-
-
-
+  if (dataPrev.localSeconds % 5 == 2) {
 #if 1
-      snprintf(buffer, sizeof(buffer), "\r\nMetrics\r\n");
-      HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
-
+    snprintf(buffer, sizeof(buffer), "\r\nMetrics\r\n");
+    HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
     if (1) {
       snprintf(buffer, sizeof(buffer), "    LocalTime(ms) %8ld \r\n",
-               us2ms( metrics.localTimeUS[curr] ));
+               us2ms(metrics.localTimeUS[curr]));
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
     if (metrics.haveGps) {
       updateStatus(StatusCouldSync);
       snprintf(buffer, sizeof(buffer), "    GpsTime(ms) %10ld \r\n",
-               us2ms( metrics.gpsTimeUS[curr] ));
+               us2ms(metrics.gpsTimeUS[curr]));
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
     if (metrics.haveSync) {
       updateStatus(StatusCouldSync);
       snprintf(buffer, sizeof(buffer), "    SyncTime(ms) %9ld \r\n",
-              us2ms( metrics.syncTimeUS[curr] ));
+               us2ms(metrics.syncTimeUS[curr]));
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
     if (metrics.haveExt) {
       snprintf(buffer, sizeof(buffer), "    ExtTime(ms) %10ld \r\n",
-             us2ms( metrics.extTimeUS[curr] ));
+               us2ms(metrics.extTimeUS[curr]));
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
@@ -358,7 +352,7 @@ void metricsRun() {
       int64_t diff = metrics.syncTimeUS[curr] - metrics.localTimeUS[curr];
 
       snprintf(buffer, sizeof(buffer), "    syn-lcl(us) %6ld \r\n",
-               (int32_t)(diff) );
+               (int32_t)(diff));
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
@@ -447,7 +441,6 @@ void metricsRun() {
     }
     }
 #endif
-
 
 #if 0
     if ( 1 ) {

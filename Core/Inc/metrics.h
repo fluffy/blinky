@@ -16,8 +16,8 @@ typedef struct {
   int64_t syncTimeUS[metricsHistorySize];
   int64_t gpsTimeUS[metricsHistorySize];
 
-  int32_t lastSyncSeconds; // rought time of when sync button was last hit 
-  
+  int32_t lastSyncSeconds;  // rought time of when sync button was last hit
+
   bool haveSync;
   bool haveExt;
   bool haveGps;
@@ -31,5 +31,10 @@ void metricsSetup();
 void metricsRun();
 void metricsAdjust();
 
-typedef enum { SourceNone, SourceGPS, SourceSync, SourceExternal } MetricSyncSource;
+typedef enum {
+  SourceNone,
+  SourceGPS,
+  SourceSync,
+  SourceExternal
+} MetricSyncSource;
 void metricsSync(MetricSyncSource syncTo);
