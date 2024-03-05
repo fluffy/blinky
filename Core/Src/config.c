@@ -36,7 +36,7 @@ void configSetup() {
     const int writeConfigEEProm = 1;
 #else
     // TODO move to seperate program
-    const int writeConfigEEProm = 1;
+    const int writeConfigEEProm = 0;
 #endif
     if (writeConfigEEProm) {
       snprintf(buffer, sizeof(buffer),
@@ -45,10 +45,10 @@ void configSetup() {
 
       // write config to EEProm
       config.version = 2; // config file version
-      config.product = 1;  // 1=blink, 2=clock
+      config.product = 3;  // 1=blink, 2=clock, 3=gps
       config.revMajor = 0;
       config.revMinor = 11;
-      config.serialNum = 17; // next serial is 17
+      config.serialNum = 20; // next serial is 21
 
       config.usePPS = 0;
       config.future13 = 0;

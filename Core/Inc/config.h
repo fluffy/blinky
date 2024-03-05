@@ -12,8 +12,8 @@
 // keep size padded to 32 bits
 typedef struct {
   uint8_t version;   // 2 - version of config format
-  uint8_t product;   // 1=blink, 2=clock
-  uint8_t revMajor;  // 0x1 is Rev A - board major version
+  uint8_t product;   // 1=blink, 2=clock, 3=gps
+  uint8_t revMajor;  // 11 - board major version
   uint8_t revMinor;  // start at 0 - board minor version
 
   uint16_t serialNum;  // 0 is not valid
