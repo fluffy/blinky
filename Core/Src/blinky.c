@@ -403,6 +403,25 @@ void blinkRun() {
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
+  if (loopCount % 5000 == 0) {
+    if ( config.product == 3 ) { // GPS board
+      if ((tick > 2000) && (data.gpsCaptureTick + 2000 > tick)) {
+        //  had GPS sync in last 2 seconds
+
+        // then must just do auto sync of time
+        metricsSync(SourceGPS);
+        updateStatus(StatusSync);
+
+#if 1
+        snprintf(buffer, sizeof(buffer),
+                 "Did auto sync to GPS \r\n");
+        HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+#endif
+
+      }
+    }
+  }
+
   if (loopCount % 100 == 0) {
 #if 0
     snprintf(buffer, sizeof(buffer), "Loop %d\r\n", loopCount);
