@@ -49,7 +49,7 @@ Set up a mac to be able to build by installing:
 
 ## Timing Board
 
-On the V10 hardware 0.102 software have:
+On the V11 hardware 0.110 software have:
 
 * Timing board with TXCO, LTC Sync in, LTC Sync out, LED grid,
   battery power, USB debug, audio in/out
@@ -74,7 +74,7 @@ On the V10 hardware 0.102 software have:
 
 ## GPS Board
 
-On the V10 hardware 0.102 software have:
+On the V11 hardware 0.110 software have:
 
 * GPS board with GPS, OCXO, wall power, 3 x 10Mhz out, LTC sync out, LTC
   sync in, USB serial debug out, Ext 10 Mhz in
@@ -88,6 +88,8 @@ On the V10 hardware 0.102 software have:
 * Aux input of 10 MHz signal to compare
 * PPS jitter of about +/- 20 ns and error less than 10 ns
 * usb upgrade of firmware
+* usb power for gps board
+
 
 ## Wishlist
 
@@ -95,8 +97,6 @@ On the V10 hardware 0.102 software have:
 * nice box
 
 * battery with 2h life and USB charger
-* AC wall adapter power
-* usb power for gps board
 
 * could we add flash video and flash detector for auto detect video
   latency
