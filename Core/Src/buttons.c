@@ -74,6 +74,7 @@ void buttonsRun() {
     }
   }
 
+  if (config.product == 1) {
   if (HAL_GPIO_ReadPin(BTN3_GPIO_Port, BTN3_Pin)) {
     if (!button3WasPressed) {
 
@@ -97,7 +98,9 @@ void buttonsRun() {
   } else {
     button3WasPressed = 0;
   }
+  }
 
+  if  ( (config.product == 1) || (config.product == 2) ) {
   if ((!HAL_GPIO_ReadPin(BTN1_GPIO_Port, BTN1_Pin))) {
     if (!button1WasPressed) {
       snprintf(buffer, sizeof(buffer), "Sync button pressed\r\n");
@@ -129,4 +132,6 @@ void buttonsRun() {
   } else {
     button1WasPressed = 0;
   }
+  }
+
 }

@@ -1,11 +1,10 @@
 // SPDX-FileCopyrightText: Copyright (c) 2023 Cullen Jennings
 // SPDX-License-Identifier: BSD-2-Clause
 
-#include "config.h"
-
 #include <stdio.h>
 #include <string.h>
 
+#include "config.h"
 #include "hardware.h"
 #include "main.h"
 #include "setting.h"
@@ -133,6 +132,17 @@ void configSetup() {
         // enable 5V power supply on LED1
         // TODO - make this based on if USB has enough power
         HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+      }
+
+      if (config.product == 3) {
+        // This is GPS board
+
+        // turn off options
+        setting.blinkHaveDisplay = 0;
+
+        // turn off audio and display
+        setting.blinkMute = 1;
+        setting.blinkBlank = 1;
       }
 
     } else {

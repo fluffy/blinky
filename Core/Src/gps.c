@@ -109,7 +109,7 @@ void gpsInit() {
 void gpsSetup() {
   HAL_StatusTypeDef stat;
 
-  if ( config.product != 2 ) {
+  if ( config.product == 1 ) {
     return;
   }
 
