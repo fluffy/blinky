@@ -34,7 +34,7 @@ fails to do this. It sets RTS and DTR both high so will not work.
 
 To use python miniterm:
 ```
-pyserial-miniterm -e --parity N --rts 0 --dtr 0 /dev/tty.usbserial-31110 115200
+pyserial-miniterm -e --parity N --rts 0 --dtr 0 /dev/cu.usbserial-31110 115200
 ```
 Can exit the miniterm with CTRL+]. This will cause board reset when it starts.
 
