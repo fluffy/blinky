@@ -137,6 +137,22 @@ void configSetup() {
         // enable 5V power supply on LED1
         // TODO - make this based on if USB has enough power
         HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+
+        // reconfigure LED3 to be input on PPS or LTC mode
+        GPIO_InitTypeDef GPIO_InitStruct = {0};
+        GPIO_InitStruct.Pin = LED3_Pin;
+        GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+        GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+        HAL_GPIO_Init(LED3_GPIO_Port, &GPIO_InitStruct);
+
+        // TODO - set mode based on PIN value
+        if ( HAL_GPIO_ReadPin( LED3_GPIO_Port, LED3_Pin) ) {
+          snprintf(buffer, sizeof(buffer), "  PPS Mode \r\n" );
+          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+        } else {
+          snprintf(buffer, sizeof(buffer), "  LTC Mode\r\n" );
+          HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
+        }
       }
 
       if (config.product == 3) {
