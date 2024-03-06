@@ -45,10 +45,10 @@ void configSetup() {
 
       // write config to EEProm
       config.version = 2;  // config file version
-      config.product = 3;  // 1=blink, 2=clock, 3=gps
+      config.product = 2;  // 1=blink, 2=clock, 3=gps
       config.revMajor = 0;
       config.revMinor = 11;
-      config.serialNum = 20;  // next serial is 21
+      config.serialNum = 18;  // next serial is 21
 
       config.usePPS = 0;
       config.future13 = 0;
@@ -56,7 +56,7 @@ void configSetup() {
       config.future15 = 0;
 
       // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
-      config.extOscType = 0;
+      config.extOscType = 10;
       config.oscAdj = -535;  // TODO - this value seems very high , is this a
                              // bug with the 10.5 vs 10
 
