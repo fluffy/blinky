@@ -8,4 +8,5 @@ Select the object in FreeCad to export the parts as .3mf and .step
 
 Upload the step. to .sendcutsend.com or jlcpcb.co
 
-3D print using the .3mf files
+3D print using the .3mf files. Set a inner brim of 7 mm on 1st layer
+seems to help with small holes.
