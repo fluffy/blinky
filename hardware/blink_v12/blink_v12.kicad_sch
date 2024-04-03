@@ -11760,12 +11760,6 @@
 		(uuid "3e7eb54c-922f-4779-a613-6ea87cbbee7c")
 	)
 	(junction
-		(at 24.13 30.48)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "4043c766-d63e-498b-885d-15eeaa417cb1")
-	)
-	(junction
 		(at 74.93 250.19)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -11848,12 +11842,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "629a06b9-c69f-498f-b144-4f7a1cd32033")
-	)
-	(junction
-		(at 280.67 40.64)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "68074122-5f9e-4dac-a3ee-228c76ec4dd3")
 	)
 	(junction
 		(at 187.96 34.29)
@@ -12004,12 +11992,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a60b6d1b-f25a-4044-a13c-bc96620cccf4")
-	)
-	(junction
-		(at 72.39 30.48)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ab064e9d-bd7e-4cdc-8629-88a1990e9cab")
 	)
 	(junction
 		(at 106.68 233.68)
@@ -12166,12 +12148,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e86ce328-3006-46f9-ac35-9db2ae75a231")
-	)
-	(junction
-		(at 54.61 57.15)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ec4dfddc-3876-4726-9bf2-2f347fbe5e14")
 	)
 	(junction
 		(at 200.66 120.65)
@@ -12885,7 +12861,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 57.15) (xy 57.15 57.15)
+			(xy 52.07 57.15) (xy 57.15 57.15)
 		)
 		(stroke
 			(width 0)
@@ -12992,16 +12968,6 @@
 			(type default)
 		)
 		(uuid "18caea1e-5169-433d-9296-b88432b5e5d7")
-	)
-	(wire
-		(pts
-			(xy 276.86 40.64) (xy 280.67 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "18f8cfb5-dc17-4c04-a680-bf5a843c9191")
 	)
 	(wire
 		(pts
@@ -14155,16 +14121,6 @@
 	)
 	(wire
 		(pts
-			(xy 24.13 30.48) (xy 26.67 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6b961423-8adb-4d2c-a6d8-401c35e0d983")
-	)
-	(wire
-		(pts
 			(xy 358.14 120.65) (xy 361.95 120.65)
 		)
 		(stroke
@@ -14845,16 +14801,6 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 57.15) (xy 54.61 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9c853458-405d-41ea-9a0f-42234ef651c3")
-	)
-	(wire
-		(pts
 			(xy 229.87 135.89) (xy 229.87 134.62)
 		)
 		(stroke
@@ -15115,7 +15061,7 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 30.48) (xy 24.13 30.48)
+			(xy 22.86 30.48) (xy 26.67 30.48)
 		)
 		(stroke
 			(width 0)
@@ -15735,7 +15681,7 @@
 	)
 	(wire
 		(pts
-			(xy 280.67 40.64) (xy 293.37 40.64)
+			(xy 276.86 40.64) (xy 293.37 40.64)
 		)
 		(stroke
 			(width 0)
@@ -15965,16 +15911,6 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 30.48) (xy 74.93 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dd074983-ed28-4793-856e-67f4b77c6e14")
-	)
-	(wire
-		(pts
 			(xy 386.08 224.79) (xy 389.89 224.79)
 		)
 		(stroke
@@ -16025,7 +15961,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 30.48) (xy 72.39 30.48)
+			(xy 69.85 30.48) (xy 74.93 30.48)
 		)
 		(stroke
 			(width 0)
@@ -22567,72 +22503,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 72.39 30.48 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp yes)
-		(uuid "2efd1752-b7be-42de-8b84-29699f6e66f0")
-		(property "Reference" "TP7"
-			(at 71.12 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 71.12 24.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
-			(at 77.47 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 77.47 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 72.39 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "246b299a-6399-47d0-89bf-57a1f14ced07")
-		)
-		(instances
-			(project "blink_v12"
-				(path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-					(reference "TP7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 388.62 127 0)
 		(unit 1)
@@ -28748,72 +28618,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 54.61 57.15 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp yes)
-		(uuid "7407b7dd-6520-4e34-b98a-b38507b0b8ee")
-		(property "Reference" "TP8"
-			(at 53.34 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 53.34 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
-			(at 59.69 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 59.69 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 54.61 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a850e283-8af1-4623-81ea-b396f303aef3")
-		)
-		(instances
-			(project "blink_v12"
-				(path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-					(reference "TP8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R_Small_US")
 		(at 113.03 248.92 0)
 		(unit 1)
@@ -31433,72 +31237,6 @@
 				(path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
 					(reference "U2")
 					(unit 3)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 280.67 40.64 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp yes)
-		(uuid "90cc291f-74ea-4e35-80e0-15b5a93566fd")
-		(property "Reference" "TP21"
-			(at 278.13 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 279.4 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
-			(at 285.75 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 285.75 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 280.67 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7b407901-cf8e-466d-9469-13473653dcf9")
-		)
-		(instances
-			(project "blink_v12"
-				(path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-					(reference "TP21")
-					(unit 1)
 				)
 			)
 		)
@@ -34258,72 +33996,6 @@
 			(project "blink_v12"
 				(path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
 					(reference "SW4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 24.13 30.48 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp yes)
-		(uuid "afd0309b-e1d3-45d5-bb6e-71f0147b66f4")
-		(property "Reference" "TP6"
-			(at 22.86 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 22.86 24.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
-			(at 29.21 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 29.21 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 24.13 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "060ad987-aa00-4246-8dc9-3e80a781aca6")
-		)
-		(instances
-			(project "blink_v12"
-				(path "/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
-					(reference "TP6")
 					(unit 1)
 				)
 			)
