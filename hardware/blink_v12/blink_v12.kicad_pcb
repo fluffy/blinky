@@ -405,7 +405,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/f4a0a872-356c-497b-be11-1f3a44b0eb7c")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -652,7 +652,7 @@
 		(property ki_fp_filters "SOT?23*")
 		(path "/d889180d-716d-4cd4-9cea-9964906cc681")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 -1.56)
@@ -930,7 +930,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/667b86bd-f0a2-4f5a-bef1-d27f2e20c094")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -1165,7 +1165,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/bc296b26-1217-4d7e-a8f6-3a27b6929c4f")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -1388,7 +1388,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/6e629974-c292-488c-ae6d-1b5bc7c0fdf5")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.727064 0.91)
@@ -1623,7 +1623,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/60f99763-4e4a-44f1-9e31-2f2b88d38b69")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 0.36)
@@ -1858,7 +1858,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/7407b7dd-6520-4e34-b98a-b38507b0b8ee")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -1997,7 +1997,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/dc14b907-147c-470c-9ec0-b2a16cffc042")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -2232,7 +2232,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/c20a93c3-a6fb-4f6e-9eff-7200cbfce2ba")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -2359,7 +2359,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/2b1c270f-a592-4f6f-a29f-2c4844bda769")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -2594,7 +2594,7 @@
 		(property ki_fp_filters "SolderJumper*Bridged*")
 		(path "/2befac3f-4058-41f3-a56c-242e1ea17489")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(net_tie_pad_groups "1, 2")
 		(fp_poly
@@ -2886,7 +2886,7 @@
 		(property ki_fp_filters "SOT?23*")
 		(path "/6fe45230-53a8-4197-b6ef-16e6c1f12479")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 -1.56)
@@ -3163,7 +3163,7 @@
 		(property ki_fp_filters "SolderJumper*Bridged*")
 		(path "/865f3647-20f1-4a76-959d-88afafad01da")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(net_tie_pad_groups "1, 2")
 		(fp_poly
@@ -3480,7 +3480,7 @@
 		(property ki_fp_filters "SOT*23*")
 		(path "/94b82aa2-115f-45fe-9224-faa216f3e303")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 1.56)
@@ -3775,7 +3775,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/35a93369-b6f1-45b9-ae48-12448f48d3a8")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -4010,7 +4010,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/0b1d1489-4f95-4d33-be4e-d38496504e42")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -4245,7 +4245,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/614bf897-0245-412d-bf92-afd23a3ba9a2")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -4372,7 +4372,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/9ada8500-73b3-4543-98d6-d310c1fb7226")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -4607,7 +4607,7 @@
 		)
 		(path "/35ef899d-a4af-481f-b5a1-803c4389b7ae")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole)
 		(fp_circle
 			(center 1.5 -0.5)
@@ -4980,7 +4980,7 @@
 		(property ki_fp_filters "SolderJumper*Bridged*")
 		(path "/42afbaa8-7d32-49f5-bf6c-5b6288f8218b")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(net_tie_pad_groups "1, 2")
 		(fp_poly
@@ -5284,7 +5284,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/1bf8091d-6601-4308-bbc8-674bd459ee8b")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -5423,7 +5423,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/a88c564c-fc01-456d-927d-f29bb14954e1")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 -0.51)
@@ -5646,7 +5646,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/5bed0fd8-e756-4d14-9f5b-2dfec9105615")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 -0.51)
@@ -5881,7 +5881,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/01b36e79-d69f-4226-a93f-3c84fac36561")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 -0.51)
@@ -6104,7 +6104,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/7b4f0251-1130-44a4-919a-51735e239277")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -6340,7 +6340,7 @@
 		(property ki_fp_filters "MountingHole*")
 		(path "/31975282-b0fa-4447-8ef8-9b313a1cc53a")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -6476,7 +6476,7 @@
 		(property ki_fp_filters "Crystal*")
 		(path "/4ab22d94-99ba-422f-9183-1e8d95792d74")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -2 1.65)
@@ -6751,7 +6751,7 @@
 		(property ki_fp_filters "SOIC*3.9x9.9mm*P1.27mm*")
 		(path "/8fe524f6-489a-403c-a08d-8f6fec81fa0c")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 5.06)
@@ -7157,7 +7157,7 @@
 		(property ki_fp_filters "Texas*S*PWSON*N10*")
 		(path "/9bf89018-415a-4376-94ae-c1a2c778d315")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -1.65 1.65)
@@ -7895,7 +7895,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/7b792c73-6fa0-41a8-a0f8-b3ce28fba449")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -8118,7 +8118,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/184b75ec-c9e9-4df7-8ed4-2034d133451a")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -8341,7 +8341,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/764e8386-cd27-4fca-a6e8-a9057f526cae")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -8576,7 +8576,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/13a9160b-2cae-45ce-a0b1-7efa2f637e9d")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -8811,7 +8811,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/0bd5f573-e3a2-448a-b31c-cf8891b34820")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -9059,7 +9059,7 @@
 		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/a196ac76-64ca-459b-90b9-7b15da5bb077")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start -1.33 -1.33)
@@ -9686,7 +9686,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/e768b2d7-6bed-4353-9367-54e00ab6dc5f")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -9933,7 +9933,7 @@
 		(property ki_fp_filters "SOT?223*TabPin2*")
 		(path "/21dcac02-874c-43d3-b1db-7a42994c0941")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -1.85 3.41)
@@ -10216,7 +10216,7 @@
 		(property ki_fp_filters "CP_*")
 		(path "/c0b51ddf-d32c-4133-abfc-dff7e36b2854")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -2.31 0.935)
@@ -10471,7 +10471,7 @@
 		(property ki_fp_filters "SolderJumper*Bridged*")
 		(path "/2b3850f6-ee2b-4899-a8e0-33103ad6ea29")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(net_tie_pad_groups "1, 2")
 		(fp_poly
@@ -10775,7 +10775,7 @@
 		)
 		(path "/5e3b8184-cb42-4fcc-b46a-696fd4263b92")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole)
 		(fp_circle
 			(center 1.5 -0.5)
@@ -11148,7 +11148,7 @@
 		(property ki_fp_filters "SolderJumper*Bridged*")
 		(path "/fb73e3bf-e381-4b90-b6a4-f5b8cb4554b6")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(net_tie_pad_groups "1, 2")
 		(fp_poly
@@ -11453,7 +11453,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/5c05f094-2b05-4937-a2be-322649b66557")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 4.06 0.94)
@@ -11844,7 +11844,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/2efd1752-b7be-42de-8b84-29699f6e66f0")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -11983,7 +11983,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/3e8fa873-3c47-415d-8691-62bd74abdb8e")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -12219,7 +12219,7 @@
 		(property ki_fp_filters "SOT*23*")
 		(path "/aa5f0a38-d75e-4089-8b93-f23a348ef407")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 -1.56)
@@ -12515,7 +12515,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/e90c0032-e29c-497e-8c08-e2d8d92545f6")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start -1.33 14.03)
@@ -12848,7 +12848,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/dca71381-6b6b-4738-af5a-0ca08dd4a307")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 0.36)
@@ -13083,7 +13083,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/2ab81e6a-5d2a-4aeb-a829-d58e8fb5a58c")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -13329,7 +13329,7 @@
 		)
 		(path "/7a6b3070-0bc8-48fa-aadf-72d30d785421")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start -15 -22)
@@ -13558,7 +13558,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/4d16d983-f190-4fa6-9f71-0fbfd95d7fb5")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -13697,7 +13697,7 @@
 		(property ki_fp_filters "SOT*23*")
 		(path "/8f139151-09f3-49d2-b10f-c6b5bc7d6184")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 -1.56)
@@ -13980,7 +13980,7 @@
 		(property ki_fp_filters "WSON*1.5x1.5mm*P0.5mm*")
 		(path "/f2a10ed1-cbb8-46fb-ba94-974058996074")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.795 0.85)
@@ -14261,7 +14261,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/2ae1e5e3-8651-4cde-9d05-e41fd9e8a1cf")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 -0.51)
@@ -14484,7 +14484,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/9e5326af-c3ea-4ba8-a3b6-6498fe6cf3bc")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -14719,7 +14719,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/a99093ba-e35f-44ef-9ce9-ea2c2e1cd46c")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -14858,7 +14858,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/926d093f-0936-4fa9-b961-22bbcac3547a")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -15093,7 +15093,7 @@
 		(property ki_fp_filters "SOT?563*")
 		(path "/16d17030-e646-4ca4-80b0-cce354698ca7")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0.65 0.9)
@@ -15362,7 +15362,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/851b3a5b-72b9-4f7d-bb66-0373b8f145fb")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -15585,7 +15585,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/13d5656d-ffea-45d2-b61e-3cb5dc7294cd")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -15820,7 +15820,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/db7b0690-8dc9-4c33-8ec5-a5551d65782a")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -15959,7 +15959,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/f4ccf76c-62c0-43b6-8820-f75251b52219")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -16194,7 +16194,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/de98a0ab-cafb-4539-97e3-5dec7e384010")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -16346,7 +16346,7 @@
 		(property ki_fp_filters "SOT?223*TabPin2*")
 		(path "/8ae37bae-7506-481f-9b4c-a795840fb71d")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 1.91 3.41)
@@ -16618,7 +16618,7 @@
 		(property ki_fp_filters "SOT?23*")
 		(path "/5d21576a-9b1a-481c-aa8f-98c912ee37de")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 -1.56)
@@ -16915,7 +16915,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/cbdbbc1c-9baa-44e9-99be-a1ac75afed17")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -17054,7 +17054,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/fb0a3f7d-faf1-4cb7-8a73-903090654e53")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 0.36)
@@ -17289,7 +17289,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/254d3bf6-09b8-4c92-ab54-b8aef823fd12")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
@@ -17524,7 +17524,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/afd0309b-e1d3-45d5-bb6e-71f0147b66f4")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -17663,7 +17663,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/90cc291f-74ea-4e35-80e0-15b5a93566fd")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -17802,7 +17802,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/d7a9374f-5921-4bb8-85e2-3b4f2e10df6d")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -17929,7 +17929,7 @@
 		(property ki_fp_filters "SOT?23*")
 		(path "/fb9f736e-f6da-4c5d-99f7-adc039bf3a27")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 1.56)
@@ -18206,7 +18206,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/4639531f-5fad-4aa4-89eb-e7305c83fbe8")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -18441,7 +18441,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/84cf326a-e2ad-4b64-ab51-4a0505eecf14")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
@@ -18700,7 +18700,7 @@
 		(property ki_fp_filters "Jack*")
 		(path "/ba418359-8968-41cb-98ca-5d5c0f44dbd6")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -9.165 -2.51)
@@ -19124,7 +19124,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/a2710a33-341b-4401-b9cb-5054bd5ad222")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -19359,7 +19359,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/cc7bafce-1edf-4f34-9612-2bc205f79fbf")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -19594,7 +19594,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/709646ca-2e58-4ffe-973e-330db3abdcb8")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 0.36)
@@ -19829,7 +19829,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/7958dd4f-13ee-4b1f-a0bb-b7f8adbdd8df")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -20064,7 +20064,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/a13bc05e-a0a3-4fb6-8236-3643c1c78d61")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 0.36)
@@ -20287,7 +20287,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/06f7fa22-ba0e-4e2b-a1e1-4a18876d4efc")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -20522,7 +20522,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/5e1422c7-ae1c-4c1a-8099-df66b95d4b66")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -20745,7 +20745,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/e962fa55-9d03-4627-bd43-9afae36e233e")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -20968,7 +20968,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/14bccf72-bab1-428b-b8ca-1332c4027b83")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -21191,7 +21191,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/0ddb8952-440f-4dae-beb1-84e7bf6682eb")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.261252 -0.735)
@@ -21426,7 +21426,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/b157f683-2345-4973-8c94-230f50869253")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -21565,7 +21565,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/79a7944a-f4ae-493d-86a7-cb2586a7d1ba")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -21812,7 +21812,7 @@
 		(property ki_fp_filters "SOT?666*")
 		(path "/a7b4f2aa-d99e-4a30-b12c-3fbb8a827126")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.8 0.9)
@@ -21939,7 +21939,7 @@
 			(at -0.85 -0.5375)
 			(size 0.5 0.375)
 			(layers "F.Cu" "F.Paste" "F.Mask")
-			(net 82 "Net-(J9-D+-PadA6)")
+			(net 90 "Net-(U7-UD+)")
 			(pinfunction "I/O1")
 			(pintype "passive")
 			(uuid "0a9e2804-5abf-40d7-b3fd-5acbcce38656")
@@ -21957,8 +21957,8 @@
 			(at -0.85 0.5375)
 			(size 0.5 0.375)
 			(layers "F.Cu" "F.Paste" "F.Mask")
-			(net 90 "Net-(U7-UD+)")
-			(pinfunction "I/O2")
+			(net 91 "Net-(U7-UD-)")
+			(pinfunction "I/O1")
 			(pintype "passive")
 			(uuid "a891cbbb-85d8-4611-9048-6d2af7165d71")
 		)
@@ -21966,7 +21966,7 @@
 			(at 0.85 0.5375)
 			(size 0.5 0.375)
 			(layers "F.Cu" "F.Paste" "F.Mask")
-			(net 91 "Net-(U7-UD-)")
+			(net 83 "Net-(J9-D--PadA7)")
 			(pinfunction "I/O2")
 			(pintype "passive")
 			(uuid "12941841-2430-46e3-90c1-d6cfbd034563")
@@ -21984,8 +21984,8 @@
 			(at 0.85 -0.5375)
 			(size 0.5 0.375)
 			(layers "F.Cu" "F.Paste" "F.Mask")
-			(net 83 "Net-(J9-D--PadA7)")
-			(pinfunction "I/O1")
+			(net 82 "Net-(J9-D+-PadA6)")
+			(pinfunction "I/O2")
 			(pintype "passive")
 			(uuid "055807ed-8e46-4951-ae7f-cbc1149162cd")
 		)
@@ -22093,7 +22093,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/2a943ff2-eeaa-4949-af69-f91752eacbe4")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
@@ -22328,7 +22328,7 @@
 		)
 		(path "/2c4287e4-b313-4a12-8aee-a10ae72d0864")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -3.3 -3.05)
@@ -22731,7 +22731,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/02076053-91de-452d-9145-d6c2253f99fa")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start -1.33 1.21)
@@ -23011,7 +23011,7 @@
 		(property ki_fp_filters "SOIC*3.9x4.9mm*P1.27mm*")
 		(path "/98594ded-232f-45db-8f8f-57ece3fb16d5")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 -2.56)
@@ -23338,7 +23338,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/2a31140e-cf90-41c9-a043-349e66405636")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
@@ -23586,7 +23586,7 @@
 		(property ki_fp_filters "LQFP*10x10mm*P0.5mm*")
 		(path "/4ab6b606-4945-4581-aeac-006b5d673697")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 5.11 -5.11)
@@ -24711,7 +24711,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/a2b58daa-b11a-4ea4-869b-0832604291d6")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -24933,7 +24933,7 @@
 		(property ki_fp_filters "Oscillator*DIP*14*")
 		(path "/7752b72b-1f77-4884-9ef5-a2ce9f6a4896")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start -2.83 -9.51)
@@ -25353,7 +25353,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/7052c7c4-d293-4cb0-b04a-910bb565381d")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -25588,7 +25588,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/b43d3ce1-d0f3-4e62-a0fa-f80e40c838c9")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -25823,7 +25823,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/bbcf4107-ee21-4c01-ab60-01da3466e2ff")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
@@ -26094,7 +26094,7 @@
 		(property ki_fp_filters "SOIC*3.9x4.9mm*P1.27mm* DIP*W7.62mm* TO*99* OnSemi*Micro8* TSSOP*3x3mm*P0.65mm* TSSOP*4.4x3mm*P0.65mm* MSOP*3x3mm*P0.65mm* SSOP*3.9x4.9mm*P0.635mm* LFCSP*2x2mm*P0.5mm* *SIP* SOIC*5.3x6.2mm*P1.27mm*")
 		(path "/e52c04b0-d78c-4f4b-9839-1319ae92f343")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 -2.56)
@@ -26407,7 +26407,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/d4c38947-25e2-4545-9659-14aa29c5ef3a")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -26642,7 +26642,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/aade1ae9-7e45-4769-ade9-34890afb31a7")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -26865,7 +26865,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/ea18a176-0c3f-4666-bacb-d1a4af518411")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -27088,7 +27088,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/94b06579-3cbd-44c1-870e-a36c4ddc5eee")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -27324,7 +27324,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/4ad48b76-7acb-4400-bc26-f13528faf3df")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 -0.51)
@@ -27559,7 +27559,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/97046896-6dd7-469a-8944-813691b55622")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -27723,7 +27723,7 @@
 		(property ki_fp_filters "Jack*")
 		(path "/cff2b0a3-1680-404e-9fed-737a7090d5ef")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -9.165 -2.51)
@@ -28147,7 +28147,7 @@
 		)
 		(path "/ad3375c5-0d8a-48c4-b1b5-6e43079d4aab")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole)
 		(fp_circle
 			(center 1.5 -0.5)
@@ -28508,7 +28508,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/3937b0bc-f0ba-47ed-9f30-ad51b123b06b")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.727064 -0.91)
@@ -28744,7 +28744,7 @@
 		(property ki_fp_filters "MountingHole*")
 		(path "/59154395-9e34-4a0c-8ec0-61ae293ba560")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -28879,7 +28879,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/74525b5e-c92c-47d8-b6c4-e027dfc089be")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -29102,7 +29102,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/732059e7-1d70-4378-8593-7ecadf959777")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -29325,7 +29325,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/50a57179-a57d-4816-afd3-0700e6e9a53a")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -29560,7 +29560,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/cd7b6d84-4499-4b97-9f1f-c50113fbb01d")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -29783,7 +29783,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/c8badbad-1429-4cfc-9a5a-3644ca3f5421")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -30018,7 +30018,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/379fe8a9-d80d-4ed9-9587-008909bdca09")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -30242,7 +30242,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/a1f02f4b-7453-44d5-834b-089b45511ab2")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -30477,7 +30477,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/bd822850-c647-47c8-9f9c-ef9e3187477e")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -30724,7 +30724,7 @@
 		(property ki_fp_filters "Choke_* *Coil* Inductor_* L_*")
 		(path "/64edacde-18f4-4ffd-9086-ce570a935700")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -2.41 -2.41)
@@ -30999,7 +30999,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/1db3c459-82ed-4e0a-a799-71b52c9ec911")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -31235,7 +31235,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/05aa447c-2679-4215-ac80-2286d830d403")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
@@ -31470,7 +31470,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/9c2695b8-9892-47ef-9ef0-8db08dea35be")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -31718,7 +31718,7 @@
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO* *UMRF* *MCX* *U.FL*")
 		(path "/49f57f3c-a956-4952-97dc-4f2c410c6917")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 7.5 -10.2)
@@ -32161,7 +32161,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/334b9db7-4dec-430d-9752-43ca2bfb134f")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 0.36)
@@ -32384,7 +32384,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/c86d5d1e-67fe-4f35-bf71-a5f6a6e1f756")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.727064 -0.91)
@@ -32619,7 +32619,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/5be6b8b7-6172-4fe1-8574-9c276b09573a")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -32842,7 +32842,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/53d86c33-477f-473a-af04-b57fadc35226")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 -0.51)
@@ -33077,7 +33077,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/039723ea-141e-4a16-b272-64559c0a7c26")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -33204,7 +33204,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/794a0c71-4820-4462-9a86-bbf2c6f915aa")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -33439,7 +33439,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/9dd1be5f-c288-4744-9acf-f2341955458a")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -33590,7 +33590,7 @@
 		(property ki_fp_filters "SOT?23*")
 		(path "/450e9409-0871-49d2-83ee-66e7540c1c92")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 -1.56)
@@ -33899,7 +33899,7 @@
 		(property ki_fp_filters "SOT?23*")
 		(path "/bb3edb64-0611-4c28-b254-47ed4177b9b3")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 -1.56)
@@ -34164,7 +34164,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/30bb1dd1-9b10-4495-9e7e-c7f752f4f1dd")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 -0.51)
@@ -34399,7 +34399,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/e155614e-39a8-4166-81e8-74e83acae91e")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -34634,7 +34634,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/390212dd-3687-411e-90b8-d174da82f45d")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -34857,7 +34857,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/bee84027-65a0-4770-a2d8-73e390d7435d")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.261252 -0.735)
@@ -35080,7 +35080,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/d0309474-f30b-4636-b80d-6424d9ff2159")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -35303,7 +35303,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/7c38599f-1551-4306-aa74-c365dd4ab9a4")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -35538,7 +35538,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/bdb05fab-498b-4126-9559-228bb103ba15")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -1.685 0.96)
@@ -35796,7 +35796,7 @@
 		(property ki_fp_filters "MountingHole*")
 		(path "/9f005fc4-3ab8-4f74-865b-27d0eeebd0de")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -35931,7 +35931,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/c585064f-25f8-48a2-b227-6d2ca647cb73")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -36166,7 +36166,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/a50d7812-909d-43e6-9a36-16e4106a38f6")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -36401,7 +36401,7 @@
 		(property ki_fp_filters "CP_*")
 		(path "/9be44357-98a1-4cbb-9492-06d41228926c")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -2.31 -0.935)
@@ -36656,7 +36656,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/091c9ddb-f749-4571-9f7d-874750f2ac8e")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -36879,7 +36879,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/d434469d-033e-4362-b5f6-bd7644d05ac5")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 -0.51)
@@ -37126,7 +37126,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/4b1c9cdb-786e-468c-b017-6b8a225b1eaa")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 5.06 0.94)
@@ -37528,7 +37528,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/77c06b8e-6828-4cff-ab0d-172f31271f37")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start -1.33 1.21)
@@ -37796,7 +37796,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/06038c2a-9800-4f95-bf63-44a1f58a86ad")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -38031,7 +38031,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/b150b80b-bbc4-407b-8e6f-6d28b34b3ed6")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -38279,7 +38279,7 @@
 		(property ki_fp_filters "USB*C*Receptacle*")
 		(path "/ddf010b8-40b7-44a7-967e-f3e66b78ccc2")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 4.7 -1.9)
@@ -38716,7 +38716,7 @@
 		(property ki_fp_filters "CP_*")
 		(path "/caad954a-8cee-410a-a05b-609bf5058747")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 1.6 -0.935)
@@ -38971,7 +38971,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/df8dd1c4-31ff-4a8f-a1d8-7a4065012bc7")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -39110,7 +39110,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/edb5fa03-be9f-403d-ab25-1dc37b61a756")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -39345,7 +39345,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/4cf63048-399f-47bb-931c-c9886c205f4c")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 -0.36)
@@ -39593,7 +39593,7 @@
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO* *UMRF* *MCX* *U.FL*")
 		(path "/dfc7cdbb-7036-4f79-bc7a-dc3865424dd9")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -7.5 4.8)
@@ -40048,7 +40048,7 @@
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO* *UMRF* *MCX* *U.FL*")
 		(path "/435b5fe4-d406-43ef-af55-2fca43739d84")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 7.5 -10.2)
@@ -40490,7 +40490,7 @@
 		(property ki_fp_filters "SolderJumper*Bridged*")
 		(path "/362de153-9d79-4d0a-b392-00d260a0328c")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(net_tie_pad_groups "1, 2")
 		(fp_poly
@@ -40842,7 +40842,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/b29b91e7-1876-4564-8622-b47c50392c87")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -1.96 -1.18)
@@ -41137,7 +41137,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/63b7c5af-6e18-4ded-9152-287f7231759d")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start -1.33 -1.33)
@@ -41470,7 +41470,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/6ae3524e-b0c2-407f-8434-142a2d8cced8")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -41609,7 +41609,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/76a5dc99-a192-4c98-bf20-5e04d99d9c2e")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -41832,7 +41832,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/40797695-8773-4bd5-8cf9-a0d9dbf60f75")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.261252 -0.735)
@@ -42067,7 +42067,7 @@
 		(property ki_fp_filters "Pin* Test*")
 		(path "/6dba2de2-96c8-431b-bb3b-87448f236b69")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -42218,7 +42218,7 @@
 		(property ki_fp_filters "SOT?23*")
 		(path "/491820ec-d54d-43f3-ac1a-b8e3d698a0a7")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 -1.56)
@@ -42483,7 +42483,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/a8a1a999-3a88-4d6d-aa09-fe51fb06e13b")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -42706,7 +42706,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/08f38713-0325-4891-8c43-b4065b4064e8")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -42941,7 +42941,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/cc928a46-f123-49fb-b317-7f03467c8e9c")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.107836 0.36)
@@ -43164,7 +43164,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/38490b6a-b17b-491b-82eb-e4600719e39c")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -43399,7 +43399,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/b4064833-4a48-4764-951f-1fad3f8053b2")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -43634,7 +43634,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/33d7a14e-c419-4a7f-8d3e-0fd41964dbbd")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -43857,7 +43857,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/7d23041b-601b-4ef3-b7c2-8a13584ddef8")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -44092,7 +44092,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/016cef36-c3b8-4068-aea8-dfc536a5a347")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 -0.5225)
@@ -44328,7 +44328,7 @@
 		(property ki_fp_filters "MountingHole*")
 		(path "/0a5f764f-3b52-420b-8311-ec6591645b87")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr exclude_from_pos_files exclude_from_bom dnp)
 		(fp_circle
 			(center 0 0)
@@ -44463,7 +44463,7 @@
 		(property ki_fp_filters "SOT?23*")
 		(path "/50104154-6c35-4b8a-acc3-6b00de9744d0")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start 0 1.56)
@@ -44748,7 +44748,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/74abd34b-0306-4dc5-8b28-4edf76e0ddae")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.14058 0.51)
@@ -44971,7 +44971,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/16507271-201d-4393-bb0c-fc877d6691aa")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr smd)
 		(fp_line
 			(start -0.237258 0.5225)
@@ -45219,7 +45219,7 @@
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO* *UMRF* *MCX* *U.FL*")
 		(path "/65690320-5ff9-49d6-aa7f-e533871f870b")
 		(sheetname "Root")
-		(sheetfile "blink_v11.kicad_sch")
+		(sheetfile "blink_v12.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 7.5 -10.2)
