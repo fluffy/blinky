@@ -618,7 +618,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" "0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6340,7 +6340,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" "0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -9312,7 +9312,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" "0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -10867,6 +10867,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e074346f-6bc7-488d-b63a-3125e910bdb2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLCPCB Rotation Offset" "180"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "6fcf989e-057c-48c6-855b-6623fd7dddad")
 			(effects
 				(font
 					(size 1 1)
@@ -14118,7 +14131,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" "180"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14848,6 +14861,19 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLCPCB Rotation Offset" "270"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2d897968-5ca6-4cfe-ad49-352c5b7e3b3e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -15662,7 +15688,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" "0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15973,7 +15999,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" "90"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20625,7 +20651,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Position Offset" "3.9,-1.2"
+		(property "JLCPCB Position Offset" "0,0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -21295,7 +21321,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" "0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -21882,7 +21908,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" "0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -24409,6 +24435,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4328506f-d0db-4c5e-97d1-e895cf771156")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLCPCB Rotation Offset" "90"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f9ce5777-3535-48a0-bffa-0d25b73143ab")
 			(effects
 				(font
 					(size 1 1)
@@ -29961,7 +30000,7 @@
 			(at 0 6.5 90)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2c0a00a3-2546-46a2-8b58-3aee0b254e44")
+			(uuid "c1529fbc-0ebe-469b-bfcc-88d862633aa6")
 			(effects
 				(font
 					(size 1 1)
@@ -29972,7 +30011,7 @@
 		(property "Value" "KH-BNC50-3511"
 			(at 0 8.5 90)
 			(layer "F.Fab")
-			(uuid "9618cd06-803b-43ac-a779-d89fb919ca7b")
+			(uuid "c5e25a7a-a98f-4e15-afbc-b9dc2eb0e0a3")
 			(effects
 				(font
 					(size 1 1)
@@ -29985,7 +30024,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "fa4fad9e-0868-41a6-8f80-3a068b20c9eb")
+			(uuid "13a536f9-cc46-4cbd-ae80-2e379970b04b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29997,7 +30036,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "958d7fb4-da96-4e80-b498-1de6ad6b92ce")
+			(uuid "62f4d52d-da2b-432f-9d51-178f45e5d8d4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30009,7 +30048,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "28966811-5c24-4816-918d-916bd429a3ad")
+			(uuid "db31d5aa-5b7a-477f-aa88-ac8f1aa602b9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30020,7 +30059,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "b8e1e8ae-3269-4c51-afe8-2292bbf10111")
+			(uuid "33a4aa69-07e7-4eff-b488-44397350535c")
 			(effects
 				(font
 					(size 1 1)
@@ -30032,7 +30071,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "e98072b7-f1b5-4e4b-bc68-f95093eb5c56")
+			(uuid "e52bf900-cd43-450d-9845-7264b4e95f75")
 			(effects
 				(font
 					(size 1 1)
@@ -30044,7 +30083,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "c38eb0b3-ba50-4c58-ac3f-83f210341c56")
+			(uuid "6a0639b2-c394-41b2-98f0-6f51a76fd0a1")
 			(effects
 				(font
 					(size 1 1)
@@ -30056,7 +30095,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8ad3bf74-9706-4100-9f6a-dc7e22bbb780")
+			(uuid "44785204-3644-46e7-b849-306a89192c89")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30077,7 +30116,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "e1a3d3c1-f80d-427e-84c0-2c5bc81b918d")
+			(uuid "d66c6cde-d56d-468a-a7b8-8afe07af5118")
 		)
 		(fp_line
 			(start -7.5 -10.2)
@@ -30087,7 +30126,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "b55c75b5-6fad-4123-8076-addcb6d93a9b")
+			(uuid "7f1080f6-1efa-474f-83c1-2d90c69c25c1")
 		)
 		(fp_line
 			(start 0 -10)
@@ -30097,7 +30136,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "6b09e152-6d38-4053-8b78-d088950f940c")
+			(uuid "55c43c4d-986e-4494-84ff-3dfe3dcb9164")
 		)
 		(fp_line
 			(start 0 -10)
@@ -30107,7 +30146,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "2658856e-aa15-46f6-890c-effae402253a")
+			(uuid "33f74046-6a9c-4f83-ae58-2cf2cb99f370")
 		)
 		(fp_line
 			(start 7.5 4.8)
@@ -30117,7 +30156,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "12e35535-0ea4-45c0-bb1c-338aa329eeaa")
+			(uuid "81e2049a-d9d0-4c95-ad82-831b8f4ee5c0")
 		)
 		(fp_line
 			(start -7.5 4.8)
@@ -30127,7 +30166,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "2087a96a-3d4c-4b89-8231-39f2714df64c")
+			(uuid "8bf7157d-f0f6-4d54-b82f-8f46e76c9dab")
 		)
 		(fp_line
 			(start 7.85 -31.3)
@@ -30137,7 +30176,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "6756a70a-709d-465e-aaaa-f00306cf6b5e")
+			(uuid "84fe1d40-375d-494d-9880-7ea0d1e45a96")
 		)
 		(fp_line
 			(start 7.85 5.2)
@@ -30147,7 +30186,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "e0962981-a509-40e8-b4ea-a13db89d358a")
+			(uuid "5cf3c79b-f1fd-47bf-b450-7ceeeb2ff163")
 		)
 		(fp_line
 			(start -7.85 5.2)
@@ -30157,7 +30196,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "d5c6c333-bc61-4a50-9113-c106d634e413")
+			(uuid "daf7b50d-dcaa-4cde-ba09-277e91188ef2")
 		)
 		(fp_line
 			(start -7.85 5.2)
@@ -30167,7 +30206,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "355eadda-1847-42e9-bd6b-db885b693686")
+			(uuid "9fd76feb-5623-4c1e-a409-99bdf8bd34e4")
 		)
 		(fp_line
 			(start 4.8 -30.8)
@@ -30177,7 +30216,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "532346c7-ef1d-46b2-969b-d902c080d29f")
+			(uuid "b563d46d-b5ab-41e9-a6de-c3bcbe1778ab")
 		)
 		(fp_line
 			(start -4.8 -30.8)
@@ -30187,7 +30226,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "77e5bd1c-0e0c-469a-9db3-31e89666b188")
+			(uuid "41e600a9-94db-4d10-aac5-ba91f4dd91d6")
 		)
 		(fp_line
 			(start 6.35 -18.9)
@@ -30197,7 +30236,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "2cfc3940-c3a0-448e-93eb-f9f3cfca172b")
+			(uuid "88936cc1-e37e-46eb-8ead-5c6ab6596c95")
 		)
 		(fp_line
 			(start 4.8 -18.9)
@@ -30207,7 +30246,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "595eaa48-95cd-4b58-b293-a8d2a782ed10")
+			(uuid "bdb1d36d-abcc-4dfc-9e2b-02c8a67e84c6")
 		)
 		(fp_line
 			(start -6.35 -18.9)
@@ -30217,7 +30256,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "e706af96-9562-4863-879c-549b1e727faf")
+			(uuid "64160d57-e181-4d7d-833c-133a8f82dc43")
 		)
 		(fp_line
 			(start -5 -17.5)
@@ -30227,7 +30266,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "ee9d0bae-bc91-4737-951b-1718a02b5c64")
+			(uuid "ff429562-6648-4333-bc10-377f8c598bd0")
 		)
 		(fp_line
 			(start -5 -16.5)
@@ -30237,7 +30276,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "6042df98-406d-4cd9-a93e-be00814dc5bd")
+			(uuid "2359e785-c38c-4aa2-8e99-5def7d47c329")
 		)
 		(fp_line
 			(start -5 -15.5)
@@ -30247,7 +30286,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "78ff38cd-8912-48f7-b312-d5569ea945b3")
+			(uuid "9361b5f5-fe07-4c7b-8489-2a26b41ad966")
 		)
 		(fp_line
 			(start -5 -14.5)
@@ -30257,7 +30296,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "9263b09a-5d63-41d0-aa3a-5fdc706c7b51")
+			(uuid "23c80a22-f386-43d5-8468-62f46b51eb50")
 		)
 		(fp_line
 			(start -5 -13.5)
@@ -30267,7 +30306,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "fe0ff5f5-c0d7-4f8c-95f7-c00ac424aeae")
+			(uuid "59382e3a-e1bb-4f33-acad-df286d68eda1")
 		)
 		(fp_line
 			(start -5 -12.5)
@@ -30277,7 +30316,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "8e5521aa-16ef-4690-ba4c-40c63c1accbe")
+			(uuid "daf035ce-5e00-42d2-bca3-1d53f2a9fe64")
 		)
 		(fp_line
 			(start -5 -11.5)
@@ -30287,7 +30326,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "c0d0b19d-fd4e-40cb-9a83-fd480a94bc1e")
+			(uuid "9641e002-c012-4a8b-bc10-ad373c77286b")
 		)
 		(fp_line
 			(start 7.35 -10.2)
@@ -30297,7 +30336,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "821f549b-5b3f-4626-a8ad-8407e46e12b0")
+			(uuid "e338646a-a232-4d3f-ad93-ebc58ea19d6b")
 		)
 		(fp_line
 			(start 6.35 -10.2)
@@ -30307,7 +30346,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "2f03c3af-ecc1-4afc-868f-b3ca81af0068")
+			(uuid "747c147d-db97-463c-8b86-075def58ce10")
 		)
 		(fp_line
 			(start -7.35 -10.2)
@@ -30317,7 +30356,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "f8eb8057-4809-43c3-a58c-4d17cd9cff81")
+			(uuid "729174c4-1416-434c-a2cf-4fd27566bcf0")
 		)
 		(fp_line
 			(start 7.35 4.7)
@@ -30327,7 +30366,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "8bbe780e-e3fb-4f3f-8f31-6003563dc2bf")
+			(uuid "162db19e-f984-4a70-86b8-90e41c9359d8")
 		)
 		(fp_line
 			(start -7.35 4.7)
@@ -30337,7 +30376,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "24f22f74-69ea-4a30-a631-5c4d962953df")
+			(uuid "706dce1b-42a2-4e17-ac58-95801e5d2ac3")
 		)
 		(fp_circle
 			(center 0 -25.57)
@@ -30348,12 +30387,12 @@
 			)
 			(fill none)
 			(layer "F.Fab")
-			(uuid "02cc18c2-6ff0-44ee-a400-3002f7cbac32")
+			(uuid "ff44df43-984a-4cd6-9604-38915e374004")
 		)
 		(fp_text user "${REFERENCE}"
 			(at 0 2.5 90)
 			(layer "F.Fab")
-			(uuid "ee93d6e3-7718-493f-acdf-74d80c110845")
+			(uuid "7e2802bc-fec8-43bc-876e-a5468871b1fd")
 			(effects
 				(font
 					(size 1 1)
@@ -30370,7 +30409,7 @@
 			(net 61 "Net-(J11-In)")
 			(pinfunction "In")
 			(pintype "passive")
-			(uuid "4d55edf2-c6c4-4c4b-a514-9470d943ec8f")
+			(uuid "1bf316a0-5666-46e3-9cf2-ac9a1b2a2757")
 		)
 		(pad "2" thru_hole oval
 			(at -5.08 -2.58 90)
@@ -30381,7 +30420,7 @@
 			(net 21 "GND")
 			(pinfunction "Ext")
 			(pintype "passive")
-			(uuid "61ff2f0e-c817-4a58-a3a3-102d1512f936")
+			(uuid "f4757d40-abb0-4bb9-aee9-cbb9f9240db0")
 		)
 		(pad "2" thru_hole oval
 			(at -2.54 2.5 90)
@@ -30392,7 +30431,7 @@
 			(net 21 "GND")
 			(pinfunction "Ext")
 			(pintype "passive")
-			(uuid "3908d0c1-8627-4e63-a72e-b0c662102336")
+			(uuid "37f734fc-a29d-4d21-9dd5-98cb95a44381")
 		)
 		(pad "2" thru_hole oval
 			(at 5.08 -2.58 90)
@@ -30403,7 +30442,7 @@
 			(net 21 "GND")
 			(pinfunction "Ext")
 			(pintype "passive")
-			(uuid "39e702d8-8512-472f-9f20-869ddf952d31")
+			(uuid "114aea6c-e6f2-469d-bf36-21b1093a64c0")
 		)
 		(model "${KICAD6_3DMODEL_DIR}/Connector_Coaxial.3dshapes/BNC_Amphenol_B6252HB-NPP3G-50_Horizontal.wrl"
 			(offset
@@ -31689,7 +31728,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" "90"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -32010,7 +32049,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" "0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -35038,7 +35077,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" "0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -38743,7 +38782,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Position Offset" "0,-0.75"
+		(property "JLCPCB Position Offset" "0,0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40143,7 +40182,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" "0"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42189,7 +42228,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" "90"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
