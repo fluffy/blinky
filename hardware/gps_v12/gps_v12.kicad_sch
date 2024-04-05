@@ -16382,7 +16382,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
+		(property "Footprint" "blinky_footprints:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
 			(at 135.89 190.5 0)
 			(effects
 				(font
@@ -22335,7 +22335,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_RJ:RJ45_Amphenol_RJHSE5380"
+		(property "Footprint" "blinky_footprints:RJ45_Amphenol_RJHSE5380"
 			(at 30.48 247.015 90)
 			(effects
 				(font
