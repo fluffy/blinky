@@ -37942,7 +37942,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
+		(property "Footprint" "blinky_footprints:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
 			(at 401.32 199.39 0)
 			(effects
 				(font
@@ -37961,15 +37961,6 @@
 			)
 		)
 		(property "Description" "USB Full-Featured Type-C Receptacle connector"
-			(at 405.13 199.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB#" ""
 			(at 405.13 199.39 0)
 			(effects
 				(font
