@@ -22150,7 +22150,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "0,0"
+		(property "JLCPCB Position Offset" "0.1,4.1"
 			(at 303.53 80.01 0)
 			(effects
 				(font
@@ -23051,7 +23051,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "-1.35,-6.38"
+		(property "JLCPCB Position Offset" "0,-6.7"
 			(at 283.21 161.29 0)
 			(effects
 				(font
@@ -24230,6 +24230,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB Position Offset" "0,-13.0"
+			(at 237.49 251.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "4aa87f8f-1a4d-490f-a9b4-34a1e6c6f760")
 		)
@@ -24831,6 +24840,15 @@
 			)
 		)
 		(property "JLCPCB Rotation Offset" "180"
+			(at 137.16 233.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Position Offset" "0,-13.0"
 			(at 137.16 233.68 0)
 			(effects
 				(font
@@ -26993,7 +27011,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "-1.35,-6.38"
+		(property "JLCPCB Position Offset" "0,-6.7"
 			(at 234.95 162.56 0)
 			(effects
 				(font
@@ -27519,6 +27537,15 @@
 			)
 		)
 		(property "JLCPCB Rotation Offset" "180"
+			(at 127 208.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Position Offset" "0,-13.0"
 			(at 127 208.28 0)
 			(effects
 				(font
@@ -33923,7 +33950,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "-1.35,-6.38"
+		(property "JLCPCB Position Offset" "0,-6.7"
 			(at 260.35 161.29 0)
 			(effects
 				(font
@@ -34351,7 +34378,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "0,0"
+		(property "JLCPCB Position Offset" "0,0.7"
 			(at 123.19 135.89 0)
 			(effects
 				(font
@@ -36115,6 +36142,15 @@
 			)
 		)
 		(property "JLCPCB Part #" "C7171"
+			(at 63.5 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" "180"
 			(at 63.5 259.08 0)
 			(effects
 				(font
@@ -37978,7 +38014,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "0,1.1"
+		(property "JLCPCB Position Offset" "0,1.5"
 			(at 405.13 199.39 0)
 			(effects
 				(font
@@ -38253,6 +38289,15 @@
 			)
 		)
 		(property "JLCPCB Rotation Offset" "180"
+			(at 288.29 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Position Offset" "0,-13.0"
 			(at 288.29 218.44 0)
 			(effects
 				(font
