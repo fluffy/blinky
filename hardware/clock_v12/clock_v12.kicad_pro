@@ -63,10 +63,7 @@
           "width": 0.25
         }
       ],
-      "drc_exclusions": [
-        "footprint_type_mismatch|173073016|97070679|55ce9150-009a-4144-ab1b-32e70c746ee2|00000000-0000-0000-0000-000000000000",
-        "footprint_type_mismatch|99000000|88000000|6a8ba31f-f4c5-4f78-b6af-5ec2934b3b14|00000000-0000-0000-0000-000000000000"
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
