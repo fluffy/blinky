@@ -22788,9 +22788,10 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
-		(property "Footprint" "DPAK172P1054X200-6N"
+		(property "Footprint" "blinky_footprints:DPAK172P1054X200-6N"
 			(at 125.73 44.45 0)
 			(effects
 				(font
@@ -23636,7 +23637,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SC70_DCK_TEX"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
 			(at 99.06 245.11 0)
 			(effects
 				(font
@@ -23657,15 +23658,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 99.06 245.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" ""
 			(at 99.06 245.11 0)
 			(effects
 				(font
@@ -26074,7 +26066,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SON:Texas_S-PWSON-N10_ThermalVias"
+		(property "Footprint" "blinky_footprints:Texas_S-PWSON-N10_ThermalVias-CJ"
 			(at 90.17 137.16 0)
 			(effects
 				(font
@@ -30333,7 +30325,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
+		(property "Footprint" "blinky_footprints:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
 			(at 135.89 190.5 0)
 			(effects
 				(font
@@ -38272,7 +38264,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SC70_DCK_TEX"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
 			(at 392.43 86.36 0)
 			(effects
 				(font
@@ -41818,7 +41810,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SC70_DCK_TEX"
+		(property "Footprint" "blinky_footprints:SC70_DCK_TEX"
 			(at 421.64 38.1 0)
 			(effects
 				(font
