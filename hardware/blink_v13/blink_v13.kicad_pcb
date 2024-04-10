@@ -9,8 +9,8 @@
 	(paper "USLetter")
 	(title_block
 		(title "Blink")
-		(date "2024-04-03")
-		(rev "V12")
+		(date "2024-04-10")
+		(rev "V13")
 		(company "Cullen Jennings")
 	)
 	(layers
@@ -40368,7 +40368,7 @@
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "capacitor")
 		(property "Reference" "C3"
-			(at 0 -1.43 270)
+			(at 0 -1.43 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "951b3fe7-f152-4544-ab38-536369edf77c")
@@ -40380,7 +40380,7 @@
 			)
 		)
 		(property "Value" "10u"
-			(at 0 1.43 270)
+			(at 0 1.43 -90)
 			(layer "F.Fab")
 			(uuid "55ee613b-8458-4089-a7aa-662e96934dc9")
 			(effects
@@ -40545,7 +40545,7 @@
 			(uuid "92e324c1-c3a6-49eb-9e59-9d57c100b790")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 270)
+			(at 0 0 -90)
 			(layer "F.Fab")
 			(uuid "786e313a-0c8a-4e97-bf8d-e7fa43523bb0")
 			(effects
@@ -43432,7 +43432,7 @@
 		(layer "Edge.Cuts")
 		(uuid "f710403a-f799-429d-9e51-1ed631a07644")
 	)
-	(gr_text "Blink V12 Cullen Jennings "
+	(gr_text "Blink V13 Cullen Jennings "
 		(at 175.22069 41.354948 0)
 		(layer "F.SilkS")
 		(uuid "0442abe3-b6f1-4db1-b42d-556674de7dba")
