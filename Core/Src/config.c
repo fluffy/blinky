@@ -47,8 +47,8 @@ void configSetup() {
       config.version = 2;  // config file version
       config.product = 1;  // 1=blink, 2=clock, 3=gps
       config.revMajor = 0;
-      config.revMinor = 11;
-      config.serialNum = 16;  // next serial is 21
+      config.revMinor = 12;
+      config.serialNum = 21;  // next serial is 22
 
       config.usePPS = 0;
       config.future13 = 0;
@@ -56,7 +56,7 @@ void configSetup() {
       config.future15 = 0;
 
       // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
-      config.extOscType = 2;
+      config.extOscType = 0;
       config.oscAdj = -535;  // TODO - this value seems very high , is this a
                              // bug with the 10.5 vs 10
 
@@ -107,7 +107,7 @@ void configSetup() {
     snprintf(buffer, sizeof(buffer), "  Hardware version: EV%d\r\n",
              config.revMinor);
     if ((config.revMajor == 0) && (config.revMinor >= 10) &&
-        (config.revMinor <= 11)) {
+        (config.revMinor <= 12)) {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       setClk(config.extOscType, config.vcoValue,
