@@ -48,7 +48,7 @@ void configSetup() {
       config.product = 1;  // 1=blink, 2=clock, 3=gps
       config.revMajor = 0;
       config.revMinor = 12;
-      config.serialNum = 21;  // next serial is 22
+      config.serialNum = 22;  // next serial is 23
 
       config.usePPS = 0;
       config.future13 = 0;
