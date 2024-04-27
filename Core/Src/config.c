@@ -56,7 +56,7 @@ void configSetup() {
       config.future15 = 0;
 
       // external osc type ( 0=none, 2= 2.048 MHz, 10=10 MHz)
-      config.extOscType = 0;
+      config.extOscType = 2;
       config.oscAdj = -535;  // TODO - this value seems very high , is this a
                              // bug with the 10.5 vs 10
 
