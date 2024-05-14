@@ -13514,7 +13514,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 194.31) (xy 173.99 194.31)
+			(xy 161.29 190.5) (xy 170.18 190.5)
 		)
 		(stroke
 			(width 0)
@@ -16967,7 +16967,7 @@
 		(uuid "584373f0-f6c6-4fd5-8e50-5080b006e291")
 	)
 	(label "SWDCLK"
-		(at 165.1 191.77 0)
+		(at 161.29 187.96 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17858,7 +17858,7 @@
 		(uuid "fc90b859-9fa9-4f90-bea2-8273898bf5d4")
 	)
 	(label "SWDIO"
-		(at 165.1 196.85 0)
+		(at 161.29 193.04 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -24933,16 +24933,15 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x03")
-		(at 160.02 194.31 180)
+		(at 156.21 190.5 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "4b1c9cdb-786e-468c-b017-6b8a225b1eaa")
 		(property "Reference" "J6"
-			(at 160.02 185.42 0)
+			(at 156.21 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24950,7 +24949,7 @@
 			)
 		)
 		(property "Value" "Conn_01x03"
-			(at 160.02 187.96 0)
+			(at 160.528 184.404 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24958,7 +24957,7 @@
 			)
 		)
 		(property "Footprint" "Connector_JST:JST_PH_S3B-PH-SM4-TB_1x03-1MP_P2.00mm_Horizontal"
-			(at 160.02 194.31 0)
+			(at 156.21 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24967,7 +24966,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 160.02 194.31 0)
+			(at 156.21 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24976,7 +24975,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 160.02 194.31 0)
+			(at 156.21 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24985,7 +24984,7 @@
 			)
 		)
 		(property "JLCPCB Part #" "C265101"
-			(at 160.02 194.31 0)
+			(at 156.21 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24994,7 +24993,7 @@
 			)
 		)
 		(property "JLCPCB Rotation Offset" ""
-			(at 160.02 194.31 0)
+			(at 156.21 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25003,7 +25002,7 @@
 			)
 		)
 		(property "JLCPCB Position Offset" ""
-			(at 160.02 194.31 0)
+			(at 156.21 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33154,7 +33153,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 173.99 194.31 0)
+		(at 170.18 190.5 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -33163,7 +33162,7 @@
 		(fields_autoplaced yes)
 		(uuid "ace28cdc-f31f-4d38-bafc-f26ee02fcced")
 		(property "Reference" "#PWR087"
-			(at 173.99 200.66 0)
+			(at 170.18 196.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33172,7 +33171,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 173.99 199.39 0)
+			(at 170.18 195.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33181,7 +33180,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 173.99 194.31 0)
+			(at 170.18 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33190,7 +33189,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 173.99 194.31 0)
+			(at 170.18 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33199,7 +33198,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 173.99 194.31 0)
+			(at 170.18 190.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
