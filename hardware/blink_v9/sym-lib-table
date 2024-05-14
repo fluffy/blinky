@@ -1,4 +1,0 @@
-(sym_lib_table
-  (version 7)
-  (lib (name "BlinkyShared")(type "KiCad")(uri "/Users/fluffy/src/blinky/hardware/BlinkyShared.kicad_sym")(options "")(descr ""))
-)

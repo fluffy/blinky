@@ -1,4 +1,0 @@
-(sym_lib_table
-  (version 7)
-  (lib (name "blinky")(type "KiCad")(uri "${KIPRJMOD}/blinky.kicad_sym")(options "")(descr ""))
-)
