@@ -43432,7 +43432,7 @@
 		(layer "Edge.Cuts")
 		(uuid "f710403a-f799-429d-9e51-1ed631a07644")
 	)
-	(gr_text "Blink RevA Cullen Jennings 2024"
+	(gr_text "Blink Rev A Cullen Jennings 2024"
 		(at 175.22069 41.354948 0)
 		(layer "F.SilkS")
 		(uuid "0442abe3-b6f1-4db1-b42d-556674de7dba")
