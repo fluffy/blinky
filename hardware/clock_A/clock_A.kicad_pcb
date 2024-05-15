@@ -27903,7 +27903,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SW_147873-2"
+		(property "Footprint" "blinky_footprints:SW_147873-2"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -40061,7 +40061,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SW_147873-2"
+		(property "Footprint" "blinky_footprints:SW_147873-2"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
