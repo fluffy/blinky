@@ -28664,7 +28664,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_PH_S3B-PH-SM4-TB_1x03-1MP_P2.00mm_Horizontal"
+		(property "Footprint" "blinky_footprints:JST_PH_S3B-PH-SM4-TB_1x03-1MP_P2.00mm_Horizontal"
 			(at 207.01 82.55 0)
 			(effects
 				(font
