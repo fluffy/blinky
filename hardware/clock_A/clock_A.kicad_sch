@@ -11975,12 +11975,6 @@
 		(uuid "2010fa77-8eff-4003-b2e8-ae63f052d2d4")
 	)
 	(junction
-		(at 87.63 300.99)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "20a2d30e-7b4a-41c6-a8fb-d019a67c23f8")
-	)
-	(junction
 		(at 266.7 278.13)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -12323,12 +12317,6 @@
 		(uuid "817241f8-4849-4be7-a1fe-6ccba5391346")
 	)
 	(junction
-		(at 83.82 300.99)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8182acd9-f30e-420a-8fe2-248a665535ce")
-	)
-	(junction
 		(at 123.19 115.57)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -12453,6 +12441,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a2f095d6-5739-4c3c-94da-abfc831e789d")
+	)
+	(junction
+		(at 83.82 300.99)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a66c69b7-7a09-4df5-953d-94a3cf474c8b")
 	)
 	(junction
 		(at 452.12 251.46)
@@ -12597,6 +12591,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c89ffebd-d80b-44e1-9725-48cbe8ed0742")
+	)
+	(junction
+		(at 86.36 300.99)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c8f4694c-afa3-4f77-a4bb-fa44880209c2")
 	)
 	(junction
 		(at 49.53 72.39)
@@ -12783,12 +12783,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f29419db-daa8-4fcb-9fca-2c20c977be96")
-	)
-	(junction
-		(at 88.9 300.99)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f2f03566-1558-43c5-8636-a75ff5a43748")
 	)
 	(junction
 		(at 373.38 132.08)
@@ -13197,6 +13191,16 @@
 			(type default)
 		)
 		(uuid "07565b40-3499-4506-9df8-3cc54da04ef8")
+	)
+	(wire
+		(pts
+			(xy 86.36 300.99) (xy 87.63 300.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "075ec06a-7ffd-44b8-9ac0-4ad3ced85df4")
 	)
 	(wire
 		(pts
@@ -13867,16 +13871,6 @@
 			(type default)
 		)
 		(uuid "23c36b9b-4a26-4816-b882-85b56fd24f21")
-	)
-	(wire
-		(pts
-			(xy 83.82 300.99) (xy 87.63 300.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "23fc466c-09c9-4fa2-8171-8f1294dd8245")
 	)
 	(wire
 		(pts
@@ -15110,16 +15104,6 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 300.99) (xy 92.71 300.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5e88965f-c625-45a8-a6ff-ce66e1b06767")
-	)
-	(wire
-		(pts
 			(xy 298.45 181.61) (xy 298.45 184.15)
 		)
 		(stroke
@@ -16190,16 +16174,6 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 300.99) (xy 88.9 300.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8d48d857-cc52-4496-80de-b7d435959b17")
-	)
-	(wire
-		(pts
 			(xy 142.24 49.53) (xy 142.24 53.34)
 		)
 		(stroke
@@ -16237,16 +16211,6 @@
 			(type default)
 		)
 		(uuid "8dcb6689-ee47-433f-a349-b5eeae3d2cee")
-	)
-	(wire
-		(pts
-			(xy 88.9 299.72) (xy 88.9 300.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8e01b5f8-3e4d-4d8d-84f9-5efac68dc7de")
 	)
 	(wire
 		(pts
@@ -16907,16 +16871,6 @@
 			(type default)
 		)
 		(uuid "adbc36e0-9dd1-4cb9-bd5b-756492211676")
-	)
-	(wire
-		(pts
-			(xy 86.36 299.72) (xy 88.9 299.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "adf0c9b8-d1aa-45af-8b27-8860d7466aa1")
 	)
 	(wire
 		(pts
@@ -17730,6 +17684,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 299.72) (xy 86.36 300.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce5ec0c1-e0c2-4b63-9bc5-29b08d57379c")
+	)
+	(wire
+		(pts
 			(xy 100.33 125.73) (xy 107.95 125.73)
 		)
 		(stroke
@@ -18217,6 +18181,16 @@
 			(type default)
 		)
 		(uuid "e2e4c251-7a99-49b4-a052-a694172e3dee")
+	)
+	(wire
+		(pts
+			(xy 83.82 300.99) (xy 86.36 300.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e48b1af3-3446-4e80-9f9a-a913e6399f43")
 	)
 	(wire
 		(pts
@@ -38478,7 +38452,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "8a5448a9-ebd3-48a1-95dc-594a273f6c2d")
 		(property "Reference" "D4"
 			(at 88.9 294.64 90)
@@ -38489,8 +38462,8 @@
 				(justify right)
 			)
 		)
-		(property "Value" "SDM20U30-7"
-			(at 88.9 297.18 90)
+		(property "Value" "B5819W SL"
+			(at 81.026 292.608 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -38507,7 +38480,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.vishay.com/docs/85748/1n4148w.pdf"
+		(property "Datasheet" ""
 			(at 86.36 295.91 0)
 			(effects
 				(font
@@ -38516,7 +38489,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "75V 0.15A Fast Switching Diode, SOD-123"
+		(property "Description" "40V 600mV@1A 1A SOD-123 Schottky Barrier Diodes"
 			(at 86.36 295.91 0)
 			(effects
 				(font
@@ -38543,7 +38516,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Part #" "C91235"
+		(property "JLCPCB Part #" "C8598"
 			(at 86.36 295.91 0)
 			(effects
 				(font
