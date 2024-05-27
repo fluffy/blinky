@@ -10,7 +10,7 @@
 	(title_block
 		(title "Disp")
 		(date "2024-05-26")
-		(rev "A")
+		(rev "A.1")
 		(company "Cullen Jennings")
 	)
 	(layers
@@ -30014,7 +30014,7 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "Disp Rev A\nCullen Jennings"
+	(gr_text "Disp Rev A.1\nCullen Jennings"
 		(at 234.664442 108.693825 0)
 		(layer "F.SilkS")
 		(uuid "0442abe3-b6f1-4db1-b42d-556674de7dba")
