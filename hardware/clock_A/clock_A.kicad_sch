@@ -29528,7 +29528,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SW_147873-2"
+		(property "Footprint" "blinky_footprints:SW_147873-2"
 			(at 274.32 274.32 0)
 			(effects
 				(font
@@ -45178,7 +45178,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SW_147873-2"
+		(property "Footprint" "blinky_footprints:SW_147873-2"
 			(at 280.67 303.53 0)
 			(effects
 				(font
