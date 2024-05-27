@@ -64,8 +64,14 @@
         }
       ],
       "drc_exclusions": [
+        "copper_edge_clearance|95750000|83680000|f710403a-f799-429d-9e51-1ed631a07644|ac4c5a7f-37e6-492c-9ede-f084a253dbf5",
+        "copper_edge_clearance|95750000|92320000|f710403a-f799-429d-9e51-1ed631a07644|31ab4d9e-d825-4b55-96bb-dcdfae9eadc7",
         "footprint_type_mismatch|173073016|97070679|55ce9150-009a-4144-ab1b-32e70c746ee2|00000000-0000-0000-0000-000000000000",
-        "footprint_type_mismatch|97100000|88000000|6a8ba31f-f4c5-4f78-b6af-5ec2934b3b14|00000000-0000-0000-0000-000000000000"
+        "footprint_type_mismatch|97100000|88000000|6a8ba31f-f4c5-4f78-b6af-5ec2934b3b14|00000000-0000-0000-0000-000000000000",
+        "silk_edge_clearance|95000000|46075000|f710403a-f799-429d-9e51-1ed631a07644|1ea0dd45-a34e-49de-9fb2-43d64d36b76c",
+        "silk_edge_clearance|95000000|62805000|f710403a-f799-429d-9e51-1ed631a07644|260319a8-d821-41a3-ab39-d1a78cb42cbb",
+        "silk_edge_clearance|95000000|83300000|f710403a-f799-429d-9e51-1ed631a07644|9177fb90-b396-409d-be41-e4ffb799b27a",
+        "silk_edge_clearance|95000000|92700000|f710403a-f799-429d-9e51-1ed631a07644|51c104ed-69ba-488d-9e00-b20eb123d79d"
       ],
       "meta": {
         "version": 2
@@ -637,11 +643,113 @@
           "label": "DNP",
           "name": "${DNP}",
           "show": true
+        },
+        {
+          "group_by": false,
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Comment",
+          "name": "Comment",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Configuration_Pole-Throw",
+          "name": "Configuration_Pole-Throw",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Contact_Current_Rating",
+          "name": "Contact_Current_Rating",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "JLCPCB Part #",
+          "name": "JLCPCB Part #",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "JLCPCB Position Offset",
+          "name": "JLCPCB Position Offset",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "JLCPCB Rotation Offset",
+          "name": "JLCPCB Rotation Offset",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "JLCPCB#",
+          "name": "JLCPCB#",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "LCSC",
+          "name": "LCSC",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MANUFACTURER",
+          "name": "MANUFACTURER",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MAXIMUM_PACKAGE_HEIGHT",
+          "name": "MAXIMUM_PACKAGE_HEIGHT",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MPN",
+          "name": "MPN",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "PARTREV",
+          "name": "PARTREV",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "STANDARD",
+          "name": "STANDARD",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Device",
+          "name": "Sim.Device",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Pins",
+          "name": "Sim.Pins",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
-      "name": "Grouped By Value",
+      "name": "",
       "sort_asc": true,
       "sort_field": "Reference"
     },
