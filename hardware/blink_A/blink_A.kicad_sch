@@ -28422,7 +28422,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Oscillator:Oscillator_DIP-14"
+		(property "Footprint" "blinky_footprints:OSC_DIP-14"
 			(at 212.09 257.81 0)
 			(effects
 				(font
