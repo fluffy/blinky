@@ -64,12 +64,13 @@
         }
       ],
       "drc_exclusions": [
-        "copper_edge_clearance|95650000|83680000|f710403a-f799-429d-9e51-1ed631a07644|c2be612e-6b81-4aa5-a211-49b8e2b23463",
-        "copper_edge_clearance|95650000|92320000|f710403a-f799-429d-9e51-1ed631a07644|d69d1b55-9f5f-4597-9b41-c343b5f9ab31",
-        "silk_edge_clearance|95000000|46075000|f710403a-f799-429d-9e51-1ed631a07644|8190ef29-dd4a-4493-a60d-810c7999aaf8",
-        "silk_edge_clearance|95000000|62805000|f710403a-f799-429d-9e51-1ed631a07644|23aa4161-17e5-4ae6-8c80-a090f3376e90",
-        "silk_edge_clearance|95000000|83300000|f710403a-f799-429d-9e51-1ed631a07644|bbf23873-9744-41c4-85cb-9fe8f244c78b",
-        "silk_edge_clearance|95000000|92700000|f710403a-f799-429d-9e51-1ed631a07644|54db4d5b-9bbc-4212-8c9c-23c3b1ffb419"
+        "copper_edge_clearance|95650000|83680000|f710403a-f799-429d-9e51-1ed631a07644|20b440dc-4b1e-43c7-afd5-3255353e3662",
+        "copper_edge_clearance|95650000|92320000|f710403a-f799-429d-9e51-1ed631a07644|cf84d490-1c88-41f7-806f-de438ba2586c",
+        "footprint_type_mismatch|97000000|88000000|6a8ba31f-f4c5-4f78-b6af-5ec2934b3b14|00000000-0000-0000-0000-000000000000",
+        "silk_edge_clearance|95000000|46075000|f710403a-f799-429d-9e51-1ed631a07644|2002b09d-b09a-458f-af8e-2f7993ca26b7",
+        "silk_edge_clearance|95000000|62805000|f710403a-f799-429d-9e51-1ed631a07644|153c3116-257c-474b-bae4-ef8763e6b98c",
+        "silk_edge_clearance|95000000|83300000|f710403a-f799-429d-9e51-1ed631a07644|316bda30-2d86-4b89-8349-045febafd2f8",
+        "silk_edge_clearance|95000000|92700000|f710403a-f799-429d-9e51-1ed631a07644|7354c4c4-cc77-4784-911d-10694923f852"
       ],
       "meta": {
         "version": 2
@@ -263,7 +264,9 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      "pin_to_pin|635000|660400|b53818cd-dc0f-48e4-873d-41ca684d46de|e80b049f-eb0a-4748-a5b3-e755497dc7c7|/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4|/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4|/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
+    ],
     "meta": {
       "version": 0
     },
@@ -580,7 +583,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "production/gps_A.step",
       "svg": "",
       "vrml": ""
     },
@@ -674,7 +677,7 @@
     },
     "net_format_name": "",
     "page_layout_descr_file": "",
-    "plot_directory": "",
+    "plot_directory": "production/",
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
     "spice_model_current_sheet_as_root": true,
