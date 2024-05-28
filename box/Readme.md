@@ -5,7 +5,9 @@ The main design is in the .FCStd files and crearted with FreeCad.
 Select the object in FreeCad to export the parts as .3mf and .step. The
 exported files are in the prod subdirectory.
 
-Go to the front and back drawing and select the objec and export as .dxf to the prod subdirectory.
+Go to the front and back drawing and right click on page to select
+"Export DXF" and export as .dxf to the prod subdirectory. Using the
+export option on the file menu does not work.
 
 Import the DXF files into XCR or lightburn for laser cutting.
 
