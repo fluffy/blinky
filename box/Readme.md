@@ -2,6 +2,8 @@
 
 The main design is in the .FCStd files and crearted with FreeCad.
 
+Most the design paramters are on the "Data" sheet.
+
 Select the object in FreeCad to export the parts as .3mf and .step. The
 exported files are in the prod subdirectory.
 
