@@ -7,7 +7,8 @@ exported files are in the prod subdirectory.
 
 Go to the front and back drawing and right click on page to select
 "Export DXF" and export as .dxf to the prod subdirectory. Using the
-export option on the file menu does not work.
+export option on the file menu does not work. The eDrawings app on osx
+can look at DXF and STEP files.
 
 Import the DXF files into XCR or lightburn for laser cutting.
 
