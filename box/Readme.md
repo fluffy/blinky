@@ -19,3 +19,13 @@ send, had selected 2mm thick 6061 T6 Aluminum and had it annodized.
 
 3D print using the .3mf files. Set a inner brim of 7 mm on 1st layer
 seems to help with small holes.
+
+
+## Data Flow
+
+KiCad generates step models for the PCBs and puts them in  hardware/blink/productions dir.
+
+This PCB is imported into the FreeCAD drawing for box which generates DXF files in box/prod dir.
+
+This is brought in to laserA.xcs with "xTool Creative Space" application
+to add the labels and set up for laser cutting.
