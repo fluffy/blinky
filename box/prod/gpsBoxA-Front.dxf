@@ -227,7 +227,7 @@ TABLE
   2
 LAYER
   5
-A25
+A22
 330
 0
 100
@@ -237,9 +237,9 @@ AcDbSymbolTable
   0
 LAYER
   5
-A26
+A23
 330
-A25
+A22
 100
 AcDbSymbolTableRecord
 100
@@ -255,15 +255,15 @@ CONTINUOUS
   0
 LAYER
   5
-A27
+A24
 330
-A25
+A22
 100
 AcDbSymbolTableRecord
 100
 AcDbLayerTableRecord
   2
-ProjItem
+View002
  70
     0
  62
@@ -689,19 +689,19 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbLine
  10
-196.95
+76.0585
  20
-94.6875
+135.822
  30
 0
  11
-196.95
+76.0585
  21
-90.1875
+141.322
  31
 0
   0
@@ -713,13 +713,13 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbCircle
  10
-191.65
+81.3585
  20
-90.1875
+141.322
  30
 0
  40
@@ -727,9 +727,9 @@ AcDbCircle
 100
 AcDbArc
  50
--90
+90
  51
--1.04878e-06
+180
   0
 LINE
   5
@@ -739,19 +739,19 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbLine
  10
-191.65
+81.3585
  20
-84.8875
+146.622
  30
 0
  11
-105.35
+167.658
  21
-84.8875
+146.622
  31
 0
   0
@@ -763,13 +763,13 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbCircle
  10
-105.35
+167.658
  20
-90.1875
+141.322
  30
 0
  40
@@ -777,9 +777,9 @@ AcDbCircle
 100
 AcDbArc
  50
-180
+0
  51
--90
+90
   0
 LINE
   5
@@ -789,19 +789,19 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbLine
  10
-100.05
+172.958
  20
-94.9125
+141.322
  30
 0
  11
-100.05
+172.958
  21
-90.1875
+135.822
  31
 0
   0
@@ -813,19 +813,19 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbLine
  10
-100.05
+172.958
  20
-94.9125
+135.822
  30
 0
  11
-101.45
+171.558
  21
-94.9125
+135.822
  31
 0
   0
@@ -837,13 +837,13 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbCircle
  10
-101.45
+171.558
  20
-95.0125
+135.722
  30
 0
  40
@@ -851,9 +851,9 @@ AcDbCircle
 100
 AcDbArc
  50
--90
+90
  51
-0
+180
   0
 LINE
   5
@@ -863,19 +863,19 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbLine
  10
-101.55
+171.458
  20
-114.213
+135.722
  30
 0
  11
-101.55
+171.458
  21
-95.0125
+116.522
  31
 0
   0
@@ -887,261 +887,13 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbCircle
  10
-101.45
+171.558
  20
-114.213
- 30
-0
- 40
-0.1
-100
-AcDbArc
- 50
-0
- 51
-90
-  0
-LINE
-  5
-A11
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbLine
- 10
-100.05
- 20
-114.312
- 30
-0
- 11
-101.45
- 21
-114.312
- 31
-0
-  0
-LINE
-  5
-A12
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbLine
- 10
-100.05
- 20
-119.812
- 30
-0
- 11
-100.05
- 21
-114.312
- 31
-0
-  0
-ARC
-  5
-A13
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbCircle
- 10
-105.35
- 20
-119.812
- 30
-0
- 40
-5.3
-100
-AcDbArc
- 50
-90
- 51
-180
-  0
-LINE
-  5
-A14
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbLine
- 10
-105.35
- 20
-125.112
- 30
-0
- 11
-191.65
- 21
-125.112
- 31
-0
-  0
-ARC
-  5
-A15
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbCircle
- 10
-191.65
- 20
-119.812
- 30
-0
- 40
-5.3
-100
-AcDbArc
- 50
-0
- 51
-90
-  0
-LINE
-  5
-A16
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbLine
- 10
-196.95
- 20
-119.812
- 30
-0
- 11
-196.95
- 21
-114.312
- 31
-0
-  0
-LINE
-  5
-A17
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbLine
- 10
-196.95
- 20
-114.312
- 30
-0
- 11
-195.55
- 21
-114.312
- 31
-0
-  0
-ARC
-  5
-A18
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbCircle
- 10
-195.55
- 20
-114.212
- 30
-0
- 40
-0.1
-100
-AcDbArc
- 50
-90
- 51
-180
-  0
-LINE
-  5
-A19
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbLine
- 10
-195.45
- 20
-114.212
- 30
-0
- 11
-195.45
- 21
-94.7875
- 31
-0
-  0
-ARC
-  5
-A1A
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbCircle
- 10
-195.55
- 20
-94.7875
+116.522
  30
 0
  40
@@ -1155,25 +907,273 @@ AcDbArc
   0
 LINE
   5
+A11
+330
+A02
+100
+AcDbEntity
+  8
+View002
+100
+AcDbLine
+ 10
+171.558
+ 20
+116.422
+ 30
+0
+ 11
+172.958
+ 21
+116.422
+ 31
+0
+  0
+LINE
+  5
+A12
+330
+A02
+100
+AcDbEntity
+  8
+View002
+100
+AcDbLine
+ 10
+172.958
+ 20
+116.422
+ 30
+0
+ 11
+172.958
+ 21
+111.922
+ 31
+0
+  0
+ARC
+  5
+A13
+330
+A02
+100
+AcDbEntity
+  8
+View002
+100
+AcDbCircle
+ 10
+167.658
+ 20
+111.922
+ 30
+0
+ 40
+5.3
+100
+AcDbArc
+ 50
+-90
+ 51
+0
+  0
+LINE
+  5
+A14
+330
+A02
+100
+AcDbEntity
+  8
+View002
+100
+AcDbLine
+ 10
+167.658
+ 20
+106.622
+ 30
+0
+ 11
+81.3585
+ 21
+106.622
+ 31
+0
+  0
+ARC
+  5
+A15
+330
+A02
+100
+AcDbEntity
+  8
+View002
+100
+AcDbCircle
+ 10
+81.3585
+ 20
+111.922
+ 30
+0
+ 40
+5.3
+100
+AcDbArc
+ 50
+-180
+ 51
+-90
+  0
+LINE
+  5
+A16
+330
+A02
+100
+AcDbEntity
+  8
+View002
+100
+AcDbLine
+ 10
+76.0585
+ 20
+111.922
+ 30
+0
+ 11
+76.0585
+ 21
+116.422
+ 31
+0
+  0
+LINE
+  5
+A17
+330
+A02
+100
+AcDbEntity
+  8
+View002
+100
+AcDbLine
+ 10
+76.0585
+ 20
+116.422
+ 30
+0
+ 11
+77.4585
+ 21
+116.422
+ 31
+0
+  0
+ARC
+  5
+A18
+330
+A02
+100
+AcDbEntity
+  8
+View002
+100
+AcDbCircle
+ 10
+77.4585
+ 20
+116.522
+ 30
+0
+ 40
+0.1
+100
+AcDbArc
+ 50
+-90
+ 51
+0
+  0
+LINE
+  5
+A19
+330
+A02
+100
+AcDbEntity
+  8
+View002
+100
+AcDbLine
+ 10
+77.5585
+ 20
+116.522
+ 30
+0
+ 11
+77.5585
+ 21
+135.722
+ 31
+0
+  0
+ARC
+  5
+A1A
+330
+A02
+100
+AcDbEntity
+  8
+View002
+100
+AcDbCircle
+ 10
+77.4585
+ 20
+135.722
+ 30
+0
+ 40
+0.1
+100
+AcDbArc
+ 50
+0
+ 51
+90
+  0
+LINE
+  5
 A1B
 330
 A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbLine
  10
-196.95
+76.0585
  20
-94.6875
+135.822
  30
 0
  11
-195.55
+77.4585
  21
-94.6875
+135.822
  31
 0
   0
@@ -1185,13 +1185,13 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbCircle
  10
-148.95
+158.458
  20
-100.088
+121.822
  40
 6.75
   0
@@ -1203,15 +1203,15 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbCircle
  10
-180.95
+169.233
  20
-100.088
+142.897
  40
-6.75
+1.825
   0
 CIRCLE
   5
@@ -1221,15 +1221,15 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbCircle
  10
-116.95
+169.233
  20
-100.088
+110.347
  40
-6.5
+1.825
   0
 CIRCLE
   5
@@ -1239,15 +1239,15 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbCircle
  10
-132.95
+79.7835
  20
-95.0875
+142.897
  40
-3.25
+1.825
   0
 CIRCLE
   5
@@ -1257,15 +1257,15 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbCircle
  10
-164.95
+79.7835
  20
-95.0875
+110.347
  40
-3.25
+1.825
   0
 CIRCLE
   5
@@ -1275,69 +1275,15 @@ A02
 100
 AcDbEntity
   8
-ProjItem
+View002
 100
 AcDbCircle
  10
-103.55
+120.558
  20
-121.612
+115.122
  40
-1.825
-  0
-CIRCLE
-  5
-A22
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbCircle
- 10
-103.55
- 20
-88.6125
- 40
-1.825
-  0
-CIRCLE
-  5
-A23
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbCircle
- 10
-193.225
- 20
-121.388
- 40
-1.825
-  0
-CIRCLE
-  5
-A24
-330
-A02
-100
-AcDbEntity
-  8
-ProjItem
-100
-AcDbCircle
- 10
-193.45
- 20
-88.3875
- 40
-1.825
+1.75
   0
 ENDSEC
   0
