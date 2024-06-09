@@ -6,8 +6,8 @@
 	(paper "B")
 	(title_block
 		(title "Blink ")
-		(date "2024-05-27")
-		(rev "A.2")
+		(date "2024-06-09")
+		(rev "A.1")
 		(company "Cullen Jennings")
 	)
 	(lib_symbols
