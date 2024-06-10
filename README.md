@@ -1,6 +1,6 @@
 # blinky
 
-Blinking lights to tell time
+Blinking lights to tell time. And beeps.
 
 # Build and flash
 
@@ -32,8 +32,9 @@ stty -f /dev/cu.usbserial-31110 hup
 ```
 
 Monitor output connect with Serial program like "SerialTools" on
-OSX. Use 115200 baud with bits, parity, stop bit set to 8n1. Set the RTS and DTR both low. Screen
-fails to do this. It sets RTS and DTR both high so will not work.
+OSX. Use 115200 baud with bits, parity, stop bit set to 8n1. Set the RTS
+and DTR both low. Screen fails to do this. It sets RTS and DTR both high
+so will not work.
 
 To use python miniterm:
 ```
@@ -46,60 +47,67 @@ Can exit the miniterm with CTRL+]. This will cause board reset when it starts.
 Set up a mac to be able to build by installing:
 
 * TODO
-*  pip3 install pyserial
+* pip3 install pyserial
 
 # Features
 
-## Timing Board
+## Blink Timing Board
 
-On the V11 hardware 0.110 software have:
+On the Rev A hardware 0.2 software have:
 
 * Timing board with TXCO, LTC Sync in, LTC Sync out, LED grid,
   battery power, USB debug, audio in/out
 
-* Display 2ms ticks on 10x5 LED grid or 120 fps tick on 10x4 grid
+* Display 120 fps tick on 10x4 grid
 * 3.3V LTC Sync Out
 * PPS out is hold sync button while booting
 * Jitter of less than 1 ms
 * Jam sync to 3.3V Sync input
-* press button to sync all
 * Time drift of < 5 ms in 1 hour
-* usb port for serial data
+* USB port for serial data
 * read  calibration from EEPROM
 * audio out of beep
 * headset monitor of audio out
 * usb upgrade of firmware
-
 * Status LEDs: error(red), external synced (green),  not sync (
   blue ), have sync (teal)
-* sounds output that works over opus codec
-* audio in to detect beep
+* audio input to detect beep
+* battery with 2h life and USB charger
 
-## GPS Board
+## Clock and GPS Board
 
-On the V11 hardware 0.110 software have:
+On the Rev A hardware 0.2 software have:
 
-* GPS board with GPS, OCXO, wall power, 3 x 10Mhz out, LTC sync out, LTC
-  sync in, USB serial debug out, Ext 10 Mhz in
-
-* no audio or led display grid
+* GPS board with GPS, OCXO
+* LTC sync out, LTC sync in
+* Does not ahve audio or led display grid
 * 10 Mhz sine wave output 1V p2p into 50 ohm, 3 channels
 * Sync to GPS PPS
 * Show current PPS offset from GPS PPS
 * Compare PPS accuracy to GPS over 24 hours
+* read  calibration from EEPROM
 * USB serial display of: Time, GPS Error, SyncIn Error
 * Aux input of 10 MHz signal to compare
 * PPS jitter of about +/- 20 ns and error less than 10 ns
-* usb upgrade of firmware
-* usb power for gps board
+* USB upgrade of firmware
+* USB 3A power for gps board
+* USB output serial data for computer time sync
+
+## Light GPS Board
+
+On the Rev A hardware 0.2 software have:
+
+* GPS board with GPS
+* LTC sync out
+* Does not ahve audio or led display grid
+* Sync to GPS PPS
+* USB upgrade of firmware
+* USB power
+* USB output serial data for computer time sync
+
 
 
 ## Wishlist
 
 * time into browser measure computer time offset
-* nice box
-
-* battery with 2h life and USB charger
-
-* could we add flash video and flash detector for auto detect video
-  latency
+* software upgrade from browser
