@@ -27,7 +27,7 @@
 // Uses Semantic versioning. See https://semver.org/
 // major.minor.patch,
 // patch=year/month/day
-const char *version = "0.110.240308";
+const char *version = "0.2.240610";
 
 Measurements data;
 
