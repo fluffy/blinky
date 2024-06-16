@@ -9,7 +9,7 @@
 	(paper "A")
 	(title_block
 		(title "GPS")
-		(date "2024-05-27")
+		(date "2024-06-16")
 		(rev "A.2")
 		(company "Cullen Jennings")
 	)
@@ -276,6 +276,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -288,6 +289,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -300,6 +302,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -511,6 +514,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -523,6 +527,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -535,6 +540,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -746,6 +752,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -758,6 +765,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -770,6 +778,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -982,6 +991,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -994,6 +1004,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1006,6 +1017,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1217,6 +1229,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1229,6 +1242,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1241,6 +1255,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1452,6 +1467,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1464,6 +1480,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1476,6 +1493,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1687,6 +1705,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1699,6 +1718,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1711,6 +1731,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1921,6 +1942,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1933,6 +1955,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -1945,6 +1968,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2251,6 +2275,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2263,6 +2288,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2275,6 +2301,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2290,7 +2317,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -2558,6 +2585,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2570,6 +2598,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2582,6 +2611,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2793,6 +2823,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2805,6 +2836,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2817,6 +2849,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2832,7 +2865,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3100,6 +3133,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3112,6 +3146,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3124,6 +3159,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3336,6 +3372,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3348,6 +3385,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3360,6 +3398,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3599,6 +3638,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3611,6 +3651,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3623,6 +3664,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3834,6 +3876,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3846,6 +3889,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3858,6 +3902,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4155,6 +4200,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4167,6 +4213,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4179,6 +4226,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4390,6 +4438,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4402,6 +4451,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4414,6 +4464,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4613,6 +4664,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4625,6 +4677,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4637,6 +4690,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4848,6 +4902,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4860,6 +4915,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -4872,6 +4928,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5083,6 +5140,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5095,6 +5153,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5107,6 +5166,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5318,6 +5378,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5330,6 +5391,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5342,6 +5404,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5748,6 +5811,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5760,6 +5824,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5772,6 +5837,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5983,6 +6049,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -5995,6 +6062,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6007,6 +6075,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6218,6 +6287,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6230,6 +6300,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6242,6 +6313,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6453,6 +6525,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6465,6 +6538,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6477,6 +6551,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6569,6 +6644,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6581,6 +6657,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6593,6 +6670,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6608,7 +6686,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6880,6 +6958,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6892,6 +6971,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6904,6 +6984,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7115,6 +7196,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7127,6 +7209,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7139,6 +7222,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7154,7 +7238,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7416,6 +7500,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7428,6 +7513,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7440,6 +7526,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7651,6 +7738,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7663,6 +7751,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7675,6 +7764,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7886,6 +7976,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7898,6 +7989,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7910,6 +8002,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7997,6 +8090,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8009,6 +8103,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8021,6 +8116,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8232,6 +8328,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8244,6 +8341,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8256,6 +8354,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8271,7 +8370,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Position Offset" "0,1.1"
+		(property "JLCPCB Position Offset" "0,1.5"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -8704,6 +8803,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8716,6 +8816,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8728,6 +8829,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8939,6 +9041,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8951,6 +9054,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8963,6 +9067,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9175,6 +9280,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9187,6 +9293,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9199,6 +9306,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9398,6 +9506,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9410,6 +9519,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9422,6 +9532,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9691,6 +9802,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9703,6 +9815,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9715,6 +9828,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9926,6 +10040,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9938,6 +10053,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9950,6 +10066,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -10161,6 +10278,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -10173,6 +10291,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -10185,6 +10304,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -10396,6 +10516,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -10408,6 +10529,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -10420,6 +10542,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -10689,6 +10812,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -10701,6 +10825,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -10713,6 +10838,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -10728,7 +10854,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -11041,6 +11167,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -11053,6 +11180,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -11065,6 +11193,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -11080,7 +11209,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12193,6 +12322,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -12205,6 +12335,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -12217,6 +12348,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -12232,7 +12364,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Position Offset" "0,-0.75"
+		(property "JLCPCB Position Offset" "0,0.7"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12546,6 +12678,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -12558,6 +12691,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -12570,6 +12704,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -12781,6 +12916,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -12793,6 +12929,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -12805,6 +12942,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13016,6 +13154,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13028,6 +13167,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13040,6 +13180,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13239,6 +13380,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13251,6 +13393,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13263,6 +13406,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13474,6 +13618,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13486,6 +13631,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13498,6 +13644,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13709,6 +13856,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13721,6 +13869,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13733,6 +13882,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13945,6 +14095,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13957,6 +14108,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -13969,6 +14121,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14180,6 +14333,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14192,6 +14346,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14204,6 +14359,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14291,6 +14447,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14303,6 +14460,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14315,6 +14473,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14330,7 +14489,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14592,6 +14751,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14604,6 +14764,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14616,6 +14777,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14847,17 +15009,17 @@
 			(uuid "3cb5df19-e351-4114-b7da-750a9fdef23f")
 		)
 	)
-	(footprint "blinky_footprints:SC70_DCK_TEX"
+	(footprint "Package_TO_SOT_SMD:SOT-363_SC-70-6"
 		(layer "F.Cu")
 		(uuid "aaf6b3f5-9d6a-4cb9-9ab2-fde9490c2891")
 		(at 156.618042 117.926602 180)
-		(tags "TLV3603DCKR ")
+		(descr "SOT-363, SC-70-6")
+		(tags "SOT-363 SC-70-6")
 		(property "Reference" "U8"
-			(at -0.2 -2.1 180)
-			(unlocked yes)
+			(at 0.379766 -6.636303 180)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "599c0ee4-44fc-4295-a888-1ff219cad618")
+			(uuid "0dee8952-2046-49b2-966f-4e4d1ca27b94")
 			(effects
 				(font
 					(size 1 1)
@@ -14866,10 +15028,9 @@
 			)
 		)
 		(property "Value" "TLV3603DCKR"
-			(at 0.1 3.9 180)
-			(unlocked yes)
+			(at 0 2 0)
 			(layer "F.Fab")
-			(uuid "19a364fa-5f6f-4b9e-9d69-f51dd7a320af")
+			(uuid "bf96c98b-63fd-4ded-b943-3b3090bb6c8f")
 			(effects
 				(font
 					(size 1 1)
@@ -14877,15 +15038,16 @@
 				)
 			)
 		)
-		(property "Footprint" "blinky_footprints:SC70_DCK_TEX"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "23bfb1f5-faba-4a5e-99c4-2b7a3b50b986")
+			(uuid "f47a6d07-d6a7-4e54-8940-594dc91683f5")
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14894,10 +15056,11 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "d4d6c97f-7a35-4f10-bdba-7c51ddf585f8")
+			(uuid "dc4514fd-54b9-4cc3-b424-30fef7607ea9")
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14906,10 +15069,11 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "0742c136-2bbb-4222-85a6-a1658e2bb5e4")
+			(uuid "431772c2-27cb-4b92-a483-98cd6cf2a10f")
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14943,501 +15107,208 @@
 		(sheetfile "gps_A.kicad_sch")
 		(attr smd)
 		(fp_line
-			(start 0.8255 -1.2065)
-			(end -1.6 -1.2065)
+			(start -0.7 1.16)
+			(end 0.7 1.16)
 			(stroke
-				(width 0.1524)
+				(width 0.12)
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "cc7d1452-68a4-4c01-a27d-30f4040a2376")
+			(uuid "85b7197d-7f5b-4fb2-9c32-3d95e853c14d")
 		)
 		(fp_line
-			(start -0.8255 1.2065)
-			(end 0.8255 1.2065)
+			(start -0.71 -1.16)
+			(end 0.7 -1.16)
 			(stroke
-				(width 0.1524)
+				(width 0.12)
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "f117ac74-da3a-4904-963f-d170a9272c73")
+			(uuid "547b8900-e91b-4950-b1c7-a4d2925f673a")
+		)
+		(fp_poly
+			(pts
+				(xy -1.08 -1.11) (xy -1.32 -1.44) (xy -0.84 -1.44) (xy -1.08 -1.11)
+			)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(fill solid)
+			(layer "F.SilkS")
+			(uuid "bc1e7a04-2a16-4b28-a078-c62a79283072")
 		)
 		(fp_line
-			(start 1.8034 1.0818)
-			(end 0.9525 1.0818)
+			(start 1.6 1.4)
+			(end 1.6 -1.4)
 			(stroke
-				(width 0.1524)
+				(width 0.05)
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "1939a2d9-98ff-4ba0-83ba-9612ce39df6b")
+			(uuid "f3e462a8-7b09-41e1-a8c9-0301a574f9f7")
 		)
 		(fp_line
-			(start 1.8034 -1.0818)
-			(end 1.8034 1.0818)
+			(start -1.6 1.4)
+			(end 1.6 1.4)
 			(stroke
-				(width 0.1524)
+				(width 0.05)
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "38aeed09-ac2e-4c1a-a549-19143a907319")
+			(uuid "c7f406f4-0ab6-4215-99a2-b4ba8f0a8e30")
 		)
 		(fp_line
-			(start 1.8034 -1.0818)
-			(end 0.9525 -1.0818)
+			(start -1.6 -1.4)
+			(end 1.6 -1.4)
 			(stroke
-				(width 0.1524)
+				(width 0.05)
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "88685100-df69-434d-8469-4e1fbca606ee")
+			(uuid "116700e5-d06f-4ea4-acf5-0a4e36e11e8c")
 		)
 		(fp_line
-			(start 0.9525 1.3335)
-			(end -0.9525 1.3335)
+			(start -1.6 -1.4)
+			(end -1.6 1.4)
 			(stroke
-				(width 0.1524)
+				(width 0.05)
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "6c929b44-d523-4fa9-9780-0c7d17a0d7e5")
+			(uuid "087f195f-55ce-4aa8-8a6c-c0467b875950")
 		)
 		(fp_line
-			(start 0.9525 1.0818)
-			(end 0.9525 1.3335)
+			(start 0.675 1.1)
+			(end -0.675 1.1)
 			(stroke
-				(width 0.1524)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "bcca4cff-7438-4225-a872-7c760266eed2")
-		)
-		(fp_line
-			(start 0.9525 -1.3335)
-			(end 0.9525 -1.0818)
-			(stroke
-				(width 0.1524)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "2cc34526-4fda-4379-80fb-35945b7095e5")
-		)
-		(fp_line
-			(start -0.9525 1.3335)
-			(end -0.9525 1.0818)
-			(stroke
-				(width 0.1524)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "c022e319-4dfa-4f00-80cb-6a55648a1b00")
-		)
-		(fp_line
-			(start -0.9525 -1.0818)
-			(end -0.9525 -1.3335)
-			(stroke
-				(width 0.1524)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "15440452-37ac-4ccb-86d5-31447f3ff23c")
-		)
-		(fp_line
-			(start -0.9525 -1.3335)
-			(end 0.9525 -1.3335)
-			(stroke
-				(width 0.1524)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "2cbf1cf5-723a-45aa-acec-5bd14e24c38a")
-		)
-		(fp_line
-			(start -1.8034 1.0818)
-			(end -0.9525 1.0818)
-			(stroke
-				(width 0.1524)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "977ae4b1-ee40-4315-b44e-a46a967e25f7")
-		)
-		(fp_line
-			(start -1.8034 1.0818)
-			(end -1.8034 -1.0818)
-			(stroke
-				(width 0.1524)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "49cd16d4-80ab-4f1f-874f-ba9191b96a47")
-		)
-		(fp_line
-			(start -1.8034 -1.0818)
-			(end -0.9525 -1.0818)
-			(stroke
-				(width 0.1524)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "8787560b-37ec-4fc9-a871-f07e0a7f6eb9")
-		)
-		(fp_line
-			(start 1.1938 0.8024)
-			(end 1.1938 0.4976)
-			(stroke
-				(width 0.0254)
+				(width 0.1)
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "3f648692-f566-4ede-801c-9db5663a18d9")
+			(uuid "eaa923c7-c74d-4364-9dd2-196b84a7b639")
 		)
 		(fp_line
-			(start 1.1938 0.4976)
-			(end 0.6985 0.4976)
+			(start 0.675 -1.1)
+			(end 0.675 1.1)
 			(stroke
-				(width 0.0254)
+				(width 0.1)
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "771aa57a-2fef-4f21-9421-40dd3caa4053")
+			(uuid "5422d303-51ff-43cd-9f9e-e918134beb19")
 		)
 		(fp_line
-			(start 1.1938 0.1524)
-			(end 1.1938 -0.1524)
+			(start 0.675 -1.1)
+			(end -0.175 -1.1)
 			(stroke
-				(width 0.0254)
+				(width 0.1)
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "8c2474b6-ab57-4ae4-9476-af3a4be07003")
+			(uuid "cb2ac9c8-8687-4bd1-aa3f-00a25c1e8f16")
 		)
 		(fp_line
-			(start 1.1938 -0.1524)
-			(end 0.6985 -0.1524)
+			(start -0.175 -1.1)
+			(end -0.675 -0.6)
 			(stroke
-				(width 0.0254)
+				(width 0.1)
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "94623bdf-9331-4c04-afbf-51a670c9619d")
+			(uuid "a579e383-0467-4121-b4db-2cd2b0915fc8")
 		)
 		(fp_line
-			(start 1.1938 -0.4976)
-			(end 1.1938 -0.8024)
+			(start -0.675 -0.6)
+			(end -0.675 1.1)
 			(stroke
-				(width 0.0254)
+				(width 0.1)
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "be2b8e45-64b3-4fa9-ba5b-23c45a33075a")
-		)
-		(fp_line
-			(start 1.1938 -0.8024)
-			(end 0.6985 -0.8024)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "cb088cf6-f7a4-4964-bea0-d9fbcc734b29")
-		)
-		(fp_line
-			(start 0.6985 1.0795)
-			(end 0.6985 -1.0795)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "dbfe8a80-5db3-472b-85ca-1828d790795d")
-		)
-		(fp_line
-			(start 0.6985 0.8024)
-			(end 1.1938 0.8024)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "761d1b69-d0d0-47b2-aeba-a1c0325a307e")
-		)
-		(fp_line
-			(start 0.6985 0.4976)
-			(end 0.6985 0.8024)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "acb12d91-4c33-4d71-ab08-cb71f4a15f49")
-		)
-		(fp_line
-			(start 0.6985 0.1524)
-			(end 1.1938 0.1524)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "cfd424a1-0ebb-4676-a245-fb7b77381305")
-		)
-		(fp_line
-			(start 0.6985 -0.1524)
-			(end 0.6985 0.1524)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "8fe1836f-c7fd-412b-a45c-8ddde357f286")
-		)
-		(fp_line
-			(start 0.6985 -0.4976)
-			(end 1.1938 -0.4976)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "acf40572-e687-4a18-90c7-244d30aeb2f7")
-		)
-		(fp_line
-			(start 0.6985 -0.8024)
-			(end 0.6985 -0.4976)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "a99e8c48-6326-4cf2-a74b-c04fed4d9a26")
-		)
-		(fp_line
-			(start 0.6985 -1.0795)
-			(end -0.6985 -1.0795)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "92498345-e46a-4c51-bb2e-4d8ea8c3e3d4")
-		)
-		(fp_line
-			(start -0.6985 1.0795)
-			(end 0.6985 1.0795)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "f99b53ff-44d3-4d8f-bdf8-d7cf48113a35")
-		)
-		(fp_line
-			(start -0.6985 0.8024)
-			(end -0.6985 0.4976)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "26280f9b-c95a-4d13-b070-edfd1b3a07e4")
-		)
-		(fp_line
-			(start -0.6985 0.4976)
-			(end -1.1938 0.4976)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "a62ae133-7204-451c-83c8-c21dd14ba51e")
-		)
-		(fp_line
-			(start -0.6985 0.1524)
-			(end -0.6985 -0.1524)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "2c6cbb34-44c9-4944-8f2a-089866293c24")
-		)
-		(fp_line
-			(start -0.6985 -0.1524)
-			(end -1.1938 -0.1524)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "ed2acf5e-8862-4b82-9e24-56a8f13cd575")
-		)
-		(fp_line
-			(start -0.6985 -0.4976)
-			(end -0.6985 -0.8024)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "d0f84172-dc6e-4b7e-9ad4-e3c2cf4d3bc8")
-		)
-		(fp_line
-			(start -0.6985 -0.8024)
-			(end -1.1938 -0.8024)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "96a4efae-dd25-43ea-aa36-50340ecb4df0")
-		)
-		(fp_line
-			(start -0.6985 -1.0795)
-			(end -0.6985 1.0795)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "218e4bc7-0aa8-4b3d-b29f-2a7261be065b")
-		)
-		(fp_line
-			(start -1.1938 0.8024)
-			(end -0.6985 0.8024)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "976f5427-99cc-404d-8ff3-58970f55a20a")
-		)
-		(fp_line
-			(start -1.1938 0.4976)
-			(end -1.1938 0.8024)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "4e6a25bd-703b-4e41-9244-cbd7e0b85077")
-		)
-		(fp_line
-			(start -1.1938 0.1524)
-			(end -0.6985 0.1524)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "4197fb97-b974-42a5-a020-83617aa9e791")
-		)
-		(fp_line
-			(start -1.1938 -0.1524)
-			(end -1.1938 0.1524)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "085171d5-6de8-49cd-bb0d-7310f9c8bc19")
-		)
-		(fp_line
-			(start -1.1938 -0.4976)
-			(end -0.6985 -0.4976)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "af2f550a-3bf2-49f6-9bcf-58f3397c3d2f")
-		)
-		(fp_line
-			(start -1.1938 -0.8024)
-			(end -1.1938 -0.4976)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "4b1edb90-1f68-4040-8a14-0aa37523f913")
-		)
-		(fp_arc
-			(start 0.3048 -1.0795)
-			(mid 0 -0.7747)
-			(end -0.3048 -1.0795)
-			(stroke
-				(width 0.0254)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "dc20d187-8643-4b89-bf01-ea36ebe438c2")
+			(uuid "2c1dd415-38d8-4245-a40e-4dcc965403be")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 2.1 180)
-			(unlocked yes)
+			(at 0 0 -90)
 			(layer "F.Fab")
-			(uuid "48839e8c-cc42-431a-8e4b-093f974d27d2")
+			(uuid "51200be6-efaa-48d7-a958-3591d63d1b3b")
 			(effects
 				(font
-					(size 1 1)
-					(thickness 0.15)
+					(size 0.5 0.5)
+					(thickness 0.075)
 				)
 			)
 		)
-		(pad "1" smd rect
-			(at -1.12395 -0.649999 180)
-			(size 0.8509 0.3556)
+		(pad "1" smd roundrect
+			(at -0.95 -0.65 180)
+			(size 0.65 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
+			(roundrect_rratio 0.25)
 			(net 60 "Net-(U8-OUT)")
 			(pinfunction "OUT")
 			(pintype "output")
-			(uuid "c17a6df5-7e1c-4fc8-91b6-117f86181063")
+			(uuid "de3f5990-2859-49aa-8c40-4287825d0feb")
 		)
-		(pad "2" smd rect
-			(at -1.12395 0 180)
-			(size 0.8509 0.3556)
+		(pad "2" smd roundrect
+			(at -0.95 0 180)
+			(size 0.65 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
+			(roundrect_rratio 0.25)
 			(net 20 "GND")
 			(pinfunction "VEE")
 			(pintype "power_in")
-			(uuid "d548c548-0bde-46dd-9aa0-a0519d6ff184")
+			(uuid "4433dec6-a909-4bc6-a4fe-1308df4ed0f1")
 		)
-		(pad "3" smd rect
-			(at -1.12395 0.649999 180)
-			(size 0.8509 0.3556)
+		(pad "3" smd roundrect
+			(at -0.95 0.65 180)
+			(size 0.65 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
+			(roundrect_rratio 0.25)
 			(net 8 "Net-(U8-+)")
 			(pinfunction "+")
 			(pintype "input")
-			(uuid "e22eeb61-848d-46e5-944f-b204dced677c")
+			(uuid "b8e2647b-afda-48b0-8c1c-bebc52ea193d")
 		)
-		(pad "4" smd rect
-			(at 1.12395 0.649999 180)
-			(size 0.8509 0.3556)
+		(pad "4" smd roundrect
+			(at 0.95 0.65 180)
+			(size 0.65 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
+			(roundrect_rratio 0.25)
 			(net 72 "/GPS_EXT_PPS")
 			(pinfunction "-")
 			(pintype "input")
-			(uuid "4e9c3214-41f9-4744-9fdc-91bf43861b01")
+			(uuid "e3b2090b-84a1-4075-891e-fdcf33e3efea")
 		)
-		(pad "5" smd rect
-			(at 1.12395 0 180)
-			(size 0.8509 0.3556)
+		(pad "5" smd roundrect
+			(at 0.95 0 180)
+			(size 0.65 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
+			(roundrect_rratio 0.25)
 			(net 55 "Net-(U8-LE{slash}HYS)")
 			(pinfunction "LE/HYS")
 			(pintype "input")
-			(uuid "e4f21583-f9c2-4bb3-a55a-6fb5fc52dc7f")
+			(uuid "4ac46eb6-4b81-40fa-a9e9-b1e093809bd6")
 		)
-		(pad "6" smd rect
-			(at 1.12395 -0.649999 180)
-			(size 0.8509 0.3556)
+		(pad "6" smd roundrect
+			(at 0.95 -0.65 180)
+			(size 0.65 0.4)
 			(layers "F.Cu" "F.Paste" "F.Mask")
+			(roundrect_rratio 0.25)
 			(net 1 "+3.3V")
 			(pinfunction "VCC")
 			(pintype "power_in")
-			(uuid "7b7a297e-6882-4579-80d0-fd801c60adf9")
+			(uuid "0400bbc4-1ddd-4a5f-84ed-4a812f11f5ff")
+		)
+		(model "${KICAD8_3DMODEL_DIR}/Package_TO_SOT_SMD.3dshapes/SOT-363_SC-70-6.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
 		)
 	)
 	(footprint "Resistor_SMD:R_0603_1608Metric"
@@ -15478,6 +15349,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -15490,6 +15362,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -15502,6 +15375,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -15713,6 +15587,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -15725,6 +15600,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -15737,6 +15613,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -15950,6 +15827,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -15962,6 +15840,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -15974,6 +15853,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16185,6 +16065,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16197,6 +16078,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16209,6 +16091,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16421,6 +16304,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16433,6 +16317,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16445,6 +16330,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16657,6 +16543,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16669,6 +16556,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16681,6 +16569,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16696,7 +16585,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16964,6 +16853,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16976,6 +16866,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -16988,6 +16879,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17200,6 +17092,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17212,6 +17105,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17224,6 +17118,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17239,7 +17134,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -17507,6 +17402,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17519,6 +17415,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17531,6 +17428,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17742,6 +17640,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17754,6 +17653,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17766,6 +17666,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17977,6 +17878,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -17989,6 +17891,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -18001,6 +17904,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -18213,6 +18117,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -18225,6 +18130,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -18237,6 +18143,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -18276,14 +18183,15 @@
 				)
 			)
 		)
-		(property "Sim.Enable" "0"
+		(property "JLCPCB Position Offset" "0,-13.0"
 			(at 0 0 -90)
+			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "b3c79a02-018e-4044-968e-0ac43b066a26")
+			(uuid "2d0661dd-0b3b-41af-9c37-c69283c6fc80")
 			(effects
 				(font
-					(size 1.27 1.27)
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -18701,6 +18609,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -18713,6 +18622,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -18725,6 +18635,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -18994,6 +18905,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19006,6 +18918,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19018,6 +18931,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19230,6 +19144,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19242,6 +19157,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19254,6 +19170,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19453,6 +19370,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19465,6 +19383,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19477,6 +19396,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19688,6 +19608,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19700,6 +19621,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19712,6 +19634,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19800,6 +19723,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19812,6 +19736,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -19824,6 +19749,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20035,6 +19961,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20047,6 +19974,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20059,6 +19987,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20270,6 +20199,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20282,6 +20212,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20294,6 +20225,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20505,6 +20437,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20517,6 +20450,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20529,10 +20463,11 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
-		(property "JLCPCB Part #" "C84681"
+		(property "JLCPCB Part #" "C7464026"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20544,7 +20479,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20936,6 +20871,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20948,6 +20884,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -20960,6 +20897,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21172,6 +21110,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21184,6 +21123,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21196,6 +21136,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21407,6 +21348,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21419,6 +21361,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21431,6 +21374,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21642,6 +21586,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21654,6 +21599,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21666,6 +21612,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21877,6 +21824,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21889,6 +21837,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -21901,6 +21850,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22112,6 +22062,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22124,6 +22075,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22136,6 +22088,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22347,6 +22300,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22359,6 +22313,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22371,6 +22326,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22582,6 +22538,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22594,6 +22551,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22606,6 +22564,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22621,7 +22580,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -22883,6 +22842,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22895,6 +22855,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -22907,6 +22868,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23177,6 +23139,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23189,6 +23152,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23201,6 +23165,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23412,6 +23377,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23424,6 +23390,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23436,6 +23403,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23647,6 +23615,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23659,6 +23628,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23671,6 +23641,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23882,6 +23853,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23894,6 +23866,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -23906,6 +23879,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -24117,6 +24091,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -24129,6 +24104,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -24141,6 +24117,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)

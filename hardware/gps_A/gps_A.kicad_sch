@@ -6,7 +6,7 @@
 	(paper "B")
 	(title_block
 		(title "GPS")
-		(date "2024-05-27")
+		(date "2024-06-16")
 		(rev "A.2")
 		(company "Cullen Jennings")
 	)
@@ -1271,7 +1271,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" " ~"
+			(property "Datasheet" "~"
 				(at 0 0 0)
 				(effects
 					(font
@@ -12685,7 +12685,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" ""
 			(at 355.6 184.15 0)
 			(effects
 				(font
@@ -16550,7 +16550,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" ""
 			(at 355.6 199.39 0)
 			(effects
 				(font
@@ -17052,7 +17052,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" ""
 			(at 355.6 215.9 0)
 			(effects
 				(font

@@ -92,6 +92,7 @@
         "footprint_type_mismatch": "warning",
         "hole_clearance": "error",
         "hole_near_hole": "error",
+        "holes_co_located": "warning",
         "invalid_outline": "error",
         "isolated_copper": "warning",
         "item_on_disabled_layer": "error",
@@ -265,6 +266,7 @@
   },
   "erc": {
     "erc_exclusions": [
+      "lib_symbol_issues|495300|1193800|bc3f6fc3-d7f5-4280-b3b6-fc51685d1fb9|00000000-0000-0000-0000-000000000000|||",
       "pin_to_pin|495300|584200|b53818cd-dc0f-48e4-873d-41ca684d46de|e80b049f-eb0a-4748-a5b3-e755497dc7c7|/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4|/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4|/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4",
       "pin_to_pin|635000|660400|b53818cd-dc0f-48e4-873d-41ca684d46de|e80b049f-eb0a-4748-a5b3-e755497dc7c7|/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4|/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4|/bd4d3b9a-07c1-4a53-9c94-2893f3e869d4"
     ],
