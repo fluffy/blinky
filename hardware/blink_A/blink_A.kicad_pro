@@ -544,7 +544,7 @@
   },
   "schematic": {
     "annotate_start_num": 0,
-    "bom_export_filename": "",
+    "bom_export_filename": "jlcpcb_rotation_data.csv",
     "bom_fmt_presets": [],
     "bom_fmt_settings": {
       "field_delimiter": ",",
@@ -581,7 +581,7 @@
           "group_by": false,
           "label": "Footprint",
           "name": "Footprint",
-          "show": true
+          "show": false
         },
         {
           "group_by": false,
@@ -668,11 +668,11 @@
           "show": true
         }
       ],
-      "filter_string": "",
+      "filter_string": "U*",
       "group_symbols": true,
       "name": "",
       "sort_asc": true,
-      "sort_field": "JLCPCB Part #"
+      "sort_field": "Value"
     },
     "connection_grid_size": 50.0,
     "drawing": {

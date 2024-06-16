@@ -24643,7 +24643,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 229.87 88.9 0)
 			(effects
 				(font
@@ -30395,7 +30395,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 41.91 30.48 0)
 			(effects
 				(font
@@ -31164,7 +31164,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 259.08 218.44 0)
 			(effects
 				(font
@@ -31394,7 +31394,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 38.1 102.87 0)
 			(effects
 				(font
@@ -33041,7 +33041,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 261.62 251.46 0)
 			(effects
 				(font

@@ -21332,6 +21332,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB Position Offset" "0,-13.0"
+			(at 365.76 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "1a446fef-083d-4dbb-a17a-f345a40e9b70")
 		)
@@ -21821,6 +21830,15 @@
 			)
 		)
 		(property "JLCPCB Rotation Offset" "180"
+			(at 483.87 214.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Position Offset" "0,-13.0"
 			(at 483.87 214.63 0)
 			(effects
 				(font
@@ -22400,7 +22418,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
+		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
 			(at 222.25 278.13 0)
 			(effects
 				(font
@@ -22773,7 +22791,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 52.07 288.29 0)
 			(effects
 				(font
@@ -23841,7 +23859,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
+		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
 			(at 68.58 64.77 0)
 			(effects
 				(font
@@ -26611,7 +26629,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 459.74 38.1 0)
 			(effects
 				(font
@@ -28421,7 +28439,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" ""
 			(at 207.01 82.55 0)
 			(effects
 				(font
@@ -28430,7 +28448,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "0,0.0"
+		(property "JLCPCB Position Offset" ""
 			(at 207.01 82.55 0)
 			(effects
 				(font
@@ -29712,7 +29730,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" ""
 			(at 267.97 83.82 0)
 			(effects
 				(font
@@ -30082,7 +30100,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "0,1.1"
+		(property "JLCPCB Position Offset" "0,1.5"
 			(at 135.89 194.31 0)
 			(effects
 				(font
@@ -31268,7 +31286,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
+		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
 			(at 453.39 86.36 0)
 			(effects
 				(font
@@ -32179,6 +32197,15 @@
 			)
 		)
 		(property "JLCPCB Rotation Offset" "180"
+			(at 480.06 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Position Offset" "0,-13.0"
 			(at 480.06 180.34 0)
 			(effects
 				(font
@@ -37612,7 +37639,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" "180"
 			(at 236.22 229.87 0)
 			(effects
 				(font
@@ -38319,7 +38346,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "180"
+		(property "JLCPCB Rotation Offset" ""
 			(at 50.8 64.77 0)
 			(effects
 				(font
@@ -38956,7 +38983,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 476.25 132.08 0)
 			(effects
 				(font
@@ -39628,7 +39655,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 430.53 86.36 0)
 			(effects
 				(font
@@ -40298,7 +40325,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "3.9,-1.2"
+		(property "JLCPCB Position Offset" "0.1,4.1"
 			(at 26.67 101.6 0)
 			(effects
 				(font
@@ -41456,7 +41483,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 396.24 132.08 0)
 			(effects
 				(font
@@ -41523,7 +41550,7 @@
 				)
 			)
 		)
-		(property "Footprint" "blinky_footprints:SC70_DCK_TEX"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
 			(at 421.64 38.1 0)
 			(effects
 				(font
@@ -43399,7 +43426,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "270"
+		(property "JLCPCB Rotation Offset" ""
 			(at 45.72 191.77 0)
 			(effects
 				(font
@@ -45658,7 +45685,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 102.87 300.99 0)
 			(effects
 				(font
@@ -46985,7 +47012,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
+		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
 			(at 483.87 38.1 0)
 			(effects
 				(font
@@ -47224,7 +47251,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
+		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
 			(at 85.09 124.46 0)
 			(effects
 				(font
@@ -48078,7 +48105,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" "0"
+		(property "JLCPCB Rotation Offset" ""
 			(at 229.87 278.13 0)
 			(effects
 				(font
@@ -48181,7 +48208,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "-1.35,-6.38"
+		(property "JLCPCB Position Offset" "0,-6.7"
 			(at 237.49 358.14 0)
 			(effects
 				(font
@@ -48524,6 +48551,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB Position Offset" "0,-13.0"
+			(at 511.81 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "09b61edb-ad24-411f-90df-eaf625aa2c44")
 		)
@@ -48850,6 +48886,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB Position Offset" "0,-13.0"
+			(at 480.06 248.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b90ddb97-c1d0-4737-add4-d924623cb90a")
 		)
@@ -49027,7 +49072,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Position Offset" "0,-0.75"
+		(property "JLCPCB Position Offset" "0,0.7"
 			(at 295.91 334.01 0)
 			(effects
 				(font
@@ -49828,6 +49873,15 @@
 			)
 		)
 		(property "JLCPCB Rotation Offset" "180"
+			(at 361.95 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Position Offset" "0,-13.0"
 			(at 361.95 44.45 0)
 			(effects
 				(font
