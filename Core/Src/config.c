@@ -46,8 +46,8 @@ void configSetup() {
       // write config to EEProm
       config.version = 2;  // config file version
       config.product = 2;  // 1=blink, 2=clock, 3=gps
-      config.revMajor = 0;
-      config.revMinor = 12;
+      config.revMajor = 1; // 1 is Rev A
+      config.revMinor = 1;
       config.serialNum = 24;  // next serial is 25
 
       config.usePPS = 0;
@@ -104,10 +104,22 @@ void configSetup() {
       config.future15 = 0;
     }
 
-    snprintf(buffer, sizeof(buffer), "  Hardware version: EV%d\r\n",
-             config.revMinor);
-    if ((config.revMajor == 0) && (config.revMinor >= 10) &&
-        (config.revMinor <= 12)) {
+    snprintf(buffer, sizeof(buffer), "  Hardware version: " );
+    if (config.revMajor == 0) {
+      snprintf(buffer, sizeof(buffer), "EV%d\r\n",
+               config.revMinor);
+    }
+    else  {
+      snprintf(buffer, sizeof(buffer), "Rev:%c.%d\r\n",
+               (char) 'A' + config.revMajor -1,
+               config.revMinor);
+    }
+
+    if (((config.revMajor == 0) && (config.revMinor >= 10) &&
+        (config.revMinor <= 12)) ||
+        ((config.revMajor == 1 /*A*/ ) && (config.revMinor >= 1) &&
+         (config.revMinor <= 1)))
+      {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 
       setClk(config.extOscType, config.vcoValue,
