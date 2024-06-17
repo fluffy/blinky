@@ -67,7 +67,9 @@ void powerSetup() {
       HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
     }
 
-    // TODO - if power, set status LED and error
+    // power is not good if on a Clock boards, with an oven osc and have less than 1.5A
+
+    // TODO - if power bad, set status LED and error
     // TODO - if power good, enable 5V output
   }
 }
