@@ -1,8 +1,4 @@
 
-# Changes of V8 Harware
+# 1.1 Software Changes
 
-* pin out to display connector  totally changed 
-* power slide switch changed to bigger switch
-
-
-
+# Rev B  Harware Changes

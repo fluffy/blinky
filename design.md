@@ -1,11 +1,14 @@
 
-# Design Notes for V7
+# Design Notes for Rev A
+
+## Terminology
 
 Sync refers to Sync In
 
 PPS refers to Sync Out
 
 Mon refers to monitor of PPS
+
 
 ## Signals
 
@@ -21,8 +24,9 @@ Mon refers to monitor of PPS
  - AUX\_CLK, AUX\_GPS_PPS , GPS\_RX, GPX\_TX not used
  - CLK on PA15 is 2.048 Mhz signal
 
- ## Timers
 
+
+## Timers
 
 system clock or RefIn drives main 32 bit counter
 
@@ -32,26 +36,24 @@ Main and aux count at 10 Mhz and wrap ever second.
 
 Every timer can capture syncMon to provide sync of counters
 
-Main and Aux can capture
- SyncMon, SyncIn, GpsIn
+Main and Aux can capture: SyncMon, SyncIn, GpsIn
 
 Timer 1 can generate SyncOut and can sync to Main or Aux timer.
 
 Display TImer drives LED and sync to main or aux rollover
-* does this need to capture syncMon ???
+
 
 ### PPS Out Timer #1  - hTimePps (aka Sync Out)
 
-* Use timer 1
-This timer running at 168 Mhz input clock
-* CH1 - PA8 - TimePps\_CH\_SYNC\_OUT
-increments at 50 KHz
-does 20 ms wide output pulse every 1 second
-Resets based on ITR1 from Tim2 Update Event (main)
+* Use timer 1. This timer running at 168 Mhz input clock
+
+* CH1 - PA8 - TimePps\_CH\_SYNC\_OUT increments at 50 KHz does 20 ms
+wide output pulse every 1 second Resets based on ITR1 from Tim2 Update
+Event (main)
+
 * 16 bits
-* sync off of timer 2
-loop ever 1.1 seconds
-Input APB2 @ 168 MHz
+
+* sync off of timer 2.  loop ever 1.1 seconds.  Input APB2 @ 168 MHz
 
 
 ### Main Timer #2 - hTimeSync (aka SyncIn/main)
@@ -108,13 +110,14 @@ Assumes that that Aux signal is getting a 10Mhz signal.
 * Ch4: PA4  - no
 
 CH1 ends up feeding clock.  Capture the Captures both edges of external
-so scale by 2 to  couting at 10 MHz. The SyncMon capture time allows this to
-be coorelated with the other main clock.
+so scale by 2 to couting at 10 MHz. The SyncMon capture time allows this
+to be coorelated with the other main clock.
 
 * capture SyncMon
 * capture GPS PPS
 * capture SyncIn
-Input APB1 at 84 MHz
+* Input APB1 at 84 MHz
+
 
 ### DAC Timer - Timer 6
 
@@ -122,7 +125,7 @@ Input APB1 at 84 MHz
 * 1 Mhz count rate
 * 8 KHz period ( 1000 count )
 * trigger out to DAC2
-Input APB1 at 84 MHz
+* Input APB1 at 84 MHz
 
 ### TImer 8 - used to time LTC
 
@@ -136,19 +139,23 @@ Input APB2 @ 168 MHz
 
 ## Serial
 
-USB\_RX/TX on PB6/PB7 on USART1
-GPS\_RX1/TX1 on PC10/PC11
+* USB\_RX/TX on PB6/PB7 on USART1
 
-GPS is NMEA-0183 set at 4800 baud 8N1
-GPS is Garmin "GPS 16x LVS"
+* GPS\_RX1/TX1 on PC10/PC11
+
+* GPS is NMEA-0183 set at 4800 baud 8N1
+
+* GPS is Garmin "GPS 16x LVS"
+
 
 ## DAC
 
-CH1 is voltage toVCO - PA4
-CH2 is audio out - PA5
+* CH1 is voltage toVCO - PA4
+* CH2 is audio out - PA5
 
 * DAC2 is DMA stream 6 memory to peripheral on DMA controller #1
 * Normal not circular
+
 
 ## ADC
 
@@ -212,20 +219,22 @@ thermal resitance which pretty much matched specs for AMS117.
 
 # Calibrating and Adjusting
 
-On frequency counter. On "internal setup" set timeout off.
-Noise Reject on, DC, 1M ohm, manual level 200 mV
-History grom from 1 s - 20 ns to 1 s+20 ns, 40 bins
+On frequency counter. On "internal setup" set timeout off.  Noise Reject
+on, DC, 1M ohm, manual level 200 mV History grom from 1 s - 20 ns to 1
+s+20 ns, 40 bins
 
 On the 2.048 Mhz VCO, will need to adjust pot to get in range. 30 degree
 turn made huge difference.
 
+
 # ESD
 
-The SN74LVC1G14 provide ESD protection. The USB has pretection with
-the TODO chip. The USB power CC1/2 power monitor circuits have no
+The SN74LVC1G14 provide ESD protection. The USB has pretection with the
+TODO chip. The USB power CC1/2 power monitor circuits have no
 protection. The AD8397 for audio ciricuits on blink board have no
 protection on current design. The ADA4807 on clock board have no
 protection. The power input on clock board has no protection.
+
 
 # Linear Time Codes
 
@@ -253,10 +262,12 @@ Green: Synced and running
 
 Will auto sync on first sync if sync buton has never been hit
 
+
 ## Configureation
 
 EEProm stores, serial number and device type, calibration info, config
 if LTC or PPS output
+
 
 ## Serial Ouput
 
@@ -270,23 +281,33 @@ On clock board, mark pulse is GPS, on blink it is Sync
 
 Measurements:
 
-Current SyncIn Offset in uS
-Current GPS Offset in uS
-Current Mon Offset in uS
-Tick time of last mon pulse
-Tick time of last sync pulse
-Tick time of last gps pulse
+* Current SyncIn Offset in uS
 
-Current Mon ExtOffset in uS
-Current GPS ExtOffset in uS
-Tick time of last ext mon pulse
-Tick time of last ext gps pulse
+* Current GPS Offset in uS
 
-GPS seconds of last gps pulse
-LTC seconds of last sync pulse
+* Current Mon Offset in uS
 
-Local counter rollover count  ( seconds )
-Ext counter rollover count ( seconds )
+* Tick time of last mon pulse
+
+* Tick time of last sync pulse
+
+* Tick time of last gps pulse
+
+* Current Mon ExtOffset in uS
+
+* Current GPS ExtOffset in uS
+
+* Tick time of last ext mon pulse
+
+* Tick time of last ext gps pulse
+
+* GPS seconds of last gps pulse
+
+* LTC seconds of last sync pulse
+
+* Local counter rollover count  ( seconds )
+
+* Ext counter rollover count ( seconds )
 
 The current values are copied to prev once a seconds in the mon pulse
 interupt then used to compute the rest of the metrics
@@ -294,12 +315,8 @@ interupt then used to compute the rest of the metrics
 
 Metrics:
 
-Current time from varios soruces.
+* Current time from varios soruces.
 
-Time erorrs between sources
+* Time erorrs between sources
 
-Rate of change between sources over 1,10,100 seconds
-
-
-
-# TODO
+* Rate of change between sources over 1,10,100 seconds

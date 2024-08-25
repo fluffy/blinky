@@ -1,6 +1,6 @@
 # blinky
 
-Blinking lights to tell time. And beeps.
+Blinking lights to tell time. And it beeps.
 
 # Build and flash
 
@@ -31,12 +31,11 @@ Can reset the board with:
 stty -f /dev/cu.usbserial-31110 hup
 ```
 
-Monitor output connect with Serial program like "SerialTools" on
-OSX. Use 115200 baud with bits, parity, stop bit set to 8n1. Set the RTS
-and DTR both low. Screen fails to do this. It sets RTS and DTR both high
-so will not work.
+Monitor output connect with Serial program. Use 115200 baud with 8 bits,
+no parity, 1 stop bit. Set the RTS and DTR both low. Screen fails to do
+this. It sets RTS and DTR both high it will not work.
 
-To use python miniterm:
+To use python miniterm (replace usbserial-31110 with number on your machine):
 ```
 pyserial-miniterm -e --parity N --rts 0 --dtr 0 /dev/cu.usbserial-31110 115200
 ```
@@ -53,7 +52,7 @@ Set up a mac to be able to build by installing:
 
 ## Blink Timing Board
 
-On the Rev A hardware 0.2 software have:
+On the Rev A hardware 1.0 software have:
 
 * Timing board with TXCO, LTC Sync in, LTC Sync out, LED grid,
   battery power, USB debug, audio in/out
@@ -104,7 +103,6 @@ On the Rev A hardware 0.2 software have:
 * USB upgrade of firmware
 * USB power
 * USB output serial data for computer time sync
-
 
 
 ## Wishlist

@@ -23,9 +23,11 @@ seems to help with small holes.
 
 ## Data Flow
 
-KiCad generates step models for the PCBs and puts them in  hardware/blink/productions dir.
+KiCad generates step models for the PCBs and puts them in
+hardware/blink/productions dir.
 
-This PCB is imported into the FreeCAD drawing for box which generates DXF files in box/prod dir.
+This PCB is imported into the FreeCAD drawing for box which generates
+DXF files in box/prod dir.
 
 This is brought in to laserA.xcs with "xTool Creative Space" application
 to add the labels and set up for laser cutting.
