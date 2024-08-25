@@ -65,7 +65,7 @@ void updateStatus(Status newStatus) {
     HAL_GPIO_WritePin(LEDMG_GPIO_Port, LEDMG_Pin,
                       GPIO_PIN_RESET);  // turn off green ok LED
     HAL_GPIO_WritePin(LEDMB_GPIO_Port, LEDMB_Pin,
-                      GPIO_PIN_RESET);  // turn off yellow  LED
+                      GPIO_PIN_RESET);  // turn off yellow/blue  LED
 
     switch (status) {
       case StatusError:
