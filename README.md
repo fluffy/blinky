@@ -9,6 +9,9 @@ Build with:
 mkdir build ; cd build ; cmake .. ; make
 ```
 
+Note when programming the GPS board, the GPS must be unplugged while
+programming.
+
 Program flash using stlink with:
 ```
 st-flash --reset --format ihex write build/blinky.hex
@@ -23,8 +26,8 @@ stm32flash -w build/blinky.hex -v -b 115200 -m 8e1 -i "-dtr," /dev/cu.usbserial-
 ```
 
 If this fails, try the following reset then try to flash again. This
-will not work on a brand new uniitalized board, the board needs tobe
-programmed forfirst time with st-flash.
+will not work on a brand new uninitialized board, the board needs to be
+programmed for the first time with st-flash.
 
 Can reset the board with:
 ```
@@ -79,8 +82,8 @@ On the Rev A hardware 0.2 software have:
 
 * GPS board with GPS, OCXO
 * LTC sync out, LTC sync in
-* Does not ahve audio or led display grid
-* 10 Mhz sine wave output 1V p2p into 50 ohm, 3 channels
+* Does not have audio or led display grid
+* 10 MHz sine wave output 1V p2p into 50 ohm, 3 channels
 * Sync to GPS PPS
 * Show current PPS offset from GPS PPS
 * Compare PPS accuracy to GPS over 24 hours
@@ -98,7 +101,7 @@ On the Rev A hardware 0.2 software have:
 
 * GPS board with GPS
 * LTC sync out
-* Does not ahve audio or led display grid
+* Does not have audio or led display grid
 * Sync to GPS PPS
 * USB upgrade of firmware
 * USB power
