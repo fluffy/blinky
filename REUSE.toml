@@ -1,0 +1,19 @@
+version = 1
+
+[[annotations]]
+path = "box/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Copyright (c) 2024 Cullen Jennings"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = "hardware/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Copyright (c) 2024 Cullen Jennings"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = "manual/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Copyright (c) 2024 Cullen Jennings"
+SPDX-License-Identifier = "CC-BY-4.0"
