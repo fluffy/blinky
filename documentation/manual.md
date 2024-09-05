@@ -1,4 +1,4 @@
-control
+
 # Manual for Blink Box
 
 This is the manual for V1.0 software on Rev A hardware.
