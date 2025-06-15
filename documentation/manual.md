@@ -22,10 +22,10 @@ Once the devices are synchronized, they will stay synchronized for over
 
 ### Buttons
 
-Mute Button ( black TODO ): The audio beep used in testing can be very
+Mute Button ( black  ): The audio beep used in testing can be very
 irritating. This button turn the generation of the audio beep on and off.
 
-Black Button ( white TODO ): This control what is displayed on the LED
+Blank Button ( white  ): This control what is displayed on the LED
 grid and cycles across three modes. In the first mode nothing is
 displayed, in the second the detected audio latency is displayed, and in
 the third, the time is displayed for video testing.
