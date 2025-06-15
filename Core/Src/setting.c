@@ -6,8 +6,8 @@
 Setting setting;
 
 void settingInit() {
-  setting.blinkMute = 1;       // mutes audio outout
-  setting.blinkBlank = 1;      // causes LED to be off
+  setting.blinkMute = 0;       // mutes audio outout
+  setting.blinkBlank = 0;      // causes LED to be off
   setting.blinkDispAudio = 0;  // caused audio latency to be displayed on LED
   setting.blinkHaveDisplay = 1;
   setting.blinkPPS = 0;

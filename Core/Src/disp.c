@@ -85,7 +85,7 @@ void dispUpdate(int32_t dispUs, int32_t dispS) {
   }
 
 #if 0
-    // this shows 1 ms times to 1 second
+    // this shows 2 ms times to 1 second
     int16_t binCount =  1  << (9 - (ledMs / 100)%10) ;  // 100 ms
     int row = 5 - (ledMs / 2) % 5;     // 2 ms across
     int col = 10 - (ledMs / 10) % 10;  // 10 ms down

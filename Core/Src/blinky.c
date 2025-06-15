@@ -430,7 +430,8 @@ void blinkRun() {
 #endif
 
 #if 0
-    snprintf(buffer, sizeof(buffer), "  DAC/ADC Cplt %lu %lu \r\n", debugDacCpltCount, debugAdcCpltCount );
+    snprintf(buffer, sizeof(buffer), "  DAC/ADC Cplt %lu %lu \r\n",
+             debugDacCpltCount, debugAdcCpltCount );
     HAL_UART_Transmit(&hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
 #endif
   }
@@ -440,13 +441,15 @@ void blinkRun() {
 #if 0  // TODO prints too much stuff
   if (1) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeSync);
-    snprintf( buffer, sizeof(buffer), "Sync time: %lu.%03lums\r\n",  capture2uS(val)/1000l , capture2uS(val)%1000l);
+    snprintf( buffer, sizeof(buffer), "Sync time: %lu.%03lums\r\n",
+              capture2uS(val)/1000l , capture2uS(val)%1000l);
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 
   if (0) {
     uint32_t val = __HAL_TIM_GetCounter(&hTimeAux);
-    snprintf( buffer, sizeof(buffer), "Aux  time: %lu.%03lums\r\n",  extCapture2uS(val)/1000l , extCapture2uS(val)%1000l );
+    snprintf( buffer, sizeof(buffer), "Aux  time: %lu.%03lums\r\n",
+              extCapture2uS(val)/1000l , extCapture2uS(val)%1000l );
     HAL_UART_Transmit( &hUartDebug, (uint8_t *)buffer, strlen(buffer), 1000);
   }
 #endif
