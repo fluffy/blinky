@@ -9,8 +9,8 @@
 	(paper "A")
 	(title_block
 		(title "GPS")
-		(date "2024-06-16")
-		(rev "A.2")
+		(date "2025-06-15")
+		(rev "A.3")
 		(company "Cullen Jennings")
 	)
 	(layers
@@ -23113,7 +23113,7 @@
 		(layer "Edge.Cuts")
 		(uuid "f710403a-f799-429d-9e51-1ed631a07644")
 	)
-	(gr_text "Cullen Jennings - GPS Rev A.2\n"
+	(gr_text "Cullen Jennings - GPS Rev A.3  2025\n"
 		(at 155.280231 129.271842 0)
 		(layer "F.SilkS")
 		(uuid "0442abe3-b6f1-4db1-b42d-556674de7dba")
